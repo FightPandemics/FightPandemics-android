@@ -1,6 +1,8 @@
 # FightPandemics Android
 
 [![Platform](https://img.shields.io/badge/platform-android-lightgrey.svg)](#)
+[![Build Status](https://travis-ci.org/FightPandemics/FightPandemics-android.svg?branch=development)](https://travis-ci.com/FightPandemics/FightPandemics-android)
+
 
 Android app for the [FightPandemics](https://fightpandemics.com/)
 
