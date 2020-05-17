@@ -3,8 +3,8 @@ jdk: oraclejdk8
 
 env:
   global:
-    - ANDROID_TARGET=android-29
-    - ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-28
+    - ANDROID_ABI=x86
     
 android:
   components:
