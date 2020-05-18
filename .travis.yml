@@ -50,3 +50,11 @@ before_script:
 script:
   - ./gradlew build
   - ./gradlew connectedAndroidTest
+ 
+notifications:
+  slack:
+    rooms:
+      - fightpandemics:AOdNIouF6Ye6DKo1RuaZK7pd
+    if: branch = development
+    on_success: always
+    on_failure: always
