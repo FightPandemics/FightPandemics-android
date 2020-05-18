@@ -35,7 +35,7 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
-    - $HOME/.android/build-cacåhe
+    - $HOME/.android/build-cache
  
 before_script:
   # Grand permissions
@@ -50,4 +50,4 @@ before_script:
 
 script:
   - ./gradlew build
-  - ./gradlew connectedAndroidTest
+  # - ./gradlew connectedAndroidTest
