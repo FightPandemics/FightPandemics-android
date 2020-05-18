@@ -19,8 +19,8 @@ android:
     - extra-google-m2repository
     
     # for instrumented tests
-    - $ANDROID_TARGET
-    - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
+    # - $ANDROID_TARGET
+    # - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 
 before_install:
   - mkdir -p "$ANDROID_HOME/licenses" || true
@@ -41,11 +41,12 @@ before_script:
   # Grand permissions
   - chmod +x gradlew
   
-  - android list targets
-  - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI -c 100M    #Create AVD for given api
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+  # for instrumented tests
+  # - android list targets
+  # - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI -c 100M    #Create AVD for given api
+  # - emulator -avd test -no-skin -no-audio -no-window &
+  # - android-wait-for-emulator
+  # - adb shell input keyevent 82 &
 
 script:
   - ./gradlew build
