@@ -1,32 +1,33 @@
 package com.fightpandemics
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayout
-import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
 import com.fightpandemics.ui.main.SectionsPagerAdapter
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.item_tab_appbar.*
 
 class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        setupUi()
+    }
+
+    private fun setupUi() {
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
-        val viewPager: ViewPager = findViewById(R.id.view_pager)
-        viewPager.adapter = sectionsPagerAdapter
+        view_pager.adapter = sectionsPagerAdapter
 
-        val tabs: TabLayout = findViewById(R.id.tabs)
-        tabs.setupWithViewPager(viewPager)
+        tabs.setupWithViewPager(view_pager)
 
-        val fab: FloatingActionButton = findViewById(R.id.fab)
+        fab.setOnClickListener (this::fabAction)
+    }
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+    private fun fabAction(view: View) {
+        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
     }
 }
