@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.fightpandemics.R
+import kotlinx.android.synthetic.main.fragment_offers.*
 
 class RequestsFragment: Fragment(), RequestsContract.View {
 
@@ -18,11 +18,12 @@ class RequestsFragment: Fragment(), RequestsContract.View {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_requests, container, false)
         setPresenter(RequestsPresenter(this))
-
-//        val textView: TextView = root.findViewById(R.id.section_label)
-//        textView.text = "REQUESTS"
-
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.prepareData()
     }
 
     companion object {
@@ -30,6 +31,10 @@ class RequestsFragment: Fragment(), RequestsContract.View {
         fun newInstance(): RequestsFragment {
             return RequestsFragment()
         }
+    }
+
+    override fun setContent(text: String) {
+        section_label.text = text
     }
 
     override fun setPresenter(presenter: RequestsContract.Presenter) {

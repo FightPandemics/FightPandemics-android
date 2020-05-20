@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.fightpandemics.R
+import kotlinx.android.synthetic.main.fragment_all.*
 
 class AllFragment : Fragment(), AllContract.View {
 
@@ -16,13 +17,14 @@ class AllFragment : Fragment(), AllContract.View {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_all, container, false)
-
         setPresenter(AllPresenter(this))
-
-//        val textView: TextView = root.findViewById(R.id.section_label)
-//        textView.text = "ALL"
-
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        presenter.prepareData()
     }
 
     companion object {
@@ -30,6 +32,10 @@ class AllFragment : Fragment(), AllContract.View {
         fun newInstance(): AllFragment {
             return AllFragment()
         }
+    }
+
+    override fun setContent(text: String) {
+        section_label.text = text
     }
 
     override fun setPresenter(presenter: AllContract.Presenter) {
