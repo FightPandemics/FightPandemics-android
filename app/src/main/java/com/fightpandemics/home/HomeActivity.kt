@@ -1,7 +1,6 @@
 package com.fightpandemics.home
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import com.fightpandemics.R
@@ -25,15 +24,13 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
             supportFragmentManager
         )
         view_pager.adapter = sectionsPagerAdapter
-
         tabs.setupWithViewPager(view_pager)
 
         fab.setOnClickListener(this::fabAction)
     }
 
     private fun fabAction(view: View) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show()
+        // TODO
     }
 
     override fun setPresenter(presenter: HomeContract.Presenter) {
