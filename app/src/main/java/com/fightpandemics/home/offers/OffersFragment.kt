@@ -8,15 +8,20 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.fightpandemics.R
 
-class OffersFragment : Fragment() {
+class OffersFragment : Fragment(), OffersContract.View {
+
+    private lateinit var presenter: OffersContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_offers, container, false)
-        val textView: TextView = root.findViewById(R.id.section_label)
-        textView.text = "OFFERS"
+
+        setPresenter(OffersPresenter(this))
+
+//        val textView: TextView = root.findViewById(R.id.section_label)
+//        textView.text = "OFFERS"
 
         return root
     }
@@ -26,5 +31,9 @@ class OffersFragment : Fragment() {
         fun newInstance(): OffersFragment {
             return OffersFragment()
         }
+    }
+
+    override fun setPresenter(presenter: OffersContract.Presenter) {
+        this.presenter = presenter
     }
 }

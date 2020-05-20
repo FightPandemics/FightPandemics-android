@@ -8,12 +8,15 @@ import com.fightpandemics.R
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_tab_appbar.*
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), HomeContract.View {
+
+    private lateinit var presenter: HomeContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        setPresenter(HomePresenter(this))
         setupUi()
     }
 
@@ -32,5 +35,9 @@ class HomeActivity : AppCompatActivity() {
     private fun fabAction(view: View) {
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
+    }
+
+    override fun setPresenter(presenter: HomeContract.Presenter) {
+        this.presenter = presenter
     }
 }
