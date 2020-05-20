@@ -1,10 +1,13 @@
-package com.fightpandemics.ui.main
+package com.fightpandemics.home
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.fightpandemics.R
+import com.fightpandemics.home.all.AllFragment
+import com.fightpandemics.home.offers.OffersFragment
+import com.fightpandemics.home.requests.RequestsFragment
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_all,
@@ -17,10 +20,14 @@ private val TAB_TITLES = arrayOf(
  * one of the sections/tabs/pages.
  */
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
-    FragmentPagerAdapter(fm) {
+    FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    override fun getItem(position: Int): Fragment {
-        return PlaceholderFragment.newInstance(position + 1)
+    override fun getItem(position: Int): Fragment = when (position) {
+        0 -> AllFragment.newInstance()
+        1 -> OffersFragment.newInstance()
+        2 -> RequestsFragment.newInstance()
+
+        else -> throw IllegalArgumentException("position: $position cannot be greater than $count")
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

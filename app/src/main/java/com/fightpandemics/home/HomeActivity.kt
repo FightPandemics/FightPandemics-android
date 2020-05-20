@@ -1,10 +1,10 @@
-package com.fightpandemics
+package com.fightpandemics.home
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
-import com.fightpandemics.ui.main.SectionsPagerAdapter
+import com.fightpandemics.R
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_tab_appbar.*
 
@@ -18,7 +18,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupUi() {
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        val sectionsPagerAdapter = SectionsPagerAdapter(
+            this,
+            supportFragmentManager
+        )
         view_pager.adapter = sectionsPagerAdapter
 
         tabs.setupWithViewPager(view_pager)
