@@ -15,7 +15,6 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
         setPresenter(HomePresenter(this))
         setupUi()
     }
@@ -29,7 +28,7 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
 
         tabs.setupWithViewPager(view_pager)
 
-        fab.setOnClickListener (this::fabAction)
+        fab.setOnClickListener(this::fabAction)
     }
 
     private fun fabAction(view: View) {
