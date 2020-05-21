@@ -13,7 +13,6 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -21,6 +20,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android {
+        compileOptions {
+            sourceCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_1_8
         }
     }
 
@@ -39,4 +45,5 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
     implementation 'com.google.dagger:dagger:2.13'
     kapt 'com.google.dagger:dagger-compiler:2.13'
+    implementation 'io.sentry:sentry-android:2.1.3'
 }
