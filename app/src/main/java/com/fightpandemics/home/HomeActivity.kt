@@ -30,7 +30,6 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     private fun injectDependencies() {
         val applicationComponent = (application as App).appComponent
         activityComponent = DaggerHomeActivityComponent.builder()
-            .homeActivityContextModule(HomeActivityContextModule(this))
             .homeActivityMvpModule(HomeActivityMvpModule(this))
             .appComponent(applicationComponent)
             .build()

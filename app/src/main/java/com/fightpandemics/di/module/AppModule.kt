@@ -1,20 +1,19 @@
 package com.fightpandemics.di.module
 
-import android.app.Application
+import android.content.res.Resources
+import com.fightpandemics.App
+import com.fightpandemics.di.scope.ApplicationScope
+import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
+@Module
+class AppModule(private val app: App) {
 
-class AppModule {
-//    private var initApplication: InitApplication? = null
-//
-//    fun AppModule(initApplication: InitApplication?) {
-//        this.initApplication = initApplication
-//    }
-//
-//    @Provides
-//    @Singleton
-//    fun provideApplication(): Application? {
-//        return initApplication
-//    }
+    @ApplicationScope
+    @Provides
+    fun providesApplication(): App = app
+
+    @ApplicationScope
+    @Provides
+    fun providesResources(): Resources = app.resources
 }
