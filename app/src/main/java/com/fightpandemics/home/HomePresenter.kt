@@ -1,5 +1,6 @@
 package com.fightpandemics.home
 
-class HomePresenter(private val view: HomeContract.View): HomeContract.Presenter {
+import javax.inject.Inject
 
-}
+class HomePresenter @Inject constructor(private val view: HomeContract.View) :
+    HomeContract.Presenter

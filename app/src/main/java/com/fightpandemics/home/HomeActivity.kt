@@ -3,19 +3,39 @@ package com.fightpandemics.home
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import com.fightpandemics.App
 import com.fightpandemics.R
+import com.fightpandemics.di.component.DaggerHomeActivityComponent
+import com.fightpandemics.di.component.HomeActivityComponent
+import com.fightpandemics.di.module.HomeActivityContextModule
+import com.fightpandemics.di.module.HomeActivityMvpModule
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_tab_appbar.*
+import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity(), HomeContract.View {
 
-    private lateinit var presenter: HomeContract.Presenter
+    private lateinit var activityComponent: HomeActivityComponent
+
+    @Inject
+    lateinit var presenter: HomePresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        setPresenter(HomePresenter(this))
+        injectDependencies()
         setupUi()
+    }
+
+    private fun injectDependencies() {
+        val applicationComponent = (application as App).appComponent
+        activityComponent = DaggerHomeActivityComponent.builder()
+            .homeActivityContextModule(HomeActivityContextModule(this))
+            .homeActivityMvpModule(HomeActivityMvpModule(this))
+            .appComponent(applicationComponent)
+            .build()
+
+        activityComponent.injectHomeActivity(this)
     }
 
     private fun setupUi() {
@@ -34,6 +54,6 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     }
 
     override fun setPresenter(presenter: HomeContract.Presenter) {
-        this.presenter = presenter
+        TODO("Not yet implemented")
     }
 }
