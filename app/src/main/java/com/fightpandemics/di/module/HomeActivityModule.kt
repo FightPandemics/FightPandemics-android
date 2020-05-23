@@ -7,7 +7,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class HomeActivityMvpModule(private val view: HomeContract.View) {
+class HomeActivityModule(private val view: HomeContract.View) {
 
     @Provides
     @ActivityScope

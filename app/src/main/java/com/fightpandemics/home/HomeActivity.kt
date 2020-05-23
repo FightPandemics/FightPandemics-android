@@ -1,20 +1,15 @@
 package com.fightpandemics.home
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import android.view.View
-import com.fightpandemics.App
 import com.fightpandemics.R
+import com.fightpandemics.base.BaseActivity
 import com.fightpandemics.di.component.DaggerHomeActivityComponent
-import com.fightpandemics.di.component.HomeActivityComponent
-import com.fightpandemics.di.module.HomeActivityMvpModule
+import com.fightpandemics.di.module.HomeActivityModule
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_tab_appbar.*
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity(), HomeContract.View {
-
-    private lateinit var activityComponent: HomeActivityComponent
+class HomeActivity : BaseActivity(), HomeContract.View {
 
     @Inject
     lateinit var presenter: HomePresenter
@@ -27,13 +22,12 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     }
 
     private fun injectDependencies() {
-        val applicationComponent = (application as App).appComponent
-        activityComponent = DaggerHomeActivityComponent.builder()
-            .homeActivityMvpModule(HomeActivityMvpModule(this))
+        val activityComponent = DaggerHomeActivityComponent.builder()
             .appComponent(applicationComponent)
+            .homeActivityModule(HomeActivityModule(this))
             .build()
 
-        activityComponent.injectHomeActivity(this)
+        activityComponent.inject(this)
     }
 
     private fun setupUi() {
@@ -44,14 +38,10 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
         view_pager.adapter = sectionsPagerAdapter
         tabs.setupWithViewPager(view_pager)
 
-        fab.setOnClickListener(this::fabAction)
+        fab.setOnClickListener { fabAction() }
     }
 
-    private fun fabAction(view: View) {
+    private fun fabAction() {
         // TODO
-    }
-
-    override fun setPresenter(presenter: HomeContract.Presenter) {
-        TODO("Not yet implemented")
     }
 }
