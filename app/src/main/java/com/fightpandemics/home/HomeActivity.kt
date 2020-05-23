@@ -7,7 +7,6 @@ import com.fightpandemics.App
 import com.fightpandemics.R
 import com.fightpandemics.di.component.DaggerHomeActivityComponent
 import com.fightpandemics.di.component.HomeActivityComponent
-import com.fightpandemics.di.module.HomeActivityContextModule
 import com.fightpandemics.di.module.HomeActivityMvpModule
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_tab_appbar.*
