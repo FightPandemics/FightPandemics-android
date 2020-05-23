@@ -4,20 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.fightpandemics.R
+import com.fightpandemics.base.BaseFragment
+import com.fightpandemics.di.component.DaggerOffersFragmentComponent
+import com.fightpandemics.di.module.OffersFragmentModule
 import kotlinx.android.synthetic.main.fragment_offers.*
+import javax.inject.Inject
 
-class OffersFragment : Fragment(), OffersContract.View {
+class OffersFragment : BaseFragment(), OffersContract.View {
 
-    private lateinit var presenter: OffersContract.Presenter
+    @Inject
+    lateinit var presenter: OffersPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_offers, container, false)
-        setPresenter(OffersPresenter(this))
+        injectDependencies()
         return root
     }
 
@@ -37,7 +41,12 @@ class OffersFragment : Fragment(), OffersContract.View {
         section_label.text = text
     }
 
-    override fun setPresenter(presenter: OffersContract.Presenter) {
-        this.presenter = presenter
+    private fun injectDependencies() {
+        val fragmentComponent = DaggerOffersFragmentComponent.builder()
+            .appComponent(applicationComponent)
+            .offersFragmentModule(OffersFragmentModule(this))
+            .build()
+
+        fragmentComponent.inject(this)
     }
 }

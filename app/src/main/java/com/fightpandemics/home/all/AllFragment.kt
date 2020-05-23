@@ -4,20 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.fightpandemics.R
+import com.fightpandemics.base.BaseFragment
+import com.fightpandemics.di.component.DaggerAllFragmentComponent
+import com.fightpandemics.di.module.AllFragmentModule
 import kotlinx.android.synthetic.main.fragment_all.*
+import javax.inject.Inject
 
-class AllFragment : Fragment(), AllContract.View {
+class AllFragment : BaseFragment(), AllContract.View {
 
-    private lateinit var presenter: AllContract.Presenter
+    @Inject
+    lateinit var presenter: AllPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_all, container, false)
-        setPresenter(AllPresenter(this))
+        injectDependencies()
         return root
     }
 
@@ -38,7 +42,12 @@ class AllFragment : Fragment(), AllContract.View {
         section_label.text = text
     }
 
-    override fun setPresenter(presenter: AllContract.Presenter) {
-        this.presenter = presenter
+    private fun injectDependencies() {
+        val fragmentComponent = DaggerAllFragmentComponent.builder()
+            .appComponent(applicationComponent)
+            .allFragmentModule(AllFragmentModule(this))
+            .build()
+
+        fragmentComponent.inject(this)
     }
 }
