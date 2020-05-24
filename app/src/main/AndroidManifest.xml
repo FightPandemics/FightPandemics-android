@@ -8,14 +8,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <meta-data android:name="io.sentry.dsn" android:value="https://c516b8079ce74ffbbc97ab27f3194258@o392028.ingest.sentry.io/5248434" />
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme"
+        android:name=".App" >
+
+        <activity
+            android:name=".home.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
     </application>
 
 </manifest>
