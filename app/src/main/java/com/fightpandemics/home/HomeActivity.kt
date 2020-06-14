@@ -1,6 +1,9 @@
 package com.fightpandemics.home
 
 import android.os.Bundle
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import com.fightpandemics.R
 import com.fightpandemics.base.BaseActivity
@@ -17,10 +20,21 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     @Inject
     lateinit var presenter: HomePresenter
 
+    private var isFabOpen = false
+
+    private lateinit var fab_open : Animation
+    private lateinit var fab_close : Animation
+    private lateinit var rotate_forward : Animation
+    private lateinit var rotate_backward : Animation
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         injectDependencies()
+        fab_open = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
+        fab_close = AnimationUtils.loadAnimation(applicationContext,R.anim.fab_close)
+        rotate_forward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_forward)
+        rotate_backward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_backward)
         setupUi()
     }
 
@@ -56,5 +70,24 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     private fun fabAction() {
         // TODO
+        if(isFabOpen){
+            fab.startAnimation(rotate_backward)
+            fabCreateAsOrg.startAnimation(fab_close)
+            fabCreateAsIndiv.startAnimation(fab_close)
+            fabCreateAsOrg.isClickable = false
+            fabCreateAsIndiv.isClickable = false
+            fabCreateAsIndiv.visibility = View.INVISIBLE
+            fabCreateAsOrg.visibility = View.INVISIBLE
+            isFabOpen = false
+        } else {
+            fab.startAnimation(rotate_forward)
+            fabCreateAsOrg.startAnimation(fab_open)
+            fabCreateAsIndiv.startAnimation(fab_open)
+            fabCreateAsOrg.isClickable = true
+            fabCreateAsIndiv.isClickable = true
+            fabCreateAsIndiv.visibility = View.VISIBLE
+            fabCreateAsOrg.visibility = View.VISIBLE
+            isFabOpen = true
+        }
     }
 }

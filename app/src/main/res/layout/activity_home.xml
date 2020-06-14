@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,12 +16,59 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <Button
+        android:id="@+id/fabCreateAsOrg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="157dp"
+        android:width="233dp"
+        android:height="44dp"
+        android:background="@drawable/buttonbackground"
+        android:backgroundTint="@color/colorWhite"
+        android:clickable="false"
+        android:elevation="6dp"
+        android:fontFamily="@font/poppins_medium"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/create_as_an_organization"
+        android:textAllCaps="false"
+        android:textColor="#425af2"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:pressedTranslationZ="12dp"
+        app:srcCompat="@drawable/ic_add" />
+
+    <Button
+        android:id="@+id/fabCreateAsIndiv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="90dp"
+        android:width="211dp"
+        android:height="44dp"
+        android:background="@drawable/buttonbackground"
+        android:backgroundTint="@color/colorWhite"
+        android:clickable="false"
+        android:elevation="12dp"
+        android:fontFamily="@font/poppins_medium"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/create_as_an_individual"
+        android:textAllCaps="false"
+        android:textColor="#425af2"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:pressedTranslationZ="12dp"
+        app:srcCompat="@drawable/ic_add" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        app:elevation="6dp"
         app:srcCompat="@drawable/ic_add" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
