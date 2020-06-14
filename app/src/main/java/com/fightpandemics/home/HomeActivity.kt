@@ -7,7 +7,6 @@ import android.view.animation.AnimationUtils
 import android.widget.TextView
 import com.fightpandemics.R
 import com.fightpandemics.base.BaseActivity
-import com.fightpandemics.di.component.DaggerHomeActivityComponent
 import com.fightpandemics.di.module.HomeActivityModule
 import com.fightpandemics.util.applyStyle
 import kotlinx.android.synthetic.main.activity_home.*
@@ -22,29 +21,16 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     private var isFabOpen = false
 
-    private lateinit var fab_open : Animation
-    private lateinit var fab_close : Animation
-    private lateinit var rotate_forward : Animation
-    private lateinit var rotate_backward : Animation
+    private lateinit var fabOpen : Animation
+    private lateinit var fabClose : Animation
+    private lateinit var rotateForward : Animation
+    private lateinit var rotateBackward : Animation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        injectDependencies()
-        fab_open = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
-        fab_close = AnimationUtils.loadAnimation(applicationContext,R.anim.fab_close)
-        rotate_forward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_forward)
-        rotate_backward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_backward)
+        initFabActions()
         setupUi()
-    }
-
-    private fun injectDependencies() {
-        val activityComponent = DaggerHomeActivityComponent.builder()
-            .appComponent(applicationComponent)
-            .homeActivityModule(HomeActivityModule(this))
-            .build()
-
-        activityComponent.inject(this)
     }
 
     private fun setupUi() {
@@ -71,23 +57,38 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     private fun fabAction() {
         // TODO
         if(isFabOpen){
-            fab.startAnimation(rotate_backward)
-            fabCreateAsOrg.startAnimation(fab_close)
-            fabCreateAsIndiv.startAnimation(fab_close)
-            fabCreateAsOrg.isClickable = false
-            fabCreateAsIndiv.isClickable = false
-            fabCreateAsIndiv.visibility = View.INVISIBLE
-            fabCreateAsOrg.visibility = View.INVISIBLE
-            isFabOpen = false
+            hideOptions()
         } else {
-            fab.startAnimation(rotate_forward)
-            fabCreateAsOrg.startAnimation(fab_open)
-            fabCreateAsIndiv.startAnimation(fab_open)
-            fabCreateAsOrg.isClickable = true
-            fabCreateAsIndiv.isClickable = true
-            fabCreateAsIndiv.visibility = View.VISIBLE
-            fabCreateAsOrg.visibility = View.VISIBLE
-            isFabOpen = true
+            showOptions()
         }
+    }
+
+    private fun showOptions() {
+        fab.startAnimation(rotateForward)
+        fabCreateAsOrg.startAnimation(fabOpen)
+        fabCreateAsIndiv.startAnimation(fabOpen)
+        fabCreateAsOrg.isClickable = true
+        fabCreateAsIndiv.isClickable = true
+        fabCreateAsIndiv.visibility = View.VISIBLE
+        fabCreateAsOrg.visibility = View.VISIBLE
+        isFabOpen = true
+    }
+
+    private fun hideOptions() {
+        fab.startAnimation(rotateBackward)
+        fabCreateAsOrg.startAnimation(fabClose)
+        fabCreateAsIndiv.startAnimation(fabClose)
+        fabCreateAsOrg.isClickable = false
+        fabCreateAsIndiv.isClickable = false
+        fabCreateAsIndiv.visibility = View.INVISIBLE
+        fabCreateAsOrg.visibility = View.INVISIBLE
+        isFabOpen = false
+    }
+
+    private fun initFabActions() {
+        fabOpen = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
+        fabClose = AnimationUtils.loadAnimation(applicationContext,R.anim.fab_close)
+        rotateForward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_forward)
+        rotateBackward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_backward)
     }
 }
