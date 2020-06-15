@@ -33,6 +33,7 @@
         android:text="@string/create_as_an_organization"
         android:textAllCaps="false"
         android:textColor="#425af2"
+	android:layout_marginRight="@dimen/fab_margin"
         android:textSize="14sp"
         android:visibility="invisible"
         app:pressedTranslationZ="12dp"
