@@ -33,7 +33,7 @@
         android:text="@string/create_as_an_organization"
         android:textAllCaps="false"
         android:textColor="@color/fightPandemicsNeonBlue"
-	android:layout_marginRight="@dimen/fab_margin"
+	    android:layout_marginRight="@dimen/fab_margin"
         android:textSize="14sp"
         android:visibility="invisible"
         app:pressedTranslationZ="12dp"
