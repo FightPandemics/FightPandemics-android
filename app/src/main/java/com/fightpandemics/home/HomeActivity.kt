@@ -22,20 +22,24 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     private var isFabOpen = false
 
-    private lateinit var fab_open : Animation
-    private lateinit var fab_close : Animation
-    private lateinit var rotate_forward : Animation
-    private lateinit var rotate_backward : Animation
+    private lateinit var fabOpen : Animation
+    private lateinit var fabClose : Animation
+    private lateinit var rotateForward : Animation
+    private lateinit var rotateBackward : Animation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         injectDependencies()
-        fab_open = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
-        fab_close = AnimationUtils.loadAnimation(applicationContext,R.anim.fab_close)
-        rotate_forward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_forward)
-        rotate_backward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_backward)
-        setupUi()
+        loadAnimations()
+        setupUI()
+    }
+
+    private fun loadAnimations(){
+    fabOpen = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
+    fabClose = AnimationUtils.loadAnimation(applicationContext,R.anim.fab_close)
+    rotateForward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_forward)
+    rotateBackward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_backward)
     }
 
     private fun injectDependencies() {
@@ -47,7 +51,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         activityComponent.inject(this)
     }
 
-    private fun setupUi() {
+    private fun setupUI() {
         val sectionsPagerAdapter = SectionsPagerAdapter(
             this,
             supportFragmentManager
@@ -68,26 +72,33 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         fab.setOnClickListener { fabAction() }
     }
 
+    private fun showOptions(){
+        fab.startAnimation(rotateBackward)
+        fabCreateAsOrg.startAnimation(fabClose)
+        fabCreateAsIndividual.startAnimation(fabClose)
+        fabCreateAsOrg.isClickable = false
+        fabCreateAsIndividual.isClickable = false
+        fabCreateAsIndividual.visibility = View.INVISIBLE
+        fabCreateAsOrg.visibility = View.INVISIBLE
+        isFabOpen = false
+    }
+
+    private fun hideOptions(){
+        fab.startAnimation(rotateForward)
+        fabCreateAsOrg.startAnimation(fabOpen)
+        fabCreateAsIndividual.startAnimation(fabOpen)
+        fabCreateAsOrg.isClickable = true
+        fabCreateAsIndividual.isClickable = true
+        fabCreateAsIndividual.visibility = View.VISIBLE
+        fabCreateAsOrg.visibility = View.VISIBLE
+        isFabOpen = true
+    }
+
     private fun fabAction() {
-        // TODO
         if(isFabOpen){
-            fab.startAnimation(rotate_backward)
-            fabCreateAsOrg.startAnimation(fab_close)
-            fabCreateAsIndiv.startAnimation(fab_close)
-            fabCreateAsOrg.isClickable = false
-            fabCreateAsIndiv.isClickable = false
-            fabCreateAsIndiv.visibility = View.INVISIBLE
-            fabCreateAsOrg.visibility = View.INVISIBLE
-            isFabOpen = false
+            showOptions()
         } else {
-            fab.startAnimation(rotate_forward)
-            fabCreateAsOrg.startAnimation(fab_open)
-            fabCreateAsIndiv.startAnimation(fab_open)
-            fabCreateAsOrg.isClickable = true
-            fabCreateAsIndiv.isClickable = true
-            fabCreateAsIndiv.visibility = View.VISIBLE
-            fabCreateAsOrg.visibility = View.VISIBLE
-            isFabOpen = true
+            hideOptions()
         }
     }
 }

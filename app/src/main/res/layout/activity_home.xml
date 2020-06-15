@@ -24,7 +24,7 @@
         android:layout_marginBottom="157dp"
         android:width="233dp"
         android:height="44dp"
-        android:background="@drawable/buttonbackground"
+        android:background="@drawable/button_background"
         android:backgroundTint="@color/colorWhite"
         android:clickable="false"
         android:elevation="6dp"
@@ -39,7 +39,7 @@
         app:srcCompat="@drawable/ic_add" />
 
     <Button
-        android:id="@+id/fabCreateAsIndiv"
+        android:id="@+id/fabCreateAsIndividual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
@@ -47,7 +47,7 @@
         android:layout_marginBottom="90dp"
         android:width="211dp"
         android:height="44dp"
-        android:background="@drawable/buttonbackground"
+        android:background="@drawable/button_background"
         android:backgroundTint="@color/colorWhite"
         android:clickable="false"
         android:elevation="12dp"
