@@ -7,7 +7,6 @@ import android.view.animation.AnimationUtils
 import android.widget.TextView
 import com.fightpandemics.R
 import com.fightpandemics.base.BaseActivity
-import com.fightpandemics.di.module.HomeActivityModule
 import com.fightpandemics.util.applyStyle
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_tab_appbar.*
@@ -66,10 +65,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     private fun showOptions() {
         fab.startAnimation(rotateForward)
         fabCreateAsOrg.startAnimation(fabOpen)
-        fabCreateAsIndiv.startAnimation(fabOpen)
+        fabCreateAsIndividual.startAnimation(fabOpen)
         fabCreateAsOrg.isClickable = true
-        fabCreateAsIndiv.isClickable = true
-        fabCreateAsIndiv.visibility = View.VISIBLE
+        fabCreateAsIndividual.isClickable = true
+        fabCreateAsIndividual.visibility = View.VISIBLE
         fabCreateAsOrg.visibility = View.VISIBLE
         isFabOpen = true
     }
@@ -77,10 +76,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     private fun hideOptions() {
         fab.startAnimation(rotateBackward)
         fabCreateAsOrg.startAnimation(fabClose)
-        fabCreateAsIndiv.startAnimation(fabClose)
+        fabCreateAsIndividual.startAnimation(fabClose)
         fabCreateAsOrg.isClickable = false
-        fabCreateAsIndiv.isClickable = false
-        fabCreateAsIndiv.visibility = View.INVISIBLE
+        fabCreateAsIndividual.isClickable = false
+        fabCreateAsIndividual.visibility = View.INVISIBLE
         fabCreateAsOrg.visibility = View.INVISIBLE
         isFabOpen = false
     }
