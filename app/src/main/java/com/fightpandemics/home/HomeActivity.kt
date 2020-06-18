@@ -16,8 +16,6 @@ import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import com.fightpandemics.R
 import com.fightpandemics.base.BaseActivity
-import com.fightpandemics.di.component.DaggerHomeActivityComponent
-import com.fightpandemics.di.module.HomeActivityModule
 import com.fightpandemics.util.applyStyle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
@@ -37,8 +35,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     private lateinit var rotateForward : Animation
     private lateinit var rotateBackward : Animation
 
-    lateinit var toolbar : ActionBar
-
     private lateinit var menu : BottomNavigationView
 
     private lateinit var home : MenuItem
@@ -52,6 +48,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         setContentView(R.layout.activity_home)
         injectDependencies()
         initAnims()
+        initFabActions()
         setupUi()
         initBottomNavBar()
         initIcons()
@@ -75,15 +72,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         fabClose = AnimationUtils.loadAnimation(applicationContext,R.anim.fab_close)
         rotateForward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_forward)
         rotateBackward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_backward)
-    }
-
-    private fun injectDependencies() {
-        val activityComponent = DaggerHomeActivityComponent.builder()
-            .appComponent(applicationComponent)
-            .homeActivityModule(HomeActivityModule(this))
-            .build()
-
-        activityComponent.inject(this)
     }
 
     private fun setupUi() {
@@ -158,6 +146,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
                 handleBottomNavSelection(3)
                 return@OnNavigationItemSelectedListener true
             }
+           
         }
         false
     }
@@ -211,5 +200,34 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         }
 
         dot.layoutParams = layoutParams
+    }
+
+    private fun showOptions() {
+        fab.startAnimation(rotateForward)
+        fabCreateAsOrg.startAnimation(fabOpen)
+        fabCreateAsIndividual.startAnimation(fabOpen)
+        fabCreateAsOrg.isClickable = true
+        fabCreateAsIndividual.isClickable = true
+        fabCreateAsIndividual.visibility = View.VISIBLE
+        fabCreateAsOrg.visibility = View.VISIBLE
+        isFabOpen = true
+    }
+
+    private fun hideOptions() {
+        fab.startAnimation(rotateBackward)
+        fabCreateAsOrg.startAnimation(fabClose)
+        fabCreateAsIndividual.startAnimation(fabClose)
+        fabCreateAsOrg.isClickable = false
+        fabCreateAsIndividual.isClickable = false
+        fabCreateAsIndividual.visibility = View.INVISIBLE
+        fabCreateAsOrg.visibility = View.INVISIBLE
+        isFabOpen = false
+    }
+
+    private fun initFabActions() {
+        fabOpen = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
+        fabClose = AnimationUtils.loadAnimation(applicationContext,R.anim.fab_close)
+        rotateForward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_forward)
+        rotateBackward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_backward)
     }
 }
