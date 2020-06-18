@@ -12,6 +12,7 @@ jobs:
           fetch-depth: 1
       - name: ktlint
         uses: ScaCap/action-ktlint@master
+        
+      - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review # Change reporter
+         commit_message: Apply klint changes
