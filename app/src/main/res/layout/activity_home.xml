@@ -57,10 +57,10 @@
         android:layout_gravity="bottom"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
-        android:background="?android:attr/windowBackground"
+        android:background="@drawable/bottom_nav_background"
         android:theme="@style/Widget.BottomNavigationView"
-        app:labelVisibilityMode="labeled"
         app:itemIconTint="@drawable/bottom_navigation_item_colors"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/navigation" />
 
 

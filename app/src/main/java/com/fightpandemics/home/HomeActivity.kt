@@ -50,7 +50,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        injectDependencies()
+        //injectDependencies()
         initAnims()
         setupUi()
         initBottomNavBar()
@@ -167,29 +167,29 @@ class HomeActivity : BaseActivity(), HomeContract.View {
             0 -> {
                 changeDotLocation(index+1)
                 home.title = ""
-                search.title = "Search"
-                inbox.title = "Inbox"
-                profile.title = "Profile"
+                search.title = getString(R.string.search)
+                inbox.title = getString(R.string.inbox)
+                profile.title = getString(R.string.profile)
             }
             1 -> {
                 changeDotLocation(index+1)
-                home.title = "Home"
+                home.title = getString(R.string.home)
                 search.title = ""
-                inbox.title = "Inbox"
-                profile.title = "Profile"
+                inbox.title = getString(R.string.inbox)
+                profile.title = getString(R.string.profile)
             }
             2 -> {
                 changeDotLocation(index+1)
-                home.title = "Home"
-                search.title = "Search"
+                home.title = getString(R.string.home)
+                search.title = getString(R.string.search)
                 inbox.title = ""
-                profile.title = "Profile"
+                profile.title = getString(R.string.profile)
             }
             else -> {
                 changeDotLocation(index+1)
-                home.title = "Home"
-                search.title = "Search"
-                inbox.title = "Inbox"
+                home.title = getString(R.string.home)
+                search.title = getString(R.string.search)
+                inbox.title = getString(R.string.inbox)
                 profile.title = ""
             }
         }

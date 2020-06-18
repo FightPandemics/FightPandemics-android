@@ -8,16 +8,16 @@
     <item
         android:id="@+id/search"
         android:icon="@drawable/search_icon"
-        android:title="Search"/>
+        android:title="@string/search"/>
 
     <item
         android:id="@+id/inbox"
         android:icon="@drawable/inbox_icon"
-        android:title="Inbox"/>
+        android:title="@string/inbox"/>
 
     <item
         android:id="@+id/profile"
         android:icon="@drawable/profile_icon"
-        android:title="Profile"/>
+        android:title="@string/profile"/>
 
 </menu>

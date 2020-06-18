@@ -7,7 +7,7 @@
     android:layout_marginBottom="144dp"
     android:width="211dp"
     android:height="44dp"
-    android:background="@drawable/buttonbackground"
+    android:background="@drawable/button_background"
     android:backgroundTint="@color/colorWhite"
     android:clickable="false"
     android:elevation="12dp"
