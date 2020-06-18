@@ -5,12 +5,12 @@ on:
 
 jobs:
   ktlint:
-    name: Check Code Quality
+    name: klint
     runs-on: ubuntu-latest
 
     steps:
       - name: Clone repo
-        uses: actions/checkout@master
+        uses: actions/checkout@development
         with:
           fetch-depth: 1
       - name: ktlint
