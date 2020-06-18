@@ -15,4 +15,5 @@ jobs:
         
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
+         github_token: ${{ secrets.github_token }}
          commit_message: Apply klint changes
