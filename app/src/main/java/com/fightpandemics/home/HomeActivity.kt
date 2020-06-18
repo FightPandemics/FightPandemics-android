@@ -46,7 +46,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        injectDependencies()
+        //injectDependencies()
         initAnims()
         initFabActions()
         setupUi()
