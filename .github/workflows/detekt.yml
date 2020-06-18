@@ -17,4 +17,4 @@ jobs:
         uses: DominuS-RU/Detekt-Action@master
         with:
           github_token: ${{ secrets.github_token }}
-          detekt_config: detekt-config.yml
+          detekt_config: config/detekt/detekt-config.yml
