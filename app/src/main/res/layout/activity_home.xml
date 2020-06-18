@@ -50,7 +50,6 @@
         app:srcCompat="@drawable/dot" />
 
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavBar"
         android:layout_width="match_parent"
