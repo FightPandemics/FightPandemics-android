@@ -14,61 +14,55 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
-    <Button
+    </androidx.viewpager.widget.ViewPager>
+
+
+    <include
         android:id="@+id/fabCreateAsOrg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="157dp"
-        android:width="233dp"
-        android:height="44dp"
-        android:background="@drawable/buttonbackground"
-        android:backgroundTint="@color/colorWhite"
-        android:clickable="false"
-        android:elevation="6dp"
-        android:fontFamily="@font/poppins_medium"
-        android:lineSpacingExtra="4sp"
-        android:text="@string/create_as_an_organization"
-        android:textAllCaps="false"
-        android:textColor="#425af2"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:pressedTranslationZ="12dp"
-        app:srcCompat="@drawable/ic_add" />
+        layout="@layout/item_button_createasorg" />
 
-    <Button
+    <include
         android:id="@+id/fabCreateAsIndiv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginRight="@dimen/fab_margin"
-        android:layout_marginBottom="90dp"
-        android:width="211dp"
-        android:height="44dp"
-        android:background="@drawable/buttonbackground"
-        android:backgroundTint="@color/colorWhite"
-        android:clickable="false"
-        android:elevation="12dp"
-        android:fontFamily="@font/poppins_medium"
-        android:lineSpacingExtra="4sp"
-        android:text="@string/create_as_an_individual"
-        android:textAllCaps="false"
-        android:textColor="#425af2"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:pressedTranslationZ="12dp"
-        app:srcCompat="@drawable/ic_add" />
+        layout="@layout/item_button_createasindiv" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="72dp"
         app:elevation="6dp"
         app:srcCompat="@drawable/ic_add" />
+
+    <ImageView
+        android:id="@+id/dot"
+        android:layout_width="6dp"
+        android:layout_marginBottom="13dp"
+        android:layout_height="6dp"
+        android:visibility="visible"
+        android:elevation="14dp"
+        android:layout_gravity="bottom"
+        app:srcCompat="@drawable/dot" />
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="?android:attr/windowBackground"
+        android:theme="@style/Widget.BottomNavigationView"
+        app:labelVisibilityMode="labeled"
+        app:itemIconTint="@drawable/bottom_navigation_item_colors"
+        app:menu="@menu/navigation" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
