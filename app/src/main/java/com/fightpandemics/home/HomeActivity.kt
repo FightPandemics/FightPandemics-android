@@ -52,7 +52,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         setupUi()
         initBottomNavBar()
         initIcons()
-        changeDotLocation(1)
+        handleBottomNavSelection(0)
     }
 
     private fun initBottomNavBar() {
@@ -193,10 +193,18 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         val density = resources.displayMetrics.density
         when (location) {
             //long decimals below so that with any screen size, the dot will be placed correctly instead of hardcoded values
-            1 -> layoutParams.setMargins(((0.118333333 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
-            2 -> layoutParams.setMargins(((0.37083333 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
-            3 -> layoutParams.setMargins(((0.61666667 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
-            else -> layoutParams.setMargins(((0.86666667 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
+            1 -> {
+                layoutParams.setMargins(((0.118333333 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
+            }
+            2 -> {
+                layoutParams.setMargins(((0.37083333 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
+            }
+            3 -> {
+                layoutParams.setMargins(((0.61666667 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
+            }
+            else -> {
+                layoutParams.setMargins(((0.86666667 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
+            }
         }
 
         dot.layoutParams = layoutParams
