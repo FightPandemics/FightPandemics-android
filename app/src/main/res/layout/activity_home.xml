@@ -26,7 +26,12 @@
     <include
         android:id="@+id/fabCreateAsIndiv"
         layout="@layout/item_button_createasindiv" />
+    
+    <include
+        android:id="@+id/fabCreateAsIndividual"
+        layout="@layout/item_button_createasindiv" />
 
+   
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
