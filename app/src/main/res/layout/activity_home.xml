@@ -21,11 +21,57 @@
 
     <include
         android:id="@+id/fabCreateAsOrg"
+
         layout="@layout/item_button_createasorg" />
 
     <include
         android:id="@+id/fabCreateAsIndiv"
         layout="@layout/item_button_createasindiv" />
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="157dp"
+        android:width="233dp"
+        android:height="44dp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="@color/colorWhite"
+        android:clickable="false"
+        android:elevation="6dp"
+        android:fontFamily="@font/poppins_medium"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/create_as_an_organization"
+        android:textAllCaps="false"
+        android:textColor="@color/fightPandemicsNeonBlue"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:pressedTranslationZ="12dp"
+        app:srcCompat="@drawable/ic_add" />
+
+    <Button
+        android:id="@+id/fabCreateAsIndividual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="90dp"
+        android:width="211dp"
+        android:height="44dp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="@color/colorWhite"
+        android:clickable="false"
+        android:elevation="12dp"
+        android:fontFamily="@font/poppins_medium"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/create_as_an_individual"
+        android:textAllCaps="false"
+        android:textColor="#425af2"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:pressedTranslationZ="12dp"
+        app:srcCompat="@drawable/ic_add" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
