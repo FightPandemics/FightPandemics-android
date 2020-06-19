@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Button android:id="@+id/fabCreateAsOrg"
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fabCreateAsOrg"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|end"
+    android:layout_marginRight="@dimen/fab_margin"
     android:layout_marginBottom="204dp"
     android:width="233dp"
     android:height="44dp"
@@ -14,11 +17,8 @@
     android:lineSpacingExtra="4sp"
     android:text="@string/create_as_an_organization"
     android:textAllCaps="false"
-    android:textColor="#425af2"
-    android:layout_marginRight="@dimen/fab_margin"
+    android:textColor="@color/fightPandemicsNeonBlue"
     android:textSize="14sp"
     android:visibility="invisible"
     app:pressedTranslationZ="12dp"
-    app:srcCompat="@drawable/ic_add"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" />
+    app:srcCompat="@drawable/ic_add" />

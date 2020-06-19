@@ -47,7 +47,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         //injectDependencies()
-        initAnims()
         initFabActions()
         setupUi()
         initBottomNavBar()
@@ -65,13 +64,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         search = menu.menu.getItem(1)
         inbox = menu.menu.getItem(2)
         profile = menu.menu.getItem(3)
-    }
-
-    private fun initAnims() {
-        fabOpen = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
-        fabClose = AnimationUtils.loadAnimation(applicationContext,R.anim.fab_close)
-        rotateForward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_forward)
-        rotateBackward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_backward)
     }
 
     private fun setupUi() {
@@ -152,36 +144,11 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     private fun handleBottomNavSelection(index: Int) {
-        when (index) {
-            0 -> {
-                changeDotLocation(index+1)
-                home.title = ""
-                search.title = getString(R.string.search)
-                inbox.title = getString(R.string.inbox)
-                profile.title = getString(R.string.profile)
-            }
-            1 -> {
-                changeDotLocation(index+1)
-                home.title = getString(R.string.home)
-                search.title = ""
-                inbox.title = getString(R.string.inbox)
-                profile.title = getString(R.string.profile)
-            }
-            2 -> {
-                changeDotLocation(index+1)
-                home.title = getString(R.string.home)
-                search.title = getString(R.string.search)
-                inbox.title = ""
-                profile.title = getString(R.string.profile)
-            }
-            else -> {
-                changeDotLocation(index+1)
-                home.title = getString(R.string.home)
-                search.title = getString(R.string.search)
-                inbox.title = getString(R.string.inbox)
-                profile.title = ""
-            }
-        }
+        home.title = if(index == 0) "" else getString(R.string.home)
+        search.title = if(index == 1) "" else getString(R.string.search)
+        inbox.title = if(index == 2) "" else getString(R.string.inbox)
+        profile.title = if(index == 3) "" else getString(R.string.profile)
+        changeDotLocation(index+1)
     }
 
     private fun changeDotLocation(location : Int) {
@@ -190,7 +157,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val width = displayMetrics.widthPixels
-        val density = resources.displayMetrics.density
         when (location) {
             //long decimals below so that with any screen size, the dot will be placed correctly instead of hardcoded values
             1 -> {
@@ -210,27 +176,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         dot.layoutParams = layoutParams
     }
 
-    private fun showOptions() {
-        fab.startAnimation(rotateForward)
-        fabCreateAsOrg.startAnimation(fabOpen)
-        fabCreateAsIndividual.startAnimation(fabOpen)
-        fabCreateAsOrg.isClickable = true
-        fabCreateAsIndividual.isClickable = true
-        fabCreateAsIndividual.visibility = View.VISIBLE
-        fabCreateAsOrg.visibility = View.VISIBLE
-        isFabOpen = true
-    }
-
-    private fun hideOptions() {
-        fab.startAnimation(rotateBackward)
-        fabCreateAsOrg.startAnimation(fabClose)
-        fabCreateAsIndividual.startAnimation(fabClose)
-        fabCreateAsOrg.isClickable = false
-        fabCreateAsIndividual.isClickable = false
-        fabCreateAsIndividual.visibility = View.INVISIBLE
-        fabCreateAsOrg.visibility = View.INVISIBLE
-        isFabOpen = false
-    }
 
     private fun initFabActions() {
         fabOpen = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
