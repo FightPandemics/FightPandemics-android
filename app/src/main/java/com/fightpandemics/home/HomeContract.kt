@@ -2,11 +2,7 @@ package com.fightpandemics.home
 
 interface HomeContract {
 
-    interface Presenter {
+    interface Presenter
 
-    }
-
-    interface View {
-
-    }
+    interface View
 }
