@@ -6,8 +6,10 @@ import com.fightpandemics.home.requests.RequestsFragment
 import dagger.Component
 
 @ActivityScope
-@Component(modules = [RequestsFragmentModule::class],
-    dependencies = [AppComponent::class])
+@Component(
+    modules = [RequestsFragmentModule::class],
+    dependencies = [AppComponent::class]
+)
 interface RequestsFragmentComponent {
 
     fun inject(requestsFragment: RequestsFragment)
