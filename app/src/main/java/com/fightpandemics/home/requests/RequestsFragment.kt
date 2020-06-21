@@ -17,7 +17,8 @@ class RequestsFragment : BaseFragment(), RequestsContract.View {
     lateinit var presenter: RequestsPresenter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_requests, container, false)

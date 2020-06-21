@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_tab_appbar.*
 import javax.inject.Inject
 
-
 class HomeActivity : BaseActivity(), HomeContract.View {
 
     @Inject
@@ -44,7 +43,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        //injectDependencies()
+//        injectDependencies()
         initFabActions()
         setupUi()
         initBottomNavBar()
@@ -137,7 +136,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
                     handleBottomNavSelection(3)
                     return@OnNavigationItemSelectedListener true
                 }
-
             }
             false
         }
@@ -157,7 +155,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val width = displayMetrics.widthPixels
         when (location) {
-            //long decimals below so that with any screen size, the dot will be placed correctly instead of hardcoded values
+            // long decimals below so that with any screen size, the dot will be placed correctly instead of hardcoded values
             1 -> {
                 layoutParams.setMargins(
                     ((0.118333333 * width).toInt()),
@@ -194,7 +192,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
         dot.layoutParams = layoutParams
     }
-
 
     private fun initFabActions() {
         fabOpen = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
