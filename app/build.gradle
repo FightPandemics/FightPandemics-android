@@ -5,6 +5,8 @@ apply plugin: 'kotlin-kapt'
 
 ext {
     dagger_version = '2.27'
+    retrofit_version = '2.9.0'
+    rxandroid_version = '3.0.0'
 }
 
 android {
@@ -13,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId "com.fightpandemics"
-        minSdkVersion 19
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -51,6 +53,20 @@ dependencies {
     // dagger
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    //Networking
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava:$retrofit_version"
+    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
+    implementation 'com.squareup.okio:okio:2.6.0'
+    implementation "io.reactivex.rxjava3:rxandroid:$rxandroid_version"
+    implementation "io.reactivex.rxjava3:rxjava:$rxandroid_version"
+    implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
+
+    //Persistence
+    implementation "androidx.security:security-crypto:1.1.0-alpha01"
 
     // tests
     testImplementation 'junit:junit:4.12'
