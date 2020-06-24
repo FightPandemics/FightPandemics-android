@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView android:id="@+id/dot"
+    android:layout_width="6dp"
+    android:layout_marginBottom="13dp"
+    android:layout_height="6dp"
+    android:visibility="visible"
+    android:elevation="14dp"
+    android:layout_gravity="bottom"
+    app:srcCompat="@drawable/dot"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" />
