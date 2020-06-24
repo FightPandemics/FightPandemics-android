@@ -20,15 +20,12 @@
 
     <include
         android:id="@+id/fabCreateAsOrg"
-        layout="@layout/item_button_createasorg" />
+        layout="@layout/item_button_create_as_org" />
 
-    <include
-        android:id="@+id/fabCreateAsIndiv"
-        layout="@layout/item_button_createasindiv" />
     
     <include
         android:id="@+id/fabCreateAsIndividual"
-        layout="@layout/item_button_createasindiv" />
+        layout="@layout/item_button_create_as_individual" />
 
     <include
         android:id="@+id/fab"
@@ -41,5 +38,6 @@
     <include
         android:id="@+id/bottomNavBar"
         layout="@layout/item_bottom_nav_view"/>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
