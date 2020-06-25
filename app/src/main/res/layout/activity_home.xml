@@ -23,7 +23,7 @@
         layout="@layout/item_button_create_as_org" />
 
     <include
-        android:id="@+id/fabCreateAsIndiv"
+        android:id="@+id/fabCreateAsIndividual"
         layout="@layout/item_button_create_as_individual" />
     
     <include
