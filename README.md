@@ -24,6 +24,3 @@ Special thanks to all [contributors](https://github.com/FightPandemics/FightPand
 ## License
 
 FightPandemics is available under the MIT license. See the [LICENSE](https://github.com/FightPandemics/FightPandemics-android/blob/development/LICENSE) file for more info.
-
-
-
