@@ -9,7 +9,7 @@
     android:layout_marginBottom="204dp"
     android:width="233dp"
     android:height="44dp"
-    android:background="@drawable/button_background"
+    android:background="@drawable/button_create_background"
     android:backgroundTint="@color/colorWhite"
     android:clickable="false"
     android:elevation="6dp"

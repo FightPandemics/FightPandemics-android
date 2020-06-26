@@ -18,55 +18,26 @@
 
     </androidx.viewpager.widget.ViewPager>
 
-
     <include
         android:id="@+id/fabCreateAsOrg"
-        layout="@layout/item_button_createasorg" />
+        layout="@layout/item_button_create_as_org" />
 
-    <include
-        android:id="@+id/fabCreateAsIndiv"
-        layout="@layout/item_button_createasindiv" />
     
     <include
         android:id="@+id/fabCreateAsIndividual"
-        layout="@layout/item_button_createasindiv" />
+        layout="@layout/item_button_create_as_individual" />
 
-   
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <include
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginLeft="@dimen/fab_margin"
-        android:layout_marginTop="@dimen/fab_margin"
-        android:layout_marginRight="@dimen/fab_margin"
-        android:layout_marginBottom="72dp"
-        app:elevation="6dp"
-        app:srcCompat="@drawable/ic_add" />
+        layout="@layout/item_fab_add"/>
 
-    <ImageView
+    <include
         android:id="@+id/dot"
-        android:layout_width="6dp"
-        android:layout_marginBottom="13dp"
-        android:layout_height="6dp"
-        android:visibility="visible"
-        android:elevation="14dp"
-        android:layout_gravity="bottom"
-        app:srcCompat="@drawable/dot" />
+        layout="@layout/item_dot" />
 
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <include
         android:id="@+id/bottomNavBar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:background="@drawable/bottom_nav_background"
-        android:theme="@style/Widget.BottomNavigationView"
-        app:itemIconTint="@drawable/bottom_navigation_item_colors"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/navigation" />
+        layout="@layout/item_bottom_nav_view"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

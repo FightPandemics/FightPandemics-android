@@ -10,5 +10,9 @@
     <string name="inbox">Inbox</string>
     <string name="profile">Profile</string>
     <string name="home">Home</string>
+    <string name="close">Close</string>
+    <string name="confirm">Confirm</string>
+    <string name="offering">Offering</string>
+    <string name="requesting">Requesting</string>
 
 </resources>

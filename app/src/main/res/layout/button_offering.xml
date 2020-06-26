@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/btnOffering"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:width="320dp"
+    android:height="45dp"
+    android:background="@drawable/button_offering_background"
+    android:elevation="12dp"
+    android:fontFamily="@font/poppins_medium"
+    android:layout_marginTop="150dp"
+    android:lineSpacingExtra="4sp"
+    android:text="@string/offering"
+    android:textAllCaps="false"
+    android:textColor="@color/fightPandemicsNero"
+    android:textSize="14sp"/>

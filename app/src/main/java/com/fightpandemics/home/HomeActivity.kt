@@ -98,10 +98,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     private fun hideFabActions() {
         fab.startAnimation(rotateBackward)
         fabCreateAsOrg.startAnimation(fabClose)
-        fabCreateAsIndiv.startAnimation(fabClose)
+        fabCreateAsIndividual.startAnimation(fabClose)
         fabCreateAsOrg.isClickable = false
-        fabCreateAsIndiv.isClickable = false
-        fabCreateAsIndiv.visibility = View.INVISIBLE
+        fabCreateAsIndividual.isClickable = false
+        fabCreateAsIndividual.visibility = View.INVISIBLE
         fabCreateAsOrg.visibility = View.INVISIBLE
         isFabOpen = false
     }
@@ -109,10 +109,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     private fun showFabActions() {
         fab.startAnimation(rotateForward)
         fabCreateAsOrg.startAnimation(fabOpen)
-        fabCreateAsIndiv.startAnimation(fabOpen)
+        fabCreateAsIndividual.startAnimation(fabOpen)
         fabCreateAsOrg.isClickable = true
-        fabCreateAsIndiv.isClickable = true
-        fabCreateAsIndiv.visibility = View.VISIBLE
+        fabCreateAsIndividual.isClickable = true
+        fabCreateAsIndividual.visibility = View.VISIBLE
         fabCreateAsOrg.visibility = View.VISIBLE
         isFabOpen = true
     }
