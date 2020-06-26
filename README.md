@@ -10,6 +10,20 @@ Android app for the [FightPandemics](https://fightpandemics.com/)
 
 See the [CONTRIBUTING](https://github.com/FightPandemics/FightPandemics-android/blob/development/CONTRIBUTING.md) file for guidelines on contributing.
 
+### Getting Started
+
+* Install [Android Studio](https://developer.android.com/studio)
+* Open `FightPandemics-android` in Android Studio 
+* Happy coding!
+
+## Credits
+
+Special thanks to all [contributors](https://github.com/FightPandemics/FightPandemics-android/contributors) :purple_heart:
+
+
 ## License
 
 FightPandemics is available under the MIT license. See the [LICENSE](https://github.com/FightPandemics/FightPandemics-android/blob/development/LICENSE) file for more info.
+
+
+
