@@ -1,6 +1,9 @@
 # FightPandemics Android
 
-[![Platform](https://img.shields.io/badge/platform-android-lightgrey.svg)](#)
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/FightPandemics/FightPandemics-android/blob/development/LICENSE)
+[![Platform](https://img.shields.io/badge/platform-android-green.svg?style=flat&logo=android)](#)
+[![API](https://img.shields.io/badge/API-19%2B-blue.svg?style=flat)](#)
 [![Build Status](https://travis-ci.org/FightPandemics/FightPandemics-android.svg?branch=development)](https://travis-ci.com/FightPandemics/FightPandemics-android)
 
 
