@@ -29,6 +29,7 @@
     <string name="share_with_anyone">Share with anyone</string>
     <string name="duration_of_post">Duration of post</string>
     <string name="add_tags_to_help_boost_your_visibility">Add tags to help boost your visibility.</string>
+    <string name="post">Post</string>
 
 
 </resources>
