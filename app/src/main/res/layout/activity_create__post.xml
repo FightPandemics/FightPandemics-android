@@ -5,8 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="20dp"
+
     tools:context=".Create_Post.Create_Post">
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
 <LinearLayout
     android:layout_width="wrap_content"
     android:orientation="horizontal"
@@ -18,7 +23,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/clear"
-        android:contentDescription="@string/todo" />
+        android:contentDescription="@string/desc" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,7 +32,7 @@
         android:textSize="22sp"
         android:textColor="#282828"
         android:lineSpacingExtra="6sp"
-        tools:text="Create a post"
+        android:text="@string/create_a_post"
         android:fontFamily="@font/poppins_medium"
         android:textStyle="bold"
 
@@ -39,12 +44,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:textSize="16sp"
         android:textColor="#282828"
         android:lineSpacingExtra="4sp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/worksans_regular"
-        tools:text="Are you offering or requesting help?"
+        android:text="@string/are_you_offering_or_requesting_help"
         />
 
    <LinearLayout
@@ -62,7 +67,7 @@
            android:layout_marginStart="15dp"
            android:layout_marginTop="7dp"
            android:layout_marginBottom="7dp"
-           tools:text="I am offering"
+           android:text="@string/i_am_offering"
            android:fontFamily="@font/worksans_regular"
            />
        <ImageView
@@ -73,7 +78,7 @@
            android:layout_width="14dp"
            android:layout_height="14dp"
            android:src="@drawable/dropdown_arrow"
-           android:contentDescription="@string/todo" />
+           android:contentDescription="@string/desc" />
 
    </LinearLayout>
 
@@ -84,7 +89,8 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:src="@drawable/fp_line"/>
+        android:src="@drawable/fp_line"
+        android:contentDescription="@string/desc" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -119,7 +125,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
 
-        android:src="@drawable/fp_line"/>
+        android:src="@drawable/fp_line"
+        android:contentDescription="@string/desc" />
 
     <TextView
         android:layout_width="283dp"
@@ -127,8 +134,7 @@
         android:textSize="16sp"
         android:textColor="#222222"
         android:lineSpacingExtra="4sp"
-        tools:text="Who can see this post and for how
-long?"
+        android:text="@string/who_can_see_this_post_and_for_how_long"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/poppins_medium"
         android:textStyle="bold"
@@ -143,7 +149,7 @@ long?"
             android:layout_marginTop="12dp"
             android:layout_width="155dp"
             android:layout_height="30dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/dropdown_createpost_offering_or_requesting"
             android:orientation="horizontal">
             <TextView
@@ -152,17 +158,17 @@ long?"
                 android:textSize="12sp"
                 android:textColor="#425af2"
                 android:lineSpacingExtra="3sp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginBottom="7dp"
 
-                tools:text="Share with anyone"
+                android:text="@string/share_with_anyone"
                 android:fontFamily="@font/worksans_regular"
                 />
             <ImageView
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
@@ -182,19 +188,20 @@ long?"
                 android:textSize="12sp"
                 android:textColor="#425af2"
                 android:lineSpacingExtra="3sp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginBottom="7dp"
-                tools:text="Duration of post"
+                android:text="@string/duration_of_post"
                 android:fontFamily="@font/worksans_regular"
                 />
             <ImageView
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
+                android:contentDescription="@string/desc"
                 android:src="@drawable/dropdown_arrow"/>
 
         </LinearLayout>
@@ -211,12 +218,12 @@ long?"
         android:lineHeight="20dp"
         android:fontFamily="@font/poppins_medium"
         android:textStyle="bold"
-        tools:text="Add tags to help boost your visibility."
+        android:text="@string/add_tags_to_help_boost_your_visibility"
         />
 
     <ImageView
 
-        
+        android:contentDescription="@string/desc"
         android:layout_marginTop="16dp"
         android:layout_width="90dp"
         android:layout_height="30dp"
@@ -235,5 +242,5 @@ long?"
         tools:text="Post"
         />
 
-
+    </LinearLayout>
 </LinearLayout>

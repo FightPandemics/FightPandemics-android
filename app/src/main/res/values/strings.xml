@@ -17,12 +17,18 @@
     <string name="title">Title</string>
     <string name="description_of_your_post">Description of your post</string>
     <string name="are_you_offering_or_requesting_help">Are you offering or requesting help?</string>
-    <string name="todo">TODO</string>
+    <string name="desc">Description</string>
     <string name="who_can_see_this_post">Who can see this post?</string>
     <string name="my_neighborhood">My neighborhood</string>
     <string name="my_city">My city</string>
     <string name="my_country">My country</string>
     <string name="anyone">Anyone</string>
+    <string name="create_a_post">Create a post</string>
+    <string name="i_am_offering">I am offering</string>
+    <string name="who_can_see_this_post_and_for_how_long">Who can see this post and for how long?</string>
+    <string name="share_with_anyone">Share with anyone</string>
+    <string name="duration_of_post">Duration of post</string>
+    <string name="add_tags_to_help_boost_your_visibility">Add tags to help boost your visibility.</string>
 
 
 </resources>
