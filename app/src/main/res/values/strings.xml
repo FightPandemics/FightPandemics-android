@@ -14,5 +14,15 @@
     <string name="confirm">Confirm</string>
     <string name="offering">Offering</string>
     <string name="requesting">Requesting</string>
+    <string name="title">Title</string>
+    <string name="description_of_your_post">Description of your post</string>
+    <string name="are_you_offering_or_requesting_help">Are you offering or requesting help?</string>
+    <string name="todo">TODO</string>
+    <string name="who_can_see_this_post">Who can see this post?</string>
+    <string name="my_neighborhood">My neighborhood</string>
+    <string name="my_city">My city</string>
+    <string name="my_country">My country</string>
+    <string name="anyone">Anyone</string>
+
 
 </resources>
