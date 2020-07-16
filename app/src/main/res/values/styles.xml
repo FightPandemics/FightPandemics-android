@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -11,30 +11,35 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
     <style name="AndroidNativeH122Px">
         <item name="android:textSize">22sp</item>
         <item name="android:lineSpacingExtra">6sp</item>
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/fightPandemicsNero</item>
     </style>
 
     <style name="AndroidNativeH216Px">
         <item name="android:textSize">16sp</item>
-        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="fontFamily">@font/poppins_bold</item>
         <item name="android:textColor">@color/fightPandemicsNero</item>
     </style>
 
     <style name="AndroidNativeH314Px">
         <item name="android:textSize">14sp</item>
         <item name="android:lineSpacingExtra">4sp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
         <item name="android:textColor">@color/fightPandemicsNero</item>
     </style>
 
     <style name="AndroidNativeP114Px">
         <item name="android:textSize">14sp</item>
         <item name="android:lineSpacingExtra">4sp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
         <item name="android:textColor">@color/fightPandemicsNero</item>
     </style>
 
@@ -47,12 +52,14 @@
     <style name="AndroidNativeP212Px">
         <item name="android:textSize">12sp</item>
         <item name="android:lineSpacingExtra">4sp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
         <item name="android:textColor">@color/fightPandemicsNero</item>
     </style>
 
     <style name="AndroidNativeP311Px">
         <item name="android:textSize">11sp</item>
         <item name="android:lineSpacingExtra">4.4sp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
         <item name="android:textColor">@color/fightPandemicsNero</item>
     </style>
 
