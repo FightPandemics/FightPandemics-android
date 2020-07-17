@@ -78,6 +78,35 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="PrimaryButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:backgroundTint">@color/button_primary_background_selector</item>
+        <item name="android:textColor">@color/button_primary_text_selector</item>
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="paddingStart">28dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="paddingEnd">28dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="cornerRadius">50dp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="SecondaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:backgroundTint">@color/colorWhite</item>
+        <item name="strokeColor">@color/fightPandemicsNeonBlue</item>
+        <item name="android:textColor">@color/fightPandemicsNeonBlue</item>
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="paddingStart">28dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="paddingEnd">28dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="cornerRadius">50dp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
     <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/worksans_regular</item>
         <item name="android:textColor">@color/fightPandemicsSuvaGrey</item>
