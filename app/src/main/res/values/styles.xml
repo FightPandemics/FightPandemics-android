@@ -79,7 +79,7 @@
     </style>
 
     <style name="PrimaryButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
-        <item name="android:backgroundTint">@color/button_primary_background_selector</item>
+        <item name="android:background">@color/button_primary_background_selector</item>
         <item name="android:textColor">@color/button_primary_text_selector</item>
         <item name="android:textSize">18sp</item>
         <item name="fontFamily">@font/poppins_medium</item>
@@ -93,7 +93,7 @@
     </style>
 
     <style name="SecondaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:backgroundTint">@color/colorWhite</item>
+        <item name="android:background">@color/colorWhite</item>
         <item name="strokeColor">@color/fightPandemicsNeonBlue</item>
         <item name="android:textColor">@color/fightPandemicsNeonBlue</item>
         <item name="android:textSize">18sp</item>
