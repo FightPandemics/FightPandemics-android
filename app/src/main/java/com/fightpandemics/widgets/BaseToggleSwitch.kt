@@ -21,7 +21,7 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
 
     companion object Default {
 
-        @JvmStatic private val BORDER_RADIUS_DP            = 5
+        @JvmStatic private val BORDER_RADIUS_DP            = 4
         @JvmStatic private val BORDER_WIDTH                = 1
 
         @JvmStatic private val CHECKED_BACKGROUND_COLOR    = R.color.fightPandemicsGhostWhite
