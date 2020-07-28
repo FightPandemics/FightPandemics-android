@@ -10,6 +10,6 @@ class UserAvatarTest : AppCompatActivity() {
         setContentView(R.layout.activity_user_test)
 
         val ua = findViewById<UserAvatar>(R.id.userAvatar)
-        ua.init("RG", "https://i.ytimg.com/vi/Tdac7EAyL80/maxresdefault.jpg")
+        ua.init("RG", "https://i.ytimg.com/vi/Tdac7EAyL80/maxresdefault.jpg", this)
     }
 }
