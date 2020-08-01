@@ -13,5 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp" />
+        <!--app:imageUrl="https://www.edddsa.int/var/esa/storage/images/esa_multimedia/images/2017/11/autumn_fireball/17255671-1-eng-GB/Autumn_fireball.jpg"
+        app:userInitials="RG" /> -->
 
 </RelativeLayout>

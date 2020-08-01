@@ -6,7 +6,7 @@
     android:background="@drawable/user_avatar_background">
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/userAvatarInitials"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
@@ -19,10 +19,11 @@
         android:textSize="24sp" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/customViewImg"
+        android:id="@+id/userAvatarImage"
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:civ_border_width="2.1dp"
+        app:imageUrl=""
         app:civ_border_color="@color/fightPandemicsNeonBlue"/>
 
 </RelativeLayout>
