@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import com.fightpandemics.R
-import java.util.*
 
 abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
 
@@ -272,7 +271,6 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
         }
     }
 
-
     /*
      * Public instance methods
      */
@@ -363,7 +361,6 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
         setView(layoutId, numEntries, prepareDecorator, checkedDecorator, uncheckedDecorator)
         onRedrawn()
     }
-
 
     /*
        Protected instance methods
