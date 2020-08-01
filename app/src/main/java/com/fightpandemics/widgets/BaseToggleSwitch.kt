@@ -14,11 +14,9 @@ import java.util.*
 
 abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
 
-
     /*
-       Default Values
+     * Default Values
      */
-
     companion object Default {
 
         @JvmStatic private val BORDER_RADIUS_DP            = 4
@@ -55,34 +53,29 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
         @JvmStatic private val UNCHECKED_TEXT_COLOR        = R.color.fightPandemicsNero
     }
 
-
-
-
     /*
-       Instance Variables
+     * Instance Variables
      */
+    var checkedBackgroundColor: Int
+    var checkedBorderColor: Int
+    var checkedTextColor: Int
 
+    var borderRadius: Float
+    var borderWidth: Float
 
-    var checkedBackgroundColor:      Int
-    var checkedBorderColor:          Int
-    var checkedTextColor:            Int
+    var uncheckedBackgroundColor: Int
+    var uncheckedBorderColor: Int
+    var uncheckedTextColor: Int
 
-    var borderRadius:               Float
-    var borderWidth:                Float
-
-    var uncheckedBackgroundColor:    Int
-    var uncheckedBorderColor:        Int
-    var uncheckedTextColor:          Int
-
-    var separatorColor:             Int
+    var separatorColor: Int
     var separatorVisible = SEPARATOR_VISIBLE
 
-    var textSize:                   Float
+    var textSize: Float
 
     var toggleElevation = TOGGLE_ELEVATION
-    var toggleMargin:               Float
-    var toggleHeight:               Float
-    var toggleWidth:                Float
+    var toggleMargin: Float
+    var toggleHeight: Float
+    var toggleWidth: Float
 
     var layoutHeight = LAYOUT_HEIGHT
     var layoutWidth = LAYOUT_WIDTH
@@ -91,39 +84,38 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
     var numEntries = NUM_ENTRIES
 
     var prepareDecorator: ToggleSwitchButton.ToggleSwitchButtonDecorator = EMPTY_TOGGLE_DECORATOR
-    var checkedDecorator:    ToggleSwitchButton.ViewDecorator?    = null
-    var uncheckedDecorator:  ToggleSwitchButton.ViewDecorator?    = null
+    var checkedDecorator: ToggleSwitchButton.ViewDecorator? = null
+    var uncheckedDecorator: ToggleSwitchButton.ViewDecorator? = null
 
     var buttons = ArrayList<ToggleSwitchButton>()
 
     /*
-       Constructors
+     * Constructors
      */
-
     constructor(context: Context) : super(context) {
 
         // Setup View
         setUpView()
 
         // Set default params
-        checkedBackgroundColor       = ContextCompat.getColor(context, CHECKED_BACKGROUND_COLOR)
-        checkedBorderColor           = ContextCompat.getColor(context, CHECKED_BORDER_COLOR)
-        checkedTextColor             = ContextCompat.getColor(context, CHECKED_TEXT_COLOR)
+        checkedBackgroundColor = ContextCompat.getColor(context, CHECKED_BACKGROUND_COLOR)
+        checkedBorderColor = ContextCompat.getColor(context, CHECKED_BORDER_COLOR)
+        checkedTextColor = ContextCompat.getColor(context, CHECKED_TEXT_COLOR)
 
-        borderRadius                = dp2px(context, BORDER_RADIUS_DP.toFloat())
-        borderWidth                 = dp2px(context, BORDER_WIDTH.toFloat())
+        borderRadius = dp2px(context, BORDER_RADIUS_DP.toFloat())
+        borderWidth = dp2px(context, BORDER_WIDTH.toFloat())
 
-        uncheckedBackgroundColor     = ContextCompat.getColor(context, UNCHECKED_BACKGROUND_COLOR)
-        uncheckedBorderColor         = ContextCompat.getColor(context, UNCHECKED_BORDER_COLOR)
-        uncheckedTextColor           = ContextCompat.getColor(context, UNCHECKED_TEXT_COLOR)
+        uncheckedBackgroundColor = ContextCompat.getColor(context, UNCHECKED_BACKGROUND_COLOR)
+        uncheckedBorderColor = ContextCompat.getColor(context, UNCHECKED_BORDER_COLOR)
+        uncheckedTextColor = ContextCompat.getColor(context, UNCHECKED_TEXT_COLOR)
 
-        separatorColor              = ContextCompat.getColor(context, SEPARATOR_COLOR)
+        separatorColor = ContextCompat.getColor(context, SEPARATOR_COLOR)
 
-        textSize                    = dp2px(context, TEXT_SIZE)
+        textSize = dp2px(context, TEXT_SIZE)
 
-        toggleMargin                = dp2px(getContext(), TOGGLE_DISTANCE)
-        toggleHeight                = dp2px(getContext(), TOGGLE_HEIGHT)
-        toggleWidth                 = dp2px(getContext(), TOGGLE_WIDTH)
+        toggleMargin = dp2px(getContext(), TOGGLE_DISTANCE)
+        toggleHeight = dp2px(getContext(), TOGGLE_HEIGHT)
+        toggleWidth = dp2px(getContext(), TOGGLE_WIDTH)
     }
 
     constructor(context: Context, attrs: AttributeSet?) : super (context, attrs) {
@@ -131,10 +123,14 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
         if (attrs != null) {
             setUpView()
 
-            val attributes = context.obtainStyledAttributes(attrs, R.styleable.BaseToggleSwitch, 0, 0)
+            val attributes = context.obtainStyledAttributes(
+                attrs,
+                R.styleable.BaseToggleSwitch,
+                0,
+                0
+            )
 
             try {
-
                 checkedBackgroundColor = attributes.getColor(
                         R.styleable.BaseToggleSwitch_checkedBackgroundColor,
                         ContextCompat.getColor(context, CHECKED_BACKGROUND_COLOR))
@@ -207,7 +203,7 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
                         R.styleable.BaseToggleSwitch_android_layout_width,
                         LAYOUT_WIDTH)
 
-                val entries         = attributes.getTextArray(R.styleable.BaseToggleSwitch_android_entries)
+                val entries = attributes.getTextArray(R.styleable.BaseToggleSwitch_android_entries)
                 if (entries == null || entries.isEmpty()) {
 
                     val entriesList = ArrayList<String>()
@@ -240,9 +236,8 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
 
 
     /*
-        Overrode instance methods
-    */
-
+     *   Overrode instance methods
+     */
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
 
@@ -279,9 +274,8 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
 
 
     /*
-        Public instance methods
-    */
-
+     * Public instance methods
+     */
     fun setEntries(stringArrayId: Int) {
         setEntries(resources.getStringArray(stringArrayId))
     }
@@ -328,7 +322,6 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
 
     fun setView(layoutId: Int, numEntries: Int,
                 prepareDecorator: ToggleSwitchButton.ToggleSwitchButtonDecorator) {
-
         setView(layoutId, numEntries, prepareDecorator, null, null)
     }
 
@@ -375,7 +368,6 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
     /*
        Protected instance methods
      */
-
     protected abstract fun onRedrawn()
 
     protected fun manageSeparatorVisiblity() {
@@ -427,5 +419,4 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
                 LinearLayout.LayoutParams.MATCH_PARENT)
         orientation = HORIZONTAL
     }
-
 }
