@@ -13,43 +13,41 @@ import com.fightpandemics.R
 
 abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
 
-    /*
-     * Default Values
-     */
+    // Default Values
     companion object Default {
 
-        @JvmStatic private val BORDER_RADIUS_DP            = 4
-        @JvmStatic private val BORDER_WIDTH                = 1
+        @JvmStatic private val BORDER_RADIUS_DP = 4
+        @JvmStatic private val BORDER_WIDTH = 1
 
-        @JvmStatic private val CHECKED_BACKGROUND_COLOR    = R.color.fightPandemicsGhostWhite
-        @JvmStatic private val CHECKED_BORDER_COLOR        = R.color.fightPandemicsNeonBlue
-        @JvmStatic private val CHECKED_TEXT_COLOR          = R.color.fightPandemicsNeonBlue
+        @JvmStatic private val CHECKED_BACKGROUND_COLOR = R.color.fightPandemicsGhostWhite
+        @JvmStatic private val CHECKED_BORDER_COLOR = R.color.fightPandemicsNeonBlue
+        @JvmStatic private val CHECKED_TEXT_COLOR = R.color.fightPandemicsNeonBlue
 
-        @JvmStatic private val EMPTY_TOGGLE_DECORATOR      = object: ToggleSwitchButton.ToggleSwitchButtonDecorator {
+        @JvmStatic private val EMPTY_TOGGLE_DECORATOR = object: ToggleSwitchButton.ToggleSwitchButtonDecorator {
             override fun decorate(toggleSwitchButton: ToggleSwitchButton, view: View, position: Int) {}
         }
 
-        @JvmStatic private val ENABLED                     = true
+        @JvmStatic private val ENABLED = true
 
-        @JvmStatic private val LAYOUT_ID                   = R.layout.toggle_switch_button_view
-        @JvmStatic private val LAYOUT_HEIGHT               = LayoutParams.WRAP_CONTENT
-        @JvmStatic private val LAYOUT_WIDTH                = LayoutParams.WRAP_CONTENT
+        @JvmStatic private val LAYOUT_ID = R.layout.toggle_switch_button_view
+        @JvmStatic private val LAYOUT_HEIGHT = LayoutParams.WRAP_CONTENT
+        @JvmStatic private val LAYOUT_WIDTH = LayoutParams.WRAP_CONTENT
 
-        @JvmStatic private val NUM_ENTRIES                 = 0
+        @JvmStatic private val NUM_ENTRIES = 0
 
-        @JvmStatic private val SEPARATOR_COLOR             = R.color.fightPandemicsNero
-        @JvmStatic private val SEPARATOR_VISIBLE           = false
+        @JvmStatic private val SEPARATOR_COLOR = R.color.fightPandemicsNero
+        @JvmStatic private val SEPARATOR_VISIBLE = false
 
-        @JvmStatic private val TEXT_SIZE                   = 12f
+        @JvmStatic private val TEXT_SIZE = 12f
 
-        @JvmStatic private val TOGGLE_DISTANCE             = 0f
-        @JvmStatic private val TOGGLE_ELEVATION            = 0f
-        @JvmStatic private val TOGGLE_HEIGHT               = 38f
-        @JvmStatic private val TOGGLE_WIDTH                = 72f
+        @JvmStatic private val TOGGLE_DISTANCE = 0f
+        @JvmStatic private val TOGGLE_ELEVATION = 0f
+        @JvmStatic private val TOGGLE_HEIGHT = 38f
+        @JvmStatic private val TOGGLE_WIDTH = 72f
 
-        @JvmStatic private val UNCHECKED_BACKGROUND_COLOR  = R.color.fightPandemicsWhiteSmoke
-        @JvmStatic private val UNCHECKED_BORDER_COLOR      = R.color.fightPandemicsWhiteSmoke
-        @JvmStatic private val UNCHECKED_TEXT_COLOR        = R.color.fightPandemicsNero
+        @JvmStatic private val UNCHECKED_BACKGROUND_COLOR = R.color.fightPandemicsWhiteSmoke
+        @JvmStatic private val UNCHECKED_BORDER_COLOR = R.color.fightPandemicsWhiteSmoke
+        @JvmStatic private val UNCHECKED_TEXT_COLOR = R.color.fightPandemicsNero
     }
 
     /*
@@ -207,12 +205,12 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
 
                     val entriesList = ArrayList<String>()
 
-                    val textToggleLeft  = attributes.getString(R.styleable.BaseToggleSwitch_textToggleLeft)
+                    val textToggleLeft = attributes.getString(R.styleable.BaseToggleSwitch_textToggleLeft)
                     val textToggleRight = attributes.getString(R.styleable.BaseToggleSwitch_textToggleRight)
 
                     if (!TextUtils.isEmpty(textToggleLeft) && !TextUtils.isEmpty(textToggleRight)) {
                         textToggleLeft?.let{ entriesList.add(textToggleLeft) }
-                        val textToggleCenter  = attributes.getString(R.styleable.BaseToggleSwitch_textToggleCenter)
+                        val textToggleCenter = attributes.getString(R.styleable.BaseToggleSwitch_textToggleCenter)
                         if (!TextUtils.isEmpty(textToggleCenter)) {
                             textToggleCenter?.let{ entriesList.add(textToggleCenter)}
                         }
@@ -382,38 +380,40 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
        Private instance methods
      */
 
-    private fun areToggleSeparated() : Boolean {
+    private fun areToggleSeparated(): Boolean {
         return toggleMargin > 0
     }
 
-    private fun getPosition(index : Int, size: Int) : ToggleSwitchButton.PositionType {
-        if (index == 0) {
-            return ToggleSwitchButton.PositionType.LEFT
-        }
-        else if (index == size - 1) {
-            return ToggleSwitchButton.PositionType.RIGHT
-        }
-        else {
-            return ToggleSwitchButton.PositionType.CENTER
+    private fun getPosition(index: Int, size: Int): ToggleSwitchButton.PositionType {
+        return when (index) {
+            0 -> {
+                ToggleSwitchButton.PositionType.LEFT
+            }
+            size - 1 -> {
+                ToggleSwitchButton.PositionType.RIGHT
+            }
+            else -> {
+                ToggleSwitchButton.PositionType.CENTER
+            }
         }
     }
 
-    private fun hasBorder() : Boolean {
+    private fun hasBorder(): Boolean {
         return borderWidth > 0f
     }
 
-    private fun isFullHeight() : Boolean {
-        return layoutHeight == LinearLayout.LayoutParams.MATCH_PARENT
+    private fun isFullHeight(): Boolean {
+        return layoutHeight == LayoutParams.MATCH_PARENT
     }
 
-    private fun isFullWidth() : Boolean {
-        return layoutWidth == LinearLayout.LayoutParams.MATCH_PARENT
+    private fun isFullWidth(): Boolean {
+        return layoutWidth == LayoutParams.MATCH_PARENT
     }
 
     private fun setUpView() {
-        layoutParams = LinearLayout.LayoutParams(
+        layoutParams = LayoutParams(
                 LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.MATCH_PARENT)
+                LayoutParams.MATCH_PARENT)
         orientation = HORIZONTAL
     }
 }
