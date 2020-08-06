@@ -36,7 +36,7 @@ class ToggleSwitchButton (context: Context, var position: Int, var positionType:
     }
 
     var toggleWidth = 0
-    var toggleHeight = LinearLayout.LayoutParams.MATCH_PARENT
+    var toggleHeight = LayoutParams.MATCH_PARENT
     var isChecked = false
     var rightToLeftProvider: IRightToLeftProvider = this
 
@@ -64,7 +64,7 @@ class ToggleSwitchButton (context: Context, var position: Int, var positionType:
         val clickableWrapper: LinearLayout = findViewById(R.id.clickable_wrapper)
 
         // Setup View
-        val layoutParams = LinearLayout.LayoutParams(toggleWidth, toggleHeight, 1.0f)
+        val layoutParams = LayoutParams(toggleWidth, toggleHeight, 1.0f)
 
         if (toggleMargin > 0 && !isFirst()) {
             layoutParams.setMargins(toggleMargin, 0, 0, 0)
@@ -121,8 +121,9 @@ class ToggleSwitchButton (context: Context, var position: Int, var positionType:
     }
 
     private fun getCornerRadii(): FloatArray {
+        val size = 8
         return if (toggleMargin > 0) {
-            FloatArray(8) { borderRadius}
+            FloatArray(size) { borderRadius}
         } else {
             val isRightToLeft = rightToLeftProvider.isRightToLeft()
             when(positionType) {
@@ -132,7 +133,7 @@ class ToggleSwitchButton (context: Context, var position: Int, var positionType:
                 PositionType.RIGHT ->
                     if (isRightToLeft) getLeftCornerRadii() else getRightCornerRadii()
 
-                else -> FloatArray(8) { 0F }
+                else -> FloatArray(size) { 0F }
             }
         }
     }
@@ -150,11 +151,10 @@ class ToggleSwitchButton (context: Context, var position: Int, var positionType:
     }
 
     private fun isFirst() : Boolean {
-        if (rightToLeftProvider.isRightToLeft()) {
-            return positionType == PositionType.RIGHT
-        }
-        else {
-            return positionType == PositionType.LEFT
+        return if (rightToLeftProvider.isRightToLeft()) {
+            positionType == PositionType.RIGHT
+        } else {
+            positionType == PositionType.LEFT
         }
     }
 }

@@ -23,9 +23,9 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
         @JvmStatic private val CHECKED_BORDER_COLOR = R.color.fightPandemicsNeonBlue
         @JvmStatic private val CHECKED_TEXT_COLOR = R.color.fightPandemicsNeonBlue
 
-        @JvmStatic private val EMPTY_TOGGLE_DECORATOR = object: ToggleSwitchButton.ToggleSwitchButtonDecorator {
-            override fun decorate(toggleSwitchButton: ToggleSwitchButton, view: View, position: Int) {}
-        }
+//        @JvmStatic private val EMPTY_TOGGLE_DECORATOR = object: ToggleSwitchButton.ToggleSwitchButtonDecorator {
+//            override fun decorate(toggleSwitchButton: ToggleSwitchButton, view: View, position: Int) {}
+//        }
 
         @JvmStatic private val ENABLED = true
 
@@ -53,36 +53,37 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
     /*
      * Instance Variables
      */
-    var checkedBackgroundColor: Int
-    var checkedBorderColor: Int
-    var checkedTextColor: Int
+    private var checkedBackgroundColor: Int
+    private var checkedBorderColor: Int
+    private var checkedTextColor: Int
+    private val opacity = 0.6F
 
-    var borderRadius: Float
-    var borderWidth: Float
+    private var borderRadius: Float
+    private var borderWidth: Float
 
-    var uncheckedBackgroundColor: Int
-    var uncheckedBorderColor: Int
+    private var uncheckedBackgroundColor: Int
+    private var uncheckedBorderColor: Int
     var uncheckedTextColor: Int
 
-    var separatorColor: Int
-    var separatorVisible = SEPARATOR_VISIBLE
+    private var separatorColor: Int
+    private var separatorVisible = SEPARATOR_VISIBLE
 
-    var textSize: Float
+    private var textSize: Float
 
-    var toggleElevation = TOGGLE_ELEVATION
-    var toggleMargin: Float
-    var toggleHeight: Float
-    var toggleWidth: Float
+    private var toggleElevation = TOGGLE_ELEVATION
+    private var toggleMargin: Float
+    private var toggleHeight: Float
+    private var toggleWidth: Float
 
-    var layoutHeight = LAYOUT_HEIGHT
-    var layoutWidth = LAYOUT_WIDTH
+    private var layoutHeight = LAYOUT_HEIGHT
+    private var layoutWidth = LAYOUT_WIDTH
 
-    var layoutId = LAYOUT_ID
-    var numEntries = NUM_ENTRIES
+    private var layoutId = LAYOUT_ID
+    private var numEntries = NUM_ENTRIES
 
-    var prepareDecorator: ToggleSwitchButton.ToggleSwitchButtonDecorator = EMPTY_TOGGLE_DECORATOR
-    var checkedDecorator: ToggleSwitchButton.ViewDecorator? = null
-    var uncheckedDecorator: ToggleSwitchButton.ViewDecorator? = null
+//    var prepareDecorator: ToggleSwitchButton.ToggleSwitchButtonDecorator = EMPTY_TOGGLE_DECORATOR
+    private var checkedDecorator: ToggleSwitchButton.ViewDecorator? = null
+    private var uncheckedDecorator: ToggleSwitchButton.ViewDecorator? = null
 
     var buttons = ArrayList<ToggleSwitchButton>()
 
@@ -115,6 +116,7 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
         toggleWidth = dp2px(getContext(), TOGGLE_WIDTH)
     }
 
+    @Throws(RuntimeException::class)
     constructor(context: Context, attrs: AttributeSet?) : super (context, attrs) {
 
         if (attrs != null) {
@@ -239,11 +241,11 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
         super.onAttachedToWindow()
 
         for (button in buttons) {
-            if (!isFullWidth()) {
+            if (layoutWidth != LayoutParams.MATCH_PARENT) {
                 button.layoutParams.width = toggleWidth.toInt()
             }
 
-            if (!isFullHeight()) {
+            if (layoutHeight != LayoutParams.MATCH_PARENT) {
                 button.layoutParams.height = toggleHeight.toInt()
             }
         }
@@ -251,7 +253,8 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
 
     final override fun setEnabled(enabled: Boolean) {
         super.setEnabled(enabled)
-        alpha = if (enabled) 1f else .6f
+
+        alpha = if (enabled) 1f else opacity
     }
 
     final override fun setElevation(elevation: Float) {
@@ -272,15 +275,15 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
     /*
      * Public instance methods
      */
-    fun setEntries(stringArrayId: Int) {
-        setEntries(resources.getStringArray(stringArrayId))
-    }
+//    fun setEntries(stringArrayId: Int) {
+//        setEntries(resources.getStringArray(stringArrayId))
+//    }
 
-    fun setEntries(entries: Array<String>) {
-        setEntries(entries.toList())
-    }
+//    fun setEntries(entries: Array<String>) {
+//        setEntries(entries.toList())
+//    }
 
-    fun setEntries(entries : Array<CharSequence>) {
+    private fun setEntries(entries : Array<CharSequence>) {
         val entriesList = ArrayList<String>()
         for (entry in entries) {
             entriesList.add(entry.toString())
@@ -288,7 +291,7 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
         setEntries(entriesList)
     }
 
-    fun setEntries(entries : List<String>) {
+    private fun setEntries(entries : List<String>) {
 
         val prepareDecorator = object: ToggleSwitchButton.ToggleSwitchButtonDecorator {
             override fun decorate(toggleSwitchButton: ToggleSwitchButton, view: View, position: Int) {
@@ -312,23 +315,22 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
             }
         }
 
-        setView(R.layout.toggle_switch_button_view, entries.size,
-                prepareDecorator, checkedDecorator, uncheckedDecorator)
+        setView(entries.size, prepareDecorator, checkedDecorator, uncheckedDecorator)
     }
 
-    fun setView(layoutId: Int, numEntries: Int,
-                prepareDecorator: ToggleSwitchButton.ToggleSwitchButtonDecorator) {
-        setView(layoutId, numEntries, prepareDecorator, null, null)
-    }
+//    fun setView(layoutId: Int, numEntries: Int,
+//                prepareDecorator: ToggleSwitchButton.ToggleSwitchButtonDecorator) {
+//        setView(layoutId, numEntries, prepareDecorator, null, null)
+//    }
 
-    fun setView(layoutId: Int, numEntries: Int,
+    private fun setView(numEntries: Int,
                 prepareDecorator: ToggleSwitchButton.ToggleSwitchButtonDecorator,
                 checkedDecorator: ToggleSwitchButton.ViewDecorator?,
                 uncheckedDecorator: ToggleSwitchButton.ViewDecorator?) {
         removeAllViews()
         buttons.clear()
 
-        this.layoutId = layoutId
+        this.layoutId = R.layout.toggle_switch_button_view
         this.numEntries = numEntries
         this.checkedDecorator = checkedDecorator
         this.uncheckedDecorator = uncheckedDecorator
@@ -352,36 +354,30 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
             elevation = toggleElevation
         }
 
-        manageSeparatorVisiblity()
+        manageSeparatorVisibility()
     }
 
-    fun reDraw() {
-        setView(layoutId, numEntries, prepareDecorator, checkedDecorator, uncheckedDecorator)
-        onRedrawn()
-    }
+//    fun reDraw() {
+//        setView(layoutId, numEntries, prepareDecorator, checkedDecorator, uncheckedDecorator)
+//        onRedrawn()
+//    }
 
     /*
        Protected instance methods
      */
     protected abstract fun onRedrawn()
 
-    protected fun manageSeparatorVisiblity() {
+    protected fun manageSeparatorVisibility() {
         for ((index, button) in buttons.withIndex()) {
-            if (separatorVisible && index < buttons.size - 1 && !hasBorder() && !areToggleSeparated()) {
-                button.setSeparatorVisibility(button.isChecked == buttons[index + 1].isChecked)
+            if (separatorVisible && index < buttons.size - 1) {
+                if (borderWidth <= 0f && toggleMargin <= 0) {
+                    button.setSeparatorVisibility(button.isChecked == buttons[index + 1].isChecked)
+                }
             }
             else {
                 button.setSeparatorVisibility(false)
             }
         }
-    }
-
-    /*
-       Private instance methods
-     */
-
-    private fun areToggleSeparated(): Boolean {
-        return toggleMargin > 0
     }
 
     private fun getPosition(index: Int, size: Int): ToggleSwitchButton.PositionType {
@@ -396,18 +392,6 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
                 ToggleSwitchButton.PositionType.CENTER
             }
         }
-    }
-
-    private fun hasBorder(): Boolean {
-        return borderWidth > 0f
-    }
-
-    private fun isFullHeight(): Boolean {
-        return layoutHeight == LayoutParams.MATCH_PARENT
-    }
-
-    private fun isFullWidth(): Boolean {
-        return layoutWidth == LayoutParams.MATCH_PARENT
     }
 
     private fun setUpView() {

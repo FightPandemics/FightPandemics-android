@@ -20,17 +20,16 @@ class FPSwitch(context: Context, attrs: AttributeSet?) : BaseToggleSwitch(contex
                 toggleSwitchButton.uncheck()
             }
         }
-        manageSeparatorVisiblity()
+        manageSeparatorVisibility()
     }
 
-    var onChangeListener : OnChangeListener? = null
-
+    private var onChangeListener : OnChangeListener? = null
 
     override fun onRedrawn() {
         val currentToggleSwitch = buttons[checkedPosition]
         currentToggleSwitch.check()
         currentToggleSwitch.isClickable = false
-        manageSeparatorVisiblity()
+        manageSeparatorVisibility()
     }
 
     override fun onToggleSwitchClicked(button: ToggleSwitchButton) {
@@ -42,7 +41,7 @@ class FPSwitch(context: Context, attrs: AttributeSet?) : BaseToggleSwitch(contex
 
             button.check()
 
-            manageSeparatorVisiblity()
+            manageSeparatorVisibility()
 
             onChangeListener?.onToggleSwitchChanged(checkedPosition)
         }
