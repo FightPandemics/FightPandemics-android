@@ -10,6 +10,6 @@ class UserAvatarTest : AppCompatActivity() {
         setContentView(R.layout.activity_user_test)
 
         val ua = findViewById<UserAvatar>(R.id.userAvatar)
-        ua.setUpUserAvatar("RG", "https://www.hdwallpaper.nu/wp-content/uploads/2017/03/valley-16.jpg", this)
+        ua.setUpUserAvatar(userNameInitials = "RG")
     }
 }

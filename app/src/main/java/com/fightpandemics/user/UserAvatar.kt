@@ -42,24 +42,7 @@ class UserAvatar : RelativeLayout {
         }
     }
 
-    fun setUpUserAvatar(context: Context) {
-        val v: View = mInflater.inflate(R.layout.user_avatar_view, this, true)
-        val userImg = v.findViewById(R.id.userAvatarImage) as ImageView
-        val userInitials = v.findViewById(R.id.userAvatarInitials) as TextView
-
-        val imageRequest = ImageRequest(this.imageUrl, Response.Listener {
-            userImg.setImageBitmap(it)
-        }, userImg.layoutParams.width, userImg.layoutParams.height, ImageView.ScaleType.CENTER_CROP, Bitmap.Config.ARGB_8888,
-            Response.ErrorListener {
-                userImg.visibility = View.GONE
-                userInitials.text = this.userInitials
-            })
-
-        val rQueue = Volley.newRequestQueue(context)
-        rQueue.add(imageRequest)
-    }
-
-    fun setUpUserAvatar(userNameInitials: String, userAvatarURL: String, context: Context) {
+    fun setUpUserAvatar(userNameInitials: String = "NN", userAvatarURL: String = "") {
         val v: View = mInflater.inflate(R.layout.user_avatar_view, this, true)
         val userImg = v.findViewById(R.id.userAvatarImage) as ImageView
         val userInitials = v.findViewById(R.id.userAvatarInitials) as TextView
@@ -72,15 +55,7 @@ class UserAvatar : RelativeLayout {
                 userInitials.text = userNameInitials
             })
 
-        val rQueue = Volley.newRequestQueue(context)
+        val rQueue = Volley.newRequestQueue(this.context)
         rQueue.add(imageRequest)
-    }
-
-    fun setUpUserAvatar(userNameInitials: String) {
-        val v: View = mInflater.inflate(R.layout.user_avatar_view, this, true)
-        val userInitials = v.findViewById(R.id.userAvatarInitials) as TextView
-        val userImg = v.findViewById(R.id.userAvatarImage) as ImageView
-        userImg.visibility = View.GONE
-        userInitials.text = userNameInitials
     }
 }
