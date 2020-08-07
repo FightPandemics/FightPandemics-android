@@ -2,7 +2,6 @@ package com.fightpandemics.home
 
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +9,12 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.ActionBar
 import androidx.core.view.marginBottom
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import com.fightpandemics.R
-import com.fightpandemics.base.BaseActivity
-import com.fightpandemics.util.applyStyle
+import com.fightpandemics.ui.base.BaseActivity
+import com.fightpandemics.ui.utils.applyStyle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_tab_appbar.*

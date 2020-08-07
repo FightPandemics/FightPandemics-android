@@ -1,7 +1,7 @@
-package com.fightpandemics.base
+package com.fightpandemics.ui.base
 
 import androidx.fragment.app.Fragment
-import com.fightpandemics.App
+import com.fightpandemics.ui.App
 import com.fightpandemics.di.component.AppComponent
 
 abstract class BaseFragment : Fragment() {

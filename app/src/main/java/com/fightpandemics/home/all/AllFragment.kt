@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fightpandemics.R
-import com.fightpandemics.base.BaseFragment
+import com.fightpandemics.ui.base.BaseFragment
 import com.fightpandemics.di.component.DaggerAllFragmentComponent
 import com.fightpandemics.di.module.AllFragmentModule
 import kotlinx.android.synthetic.main.fragment_all.*

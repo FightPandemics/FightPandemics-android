@@ -1,7 +1,7 @@
-package com.fightpandemics.base
+package com.fightpandemics.ui.base
 
 import androidx.appcompat.app.AppCompatActivity
-import com.fightpandemics.App
+import com.fightpandemics.ui.App
 import com.fightpandemics.di.component.AppComponent
 
 abstract class BaseActivity : AppCompatActivity() {

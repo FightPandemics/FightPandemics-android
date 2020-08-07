@@ -1,4 +1,4 @@
-package com.fightpandemics
+package com.fightpandemics.ui
 
 import android.app.Application
 import com.fightpandemics.di.component.AppComponent
