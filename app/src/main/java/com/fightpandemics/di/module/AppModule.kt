@@ -1,7 +1,7 @@
 package com.fightpandemics.di.module
 
 import android.content.res.Resources
-import com.fightpandemics.App
+import com.fightpandemics.ui.App
 import com.fightpandemics.di.scope.ApplicationScope
 import dagger.Module
 import dagger.Provides
