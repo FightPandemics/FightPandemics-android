@@ -51,7 +51,8 @@ class UserAvatar : RelativeLayout {
             userAvatarURL,
             Response.Listener {
                 userImg.setImageBitmap(it)
-            }, userImg.layoutParams.width,
+            },
+            userImg.layoutParams.width,
             userImg.layoutParams.height,
             ImageView.ScaleType.CENTER_CROP,
             Bitmap.Config.ARGB_8888,
