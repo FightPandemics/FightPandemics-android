@@ -14,7 +14,7 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     </androidx.viewpager.widget.ViewPager>
 
@@ -22,14 +22,14 @@
         android:id="@+id/fabCreateAsOrg"
         layout="@layout/item_button_create_as_org" />
 
-    
+
     <include
         android:id="@+id/fabCreateAsIndividual"
         layout="@layout/item_button_create_as_individual" />
 
     <include
         android:id="@+id/fab"
-        layout="@layout/item_fab_add"/>
+        layout="@layout/item_fab_add" />
 
     <include
         android:id="@+id/dot"
@@ -37,7 +37,7 @@
 
     <include
         android:id="@+id/bottomNavBar"
-        layout="@layout/item_bottom_nav_view"/>
+        layout="@layout/item_bottom_nav_view" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

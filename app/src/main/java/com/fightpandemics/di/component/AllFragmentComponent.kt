@@ -6,8 +6,10 @@ import com.fightpandemics.home.all.AllFragment
 import dagger.Component
 
 @ActivityScope
-@Component(modules = [AllFragmentModule::class],
-    dependencies = [AppComponent::class])
+@Component(
+    modules = [AllFragmentModule::class],
+    dependencies = [AppComponent::class]
+)
 interface AllFragmentComponent {
 
     fun inject(allFragment: AllFragment)

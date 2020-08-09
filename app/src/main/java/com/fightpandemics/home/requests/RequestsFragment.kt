@@ -11,7 +11,7 @@ import com.fightpandemics.di.module.RequestsFragmentModule
 import kotlinx.android.synthetic.main.fragment_offers.*
 import javax.inject.Inject
 
-class RequestsFragment: BaseFragment(), RequestsContract.View {
+class RequestsFragment : BaseFragment(), RequestsContract.View {
 
     @Inject
     lateinit var presenter: RequestsPresenter

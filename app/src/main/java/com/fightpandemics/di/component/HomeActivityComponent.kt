@@ -6,8 +6,10 @@ import com.fightpandemics.home.HomeActivity
 import dagger.Component
 
 @ActivityScope
-@Component(modules = [HomeActivityModule::class],
-    dependencies = [AppComponent::class])
+@Component(
+    modules = [HomeActivityModule::class],
+    dependencies = [AppComponent::class]
+)
 interface HomeActivityComponent {
 
     fun inject(homeActivity: HomeActivity)
