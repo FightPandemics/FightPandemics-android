@@ -44,9 +44,9 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        //injectDependencies()
+        // injectDependencies()
         initFabActions()
-        setupUi()
+        setupUI()
         initBottomNavBar()
         initIcons()
         handleBottomNavSelection(0)
@@ -64,7 +64,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         profile = menu.menu.getItem(3)
     }
 
-    private fun setupUi() {
+    private fun setupUI() {
         val sectionsPagerAdapter = SectionsPagerAdapter(
             this,
             supportFragmentManager
@@ -157,10 +157,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val width = displayMetrics.widthPixels
         when (location) {
-            //long decimals below so that with any screen size, the dot will be placed correctly instead of hardcoded values
+            // long decimals below so that with any screen size, the dot will be placed correctly instead of hardcoded values
             1 -> {
                 layoutParams.setMargins(
-                    ((0.118333333 * width).toInt()),
+                    ((0.118333333 * width).toInt()), // TODO: This expression contains a magic number. Consider defining it to a well named constant.
                     dot.marginTop,
                     dot.marginRight,
                     dot.marginBottom
@@ -168,7 +168,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
             }
             2 -> {
                 layoutParams.setMargins(
-                    ((0.37083333 * width).toInt()),
+                    ((0.37083333 * width).toInt()), // TODO: This expression contains a magic number. Consider defining it to a well named constant.
                     dot.marginTop,
                     dot.marginRight,
                     dot.marginBottom
@@ -176,7 +176,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
             }
             3 -> {
                 layoutParams.setMargins(
-                    ((0.61666667 * width).toInt()),
+                    ((0.61666667 * width).toInt()), // TODO: This expression contains a magic number. Consider defining it to a well named constant.
                     dot.marginTop,
                     dot.marginRight,
                     dot.marginBottom
@@ -184,7 +184,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
             }
             else -> {
                 layoutParams.setMargins(
-                    ((0.86666667 * width).toInt()),
+                    ((0.86666667 * width).toInt()), // TODO: This expression contains a magic number. Consider defining it to a well named constant.
                     dot.marginTop,
                     dot.marginRight,
                     dot.marginBottom
