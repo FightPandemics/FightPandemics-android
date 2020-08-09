@@ -2,7 +2,6 @@ package com.fightpandemics.home
 
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.ActionBar
 import androidx.core.view.marginBottom
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
@@ -30,18 +28,18 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     private var isFabOpen = false
 
-    private lateinit var fabOpen : Animation
-    private lateinit var fabClose : Animation
-    private lateinit var rotateForward : Animation
-    private lateinit var rotateBackward : Animation
+    private lateinit var fabOpen: Animation
+    private lateinit var fabClose: Animation
+    private lateinit var rotateForward: Animation
+    private lateinit var rotateBackward: Animation
 
-    private lateinit var menu : BottomNavigationView
+    private lateinit var menu: BottomNavigationView
 
-    private lateinit var home : MenuItem
-    private lateinit var search : MenuItem
-    private lateinit var inbox : MenuItem
-    private lateinit var profile : MenuItem
-    private lateinit var dot : ImageView
+    private lateinit var home: MenuItem
+    private lateinit var search: MenuItem
+    private lateinit var inbox: MenuItem
+    private lateinit var profile: MenuItem
+    private lateinit var dot: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,7 +86,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     private fun fabAction() {
-        if(isFabOpen){
+        if (isFabOpen) {
             hideFabActions()
         } else {
             showFabActions()
@@ -117,41 +115,42 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         isFabOpen = true
     }
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.home -> {
-                handleBottomNavSelection(0)
-                return@OnNavigationItemSelectedListener true
-            }
+    private val mOnNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    handleBottomNavSelection(0)
+                    return@OnNavigationItemSelectedListener true
+                }
 
-            R.id.search -> {
-                handleBottomNavSelection(1)
-                return@OnNavigationItemSelectedListener true
-            }
+                R.id.search -> {
+                    handleBottomNavSelection(1)
+                    return@OnNavigationItemSelectedListener true
+                }
 
-            R.id.inbox -> {
-                handleBottomNavSelection(2)
-                return@OnNavigationItemSelectedListener true
-            }
+                R.id.inbox -> {
+                    handleBottomNavSelection(2)
+                    return@OnNavigationItemSelectedListener true
+                }
 
-            R.id.profile -> {
-                handleBottomNavSelection(3)
-                return@OnNavigationItemSelectedListener true
+                R.id.profile -> {
+                    handleBottomNavSelection(3)
+                    return@OnNavigationItemSelectedListener true
+                }
+
             }
-           
+            false
         }
-        false
-    }
 
     private fun handleBottomNavSelection(index: Int) {
-        home.title = if(index == 0) "" else getString(R.string.home)
-        search.title = if(index == 1) "" else getString(R.string.search)
-        inbox.title = if(index == 2) "" else getString(R.string.inbox)
-        profile.title = if(index == 3) "" else getString(R.string.profile)
-        changeDotLocation(index+1)
+        home.title = if (index == 0) "" else getString(R.string.home)
+        search.title = if (index == 1) "" else getString(R.string.search)
+        inbox.title = if (index == 2) "" else getString(R.string.inbox)
+        profile.title = if (index == 3) "" else getString(R.string.profile)
+        changeDotLocation(index + 1)
     }
 
-    private fun changeDotLocation(location : Int) {
+    private fun changeDotLocation(location: Int) {
         dot = findViewById<ImageView>(R.id.dot)
         val layoutParams = dot.layoutParams as ViewGroup.MarginLayoutParams
         val displayMetrics = DisplayMetrics()
@@ -160,16 +159,36 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         when (location) {
             //long decimals below so that with any screen size, the dot will be placed correctly instead of hardcoded values
             1 -> {
-                layoutParams.setMargins(((0.118333333 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
+                layoutParams.setMargins(
+                    ((0.118333333 * width).toInt()),
+                    dot.marginTop,
+                    dot.marginRight,
+                    dot.marginBottom
+                )
             }
             2 -> {
-                layoutParams.setMargins(((0.37083333 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
+                layoutParams.setMargins(
+                    ((0.37083333 * width).toInt()),
+                    dot.marginTop,
+                    dot.marginRight,
+                    dot.marginBottom
+                )
             }
             3 -> {
-                layoutParams.setMargins(((0.61666667 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
+                layoutParams.setMargins(
+                    ((0.61666667 * width).toInt()),
+                    dot.marginTop,
+                    dot.marginRight,
+                    dot.marginBottom
+                )
             }
             else -> {
-                layoutParams.setMargins(((0.86666667 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
+                layoutParams.setMargins(
+                    ((0.86666667 * width).toInt()),
+                    dot.marginTop,
+                    dot.marginRight,
+                    dot.marginBottom
+                )
             }
         }
 
@@ -179,8 +198,8 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     private fun initFabActions() {
         fabOpen = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
-        fabClose = AnimationUtils.loadAnimation(applicationContext,R.anim.fab_close)
-        rotateForward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_forward)
-        rotateBackward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_backward)
+        fabClose = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_close)
+        rotateForward = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate_forward)
+        rotateBackward = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate_backward)
     }
 }
