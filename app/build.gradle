@@ -98,4 +98,7 @@ dependencies {
     def lifecycle = "2.2.0"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
+
+    // Timber - Logging Library
+    implementation "com.jakewharton.timber:timber:4.7.1"
 }
