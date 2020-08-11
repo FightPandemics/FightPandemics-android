@@ -2,11 +2,9 @@ package com.fightpandemics.home
 
 interface HomeContract {
 
-    interface Presenter {
-
+    interface Presenter { // TODO: The class or object Presenter is empty.
     }
 
-    interface View {
-
+    interface View { // TODO: The class or object Presenter is empty.
     }
 }

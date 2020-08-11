@@ -6,7 +6,7 @@ import com.google.android.material.tabs.TabLayout
 
 class OnTabSelected : TabLayout.OnTabSelectedListener {
 
-    override fun onTabReselected(tab: TabLayout.Tab) {
+    override fun onTabReselected(tab: TabLayout.Tab) { // TODO: add or remove
     }
 
     override fun onTabUnselected(tab: TabLayout.Tab) {

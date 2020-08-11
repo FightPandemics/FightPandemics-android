@@ -17,8 +17,7 @@ class AllFragment : BaseFragment(), AllContract.View {
     lateinit var presenter: AllPresenter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_all, container, false)
         injectDependencies()
