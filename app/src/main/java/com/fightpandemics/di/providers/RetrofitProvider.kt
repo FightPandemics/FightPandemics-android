@@ -6,10 +6,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitProvider {
 
-    fun provide(converterFactory: GsonConverterFactory, client: OkHttpClient): Retrofit =
-        Retrofit.Builder()
+    fun provide(converterFactory: GsonConverterFactory, client: OkHttpClient): Retrofit = Retrofit.Builder()
         .addConverterFactory(converterFactory)
         .client(client)
         .baseUrl("")
         .build()
+
 }

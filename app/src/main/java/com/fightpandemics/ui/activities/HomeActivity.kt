@@ -14,14 +14,10 @@ import androidx.core.view.marginBottom
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import com.fightpandemics.R
-import com.fightpandemics.ui.base.BaseActivity
-import com.fightpandemics.ui.home.HomeContract
-import com.fightpandemics.ui.home.HomePresenter
 import com.fightpandemics.utils.applyStyle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_tab_appbar.*
-import javax.inject.Inject
 
 
 class HomeActivity : AppCompatActivity() {
@@ -44,7 +40,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        //injectDependencies()
         initFabActions()
         setupUi()
         initBottomNavBar()
