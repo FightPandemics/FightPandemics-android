@@ -1,13 +1,13 @@
 package com.fightpandemics.di.providers
 
-import android.util.Log
 import okhttp3.logging.HttpLoggingInterceptor
+import timber.log.Timber
 
 object HttpLoggingInterceptorProvider {
 
     fun provide() = HttpLoggingInterceptor(object: HttpLoggingInterceptor.Logger {
         override fun log(message: String) {
-            Log.v("HTTPLogger", message)
+            Timber.v(message)
         }
     }).apply {
         level = HttpLoggingInterceptor.Level.BODY
