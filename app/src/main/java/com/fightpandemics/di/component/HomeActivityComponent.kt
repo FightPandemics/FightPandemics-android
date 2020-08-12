@@ -2,7 +2,7 @@ package com.fightpandemics.di.component
 
 import com.fightpandemics.di.module.HomeActivityModule
 import com.fightpandemics.di.scope.ActivityScope
-import com.fightpandemics.home.HomeActivity
+import com.fightpandemics.ui.activities.HomeActivity
 import dagger.Component
 
 @ActivityScope

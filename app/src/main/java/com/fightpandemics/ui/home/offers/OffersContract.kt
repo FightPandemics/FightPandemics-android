@@ -1,4 +1,4 @@
-package com.fightpandemics.home.offers
+package com.fightpandemics.ui.home.offers
 
 interface OffersContract {
     interface Presenter {

@@ -1,10 +1,7 @@
 package com.fightpandemics.ui
 
 import android.app.Application
-import com.fightpandemics.di.apiServiceModule
-import com.fightpandemics.di.daoModule
-import com.fightpandemics.di.dbModule
-import com.fightpandemics.di.networkModule
+import com.fightpandemics.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
@@ -30,7 +27,8 @@ class App : Application() {
                 dbModule,
                 daoModule,
                 networkModule,
-                apiServiceModule
+                apiServiceModule,
+                viewModelModule
             ))
         }
     }

@@ -2,7 +2,7 @@ package com.fightpandemics.di.component
 
 import com.fightpandemics.di.module.OffersFragmentModule
 import com.fightpandemics.di.scope.ActivityScope
-import com.fightpandemics.home.offers.OffersFragment
+import com.fightpandemics.ui.home.offers.OffersFragment
 import dagger.Component
 
 @ActivityScope

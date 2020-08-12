@@ -2,7 +2,7 @@ package com.fightpandemics.di.component
 
 import com.fightpandemics.di.module.RequestsFragmentModule
 import com.fightpandemics.di.scope.ActivityScope
-import com.fightpandemics.home.requests.RequestsFragment
+import com.fightpandemics.ui.home.requests.RequestsFragment
 import dagger.Component
 
 @ActivityScope

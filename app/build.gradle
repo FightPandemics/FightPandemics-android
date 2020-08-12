@@ -30,6 +30,11 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
+//    buildFeatures {
+//        dataBinding true
+//        viewBinding true
+//    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -65,7 +70,7 @@ dependencies {
     // LiveEvent - Library to emit single event
     implementation "com.github.hadilq.liveevent:liveevent:1.2.0"
 
-    //koin - Dependency Injection library
+    // koin - Dependency Injection library
     def koin = "2.1.5"
     implementation "org.koin:koin-test:$koin"
     implementation "org.koin:koin-androidx-viewmodel:$koin"
@@ -94,11 +99,19 @@ dependencies {
     kapt "androidx.room:room-compiler:$room"
     implementation "androidx.room:room-ktx:$room"
 
-    //Lifecycle
+    // Lifecycle
     def lifecycle = "2.2.0"
+    def fragment_version = "1.2.5"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha06"
 
     // Timber - Logging Library
     implementation "com.jakewharton.timber:timber:4.7.1"
+
+    // Navigation
+    def nav_version = "2.3.0"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 }

@@ -2,7 +2,7 @@ package com.fightpandemics.di.component
 
 import com.fightpandemics.di.module.AllFragmentModule
 import com.fightpandemics.di.scope.ActivityScope
-import com.fightpandemics.home.all.AllFragment
+import com.fightpandemics.ui.home.all.AllFragment
 import dagger.Component
 
 @ActivityScope

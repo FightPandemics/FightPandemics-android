@@ -1,4 +1,4 @@
-package com.fightpandemics.home
+package com.fightpandemics.ui.activities
 
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -9,22 +9,22 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginBottom
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import com.fightpandemics.R
 import com.fightpandemics.ui.base.BaseActivity
-import com.fightpandemics.ui.utils.applyStyle
+import com.fightpandemics.ui.home.HomeContract
+import com.fightpandemics.ui.home.HomePresenter
+import com.fightpandemics.utils.applyStyle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_tab_appbar.*
 import javax.inject.Inject
 
 
-class HomeActivity : BaseActivity(), HomeContract.View {
-
-    @Inject
-    lateinit var presenter: HomePresenter
+class HomeActivity : AppCompatActivity() {
 
     private var isFabOpen = false
 
@@ -65,10 +65,11 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     private fun setupUi() {
-        val sectionsPagerAdapter = SectionsPagerAdapter(
-            this,
-            supportFragmentManager
-        )
+        val sectionsPagerAdapter =
+            SectionsPagerAdapter(
+                this,
+                supportFragmentManager
+            )
         view_pager.adapter = sectionsPagerAdapter
         tabs.setupWithViewPager(view_pager)
 

@@ -1,4 +1,4 @@
-package com.fightpandemics.home.all
+package com.fightpandemics.ui.home.all
 
 interface AllContract {
     interface Presenter {
