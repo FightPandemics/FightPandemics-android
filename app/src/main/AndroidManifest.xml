@@ -12,7 +12,7 @@
         android:name=".ui.App" >
 
         <activity
-            android:name=".home.HomeActivity"
+            android:name="com.fightpandemics.ui.activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>

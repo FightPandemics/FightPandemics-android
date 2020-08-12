@@ -1,13 +1,13 @@
-package com.fightpandemics.home
+package com.fightpandemics.ui.activities
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.fightpandemics.R
-import com.fightpandemics.home.all.AllFragment
-import com.fightpandemics.home.offers.OffersFragment
-import com.fightpandemics.home.requests.RequestsFragment
+import com.fightpandemics.ui.home.all.AllFragment
+import com.fightpandemics.ui.home.offers.OffersFragment
+import com.fightpandemics.ui.home.requests.RequestsFragment
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_all,

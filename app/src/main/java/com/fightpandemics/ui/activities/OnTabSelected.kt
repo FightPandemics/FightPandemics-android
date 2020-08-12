@@ -1,7 +1,7 @@
-package com.fightpandemics.home
+package com.fightpandemics.ui.activities
 
 import android.widget.TextView
-import com.fightpandemics.ui.utils.applyStyle
+import com.fightpandemics.utils.applyStyle
 import com.google.android.material.tabs.TabLayout
 
 class OnTabSelected : TabLayout.OnTabSelectedListener {

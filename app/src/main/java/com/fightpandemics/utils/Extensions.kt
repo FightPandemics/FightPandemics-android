@@ -1,4 +1,4 @@
-package com.fightpandemics.ui.utils
+package com.fightpandemics.utils
 
 import android.os.Build
 import android.widget.TextView

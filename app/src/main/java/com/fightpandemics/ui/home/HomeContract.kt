@@ -1,4 +1,4 @@
-package com.fightpandemics.home
+package com.fightpandemics.ui.home
 
 interface HomeContract {
 

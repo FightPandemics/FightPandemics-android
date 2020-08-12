@@ -1,4 +1,4 @@
-package com.fightpandemics.home.requests
+package com.fightpandemics.ui.home.requests
 
 import javax.inject.Inject
 

@@ -1,8 +1,8 @@
 package com.fightpandemics.di.module
 
 import com.fightpandemics.di.scope.ActivityScope
-import com.fightpandemics.home.all.AllContract
-import com.fightpandemics.home.all.AllPresenter
+import com.fightpandemics.ui.home.all.AllContract
+import com.fightpandemics.ui.home.all.AllPresenter
 import dagger.Module
 import dagger.Provides
 
