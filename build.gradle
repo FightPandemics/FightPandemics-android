@@ -25,8 +25,8 @@ buildscript {
             'lottie'             : '3.0.2',
             'material'           : '1.1.0-alpha05',
             'navigationVersion'  : '2.3.0-alpha06',
-            'okhttp'             : '4.6.0',
-            'retrofit'           : '2.8.1',
+            'okhttp'             : '4.7.2',
+            'retrofit'           : '2.9.0',
             'room'               : '2.2.5',
             'timber'             : '4.7.1',
             'viewPager2'         : '1.0.0'
