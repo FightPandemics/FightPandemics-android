@@ -19,7 +19,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.item_tab_appbar.*
 
-
 class HomeActivity : AppCompatActivity() {
 
     private var isFabOpen = false

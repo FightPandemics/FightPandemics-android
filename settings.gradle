@@ -1,2 +1,3 @@
 rootProject.name = 'Fight Pandemics'
 include ':app'
+include ':core'
