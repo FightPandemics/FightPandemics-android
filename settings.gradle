@@ -1,3 +1,4 @@
-rootProject.name = 'Fight Pandemics'
+include ':login'
+rootProject.name='Fight Pandemics'
 include ':app'
 include ':core'
