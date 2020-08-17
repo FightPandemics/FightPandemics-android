@@ -18,4 +18,5 @@ class OnTabSelected : TabLayout.OnTabSelectedListener {
     }
 
     private fun getTextView(tab: TabLayout.Tab): TextView? = tab.customView as? TextView
+
 }

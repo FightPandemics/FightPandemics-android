@@ -201,3 +201,4 @@ class HomeActivity : AppCompatActivity() {
         rotateBackward = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate_backward)
     }
 }
+

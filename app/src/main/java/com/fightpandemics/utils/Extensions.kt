@@ -12,3 +12,4 @@ fun TextView.applyStyle(isSelected: Boolean) {
         this.setTextAppearance(context, style)
     }
 }
+
