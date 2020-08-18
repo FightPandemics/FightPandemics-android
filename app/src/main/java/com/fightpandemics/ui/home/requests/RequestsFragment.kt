@@ -14,7 +14,8 @@ class RequestsFragment: Fragment() {
     private val viewModel: RequestsViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_requests, container, false)

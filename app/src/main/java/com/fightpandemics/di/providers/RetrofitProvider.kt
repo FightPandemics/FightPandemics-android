@@ -11,5 +11,4 @@ object RetrofitProvider {
         .client(client)
         .baseUrl("")
         .build()
-
 }

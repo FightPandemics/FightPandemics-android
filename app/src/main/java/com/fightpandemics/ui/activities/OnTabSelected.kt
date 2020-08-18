@@ -6,7 +6,7 @@ import com.google.android.material.tabs.TabLayout
 
 class OnTabSelected : TabLayout.OnTabSelectedListener {
 
-    override fun onTabReselected(tab: TabLayout.Tab) { // TODO: add or remove
+    override fun onTabReselected(tab: TabLayout.Tab) { // TO DO: add or remove
     }
 
     override fun onTabUnselected(tab: TabLayout.Tab) {
@@ -18,5 +18,4 @@ class OnTabSelected : TabLayout.OnTabSelectedListener {
     }
 
     private fun getTextView(tab: TabLayout.Tab): TextView? = tab.customView as? TextView
-
 }

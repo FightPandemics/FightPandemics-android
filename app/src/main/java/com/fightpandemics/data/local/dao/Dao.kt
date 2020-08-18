@@ -7,5 +7,4 @@ import androidx.room.Dao
  * Please refactor to make use of custom names
  */
 @Dao
-interface Dao {
-}
+interface Dao

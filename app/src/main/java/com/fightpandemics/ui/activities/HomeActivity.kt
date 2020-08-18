@@ -156,7 +156,7 @@ class HomeActivity : AppCompatActivity() {
             1 -> {
                 layoutParams.setMargins(
                     ((0.118333333 * width).toInt()),
-                    // TODO: This expression contains a magic number. Consider defining it to a well named constant.
+                    // TO DO: This expression contains a magic number. Consider defining it to a well named constant.
                     dot.marginTop,
                     dot.marginRight,
                     dot.marginBottom
@@ -165,7 +165,7 @@ class HomeActivity : AppCompatActivity() {
             2 -> {
                 layoutParams.setMargins(
                     ((0.37083333 * width).toInt()),
-                    // TODO: This expression contains a magic number. Consider defining it to a well named constant.
+                    // TO DO: This expression contains a magic number. Consider defining it to a well named constant.
                     dot.marginTop,
                     dot.marginRight,
                     dot.marginBottom
@@ -174,7 +174,7 @@ class HomeActivity : AppCompatActivity() {
             3 -> {
                 layoutParams.setMargins(
                     ((0.61666667 * width).toInt()),
-                    // TODO: This expression contains a magic number. Consider defining it to a well named constant.
+                    // TO DO: This expression contains a magic number. Consider defining it to a well named constant.
                     dot.marginTop,
                     dot.marginRight,
                     dot.marginBottom
@@ -183,7 +183,7 @@ class HomeActivity : AppCompatActivity() {
             else -> {
                 layoutParams.setMargins(
                     ((0.86666667 * width).toInt()),
-                    // TODO: This expression contains a magic number. Consider defining it to a well named constant.
+                    // TO DO: This expression contains a magic number. Consider defining it to a well named constant.
                     dot.marginTop,
                     dot.marginRight,
                     dot.marginBottom
@@ -201,4 +201,3 @@ class HomeActivity : AppCompatActivity() {
         rotateBackward = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate_backward)
     }
 }
-

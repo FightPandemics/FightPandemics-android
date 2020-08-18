@@ -8,12 +8,12 @@ import java.net.SocketTimeoutException
 
 open class ResponseHandler {
 
-    fun <T: Any> handleSuccess(data: T): Resource<T> {
+    fun <T : Any> handleSuccess(data: T): Resource<T> {
         return Resource.Success(data)
     }
 
-    fun <T: Any> handleException(e: Exception): Resource<T> {
-        return when(e) {
+    fun <T : Any> handleException(e: Exception): Resource<T> {
+        return when (e) {
             is HttpException -> Resource.Error(getErrorMessage(e.code()), e)
             is SocketTimeoutException -> Resource.Error(getErrorMessage(ErrorCode.SETTINGS_TIMEOUT.httpCode), e)
             else -> Resource.Error(getErrorMessage(Int.MAX_VALUE), e)
@@ -21,7 +21,7 @@ open class ResponseHandler {
     }
 
     private fun getErrorMessage(code: Int): String {
-        return when(code) {
+        return when (code) {
             ErrorCode.SETTINGS_TIMEOUT.httpCode -> "Timeout"
             400 -> "Bad Request"
             401 -> "Unauthorised"

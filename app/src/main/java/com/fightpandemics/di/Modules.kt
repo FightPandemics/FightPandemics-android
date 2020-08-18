@@ -37,5 +37,5 @@ val viewModelModule = module {
     factory { RequestsViewModel() }
 }
 
-val repositoryModule = module{
+val repositoryModule = module {
 }
