@@ -9,7 +9,7 @@ import com.fightpandemics.R
 import kotlinx.android.synthetic.main.fragment_offers.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RequestsFragment: Fragment() {
+class RequestsFragment : Fragment() {
 
     private val viewModel: RequestsViewModel by viewModel()
 

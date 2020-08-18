@@ -18,12 +18,13 @@ class App : Application() {
 
             modules(
                 listOf(
-                dbModule,
-                daoModule,
-                networkModule,
-                apiServiceModule,
-                viewModelModule
-            ))
+                    dbModule,
+                    daoModule,
+                    networkModule,
+                    apiServiceModule,
+                    viewModelModule
+                )
+            )
         }
     }
 }
