@@ -1,4 +1,4 @@
-package com.osai.core.dagger.module
+package com.fightpandemics.dagger.module
 
 import com.fightpandemics.data.remote.RequestInterface
 //import com.osai.core.data.repository.JobRepositoryImpl

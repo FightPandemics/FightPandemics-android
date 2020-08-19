@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.fightpandemics.R
 import kotlinx.android.synthetic.main.fragment_all.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AllFragment : Fragment() {
 
-    private val viewModel: AllViewModel by viewModel()
+    //private val viewModel: AllViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +34,6 @@ class AllFragment : Fragment() {
     }
 
     private fun setContent() {
-        section_label.text = viewModel.setContent()
+        //section_label.text = viewModel.setContent()
     }
 }

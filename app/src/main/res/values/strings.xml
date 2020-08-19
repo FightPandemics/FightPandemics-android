@@ -14,5 +14,6 @@
     <string name="confirm">Confirm</string>
     <string name="offering">Offering</string>
     <string name="requesting">Requesting</string>
+    <string name="title_search">Search</string>
 
 </resources>
