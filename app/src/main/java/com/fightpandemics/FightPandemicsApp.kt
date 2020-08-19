@@ -7,7 +7,7 @@ import com.fightpandemics.dagger.module.ContextModule
 import com.fightpandemics.dagger.module.SharedPreferencesModule
 import timber.log.Timber
 
-open class FightPandemicsApp : Application(), CoreComponentProvider, LoginComponentProvider  {
+open class FightPandemicsApp : Application(), CoreComponentProvider/*, LoginComponentProvider*/  {
 
     override fun onCreate() {
         super.onCreate()
@@ -38,7 +38,7 @@ open class FightPandemicsApp : Application(), CoreComponentProvider, LoginCompon
             ) // todo 3 - make name a const
     }
 
-    override fun provideLoginComponent(): LoginComponent {
+    /*override*/ fun provideLoginComponent(): LoginComponent {
         return DaggerLoginComponent
             .factory()
             .create(coreComponent = coreComponent(this))

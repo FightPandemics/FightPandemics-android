@@ -1,5 +1,6 @@
 package com.fightpandemics.inbox.ui
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,14 +8,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fightpandemics.inbox.R
+import com.fightpandemics.inbox.dagger.inject
+import com.fightpandemics.utils.ViewModelFactory
+import javax.inject.Inject
 
 class InboxFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     companion object {
         fun newInstance() = InboxFragment()
     }
 
     private lateinit var viewModel: InboxViewModel
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

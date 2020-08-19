@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.fightpandemics.R
+import com.fightpandemics.dagger.CoreComponentProvider
 import com.fightpandemics.dagger.LoginComponentProvider
 import com.fightpandemics.utils.ViewModelFactory
 import javax.inject.Inject
@@ -20,8 +21,8 @@ class LoginActivity : AppCompatActivity() {
     //private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (applicationContext as LoginComponentProvider)
-            .provideLoginComponent().inject(this)
+        (applicationContext as CoreComponentProvider)
+            .provideCoreComponent()
 
         super.onCreate(savedInstanceState)
 
