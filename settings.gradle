@@ -1,7 +1,8 @@
-
 rootProject.name='Fight Pandemics'
 include ':app'
 include ':core'
 include ':login'
 include ':search'
 include ':inbox'
+include ':profile'
+

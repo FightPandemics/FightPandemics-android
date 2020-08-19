@@ -16,5 +16,6 @@
     <string name="requesting">Requesting</string>
     <string name="title_search">Search</string>
     <string name="title_inbox">Inbox</string>
+    <string name="title_profile">Profile</string>
 
 </resources>
