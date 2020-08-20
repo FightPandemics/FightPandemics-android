@@ -35,7 +35,7 @@ android {
         jvmTarget = "1.8"
     }
 
-    dynamicFeatures = [':search', ':inbox', ':profile']
+    dynamicFeatures = [':home', ':search', ':inbox', ':profile']
 }
 
 dependencies {
@@ -57,6 +57,11 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.android.volley:volley:1.1.1'
 
+    // Navigation
+    api "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
+    api "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
+    api "androidx.navigation:navigation-dynamic-features-fragment:${versions.navigation}"
+
     // Dagger
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
 
@@ -71,11 +76,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$room"
     kapt "androidx.room:room-compiler:$room"
     implementation "androidx.room:room-ktx:$room"
-
-    // Navigation
-    def nav_version = "2.3.0"
-    //implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    //implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
 }

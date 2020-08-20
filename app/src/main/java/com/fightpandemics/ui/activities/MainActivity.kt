@@ -8,18 +8,15 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginBottom
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import com.fightpandemics.R
-import com.fightpandemics.utils.applyStyle
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.item_tab_appbar.*
+import kotlinx.android.synthetic.main.activity_main.*
 
-class HomeActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private var isFabOpen = false
 
@@ -38,9 +35,9 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_main)
         initFabActions()
-        setupUi()
+        //setupUi()
         initBottomNavBar()
         initIcons()
         handleBottomNavSelection(0)
@@ -58,7 +55,7 @@ class HomeActivity : AppCompatActivity() {
         profile = menu.menu.getItem(3)
     }
 
-    private fun setupUi() {
+    /*private fun setupUi() {
         val sectionsPagerAdapter =
             SectionsPagerAdapter(
                 this,
@@ -78,7 +75,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         fab.setOnClickListener { fabAction() }
-    }
+    }*/
 
     private fun fabAction() {
         if (isFabOpen) {

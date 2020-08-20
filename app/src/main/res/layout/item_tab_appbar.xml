@@ -16,12 +16,12 @@
         android:padding="@dimen/appbar_padding"
         android:src="@drawable/logo" />
 
-    <com.google.android.material.tabs.TabLayout
+   <!-- <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         app:tabIndicatorHeight="2dp"
-        app:tabTextAppearance="@style/TabText" />
+        app:tabTextAppearance="@style/TabText" />-->
 
 </com.google.android.material.appbar.AppBarLayout>

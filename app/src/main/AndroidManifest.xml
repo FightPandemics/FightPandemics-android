@@ -16,15 +16,17 @@
         android:name=".FightPandemicsApp" >
 
         <activity
-            android:name="com.fightpandemics.ui.activities.HomeActivity">
+            android:name="com.fightpandemics.ui.activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
             <intent-filter>
                 <action android:name="com.fightpandemics.main" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.fightpandemics.ui.customviews.user.UserAvatarTest"
-            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 

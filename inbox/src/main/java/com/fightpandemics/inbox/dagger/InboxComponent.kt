@@ -19,7 +19,7 @@ interface InboxComponent {
     // Factory to create instances of the InboxComponent
     @Component.Factory
     interface Factory {
-        // Takes an instance of AppComponent when creating an instance of FavoriteComponent
+        // Takes an instance of AppComponent when creating an instance of InboxComponent
         fun create(appComponent: AppComponent, coreComponent: CoreComponent): InboxComponent
     }
 
