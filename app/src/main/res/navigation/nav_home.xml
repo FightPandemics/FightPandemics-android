@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.fightpandemics.home.ui.HomeFragment"
+        android:label="Home"
+        app:moduleName="Fight_Pandemics.home"
+        tools:layout="@layout/home_fragment">
+    </fragment>
+
+</navigation>
