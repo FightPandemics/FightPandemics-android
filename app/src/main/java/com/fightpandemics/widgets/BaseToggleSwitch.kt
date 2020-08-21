@@ -48,6 +48,8 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
         @JvmStatic private val UNCHECKED_BACKGROUND_COLOR = R.color.fightPandemicsWhiteSmoke
         @JvmStatic private val UNCHECKED_BORDER_COLOR = R.color.fightPandemicsWhiteSmoke
         @JvmStatic private val UNCHECKED_TEXT_COLOR = R.color.fightPandemicsNero
+
+        private const val OPACITY = 0.6F
     }
 
     /*
@@ -56,8 +58,6 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
     private var checkedBackgroundColor: Int
     private var checkedBorderColor: Int
     private var checkedTextColor: Int
-    private val opacity = 0.6F
-
     private var borderRadius: Float
     private var borderWidth: Float
 
@@ -229,7 +229,7 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
             }
         }
         else {
-            throw RuntimeException("AttributeSet is null!")
+            throw IllegalStateException("AttributeSet is null!")
         }
     }
 
@@ -254,7 +254,7 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
     final override fun setEnabled(enabled: Boolean) {
         super.setEnabled(enabled)
 
-        alpha = if (enabled) 1f else opacity
+        alpha = if (enabled) 1f else OPACITY
     }
 
     final override fun setElevation(elevation: Float) {
@@ -323,10 +323,12 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
 //        setView(layoutId, numEntries, prepareDecorator, null, null)
 //    }
 
-    private fun setView(numEntries: Int,
-                prepareDecorator: ToggleSwitchButton.ToggleSwitchButtonDecorator,
-                checkedDecorator: ToggleSwitchButton.ViewDecorator?,
-                uncheckedDecorator: ToggleSwitchButton.ViewDecorator?) {
+    private fun setView(
+        numEntries: Int,
+        prepareDecorator: ToggleSwitchButton.ToggleSwitchButtonDecorator,
+        checkedDecorator: ToggleSwitchButton.ViewDecorator?,
+        uncheckedDecorator: ToggleSwitchButton.ViewDecorator?
+    ) {
         removeAllViews()
         buttons.clear()
 
