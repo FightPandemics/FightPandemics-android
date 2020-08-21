@@ -51,7 +51,7 @@ class ToggleSwitchButton(
 
     private var toggleWidth = 0
     private var toggleHeight = LayoutParams.MATCH_PARENT
-    private var isChecked = false
+    var isChecked = false
     private var rightToLeftProvider: IRightToLeftProvider = this
 
     private var separator: View
