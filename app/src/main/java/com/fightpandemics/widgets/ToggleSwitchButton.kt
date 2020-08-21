@@ -1,5 +1,6 @@
 package com.fightpandemics.widgets
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
@@ -10,13 +11,26 @@ import android.widget.RelativeLayout
 import com.fightpandemics.R
 
 
-class ToggleSwitchButton (context: Context, var position: Int, var positionType: PositionType,
-                          listener: Listener, layoutId: Int, var prepareDecorator: ToggleSwitchButtonDecorator,
-                          var checkedDecorator: ViewDecorator?, var uncheckedDecorator: ViewDecorator?,
-                          var checkedBackgroundColor: Int, var checkedBorderColor: Int,
-                          var borderRadius: Float, var borderWidth: Float,
-                          var uncheckedBackgroundColor: Int, var uncheckedBorderColor: Int,
-                          var separatorColor: Int, var toggleMargin: Int) :
+@SuppressLint("ViewConstructor")
+@Suppress("LongParameterList")
+class ToggleSwitchButton(
+    context: Context,
+    private var position: Int,
+    private var positionType: PositionType,
+    listener: Listener,
+    layoutId: Int,
+    prepareDecorator: ToggleSwitchButtonDecorator,
+    private var checkedDecorator: ViewDecorator?,
+    private var checkedBackgroundColor: Int,
+    private var uncheckedDecorator: ViewDecorator?,
+    private var checkedBorderColor: Int,
+    private var borderRadius: Float,
+    private var borderWidth: Float,
+    private var uncheckedBackgroundColor: Int,
+    private var uncheckedBorderColor: Int,
+    separatorColor: Int,
+    private var toggleMargin: Int
+) :
         LinearLayout(context), IRightToLeftProvider {
 
     interface ToggleSwitchButtonDecorator {
@@ -35,13 +49,13 @@ class ToggleSwitchButton (context: Context, var position: Int, var positionType:
         LEFT, CENTER, RIGHT
     }
 
-    var toggleWidth = 0
-    var toggleHeight = LayoutParams.MATCH_PARENT
-    var isChecked = false
-    var rightToLeftProvider: IRightToLeftProvider = this
+    private var toggleWidth = 0
+    private var toggleHeight = LayoutParams.MATCH_PARENT
+    private var isChecked = false
+    private var rightToLeftProvider: IRightToLeftProvider = this
 
-    var separator: View
-    var view: View
+    private var separator: View
+    private var view: View
 
     init {
 
@@ -120,10 +134,13 @@ class ToggleSwitchButton (context: Context, var position: Int, var positionType:
         return gradientDrawable
     }
 
+    companion object {
+        private const val CORNER_RADIUS_SIZE = 8
+    }
+
     private fun getCornerRadii(): FloatArray {
-        val size = 8
         return if (toggleMargin > 0) {
-            FloatArray(size) { borderRadius}
+            FloatArray(CORNER_RADIUS_SIZE) { borderRadius}
         } else {
             val isRightToLeft = rightToLeftProvider.isRightToLeft()
             when(positionType) {
@@ -133,7 +150,7 @@ class ToggleSwitchButton (context: Context, var position: Int, var positionType:
                 PositionType.RIGHT ->
                     if (isRightToLeft) getLeftCornerRadii() else getRightCornerRadii()
 
-                else -> FloatArray(size) { 0F }
+                else -> FloatArray(CORNER_RADIUS_SIZE) { 0F }
             }
         }
     }
