@@ -22,15 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
-        app:tabIndicatorHeight="2dp"
         app:tabIndicatorColor="?colorPrimary"
         app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="2dp"
         app:tabSelectedTextColor="?colorPrimary"
         app:tabTextAppearance="@style/TabText" />
-
-    <!--
-    android:visibility="@{tabbed ? View.VISIBLE : View.GONE, default = gone}"
-        app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Body1"
-    -->
 
 </com.google.android.material.appbar.AppBarLayout>
