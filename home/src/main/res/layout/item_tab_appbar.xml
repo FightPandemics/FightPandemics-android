@@ -7,15 +7,14 @@
     android:background="@color/colorWhite"
     android:theme="@style/AppTheme.AppBarOverlay">
 
-    <ImageView
-        android:id="@+id/iv_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:gravity="center"
-        android:minHeight="?actionBarSize"
-        android:padding="@dimen/appbar_padding"
-        android:src="@drawable/logo" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:logo="@drawable/logo"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/AppTheme.AppBarOverlay"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/homeTabs"

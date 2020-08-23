@@ -1,13 +1,14 @@
 package com.fightpandemics.home.ui
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.fightpandemics.home.R
 import com.fightpandemics.home.dagger.inject
@@ -16,14 +17,12 @@ import com.fightpandemics.home.ui.tabs.OnTabSelected
 import com.fightpandemics.home.utils.applyStyle
 import com.fightpandemics.utils.ViewModelFactory
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.home_fragment.*
-import kotlinx.android.synthetic.main.item_tab_appbar.*
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homePager : ViewPager
-    private lateinit var homeTabs : TabLayout
+    private lateinit var homePager: ViewPager
+    private lateinit var homeTabs: TabLayout
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -39,13 +38,19 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         val rootView = inflater.inflate(R.layout.home_fragment, container, false)
 
         homePager = rootView.findViewById(R.id.homePager)
         homeTabs = rootView.findViewById(R.id.homeTabs)
+
+        val toolbar: Toolbar = rootView.findViewById(R.id.toolbar)
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        setHasOptionsMenu(true)
 
         setupUi()
         return rootView
@@ -56,12 +61,19 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            R.id.filter -> Toast.makeText(context, "Filter Clicked", Toast.LENGTH_LONG).show()
+        }
+        return true
+    }
+
     private fun setupUi() {
-        val homePagerAdapter =
-            HomePagerAdapter(
-                requireActivity(),
-                childFragmentManager
-            )
+        val homePagerAdapter = HomePagerAdapter(requireActivity(), childFragmentManager)
 
         homePager.adapter = homePagerAdapter
         homeTabs.setupWithViewPager(homePager)
@@ -69,7 +81,6 @@ class HomeFragment : Fragment() {
 
         for (i in 0 until homeTabs.tabCount) {
             val title = homeTabs.getTabAt(i)?.text
-
             homeTabs.getTabAt(i)?.setCustomView(R.layout.item_tab_title)
             val tabTitle = homeTabs.getTabAt(i)?.customView?.findViewById<TextView>(R.id.tv_title)
             tabTitle?.text = title

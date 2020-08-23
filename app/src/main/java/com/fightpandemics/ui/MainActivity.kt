@@ -14,6 +14,8 @@ import androidx.core.view.marginTop
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.fightpandemics.R
 import com.fightpandemics.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -59,11 +61,9 @@ class MainActivity : AppCompatActivity() {
             arguments: Bundle?
         ) {
             //findViewById<Toolbar>(R.id.toolbar).title = destination.label
-            if (/*destination.id == R.id.detailsFragment*/ false) {
-                hideBottomBar()
-            } else {
-                showBottomBar()
-                bottomNavigationView.handleBottomNavSelection(destination)
+            when (destination.id) {
+                R.id.homeFragment, R.id.searchFragment, R.id.inboxFragment, R.id.profileFragment -> showBottomBar(destination)
+                else -> bottomNavigationView.visibility == View.GONE
             }
         }
     }
@@ -94,16 +94,9 @@ class MainActivity : AppCompatActivity() {
         currentNavController = controller
     }
 
-    private fun hideBottomBar() {
-        if (findViewById<BottomNavigationView>(R.id.bottomNavBar).visibility == View.VISIBLE) {
-            //findViewById<BottomNavigationView>(R.id.bottomNavBar).slideDown()
-        }
-    }
-
-    private fun showBottomBar() {
-        if (findViewById<BottomNavigationView>(R.id.bottomNavBar).visibility != View.VISIBLE) {
-            //findViewById<BottomNavigationView>(R.id.bottomNavBar).slideUp()
-        }
+    private fun showBottomBar(destination: NavDestination) {
+        bottomNavigationView.visibility == View.VISIBLE
+        bottomNavigationView.handleBottomNavSelection(destination)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -119,11 +112,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fabAction() {
-        if (isFabOpen) {
-            hideFabActions()
-        } else {
-            showFabActions()
-        }
+        if (isFabOpen) hideFabActions() else showFabActions()
     }
 
     private fun hideFabActions() {
