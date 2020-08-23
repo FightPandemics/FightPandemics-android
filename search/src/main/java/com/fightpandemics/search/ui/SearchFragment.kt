@@ -12,7 +12,6 @@ import com.fightpandemics.search.dagger.inject
 import com.fightpandemics.utils.ViewModelFactory
 import javax.inject.Inject
 
-
 class SearchFragment : Fragment() {
 
     @Inject

@@ -2,7 +2,6 @@ package com.fightpandemics.ui.activities
 
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
@@ -13,57 +12,37 @@ import androidx.core.view.marginBottom
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import com.fightpandemics.R
 import com.fightpandemics.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
-    private var currentNavController: LiveData<NavController>? = null
-
-    private lateinit var bottomNavigationView :BottomNavigationView
-
-    private var isFabOpen = false
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var dot: ImageView
     private lateinit var fabOpen: Animation
     private lateinit var fabClose: Animation
     private lateinit var rotateForward: Animation
     private lateinit var rotateBackward: Animation
 
-    private lateinit var home: MenuItem
-    private lateinit var search: MenuItem
-    private lateinit var inbox: MenuItem
-    private lateinit var profile: MenuItem
-    private lateinit var dot: ImageView
+    private var isFabOpen = false
+    private var currentNavController: LiveData<NavController>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavBar)
+        bottomNavigationView = findViewById(R.id.bottomNavBar)
 
         initFabActions()
-        //setupUi()
-        //initBottomNavBar()
-        initIcons()
-        //handleBottomNavSelection(0)
-
 
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         } // Else, need to wait for onRestoreInstanceState
         setUpNavDestinationChangeListener()
-    }
-
-    private fun initIcons() {
-        home = bottomNavigationView.menu.getItem(0)
-        search = bottomNavigationView.menu.getItem(1)
-        inbox = bottomNavigationView.menu.getItem(2)
-        profile = bottomNavigationView.menu.getItem(3)
     }
 
     private fun setUpNavDestinationChangeListener() {
@@ -73,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    inner class DestinationChangeListener() : NavController.OnDestinationChangedListener {
+    inner class DestinationChangeListener : NavController.OnDestinationChangedListener {
         override fun onDestinationChanged(
             controller: NavController,
             destination: NavDestination,
@@ -84,11 +63,10 @@ class MainActivity : AppCompatActivity() {
             //findViewById<CollapsingToolbarLayout>(R.id.collasping_toolbar).title = destination.label
             if (/*destination.id == R.id.detailsFragment*/ false) {
                 //findViewById<AppBarLayout>(R.id.app_bar).setExpanded(false)
-                hideBottomTabs()
+                hideBottomBar()
             } else {
-                showBottomTabs()
-                handleBottomNavSelection(0)
-                Timber.e(destination.id.toString())
+                showBottomBar()
+                bottomNavigationView.handleBottomNavSelection(destination)
             }
         }
     }
@@ -99,8 +77,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigationBar() {
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavBar)
-
         val navGraphIds = listOf(
             R.navigation.nav_home,
             R.navigation.nav_search,
@@ -115,20 +91,19 @@ class MainActivity : AppCompatActivity() {
             intent = intent
         )
 
-        controller.observe(this, Observer { navController ->
+        controller.observe(this, { navController ->
             //setupActionBarWithNavController(navController)
         })
         currentNavController = controller
     }
 
-
-    private fun hideBottomTabs() {
+    private fun hideBottomBar() {
         if (findViewById<BottomNavigationView>(R.id.bottomNavBar).visibility == View.VISIBLE) {
             //findViewById<BottomNavigationView>(R.id.bottomNavBar).slideDown()
         }
     }
 
-    private fun showBottomTabs() {
+    private fun showBottomBar() {
         if (findViewById<BottomNavigationView>(R.id.bottomNavBar).visibility != View.VISIBLE) {
             //findViewById<BottomNavigationView>(R.id.bottomNavBar).slideUp()
         }
@@ -140,14 +115,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFabActions() {
         fabOpen = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
-        fabClose = AnimationUtils.loadAnimation(applicationContext,R.anim.fab_close)
-        rotateForward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_forward)
-        rotateBackward = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate_backward)
+        fabClose = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_close)
+        rotateForward = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate_forward)
+        rotateBackward = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate_backward)
         fab.setOnClickListener { fabAction() }
     }
 
     private fun fabAction() {
-        if(isFabOpen){
+        if (isFabOpen) {
             hideFabActions()
         } else {
             showFabActions()
@@ -176,33 +151,71 @@ class MainActivity : AppCompatActivity() {
         isFabOpen = true
     }
 
-    private fun handleBottomNavSelection(index: Int) {
-        home.title = if(index == 0) "" else getString(R.string.home)
-        search.title = if(index == 1) "" else getString(R.string.search)
-        inbox.title = if(index == 2) "" else getString(R.string.inbox)
-        profile.title = if(index == 3) "" else getString(R.string.profile)
-        changeDotLocation(index + 1)
+    private fun BottomNavigationView.handleBottomNavSelection(destination: NavDestination) {
+        this.menu.getItem(0).title = if (destination.id == R.id.homeFragment) {
+            changeDotLocation(1)
+            ""
+        } else context.getString(R.string.home)
+
+        this.menu.getItem(1).title = if (destination.id == R.id.searchFragment) {
+            changeDotLocation(2)
+            ""
+        } else context.getString(R.string.search)
+
+        this.menu.getItem(2).title = if (destination.id == R.id.inboxFragment) {
+            changeDotLocation(3)
+            ""
+        } else context.getString(R.string.inbox)
+
+        this.menu.getItem(3).title = if (destination.id == R.id.profileFragment) {
+            changeDotLocation(4)
+            ""
+        } else context.getString(R.string.profile)
     }
 
-    private fun changeDotLocation(location : Int) {
-        dot = findViewById<ImageView>(R.id.dot)
+    private fun changeDotLocation(location: Int) {
+        dot = findViewById(R.id.dot)
         val layoutParams = dot.layoutParams as ViewGroup.MarginLayoutParams
         val displayMetrics = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(displayMetrics)
+
+        if (android.os.Build.VERSION.SDK_INT >=
+            android.os.Build.VERSION_CODES.R
+        ) this.display?.getRealMetrics(displayMetrics)
+
         val width = displayMetrics.widthPixels
         when (location) {
             //long decimals below so that with any screen size, the dot will be placed correctly instead of hardcoded values
             1 -> {
-                layoutParams.setMargins(((0.118333333 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
+                layoutParams.setMargins(
+                    ((0.118333333 * width).toInt()),
+                    dot.marginTop,
+                    dot.marginRight,
+                    dot.marginBottom
+                )
             }
             2 -> {
-                layoutParams.setMargins(((0.37083333 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
+                layoutParams.setMargins(
+                    ((0.37083333 * width).toInt()),
+                    dot.marginTop,
+                    dot.marginRight,
+                    dot.marginBottom
+                )
             }
             3 -> {
-                layoutParams.setMargins(((0.61666667 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
+                layoutParams.setMargins(
+                    ((0.61666667 * width).toInt()),
+                    dot.marginTop,
+                    dot.marginRight,
+                    dot.marginBottom
+                )
             }
             else -> {
-                layoutParams.setMargins(((0.86666667 * width).toInt()), dot.marginTop, dot.marginRight, dot.marginBottom)
+                layoutParams.setMargins(
+                    ((0.86666667 * width).toInt()),
+                    dot.marginTop,
+                    dot.marginRight,
+                    dot.marginBottom
+                )
             }
         }
         dot.layoutParams = layoutParams
