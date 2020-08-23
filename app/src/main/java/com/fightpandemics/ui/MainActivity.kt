@@ -1,4 +1,4 @@
-package com.fightpandemics.ui.activities
+package com.fightpandemics.ui
 
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -59,10 +59,7 @@ class MainActivity : AppCompatActivity() {
             arguments: Bundle?
         ) {
             //findViewById<Toolbar>(R.id.toolbar).title = destination.label
-            //findViewById<CollapsingToolbarLayout>(R.id.collasping_toolbar).isTitleEnabled = false;
-            //findViewById<CollapsingToolbarLayout>(R.id.collasping_toolbar).title = destination.label
             if (/*destination.id == R.id.detailsFragment*/ false) {
-                //findViewById<AppBarLayout>(R.id.app_bar).setExpanded(false)
                 hideBottomBar()
             } else {
                 showBottomBar()
@@ -178,9 +175,9 @@ class MainActivity : AppCompatActivity() {
         val layoutParams = dot.layoutParams as ViewGroup.MarginLayoutParams
         val displayMetrics = DisplayMetrics()
 
-        if (android.os.Build.VERSION.SDK_INT >=
-            android.os.Build.VERSION_CODES.R
-        ) this.display?.getRealMetrics(displayMetrics)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R)
+            this.display?.getRealMetrics(displayMetrics)
+        else windowManager.defaultDisplay.getMetrics(displayMetrics)
 
         val width = displayMetrics.widthPixels
         when (location) {

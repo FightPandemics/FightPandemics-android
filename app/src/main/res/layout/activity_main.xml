@@ -5,23 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.MainActivity">
-
-    <include
-        android:id="@+id/tab_appbar"
-        layout="@layout/item_tab_appbar" />
-
-    <!--<androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
-    </androidx.viewpager.widget.ViewPager>-->
+    tools:context=".ui.MainActivity">
 
     <include
         android:id="@+id/fabCreateAsOrg"
         layout="@layout/item_button_create_as_org" />
-
 
     <include
         android:id="@+id/fabCreateAsIndividual"

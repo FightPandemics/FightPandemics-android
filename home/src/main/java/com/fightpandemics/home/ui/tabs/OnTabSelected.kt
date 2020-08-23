@@ -1,4 +1,4 @@
-package com.fightpandemics.ui.activities
+package com.fightpandemics.home.ui.tabs
 
 import android.widget.TextView
 import com.fightpandemics.utils.applyStyle
@@ -6,8 +6,7 @@ import com.google.android.material.tabs.TabLayout
 
 class OnTabSelected : TabLayout.OnTabSelectedListener {
 
-    override fun onTabReselected(tab: TabLayout.Tab) { // TO DO: add or remove
-    }
+    override fun onTabReselected(tab: TabLayout.Tab) {}
 
     override fun onTabUnselected(tab: TabLayout.Tab) {
         getTextView(tab)?.applyStyle(false)
