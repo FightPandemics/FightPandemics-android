@@ -1,8 +1,5 @@
 package com.fightpandemics.dagger.module
 
-// import com.osai.core.data.repository.JobRepositoryImpl
-// import com.osai.core.domain.repository.JobRepository
-// import com.osai.core.util.CommonCore
 import dagger.Module
 
 /**
