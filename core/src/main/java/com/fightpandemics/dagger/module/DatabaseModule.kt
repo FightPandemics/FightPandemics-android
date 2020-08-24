@@ -1,12 +1,10 @@
 package com.fightpandemics.dagger.module
 
-//import android.content.Context
-//import androidx.room.Room
-//import com.osai.core.data.local.JobDao
-//import com.osai.core.data.local.JobDatabase
+// import android.content.Context
+// import androidx.room.Room
+// import com.osai.core.data.local.JobDao
+// import com.osai.core.data.local.JobDatabase
 import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
 
 /**
  * Dagger module to provide database functionalities.

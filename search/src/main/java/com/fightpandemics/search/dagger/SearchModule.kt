@@ -6,6 +6,4 @@ import dagger.Module
  * Dagger module providing stuff for [:Search].
  */
 @Module
-class SearchModule {
-
-}
+class SearchModule

@@ -12,8 +12,7 @@ interface RequestInterface {
 //    suspend fun getJobs(): Response<List<Job>>
 
     @POST("/api/auth/login")
-    suspend fun login(@Body loginReq : LoginRequest): Response<LoginResponse>
-
+    suspend fun login(@Body loginReq: LoginRequest): Response<LoginResponse>
 
     companion object {
         const val ENDPOINT = "https://remoteok.io"
@@ -21,5 +20,4 @@ interface RequestInterface {
         // Todo : Please replace with staging during development
         const val API_ENDPOINT = "https://fightpandemics.com"
     }
-
 }

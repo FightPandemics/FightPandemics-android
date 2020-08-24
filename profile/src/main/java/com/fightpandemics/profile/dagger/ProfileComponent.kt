@@ -23,6 +23,5 @@ interface ProfileComponent {
         fun create(appComponent: AppComponent, coreComponent: CoreComponent): ProfileComponent
     }
 
-
     fun inject(profileFragment: ProfileFragment)
 }

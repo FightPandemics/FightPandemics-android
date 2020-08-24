@@ -2,8 +2,12 @@ package com.fightpandemics.dagger
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.fightpandemics.dagger.module.*
+import com.fightpandemics.dagger.module.ContextModule
 import com.fightpandemics.dagger.module.CoreModule
+import com.fightpandemics.dagger.module.DatabaseModule
+import com.fightpandemics.dagger.module.NetworkModule
+import com.fightpandemics.dagger.module.SharedPreferencesModule
+import com.fightpandemics.dagger.module.ViewModelBuilderModule
 import dagger.Component
 import javax.inject.Singleton
 
@@ -14,12 +18,14 @@ import javax.inject.Singleton
 * */
 @Singleton
 @Component(
-    modules = [CoreModule::class,
+    modules = [
+        CoreModule::class,
         ContextModule::class,
         DatabaseModule::class,
         NetworkModule::class,
         SharedPreferencesModule::class,
-        ViewModelBuilderModule::class]
+        ViewModelBuilderModule::class
+    ]
 )
 interface CoreComponent {
 
@@ -35,6 +41,6 @@ interface CoreComponent {
     // The return type of functions inside the component interface is what can be provided from the container
     fun provideContext(): Context
     fun provideSharedPreferences(): SharedPreferences
-    //fun provideRetrofitService(): RequestInterface
-    //fun provideJobRepository(): JobRepository
+    // fun provideRetrofitService(): RequestInterface
+    // fun provideRepository(): Repository
 }

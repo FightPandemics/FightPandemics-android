@@ -76,5 +76,9 @@ dependencies {
     kapt "androidx.room:room-compiler:$room"
     implementation "androidx.room:room-ktx:$room"
 
+    def detekt_version = "1.9.0"
+    detekt("io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version")
+    detekt("io.gitlab.arturbosch.detekt:detekt-cli:$detekt_version")
+
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
 }

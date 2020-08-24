@@ -20,8 +20,8 @@ interface AppComponent {
         fun create(@BindsInstance context: Context, coreComponent: CoreComponent): AppComponent
     }
 
-    //fun homeComponent(): HomeComponent.Factory
+    // fun homeComponent(): HomeComponent.Factory
 
     fun inject(application: Application)
-    //fun inject(loginActivity: LoginActivity)
+    // fun inject(loginActivity: LoginActivity)
 }

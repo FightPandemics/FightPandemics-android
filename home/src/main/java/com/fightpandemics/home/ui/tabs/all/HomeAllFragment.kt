@@ -1,11 +1,11 @@
 package com.fightpandemics.home.ui.tabs.all
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.fightpandemics.home.R
 
 class HomeAllFragment : Fragment() {
@@ -17,7 +17,8 @@ class HomeAllFragment : Fragment() {
     private lateinit var viewModel: HomeAllViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.home_all_fragment, container, false)
@@ -28,5 +29,4 @@ class HomeAllFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(HomeAllViewModel::class.java)
         // TODO: Use the ViewModel
     }
-
 }

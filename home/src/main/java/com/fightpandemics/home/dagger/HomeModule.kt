@@ -6,5 +6,4 @@ import dagger.Module
  * Dagger module providing stuff for [:Home].
  */
 @Module
-class HomeModule {
-}
+class HomeModule

@@ -1,9 +1,9 @@
 package com.fightpandemics.data.interceptors
 
-import java.io.IOException
 import okhttp3.Interceptor
 import okhttp3.Response
 import timber.log.Timber
+import java.io.IOException
 
 /**
  * Interceptor to cache data and maintain it for a minute.

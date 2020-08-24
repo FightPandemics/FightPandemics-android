@@ -5,8 +5,4 @@ import com.fightpandemics.dagger.scope.FeatureScope
 import javax.inject.Inject
 
 @FeatureScope
-class InboxViewModel @Inject constructor() : ViewModel() {
-
-    // TODO: Implement the ViewModel
-
-}
+class InboxViewModel @Inject constructor() : ViewModel()

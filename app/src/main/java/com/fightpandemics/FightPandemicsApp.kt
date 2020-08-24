@@ -2,12 +2,16 @@ package com.fightpandemics
 
 import android.app.Application
 import android.content.Context
-import com.fightpandemics.dagger.*
+import com.fightpandemics.dagger.AppComponent
+import com.fightpandemics.dagger.CoreComponent
+import com.fightpandemics.dagger.CoreComponentProvider
+import com.fightpandemics.dagger.DaggerAppComponent
+import com.fightpandemics.dagger.DaggerCoreComponent
 import com.fightpandemics.dagger.module.ContextModule
 import com.fightpandemics.dagger.module.SharedPreferencesModule
 import timber.log.Timber
 
-open class FightPandemicsApp : Application(), CoreComponentProvider  {
+open class FightPandemicsApp : Application(), CoreComponentProvider {
 
     override fun onCreate() {
         super.onCreate()
@@ -21,7 +25,7 @@ open class FightPandemicsApp : Application(), CoreComponentProvider  {
         initializeComponent()
     }
 
-    fun initializeComponent(): AppComponent {
+    private fun initializeComponent(): AppComponent {
         // Creates an instance of AppComponent using its Factory constructor
         // We pass the applicationContext that will be used as Context in the graph
         return DaggerAppComponent
@@ -47,5 +51,4 @@ open class FightPandemicsApp : Application(), CoreComponentProvider  {
         fun coreComponent(context: Context) =
             (context.applicationContext as FightPandemicsApp).provideCoreComponent()
     }
-
 }

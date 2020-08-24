@@ -8,5 +8,4 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor() : ViewModel() {
 
     // TODO: Implement the ViewModel
-
 }

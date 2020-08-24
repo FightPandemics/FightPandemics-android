@@ -9,9 +9,9 @@ import com.fightpandemics.data.remote.RetrofitService
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import javax.inject.Singleton
 
 /**
  * Dagger module to provide networking functionalities.

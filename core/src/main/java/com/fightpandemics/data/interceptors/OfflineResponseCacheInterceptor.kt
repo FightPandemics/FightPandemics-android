@@ -14,7 +14,7 @@ class OfflineResponseCacheInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         var request: Request = chain.request()
-        if (/*!JobApplication.hasNetwork()*/ false) {
+        if (/*!Application.hasNetwork()*/ false) {
             Timber.i("Offline cache applied")
             val maxStale = 60 * 60 * 24 * 28 // tolerate 4-weeks stale
             request = request.newBuilder()

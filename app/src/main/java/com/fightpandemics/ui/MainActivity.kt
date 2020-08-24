@@ -14,8 +14,6 @@ import androidx.core.view.marginTop
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.fightpandemics.R
 import com.fightpandemics.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -38,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         bottomNavigationView = findViewById(R.id.bottomNavBar)
+        dot = findViewById(R.id.dot)
 
         initFabActions()
 
@@ -60,10 +59,11 @@ class MainActivity : AppCompatActivity() {
             destination: NavDestination,
             arguments: Bundle?
         ) {
-            //findViewById<Toolbar>(R.id.toolbar).title = destination.label
+            // findViewById<Toolbar>(R.id.toolbar).title = destination.label
             when (destination.id) {
-                R.id.homeFragment, R.id.searchFragment, R.id.inboxFragment, R.id.profileFragment -> showBottomBar(destination)
-                else -> bottomNavigationView.visibility == View.GONE
+                R.id.homeFragment, R.id.searchFragment, R.id.inboxFragment, R.id.profileFragment
+                -> showBottomBar(destination)
+                else -> bottomNavigationView.visibility = View.GONE
             }
         }
     }
@@ -88,14 +88,17 @@ class MainActivity : AppCompatActivity() {
             intent = intent
         )
 
-        controller.observe(this, { navController ->
-            //setupActionBarWithNavController(navController)
-        })
+        controller.observe(
+            this,
+            { navController ->
+                // setupActionBarWithNavController(navController)
+            }
+        )
         currentNavController = controller
     }
 
     private fun showBottomBar(destination: NavDestination) {
-        bottomNavigationView.visibility == View.VISIBLE
+        bottomNavigationView.visibility = View.VISIBLE
         bottomNavigationView.handleBottomNavSelection(destination)
     }
 
@@ -160,24 +163,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeDotLocation(location: Int) {
-        dot = findViewById(R.id.dot)
         val layoutParams = dot.layoutParams as ViewGroup.MarginLayoutParams
         val displayMetrics = DisplayMetrics()
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             this.display?.getRealMetrics(displayMetrics)
-        else windowManager.defaultDisplay.getMetrics(displayMetrics)
+        } else windowManager.defaultDisplay.getMetrics(displayMetrics)
 
         val width = displayMetrics.widthPixels
         when (location) {
-            //long decimals below so that with any screen size, the dot will be placed correctly instead of hardcoded values
+            // long decimals below so that with any screen size, the dot will be placed correctly instead of hardcoded values
             1 -> {
-                layoutParams.setMargins(
-                    ((0.118333333 * width).toInt()),
-                    dot.marginTop,
-                    dot.marginRight,
-                    dot.marginBottom
-                )
+                layoutParams
+                    .setMargins(
+                        ((0.118333333 * width).toInt()),
+                        dot.marginTop,
+                        dot.marginRight,
+                        dot.marginBottom
+                    )
             }
             2 -> {
                 layoutParams.setMargins(
