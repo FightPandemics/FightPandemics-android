@@ -66,7 +66,9 @@ class ToggleSwitchButton(
 
         // View
         val params = RelativeLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE)
         params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE)
 

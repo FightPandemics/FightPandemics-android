@@ -131,76 +131,94 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
 
             try {
                 checkedBackgroundColor = attributes.getColor(
-                        R.styleable.BaseToggleSwitch_checkedBackgroundColor,
-                        ContextCompat.getColor(context, CHECKED_BACKGROUND_COLOR))
+                    R.styleable.BaseToggleSwitch_checkedBackgroundColor,
+                    ContextCompat.getColor(context, CHECKED_BACKGROUND_COLOR)
+                )
 
                 checkedBorderColor = attributes.getColor(
-                        R.styleable.BaseToggleSwitch_checkedBorderColor,
-                        ContextCompat.getColor(context, CHECKED_BORDER_COLOR))
+                    R.styleable.BaseToggleSwitch_checkedBorderColor,
+                    ContextCompat.getColor(context, CHECKED_BORDER_COLOR)
+                )
 
                 checkedTextColor = attributes.getColor(
-                        R.styleable.BaseToggleSwitch_checkedTextColor,
-                        ContextCompat.getColor(context, CHECKED_TEXT_COLOR))
+                    R.styleable.BaseToggleSwitch_checkedTextColor,
+                    ContextCompat.getColor(context, CHECKED_TEXT_COLOR)
+                )
 
                 borderRadius = attributes.getDimensionPixelSize(
-                        R.styleable.BaseToggleSwitch_borderRadius,
-                        dp2px(context, BORDER_RADIUS_DP.toFloat()).toInt()).toFloat()
+                    R.styleable.BaseToggleSwitch_borderRadius,
+                    dp2px(context, BORDER_RADIUS_DP.toFloat()).toInt()
+                ).toFloat()
 
                 borderWidth = attributes.getDimensionPixelSize(
-                        R.styleable.BaseToggleSwitch_borderWidth,
-                        dp2px(context, BORDER_WIDTH.toFloat()).toInt()).toFloat()
+                    R.styleable.BaseToggleSwitch_borderWidth,
+                    dp2px(context, BORDER_WIDTH.toFloat()).toInt()
+                ).toFloat()
 
                 isEnabled = attributes.getBoolean(
-                        R.styleable.BaseToggleSwitch_android_enabled,
-                        ENABLED)
+                    R.styleable.BaseToggleSwitch_android_enabled,
+                    ENABLED
+                )
 
                 uncheckedBackgroundColor = attributes.getColor(
-                        R.styleable.BaseToggleSwitch_uncheckedBackgroundColor,
-                        ContextCompat.getColor(context, UNCHECKED_BACKGROUND_COLOR))
+                    R.styleable.BaseToggleSwitch_uncheckedBackgroundColor,
+                    ContextCompat.getColor(context, UNCHECKED_BACKGROUND_COLOR)
+                )
 
                 uncheckedBorderColor = attributes.getColor(
-                        R.styleable.BaseToggleSwitch_uncheckedBorderColor,
-                        ContextCompat.getColor(context, UNCHECKED_BORDER_COLOR))
+                    R.styleable.BaseToggleSwitch_uncheckedBorderColor,
+                    ContextCompat.getColor(context, UNCHECKED_BORDER_COLOR)
+                )
 
                 uncheckedTextColor = attributes.getColor(
-                        R.styleable.BaseToggleSwitch_uncheckedTextColor,
-                        ContextCompat.getColor(context, UNCHECKED_TEXT_COLOR))
+                    R.styleable.BaseToggleSwitch_uncheckedTextColor,
+                    ContextCompat.getColor(context, UNCHECKED_TEXT_COLOR)
+                )
 
                 separatorColor = attributes.getColor(
-                        R.styleable.BaseToggleSwitch_separatorColor,
-                        ContextCompat.getColor(context, SEPARATOR_COLOR))
+                    R.styleable.BaseToggleSwitch_separatorColor,
+                    ContextCompat.getColor(context, SEPARATOR_COLOR)
+                )
 
                 separatorVisible = attributes.getBoolean(
-                        R.styleable.BaseToggleSwitch_separatorVisible,
-                        SEPARATOR_VISIBLE)
+                    R.styleable.BaseToggleSwitch_separatorVisible,
+                    SEPARATOR_VISIBLE
+                )
 
                 textSize = attributes.getDimensionPixelSize(
-                        R.styleable.BaseToggleSwitch_android_textSize,
-                        dp2px(context, TEXT_SIZE).toInt()).toFloat()
+                    R.styleable.BaseToggleSwitch_android_textSize,
+                    dp2px(context, TEXT_SIZE).toInt()
+                ).toFloat()
 
                 toggleElevation = attributes.getDimensionPixelSize(
-                        R.styleable.BaseToggleSwitch_elevation,
-                        dp2px(context, TOGGLE_ELEVATION).toInt()).toFloat()
+                    R.styleable.BaseToggleSwitch_elevation,
+                    dp2px(context, TOGGLE_ELEVATION).toInt()
+                ).toFloat()
 
                 toggleMargin = attributes.getDimension(
-                        R.styleable.BaseToggleSwitch_toggleMargin,
-                        dp2px(getContext(), TOGGLE_DISTANCE))
+                    R.styleable.BaseToggleSwitch_toggleMargin,
+                    dp2px(getContext(), TOGGLE_DISTANCE)
+                )
 
                 toggleHeight = attributes.getDimension(
-                        R.styleable.BaseToggleSwitch_toggleHeight,
-                        dp2px(getContext(), TOGGLE_HEIGHT))
+                    R.styleable.BaseToggleSwitch_toggleHeight,
+                    dp2px(getContext(), TOGGLE_HEIGHT)
+                )
 
                 toggleWidth = attributes.getDimension(
-                        R.styleable.BaseToggleSwitch_toggleWidth,
-                        dp2px(getContext(), TOGGLE_WIDTH))
+                    R.styleable.BaseToggleSwitch_toggleWidth,
+                    dp2px(getContext(), TOGGLE_WIDTH)
+                )
 
                 layoutHeight = attributes.getLayoutDimension(
-                        R.styleable.BaseToggleSwitch_android_layout_height,
-                        LAYOUT_HEIGHT)
+                    R.styleable.BaseToggleSwitch_android_layout_height,
+                    LAYOUT_HEIGHT
+                )
 
                 layoutWidth = attributes.getLayoutDimension(
-                        R.styleable.BaseToggleSwitch_android_layout_width,
-                        LAYOUT_WIDTH)
+                    R.styleable.BaseToggleSwitch_android_layout_width,
+                    LAYOUT_WIDTH
+                )
 
                 val entries = attributes.getTextArray(R.styleable.BaseToggleSwitch_android_entries)
                 if (entries == null || entries.isEmpty()) {
