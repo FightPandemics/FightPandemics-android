@@ -357,11 +357,24 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
 
         for (index in 0 until numEntries) {
             val positionType = getPosition(index, numEntries)
-            val button = ToggleSwitchButton(context, index, positionType, this,
-                    layoutId, prepareDecorator, checkedDecorator, uncheckedDecorator,
-                    checkedBackgroundColor, checkedBorderColor,
-                    borderRadius, borderWidth, uncheckedBackgroundColor,
-                    uncheckedBorderColor, separatorColor, toggleMargin.toInt())
+            val button = ToggleSwitchButton(
+                context,
+                index,
+                positionType,
+                this,
+                layoutId,
+                prepareDecorator,
+                checkedDecorator,
+                uncheckedDecorator,
+                checkedBackgroundColor,
+                checkedBorderColor,
+                borderRadius,
+                borderWidth,
+                uncheckedBackgroundColor,
+                uncheckedBorderColor,
+                separatorColor,
+                toggleMargin.toInt()
+            )
 
             if (index == 0)
                 button.check()
@@ -402,22 +415,17 @@ abstract class BaseToggleSwitch : LinearLayout, ToggleSwitchButton.Listener {
 
     private fun getPosition(index: Int, size: Int): ToggleSwitchButton.PositionType {
         return when (index) {
-            0 -> {
-                ToggleSwitchButton.PositionType.LEFT
-            }
-            size - 1 -> {
-                ToggleSwitchButton.PositionType.RIGHT
-            }
-            else -> {
-                ToggleSwitchButton.PositionType.CENTER
-            }
+            0 -> ToggleSwitchButton.PositionType.LEFT
+            size - 1 -> ToggleSwitchButton.PositionType.RIGHT
+            else -> ToggleSwitchButton.PositionType.CENTER
         }
     }
 
     private fun setUpView() {
         layoutParams = LayoutParams(
-                LayoutParams.WRAP_CONTENT,
-                LayoutParams.MATCH_PARENT)
+            LayoutParams.WRAP_CONTENT,
+            LayoutParams.MATCH_PARENT
+        )
         orientation = HORIZONTAL
     }
 }
