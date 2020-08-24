@@ -7,7 +7,7 @@ import com.fightpandemics.dagger.module.ContextModule
 import com.fightpandemics.dagger.module.SharedPreferencesModule
 import timber.log.Timber
 
-open class FightPandemicsApp : Application(), CoreComponentProvider/*, LoginComponentProvider*/  {
+open class FightPandemicsApp : Application(), CoreComponentProvider  {
 
     override fun onCreate() {
         super.onCreate()
@@ -36,12 +36,6 @@ open class FightPandemicsApp : Application(), CoreComponentProvider/*, LoginComp
                 ContextModule(this),
                 SharedPreferencesModule(this, "name")
             ) // todo 3 - make name a const
-    }
-
-    /*override*/ fun provideLoginComponent(): LoginComponent {
-        return DaggerLoginComponent
-            .factory()
-            .create(coreComponent = coreComponent(this))
     }
 
     companion object {
