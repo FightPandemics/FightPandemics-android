@@ -21,12 +21,12 @@ class HomeAllFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.home_all_fragment, container, false)
+        val root = inflater.inflate(R.layout.home_all_fragment, container, false)
+        return root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeAllViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 }
