@@ -3,37 +3,21 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-ext {
-    dagger_version = '2.27'
-}
+apply from: '../common_dependencies.gradle'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.fightpandemics"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
-
-//    buildFeatures {
-//        dataBinding true
-//        viewBinding true
-//    }
 
     buildTypes {
         release {
@@ -42,55 +26,46 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    dynamicFeatures = [':home', ':search', ':inbox', ':profile']
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.1'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    implementation project(':core')
+
+    implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
+    implementation "androidx.fragment:fragment-ktx:1.2.5"
+
+    // Google Material Design
     implementation 'com.google.android.material:material:1.2.0'
     implementation "androidx.fragment:fragment-ktx:1.2.5"
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.android.volley:volley:1.1.1'
 
-    // dagger
-    implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    // Navigation
+    api "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
+    api "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
+    api "androidx.navigation:navigation-dynamic-features-fragment:${versions.navigation}"
 
-    // tests
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    androidTestImplementation 'androidx.test:rules:1.3.0-rc03'
-
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
+    // Dagger
+    kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
 
     // LiveEvent - Library to emit single event
     implementation "com.github.hadilq.liveevent:liveevent:1.2.0"
-
-    // koin - Dependency Injection library
-    def koin = "2.1.5"
-    implementation "org.koin:koin-test:$koin"
-    implementation "org.koin:koin-androidx-viewmodel:$koin"
-
-    // Retrofit
-    def retrofit = '2.9.0'
-    implementation "com.squareup.retrofit2:retrofit:$retrofit"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
-
-    // Coroutines
-    def coroutine = "1.3.7"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine"
-
-    // okhttp
-    def okhttp = '4.7.2'
-    implementation "com.squareup.okhttp3:okhttp:$okhttp"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
 
     // Coil - Image Loading library
     implementation("io.coil-kt:coil:0.11.0")
@@ -101,19 +76,9 @@ dependencies {
     kapt "androidx.room:room-compiler:$room"
     implementation "androidx.room:room-ktx:$room"
 
-    // Lifecycle
-    def lifecycle = "2.2.0"
-    def fragment_version = "1.2.5"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
-    implementation "androidx.fragment:fragment-ktx:$fragment_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha06"
+//    def detekt_version = "1.9.0"
+//    detekt("io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version")
+//    detekt("io.gitlab.arturbosch.detekt:detekt-cli:$detekt_version")
 
-    // Timber - Logging Library
-    implementation "com.jakewharton.timber:timber:4.7.1"
-
-    // Navigation
-    def nav_version = "2.3.0"
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
 }
