@@ -19,5 +19,5 @@
     <color name="colorWhite_30p">#4DFFFFFF</color>
     <color name="fightPandemicsSnow">#F9F9F9</color>
     <color name="fightPandemicsWhiteSmoke">#F2F2F2</color>
-
+    <color name="fightPandemicsSplashScreenBg">#f5f6fb</color>
 </resources>
