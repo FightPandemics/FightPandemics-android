@@ -23,7 +23,7 @@ buildscript {
             'ktlint'             : '0.36.0',
             'lifecycle'          : '2.3.0-alpha02',
             'lottie'             : '3.0.2',
-            'material'           : '1.1.0-alpha05',
+            'material'           : '1.2.1',
             'navigation'         : '2.3.0',
             'okhttp'             : '4.7.2',
             'retrofit'           : '2.9.0',
