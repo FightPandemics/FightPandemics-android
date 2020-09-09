@@ -23,5 +23,7 @@
     <string name="profile_activities">Activities</string>
     <string name="profile_requests">Requests</string>
     <string name="profile_content">I’m a 21-year-old chorus actor who enjoys walking, baking and badminton. I currently help the elderly in my neighborhood with their groceries.</string>
+    <string name="select">Select</string>
+    <string name="add_organisation">Add an organisation account</string>
 
 </resources>

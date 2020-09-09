@@ -24,15 +24,13 @@
 
             <TextView
                 android:id="@+id/textView2"
+                style="@style/AndroidNativeH122Px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:fontFamily="@font/poppins_bold"
                 android:text="@string/profile_title"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -83,14 +81,11 @@
 
             <TextView
                 android:id="@+id/user_full_name"
+                style="@style/AndroidNativeH122Px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins_bold"
-                android:lineSpacingExtra="6sp"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="22sp"
                 app:layout_constraintStart_toEndOf="@+id/user_avatar"
                 app:layout_constraintTop_toTopOf="@+id/user_avatar"
                 tools:text="Victor Maragioglio" />
@@ -119,35 +114,21 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                style="@style/FlatButton"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:fontFamily="@font/worksans_regular"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:textAllCaps="false"
-                android:textSize="12sp"
-                app:backgroundTint="@color/fightPandemicsGhostWhite"
-                app:cornerRadius="6dp"
                 app:layout_constraintStart_toStartOf="@+id/user_avatar"
                 app:layout_constraintTop_toBottomOf="@+id/user_avatar"
                 tools:text="@string/request_help" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button2"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                style="@style/FlatButton"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:fontFamily="@font/worksans_regular"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
                 android:text="@string/offer_help"
-                android:textAllCaps="false"
-                android:textSize="12sp"
-                app:backgroundTint="@color/fightPandemicsGhostWhite"
-                app:cornerRadius="6dp"
                 app:layout_constraintBottom_toBottomOf="@+id/button"
                 app:layout_constraintStart_toEndOf="@+id/button"
                 app:layout_constraintTop_toTopOf="@+id/button" />
@@ -158,10 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-                android:fontFamily="@font/worksans_regular"
-                android:lineSpacingExtra="6sp"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="14sp"
+                style="@style/AndroidNativeP114Px"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/button"
                 app:layout_constraintTop_toBottomOf="@+id/button"
@@ -239,6 +217,7 @@
                 android:layout_marginBottom="16dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
+                android:textAllCaps="false"
                 android:text="@string/edit_profile"
                 app:backgroundTint="@color/fightPandemicsGhostWhite"
                 app:icon="@drawable/ic_edit_profile"
@@ -249,7 +228,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView6" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
@@ -257,10 +235,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:fontFamily="@font/poppins_medium"
             android:text="@string/profile_activities"
             android:textColor="?colorPrimary"
             android:textSize="14sp"
-            android:fontFamily="@font/poppins_medium"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
@@ -310,10 +288,9 @@
             android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_add" />
+            app:srcCompat="@drawable/ic_add_new" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </androidx.core.widget.NestedScrollView>
