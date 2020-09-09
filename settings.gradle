@@ -1,2 +1,9 @@
-rootProject.name = 'Fight Pandemics'
+rootProject.name='Fight Pandemics'
 include ':app'
+include ':core'
+
+include ':home'
+include ':search'
+include ':inbox'
+include ':profile'
+
