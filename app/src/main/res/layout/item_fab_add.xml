@@ -8,6 +8,9 @@
     android:layout_marginRight="@dimen/fab_margin"
     android:layout_marginBottom="72dp"
     app:elevation="6dp"
+    android:backgroundTint="@color/fightPandemicsNeonBlue"
+    app:backgroundTint="@color/fightPandemicsNeonBlue"
+    app:tint="@color/fightPandemicsWhiteSmoke"
     app:srcCompat="@drawable/ic_add"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" />

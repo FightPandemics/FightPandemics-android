@@ -1,15 +1,14 @@
 <resources>
     <string name="app_name">Fight Pandemics</string>
 
-    <string name="tab_all">All</string>
-    <string name="tab_offers">Offers</string>
-    <string name="tab_requests">Requests</string>
     <string name="create_as_an_organization">Create as an organisation</string>
     <string name="create_as_an_individual">Create as an individual</string>
+
+    <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="inbox">Inbox</string>
     <string name="profile">Profile</string>
-    <string name="home">Home</string>
+
     <string name="close">Close</string>
     <string name="confirm">Confirm</string>
     <string name="offering">Offering</string>
@@ -25,5 +24,10 @@
     <string name="profile_content">I’m a 21-year-old chorus actor who enjoys walking, baking and badminton. I currently help the elderly in my neighborhood with their groceries.</string>
     <string name="select">Select</string>
     <string name="add_organisation">Add an organisation account</string>
+
+    <string name="title_search">Search</string>
+    <string name="title_inbox">Inbox</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_home">Home</string>
 
 </resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_profile"
+    app:startDestination="@id/profileFragment">
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.fightpandemics.profile.ui.ProfileFragment"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/profile_fragment" />
+
+</navigation>
