@@ -1,4 +1,4 @@
-package com.fightpandemics.custom
+package com.fightpandemics.profile.custom
 
 import android.content.Context
 import android.graphics.*
@@ -12,7 +12,7 @@ import androidx.annotation.Px
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.toRectF
-import com.fightpandemics.R
+import com.fightpandemics.profile.R
 import kotlin.math.max
 import kotlin.math.truncate
 
