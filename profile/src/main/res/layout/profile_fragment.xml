@@ -11,7 +11,6 @@
         android:layout_height="match_parent"
         android:background="@color/colorBackground">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
@@ -20,7 +19,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
 
             <TextView
                 android:id="@+id/textView2"
@@ -36,7 +34,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/overview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -53,9 +51,9 @@
                 android:layout_marginEnd="24dp"
                 android:padding="8dp"
                 android:src="@drawable/ic_settings"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintBottom_toBottomOf="@+id/overview"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageView2" />
+                app:layout_constraintTop_toTopOf="@+id/overview" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -146,67 +144,67 @@
                 tools:text="@string/profile_content" />
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/facebook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:padding="8dp"
                 android:src="@drawable/ic_facebook"
-                app:layout_constraintEnd_toStartOf="@+id/imageView7"
+                app:layout_constraintEnd_toStartOf="@+id/linkedin"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="@+id/textView7"
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
             <ImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/linkedin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:padding="8dp"
                 android:src="@drawable/ic_linkedin"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-                app:layout_constraintEnd_toStartOf="@+id/imageView8"
+                app:layout_constraintBottom_toBottomOf="@+id/facebook"
+                app:layout_constraintEnd_toStartOf="@+id/twitter"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView6"
-                app:layout_constraintTop_toTopOf="@+id/imageView6" />
+                app:layout_constraintStart_toEndOf="@+id/facebook"
+                app:layout_constraintTop_toTopOf="@+id/facebook" />
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/twitter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:padding="8dp"
                 android:src="@drawable/ic_twitter"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-                app:layout_constraintEnd_toStartOf="@+id/imageView9"
+                app:layout_constraintBottom_toBottomOf="@+id/linkedin"
+                app:layout_constraintEnd_toStartOf="@+id/github"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView7"
-                app:layout_constraintTop_toTopOf="@+id/imageView7" />
+                app:layout_constraintStart_toEndOf="@+id/linkedin"
+                app:layout_constraintTop_toTopOf="@+id/linkedin" />
 
             <ImageView
-                android:id="@+id/imageView9"
+                android:id="@+id/github"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:padding="8dp"
                 android:src="@drawable/ic_github"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-                app:layout_constraintEnd_toStartOf="@+id/imageView10"
+                app:layout_constraintBottom_toBottomOf="@+id/twitter"
+                app:layout_constraintEnd_toStartOf="@+id/link"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView8"
-                app:layout_constraintTop_toTopOf="@+id/imageView8" />
+                app:layout_constraintStart_toEndOf="@+id/twitter"
+                app:layout_constraintTop_toTopOf="@+id/twitter" />
 
             <ImageView
-                android:id="@+id/imageView10"
+                android:id="@+id/link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:padding="8dp"
                 android:src="@drawable/ic_link"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-                app:layout_constraintStart_toEndOf="@+id/imageView9"
-                app:layout_constraintTop_toTopOf="@+id/imageView9" />
+                app:layout_constraintBottom_toBottomOf="@+id/github"
+                app:layout_constraintStart_toEndOf="@+id/github"
+                app:layout_constraintTop_toTopOf="@+id/github" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button3"
@@ -224,8 +222,8 @@
                 app:iconGravity="textStart"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/textView7"
-                app:layout_constraintStart_toStartOf="@+id/imageView6"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                app:layout_constraintStart_toStartOf="@+id/facebook"
+                app:layout_constraintTop_toBottomOf="@+id/facebook" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView

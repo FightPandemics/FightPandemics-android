@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--Profile-->
+    <string name="profile_title">Profile</string>
+    <string name="request_help">Request Help</string>
+    <string name="offer_help">Offer Help</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="profile_activities">Activities</string>
+    <string name="profile_requests">Requests</string>
+    <string name="profile_content">I’m a 21-year-old chorus actor who enjoys walking, baking and badminton. I currently help the elderly in my neighborhood with their groceries.</string>
+    <string name="select">Select</string>
+    <string name="add_organisation">Add an organisation account</string>
     <string name="profile_my_organisation">My Organisation</string>
+
 </resources>
