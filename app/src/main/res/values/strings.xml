@@ -15,4 +15,13 @@
     <string name="offering">Offering</string>
     <string name="requesting">Requesting</string>
 
+    <!--Profile-->
+    <string name="profile_title">Profile</string>
+    <string name="request_help">Request Help</string>
+    <string name="offer_help">Offer Help</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="profile_activities">Activities</string>
+    <string name="profile_requests">Requests</string>
+    <string name="profile_content">I’m a 21-year-old chorus actor who enjoys walking, baking and badminton. I currently help the elderly in my neighborhood with their groceries.</string>
+
 </resources>

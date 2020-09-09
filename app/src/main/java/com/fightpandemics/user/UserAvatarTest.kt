@@ -9,7 +9,7 @@ class UserAvatarTest : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_test)
 
-        val ua = findViewById<UserAvatar>(R.id.userAvatar)
+        val ua = findViewById<UserAvatar>(R.id.user_avatar)
         ua.setUpUserAvatar(userNameInitials = "RG")
     }
 }

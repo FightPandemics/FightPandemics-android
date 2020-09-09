@@ -14,7 +14,7 @@
         android:name=".App">
 
         <activity
-            android:name=".user.UserAvatarTest"
+            android:name=".home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
