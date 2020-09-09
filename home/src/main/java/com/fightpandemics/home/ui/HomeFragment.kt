@@ -2,40 +2,31 @@ package com.fightpandemics.home.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.fightpandemics.home.R
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.ui.tabs.HomePagerAdapter
 import com.fightpandemics.home.ui.tabs.OnTabSelected
-import com.fightpandemics.home.utils.applyStyle
+import com.fightpandemics.home.utils.TAB_TITLES
 import com.fightpandemics.utils.ViewModelFactory
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homePager: ViewPager
+    private lateinit var homePager: ViewPager2
     private lateinit var homeTabs: TabLayout
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: HomeViewModel
-
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -78,18 +69,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupUi() {
-        val homePagerAdapter = HomePagerAdapter(requireActivity(), childFragmentManager)
+        val homePagerAdapter
+                = HomePagerAdapter(childFragmentManager, lifecycle)
 
         homePager.adapter = homePagerAdapter
-        homeTabs.setupWithViewPager(homePager)
-        homeTabs.addOnTabSelectedListener(OnTabSelected())
 
-        for (i in 0 until homeTabs.tabCount) {
-            val title = homeTabs.getTabAt(i)?.text
-            homeTabs.getTabAt(i)?.setCustomView(R.layout.item_tab_title)
-            val tabTitle = homeTabs.getTabAt(i)?.customView?.findViewById<TextView>(R.id.tv_title)
-            tabTitle?.text = title
-            tabTitle?.applyStyle(tabTitle.isSelected)
-        }
+        TabLayoutMediator(homeTabs, homePager) { tab, position ->
+            tab.text = this.resources.getString(TAB_TITLES[position])
+            homeTabs.addOnTabSelectedListener(OnTabSelected())
+        }.attach()
     }
 }
