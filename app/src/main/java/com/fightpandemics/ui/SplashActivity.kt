@@ -12,11 +12,11 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         val handler = Handler()
-        handler.postDelayed(this::goToMainActivity, 2000)
+        handler.postDelayed(this::goToOnBoardingActivity, 2000)
     }
 
-    private fun goToMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
+    private fun goToOnBoardingActivity() {
+        startActivity(Intent(this, OnBoardingActivity::class.java))
         finish()
     }
 }
