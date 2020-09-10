@@ -11,50 +11,9 @@
         android:layout_height="match_parent"
         android:background="@color/colorBackground">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?colorSurface"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/textView2"
-                style="@style/AndroidNativeH122Px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="@string/profile_title"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/overview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:padding="8dp"
-                android:src="@drawable/ic_arrow_down"
-                app:layout_constraintBottom_toBottomOf="@+id/textView2"
-                app:layout_constraintStart_toEndOf="@+id/textView2"
-                app:layout_constraintTop_toTopOf="@+id/textView2" />
-
-            <ImageView
-                android:id="@+id/settings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:padding="8dp"
-                android:src="@drawable/ic_settings"
-                app:layout_constraintBottom_toBottomOf="@+id/overview"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/overview" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/profile_toolbar"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
@@ -62,8 +21,9 @@
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
             android:background="?colorSurface"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
             <com.fightpandemics.profile.custom.ProfileImageView
                 android:id="@+id/user_avatar"
@@ -133,11 +93,11 @@
 
             <TextView
                 android:id="@+id/textView7"
+                style="@style/AndroidNativeP114Px"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-                style="@style/AndroidNativeP114Px"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/button"
                 app:layout_constraintTop_toBottomOf="@+id/button"
@@ -215,8 +175,8 @@
                 android:layout_marginBottom="16dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:textAllCaps="false"
                 android:text="@string/edit_profile"
+                android:textAllCaps="false"
                 app:backgroundTint="@color/fightPandemicsGhostWhite"
                 app:icon="@drawable/ic_edit_profile"
                 app:iconGravity="textStart"

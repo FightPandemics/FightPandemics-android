@@ -12,5 +12,7 @@
     <string name="select">Select</string>
     <string name="add_organisation">Add an organisation account</string>
     <string name="profile_my_organisation">My Organisation</string>
+    <string name="settings_action">Settings</string>
+    <string name="select_account">Select Account</string>
 
 </resources>
