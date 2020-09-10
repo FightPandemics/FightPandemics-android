@@ -8,10 +8,12 @@
     android:paddingStart="8dp"
     android:paddingTop="8dp"
     android:paddingEnd="8dp"
+    app:layout_collapseMode="pin"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    app:menu="@menu/menu_profile">
+    app:menu="@menu/menu_profile"
+    app:popupTheme="@style/AppTheme.PopupOverlay">
 
     <TextView
         android:id="@+id/textView2"
