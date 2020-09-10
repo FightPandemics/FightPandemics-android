@@ -8,8 +8,8 @@ import com.fightpandemics.home.ui.tabs.all.HomeAllFragment
 import com.fightpandemics.home.ui.tabs.offers.HomeOfferFragment
 import com.fightpandemics.home.ui.tabs.requests.HomeRequestFragment
 
-class HomePagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle)
-    : FragmentStateAdapter(fragmentManager, lifecycle){
+class HomePagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
+    FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun createFragment(position: Int): Fragment = when (position) {
         0 -> HomeAllFragment.newInstance()

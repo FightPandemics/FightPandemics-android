@@ -2,7 +2,12 @@ package com.fightpandemics.home.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -69,8 +74,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupUi() {
-        val homePagerAdapter
-                = HomePagerAdapter(childFragmentManager, lifecycle)
+        val homePagerAdapter =
+            HomePagerAdapter(childFragmentManager, lifecycle)
 
         homePager.adapter = homePagerAdapter
 

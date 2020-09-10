@@ -17,8 +17,10 @@ class ResponseCacheInterceptor : Interceptor {
         val originalResponse: Response = chain.proceed(chain.request())
         val cacheControl: String? = originalResponse.header("Cache-Control")
 
-        return if (cacheControl == null || cacheControl.contains("no-store") ||
-            cacheControl.contains("no-cache") || cacheControl.contains("must-revalidate") ||
+        return if (cacheControl == null ||
+            cacheControl.contains("no-store") ||
+            cacheControl.contains("no-cache") ||
+            cacheControl.contains("must-revalidate") ||
             cacheControl.contains("max-age=0")
         ) {
             Timber.i("Response cache applied")
