@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
             destination: NavDestination,
             arguments: Bundle?
         ) {
-            // findViewById<Toolbar>(R.id.toolbar).title = destination.label
+            // findViewById<Toolbar>(R.id.profile_toolbar).title = destination.label
             when (destination.id) {
                 R.id.homeFragment, R.id.searchFragment, R.id.inboxFragment, R.id.profileFragment
                 -> showBottomBar(destination)
