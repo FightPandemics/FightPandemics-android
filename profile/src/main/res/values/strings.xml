@@ -1,5 +1,4 @@
 <resources>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="log_in">Log in</string>
     <string name="sign_up">Sign up</string>
     <string name="you_are_not_signed_in">You are not signed in</string>
