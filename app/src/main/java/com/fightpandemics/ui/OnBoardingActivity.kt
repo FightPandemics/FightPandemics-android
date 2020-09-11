@@ -58,26 +58,37 @@ class OnBoardingActivity : AppCompatActivity() {
         })
         skipText.setOnClickListener {
             startActivity(Intent(applicationContext, MainActivity::class.java))
+            finish()
         }
         setPageViewController()
     }
 
     private fun loadData() {
-        //To do
+        val images = listOf(R.drawable.onboarding_1_image, R.drawable.onboarding_2_image)
+        val textHeader = listOf("Welcome to FightPandemics", "A place you can offer and get help")
+        val textDesc = listOf("Welcome to FightPandemics, Welcome to FightPandemics", "A place you can offer and get help, A place you can offer and get help")
+        for (i in images.indices) {
+            val onBoardItem = OnBoardItem(images[i], textHeader[i], textDesc[i])
+            onBoardItems.add(onBoardItem)
+        }
     }
 
     private fun setPageViewController() {
-        //To do
+        dotCount = adapter.count
+        dots = ArrayList(dotCount)
+        for (i in 0 until dotCount) {
+            dots.add(ImageView(this))
+            dots[i].setImageDrawable(ContextCompat.getDrawable(this, R.drawable.non_selected_item_dot))
+            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            params.setMargins(6, 0, 6, 0)
+            pagerIndicator.addView(dots[i], params)
+        }
+        dots[0].setImageDrawable(ContextCompat.getDrawable(this, R.drawable.selected_item_dot))
     }
 }
 
 class OnBoardAdapter(private val context: Context, private val onBoardItems: ArrayList<OnBoardItem>) : PagerAdapter() {
 
-    //private var onBoardItems: ArrayList<OnBoardItem> = ArrayList()
-
-//    init {
-//        this.onBoardItems = onBoardItems
-//    }
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
         return view == `object`
     }
@@ -88,13 +99,14 @@ class OnBoardAdapter(private val context: Context, private val onBoardItems: Arr
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val itemView = LayoutInflater.from(context).inflate(R.layout.onboard_item_view, container, false)
-        val imageView = itemView.imageView
-        val textOne = itemView.textView1
-        val textTwo = itemView.textView2
+        val imageView = itemView.findViewById<ImageView>(R.id.imageView)
+        val textOne = itemView.findViewById<TextView>(R.id.textView1)
+        val textTwo = itemView.findViewById<TextView>(R.id.textView2)
         val item = onBoardItems[position]
         imageView.setImageResource(item.imageID)
         textOne.text = item.textOne
         textTwo.text = item.textTwo
+        container.addView(itemView)
         return itemView
     }
 
