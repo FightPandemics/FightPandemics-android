@@ -29,7 +29,6 @@ android:
     - 'google-gdk-license-.+'
 
 before_install:
-  - chmod +x gradlew
   - touch $HOME/.android/repositories.cfg
   - mkdir "$ANDROID_HOME/licenses" || true
   - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
@@ -59,7 +58,7 @@ before_script:
 
 script:
   - ./gradlew clean build
-#  - ./gradlew build
+#  - ./gradlew build --stacktrace
 #  - ./gradlew connectedAndroidTest
 
 notifications:
