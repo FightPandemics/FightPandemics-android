@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">@color/fightPandemicsNeonBlue</color>
-    <color name="colorPrimaryDark">@color/fightPandemicsNeonBlue</color>
-    <color name="colorAccent">@color/fightPandemicsNeonBlue</color>
+    <color name="colorPrimaryVariant">@color/fightPandemicsNeonBlue</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorSecondary">@color/fightPandemicsNeonBlue</color>
+    <color name="colorSecondaryVariant">#4D425AF2</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+    <color name="colorError">#F44336</color>
+    <color name="colorOnError">#FFFFFF</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#000000</color>
+    <color name="colorBackground">#F4F4F4</color>
+    <color name="colorOnBackground">#000000</color>
+    <color name="textColorPrimary">#282828</color>
 
     <color name="fightPandemicsNeonBlue">#425AF2</color>
     <color name="fightPandemicsNeonBlue_30p">#4D425AF2</color>
