@@ -10,11 +10,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.fightpandemics.R
+import kotlinx.android.synthetic.main.activity_on_boarding.*
 import kotlinx.android.synthetic.main.onboard_item_view.view.*
 
 class OnBoardingActivity : AppCompatActivity() {
@@ -65,10 +67,10 @@ class OnBoardingActivity : AppCompatActivity() {
 
     private fun loadData() {
         val images = listOf(R.drawable.onboarding_1_image, R.drawable.onboarding_2_image)
-        val textHeader = listOf("Welcome to FightPandemics", "A place you can offer and get help")
-        val textDesc = listOf("Welcome to FightPandemics, Welcome to FightPandemics", "A place you can offer and get help, A place you can offer and get help")
+        val textHeader = listOf(R.string.welcome_to_fightpandemics, R.string.find_and_share_support_with_people_near_you)
+        val textDesc = listOf(R.string.first_on_boarding_desc_text, R.string.second_on_boarding_desc_text)
         for (i in images.indices) {
-            val onBoardItem = OnBoardItem(images[i], textHeader[i], textDesc[i])
+            val onBoardItem = OnBoardItem(images[i], resources.getString(textHeader[i]), resources.getString(textDesc[i]))
             onBoardItems.add(onBoardItem)
         }
     }
@@ -80,7 +82,7 @@ class OnBoardingActivity : AppCompatActivity() {
             dots.add(ImageView(this))
             dots[i].setImageDrawable(ContextCompat.getDrawable(this, R.drawable.non_selected_item_dot))
             val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            params.setMargins(6, 0, 6, 0)
+            params.setMargins(12, 0, 12, 0)
             pagerIndicator.addView(dots[i], params)
         }
         dots[0].setImageDrawable(ContextCompat.getDrawable(this, R.drawable.selected_item_dot))
