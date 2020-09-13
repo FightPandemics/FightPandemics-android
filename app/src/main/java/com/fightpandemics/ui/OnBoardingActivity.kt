@@ -10,14 +10,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.fightpandemics.R
-import kotlinx.android.synthetic.main.activity_on_boarding.*
-import kotlinx.android.synthetic.main.onboard_item_view.view.*
 
 class OnBoardingActivity : AppCompatActivity() {
 
@@ -67,10 +64,10 @@ class OnBoardingActivity : AppCompatActivity() {
 
     private fun loadData() {
         val images = listOf(R.drawable.onboarding_1_image, R.drawable.onboarding_2_image)
-        val textHeader = listOf(R.string.welcome_to_fightpandemics, R.string.find_and_share_support_with_people_near_you)
-        val textDesc = listOf(R.string.first_on_boarding_desc_text, R.string.second_on_boarding_desc_text)
+        val headerTexts = listOf(R.string.welcome_to_fightpandemics, R.string.find_and_share_support_with_people_near_you)
+        val descTexts = listOf(R.string.first_on_boarding_desc_text, R.string.second_on_boarding_desc_text)
         for (i in images.indices) {
-            val onBoardItem = OnBoardItem(images[i], resources.getString(textHeader[i]), resources.getString(textDesc[i]))
+            val onBoardItem = OnBoardItem(images[i], resources.getString(headerTexts[i]), resources.getString(descTexts[i]))
             onBoardItems.add(onBoardItem)
         }
     }
@@ -102,12 +99,12 @@ class OnBoardAdapter(private val context: Context, private val onBoardItems: Arr
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val itemView = LayoutInflater.from(context).inflate(R.layout.onboard_item_view, container, false)
         val imageView = itemView.findViewById<ImageView>(R.id.imageView)
-        val textOne = itemView.findViewById<TextView>(R.id.textView1)
-        val textTwo = itemView.findViewById<TextView>(R.id.textView2)
+        val textOneTv = itemView.findViewById<TextView>(R.id.textView1)
+        val textTwoTv = itemView.findViewById<TextView>(R.id.textView2)
         val item = onBoardItems[position]
         imageView.setImageResource(item.imageID)
-        textOne.text = item.textOne
-        textTwo.text = item.textTwo
+        textOneTv.text = item.textOne
+        textTwoTv.text = item.textTwo
         container.addView(itemView)
         return itemView
     }
