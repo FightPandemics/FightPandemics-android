@@ -9,6 +9,7 @@ import com.fightpandemics.data.remote.RetrofitService
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
@@ -32,17 +33,17 @@ class NetworkModule {
         offlineResponseCacheInterceptor: OfflineResponseCacheInterceptor,
         errorHandlerInterceptor: ErrorHandlerInterceptor
     ): OkHttpClient {
-        val clientBuilder = OkHttpClient
+        val okHttpClient = OkHttpClient
             .Builder()
             .addInterceptor(httpLoggingInterceptor)
 
         if (BuildConfig.DEBUG) {
-            clientBuilder
+            okHttpClient
                 .addNetworkInterceptor(responseCacheInterceptor)
                 .addInterceptor(offlineResponseCacheInterceptor)
                 .addInterceptor(errorHandlerInterceptor)
         }
-        return clientBuilder.build()
+        return okHttpClient.build()
     }
 
     @Singleton
