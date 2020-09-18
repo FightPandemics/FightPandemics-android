@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip_1"
+        android:id="@+id/individuals_chip"
         style="@style/FilterChip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,82 +25,83 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Startup"
-        app:layout_constraintBaseline_toBaselineOf="@+id/chip_1"
-        app:layout_constraintEnd_toStartOf="@+id/chip4"
+        app:layout_constraintBaseline_toBaselineOf="@+id/individuals_chip"
+        app:layout_constraintEnd_toStartOf="@+id/company_chip"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/chip_1" />
+        app:layout_constraintStart_toEndOf="@+id/individuals_chip" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip4"
+        android:id="@+id/company_chip"
         style="@style/FilterChip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
         android:text="Company"
         app:chipCornerRadius="6dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/chip_1"
+        app:layout_constraintBaseline_toBaselineOf="@+id/individuals_chip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/startup_chip" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip7"
+        android:id="@+id/community_chip"
         style="@style/FilterChip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Community"
-        app:layout_constraintEnd_toStartOf="@+id/chip8"
+        app:layout_constraintEnd_toStartOf="@+id/goverment_chip"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chip_1" />
+        app:layout_constraintTop_toBottomOf="@+id/individuals_chip" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip9"
-        style="@style/FilterChip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Goverment"
-        app:layout_constraintBaseline_toBaselineOf="@+id/chip7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/chip8" />
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip8"
+        android:id="@+id/university_chip"
         style="@style/FilterChip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="University"
-        app:layout_constraintBaseline_toBaselineOf="@+id/chip7"
-        app:layout_constraintEnd_toStartOf="@+id/chip9"
+        app:layout_constraintBaseline_toBaselineOf="@+id/community_chip"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/chip7" />
+        app:layout_constraintStart_toEndOf="@+id/goverment_chip" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip11"
+        android:id="@+id/goverment_chip"
+        style="@style/FilterChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Goverment"
+        app:layout_constraintBaseline_toBaselineOf="@+id/community_chip"
+        app:layout_constraintEnd_toStartOf="@+id/university_chip"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/community_chip" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/health_care_chip"
         style="@style/FilterChip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Health Care Providers"
-        app:layout_constraintEnd_toStartOf="@+id/chip12"
+        app:layout_constraintEnd_toStartOf="@+id/nonprofit_chip"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chip7" />
+        app:layout_constraintTop_toBottomOf="@+id/community_chip" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip12"
+        android:id="@+id/nonprofit_chip"
         style="@style/FilterChip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Non-profit"
-        app:layout_constraintBaseline_toBaselineOf="@+id/chip11"
+        app:layout_constraintBaseline_toBaselineOf="@+id/health_care_chip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/chip11" />
+        app:layout_constraintStart_toEndOf="@+id/health_care_chip" />
 
     <com.google.android.material.chip.Chip
+        android:id="@+id/other_chip"
         style="@style/FilterChip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,50 +109,6 @@
         android:text="Others"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chip11" />
-
-
-    <!--    <com.google.android.material.chip.ChipGroup-->
-    <!--        android:id="@+id/chipGroup2"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/chipGroup"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent">-->
-
-    <!--        <com.google.android.material.chip.Chip-->
-    <!--            style="@style/FilterChip"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="Community" />-->
-
-    <!--        <com.google.android.material.chip.Chip-->
-    <!--            style="@style/FilterChip"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="Goverment" />-->
-
-    <!--        <com.google.android.material.chip.Chip-->
-    <!--            style="@style/FilterChip"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="University" />-->
-
-    <!--    </com.google.android.material.chip.ChipGroup>-->
-
-    <!--    <com.google.android.material.chip.Chip-->
-    <!--        style="@style/FilterChip"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginBottom="90dp"-->
-    <!--        android:text="Test 3"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/chipGroup2"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.498"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="1.0" />-->
-
+        app:layout_constraintTop_toBottomOf="@+id/health_care_chip" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

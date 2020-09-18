@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:drawableEnd="@drawable/ic_frame"
+            android:drawableEnd="@drawable/ic_plus_sign"
             android:focusable="true"
             android:paddingStart="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
@@ -29,9 +29,10 @@
         <include
             android:id="@+id/location_options"
             layout="@layout/filter_location"
+            android:layout_height="230dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:visibility="gone"
+            tools:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/filter_location_expandable"
             tools:layout_editor_absoluteX="-16dp" />
 
@@ -41,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:drawableEnd="@drawable/ic_frame"
+            android:drawableEnd="@drawable/ic_plus_sign"
             android:focusable="true"
             android:paddingStart="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
@@ -57,7 +58,8 @@
             layout="@layout/filter_from_whom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:visibility="gone"
+            tools:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/filter_from_whom_expandable"
             tools:layout_editor_absoluteX="34dp" />
 
@@ -67,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:drawableEnd="@drawable/ic_frame"
+            android:drawableEnd="@drawable/ic_plus_sign"
             android:focusable="true"
             android:paddingStart="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
@@ -83,9 +85,12 @@
             layout="@layout/filter_from_whom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:visibility="gone"
+            tools:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/filter_type_expandable"
             tools:layout_editor_absoluteX="-57dp" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
