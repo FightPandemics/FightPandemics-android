@@ -94,7 +94,7 @@
             android:text="Wellbeing/Mental" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/others_chip"
+            android:id="@+id/type_others_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

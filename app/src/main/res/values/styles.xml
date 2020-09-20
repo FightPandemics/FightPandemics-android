@@ -94,8 +94,12 @@
 
     <style name="FilterChip" parent="Widget.MaterialComponents.Chip.Choice">
 <!--       <item name="chipBackgroundColor">@color/fightPandemicsWhiteSmoke</item>-->
-<!--        <item name="chipEndPadding">20dp</item>-->
-<!--        <item name="chipStartPadding">20dp</item>-->
+        <item name="chipEndPadding">20dp</item>
+        <item name="chipStartPadding">20dp</item>
+
+<!--        <item name="android:layout_height">wrap_content</item>-->
+<!--        <item name="android:layout_weight">wrap_content</item>-->
+
         <item name="chipMinTouchTargetSize">32dp</item>
         <item name="chipCornerRadius">6dp</item>
         <item name="android:textSize">12sp</item>
