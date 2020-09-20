@@ -46,6 +46,13 @@
                 tools:layout_editor_absoluteX="-16dp"
                 tools:visibility="gone" />
 
+            <View
+                android:id="@+id/location_line_divider"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#4cd7d7d7"
+                app:layout_constraintTop_toBottomOf="@+id/location_options"/>
+
             <TextView
                 android:id="@+id/filter_from_whom_expandable"
                 style="@style/AndroidNativeH216Px"
@@ -72,6 +79,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/filter_from_whom_expandable"
                 tools:layout_editor_absoluteX="34dp"
                 tools:visibility="visible" />
+
+            <View
+                android:id="@+id/from_whom_line_divider"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#4cd7d7d7"
+                app:layout_constraintTop_toBottomOf="@+id/from_whom_options"/>
 
             <TextView
                 android:id="@+id/filter_type_expandable"
@@ -100,6 +114,12 @@
                 tools:layout_editor_absoluteX="-57dp"
                 tools:visibility="visible" />
 
+            <View
+                android:id="@+id/type_line_divider"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#4cd7d7d7"
+                app:layout_constraintTop_toBottomOf="@+id/type_options"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

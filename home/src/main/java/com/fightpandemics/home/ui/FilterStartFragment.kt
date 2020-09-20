@@ -57,13 +57,13 @@ class FilterStartFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
-    private fun toggleContents(v: View, v2: TextView) {
-        if (v.visibility == View.VISIBLE) {
-            v.visibility = View.GONE
-            v2.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_plus_sign, 0)
-        } else {
-            v.visibility = View.VISIBLE
-            v2.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_minus_sign, 0)
+    private fun toggleContents(optionsView: View, clickableTextView: TextView ){
+        if (optionsView.visibility == View.VISIBLE){
+            optionsView.visibility = View.GONE
+            clickableTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0, R.drawable.ic_plus_sign,0)
+        } else{
+            optionsView.visibility = View.VISIBLE
+            clickableTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0, R.drawable.ic_minus_sign,0)
         }
     }
 
