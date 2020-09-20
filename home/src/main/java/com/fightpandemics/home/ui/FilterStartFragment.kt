@@ -44,9 +44,9 @@ class FilterStartFragment : Fragment() {
         filterLocationOptions = rootView.findViewById(R.id.location_options)
         filterFromWhomOptions = rootView.findViewById(R.id.from_whom_options)
         filterTypeOptions = rootView.findViewById(R.id.type_options)
-        filterLocationExpandable.setOnClickListener{ toggleContents(filterLocationOptions) }
-        filterFromWhomExpandable.setOnClickListener{ toggleContents(filterFromWhomOptions) }
-        filterTypeExpandable.setOnClickListener{ toggleContents(filterTypeOptions) }
+        filterLocationExpandable.setOnClickListener{ toggleContents(filterLocationOptions, filterLocationExpandable)}
+        filterFromWhomExpandable.setOnClickListener{ toggleContents(filterFromWhomOptions, filterFromWhomExpandable) }
+        filterTypeExpandable.setOnClickListener{ toggleContents(filterTypeOptions, filterTypeExpandable) }
 
         return rootView
     }
@@ -57,11 +57,13 @@ class FilterStartFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
-    private fun toggleContents(v: View){
-        v.visibility = if(v.visibility == View.VISIBLE){
-            View.GONE
-        }else{
-            View.VISIBLE
+    private fun toggleContents(v: View, v2: TextView) {
+        if (v.visibility == View.VISIBLE) {
+            v.visibility = View.GONE
+            v2.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_plus_sign, 0)
+        } else {
+            v.visibility = View.VISIBLE
+            v2.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_minus_sign, 0)
         }
     }
 
