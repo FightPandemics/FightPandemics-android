@@ -75,13 +75,13 @@ class HomeFragment : Fragment() {
 
     private fun setupUi() {
         val homePagerAdapter =
-            HomePagerAdapter(childFragmentManager, lifecycle)
+            HomePagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
 
         homePager.adapter = homePagerAdapter
 
         TabLayoutMediator(homeTabs, homePager) { tab, position ->
             tab.text = this.resources.getString(TAB_TITLES[position])
-            homeTabs.addOnTabSelectedListener(OnTabSelected())
+            //homeTabs.addOnTabSelectedListener(OnTabSelected())
         }.attach()
     }
 }

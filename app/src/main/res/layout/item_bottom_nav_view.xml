@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.bottomnavigation.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottomNavBar"
-    style="@style/Widget.BottomNavigationView"
+    android:id="@+id/bottomNavBars"
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:layout_gravity="bottom"
@@ -10,6 +10,5 @@
     android:layout_marginEnd="0dp"
     android:background="@drawable/bottom_nav_background"
     app:itemIconTint="@drawable/bottom_navigation_item_colors"
-    app:labelVisibilityMode="labeled"
     app:itemHorizontalTranslationEnabled="true"
     app:menu="@menu/navigation" />

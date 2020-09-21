@@ -19,11 +19,15 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.fightpandemics.R
 import com.fightpandemics.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var fab: FloatingActionButton
+    private lateinit var fabCreateAsOrg: MaterialButton
+    private lateinit var fabCreateAsIndividual: MaterialButton
     private lateinit var dot: ImageView
     private lateinit var fabOpen: Animation
     private lateinit var fabClose: Animation
@@ -35,9 +39,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_1)
 
         bottomNavigationView = findViewById(R.id.bottomNavBar)
+        fab = findViewById(R.id.fab)
+        fabCreateAsIndividual = findViewById(R.id.fabCreateAsIndiv)
+        fabCreateAsOrg = findViewById(R.id.fabCreateAsOrg)
         dot = findViewById(R.id.dot)
 
         initFabActions()

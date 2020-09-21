@@ -11,7 +11,7 @@ import javax.inject.Inject
  */
 data class CoroutinesDispatcherProvider(
     val main: CoroutineDispatcher,
-    val computation: CoroutineDispatcher,
+    val default: CoroutineDispatcher,
     val io: CoroutineDispatcher
 ) {
     @Inject
