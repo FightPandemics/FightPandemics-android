@@ -27,6 +27,8 @@ class HomeRequestFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeRequestViewModel::class.java)
-        // TODO: Use the ViewModel
+
+
+
     }
 }
