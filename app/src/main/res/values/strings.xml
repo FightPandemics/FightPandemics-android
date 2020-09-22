@@ -27,5 +27,6 @@
     <string name="first_on_boarding_desc_text">FightPandemics is a social platform that connects organizations, communities and individuals who need help with those who can provide it.</string>
     <string name="second_on_boarding_desc_text">Daily activities may be more risky for more vulnerable people. Let others know if you can help with essential needs like picking up groceries.</string>
     <string name="title_login">Login</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>

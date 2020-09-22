@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.fightpandemics.R
+import kotlinx.android.synthetic.main.activity_on_boarding.*
 
 class OnBoardingActivity : AppCompatActivity() {
 
@@ -60,6 +61,12 @@ class OnBoardingActivity : AppCompatActivity() {
             finish()
         }
         setPageViewController()
+
+
+        bt_join_now.setOnClickListener{
+            startActivity(Intent(applicationContext, LoginActivity::class.java))
+            finish()
+        }
     }
 
     private fun loadData() {
