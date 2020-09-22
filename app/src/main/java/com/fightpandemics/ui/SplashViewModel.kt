@@ -1,9 +1,13 @@
 package com.fightpandemics.ui
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.fightpandemics.dagger.scope.ActivityScope
-import com.fightpandemics.data.CoroutinesDispatcherProvider
 import com.fightpandemics.domain.OnboardingCompletedUseCase
+import com.fightpandemics.result.Event
+import com.fightpandemics.result.data
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -11,10 +15,20 @@ import javax.inject.Inject
  */
 @ActivityScope
 class SplashViewModel @Inject constructor(
-    onboardingCompletedUseCase: OnboardingCompletedUseCase/*,
-    private val dispatcherProvider: CoroutinesDispatcherProvider*/
+    onboardingCompletedUseCase: OnboardingCompletedUseCase
 ) : ViewModel() {
 
+    //private val onboardingCompletedResult: LiveData<Result<Flow<Boolean>>> = liveData { emit(onboardingCompletedUseCase(Unit)) }
+
+    private val onboardingCompletedResults = onboardingCompletedUseCase.execute(Unit).asLiveData()
+
+    val launchDestination = onboardingCompletedResults.map {
+        if (!it) {
+            Event(LaunchDestination.ONBOARDING)
+        } else {
+            Event(LaunchDestination.MAIN_ACTIVITY)
+        }
+    }
 }
 
 enum class LaunchDestination {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fightpandemics">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -18,6 +17,7 @@
 
         <activity
             android:name=".ui.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,9 +25,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.OnBoardingActivity"
-            android:theme="@style/AppTheme.Onboarding">
-        </activity>
+        <activity
+            android:name=".ui.OnBoardingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Onboarding"/>
 
         <activity
             android:name=".ui.MainActivity"
@@ -35,7 +36,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="com.fightpandemics.main" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

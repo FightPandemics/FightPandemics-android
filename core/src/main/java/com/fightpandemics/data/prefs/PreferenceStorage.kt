@@ -1,20 +1,16 @@
 package com.fightpandemics.data.prefs
 
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener
-import androidx.annotation.WorkerThread
-import androidx.core.content.edit
-import com.google.samples.apps.iosched.shared.BuildConfig
-import com.fightpandemics.data.prefs.UserIsAttendee.IN_PERSON
-import com.fightpandemics.data.prefs.UserIsAttendee.NO_ANSWER
-import com.fightpandemics.data.prefs.UserIsAttendee.REMOTE
+import androidx.datastore.DataStore
+import androidx.datastore.preferences.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.properties.ReadWriteProperty
@@ -23,141 +19,46 @@ import kotlin.reflect.KProperty
 /**
  * Storage for app and user preferences.
  */
-interface PreferenceStorage {
-    var onboardingCompleted: Boolean
-    var scheduleUiHintsShown: Boolean
-    var notificationsPreferenceShown: Boolean
-    var preferToReceiveNotifications: Boolean
-    var snackbarIsStopped: Boolean
-    var sendUsageStatistics: Boolean
-    var preferConferenceTimeZone: Boolean
-    var selectedFilters: String?
-    var selectedTheme: String?
-    var observableSelectedTheme: Flow<String?>
-    var userIsAttendee: UserIsAttendee
+interface FightPandemicsPreferenceDataStore {
+    val userOnboardingFlow : Flow<Boolean>
+    //var onboardingCompleted: Boolean
 }
+
+private const val PREFERENCE_NAME = "fightpandemics"
 
 /**
- * [PreferenceStorage] impl backed by [android.content.SharedPreferences].
+ * [PreferenceDataStore] impl backed by [androidx.datastore.DataStore].
  */
 @Singleton
-@ExperimentalCoroutinesApi
-@FlowPreview
-class SharedPreferenceStorage @Inject constructor(context: Context) : PreferenceStorage {
+class FightPandemicsPreferenceDataStoreImpl @Inject constructor(context: Context) : FightPandemicsPreferenceDataStore {
 
-    private val selectedThemeChannel: ConflatedBroadcastChannel<String?> by lazy {
-        ConflatedBroadcastChannel<String?>().also { channel ->
-            channel.offer(selectedTheme)
-        }
+    //Create some keys
+    private object PreferenceKeys {
+        val USER_ONBOARDING_KEY = preferencesKey<Boolean>("preference_onboarding")
     }
 
-    private val prefs: Lazy<SharedPreferences> = lazy { // Lazy to prevent IO access to main thread.
-        context.applicationContext.getSharedPreferences(
-            PREFS_NAME, MODE_PRIVATE
-        ).apply {
-            registerOnSharedPreferenceChangeListener(changeListener)
-        }
-    }
+    // Create the Preferences DataStore
+    private val dataStore: DataStore<Preferences> = context.createDataStore(
+        name = PREFERENCE_NAME
+    )
 
-    private val changeListener = OnSharedPreferenceChangeListener { _, key ->
-        when (key) {
-            PREF_DARK_MODE_ENABLED -> selectedThemeChannel.offer(selectedTheme)
-        }
-    }
-
-    override var onboardingCompleted by BooleanPreference(prefs, PREF_ONBOARDING, false)
-
-    override var scheduleUiHintsShown by BooleanPreference(prefs, PREF_SCHED_UI_HINTS_SHOWN, false)
-
-    override var notificationsPreferenceShown
-        by BooleanPreference(prefs, PREF_NOTIFICATIONS_SHOWN, false)
-
-    override var preferToReceiveNotifications
-        by BooleanPreference(prefs, PREF_RECEIVE_NOTIFICATIONS, false)
-
-    override var snackbarIsStopped by BooleanPreference(prefs, PREF_SNACKBAR_IS_STOPPED, false)
-
-    override var sendUsageStatistics by BooleanPreference(prefs, PREF_SEND_USAGE_STATISTICS, true)
-
-    override var preferConferenceTimeZone
-        by BooleanPreference(prefs, PREF_CONFERENCE_TIME_ZONE, true)
-
-    override var selectedFilters by StringPreference(prefs, PREF_SELECTED_FILTERS, null)
-
-    override var selectedTheme by StringPreference(prefs, PREF_DARK_MODE_ENABLED, null)
-
-    override var observableSelectedTheme: Flow<String?>
-        get() = selectedThemeChannel.asFlow()
-        set(_) = throw IllegalAccessException("This property can't be changed")
-
-    override var userIsAttendee: UserIsAttendee
-        get() {
-            if (!prefs.value.contains(PREF_USER_IS_ATTENDEE)) {
-                return NO_ANSWER
-            }
-            return if (prefs.value.getBoolean(PREF_USER_IS_ATTENDEE, true)) {
-                IN_PERSON
+    //
+    override var userOnboardingFlow: Flow<Boolean> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
             } else {
-                REMOTE
+                throw exception
             }
         }
-        set(value) {
-            prefs.value.edit { putBoolean(PREF_USER_IS_ATTENDEE, value == IN_PERSON) }
+        .map {
+            it[PreferenceKeys.USER_ONBOARDING_KEY] ?: false
         }
 
-    companion object {
-        const val PREFS_NAME = "adssched"
-        const val PREF_ONBOARDING = "pref_onboarding"
-        const val PREF_SCHED_UI_HINTS_SHOWN = "pref_sched_ui_hints_shown"
-        const val PREF_NOTIFICATIONS_SHOWN = "pref_notifications_shown"
-        const val PREF_RECEIVE_NOTIFICATIONS = "pref_receive_notifications"
-        const val PREF_SNACKBAR_IS_STOPPED = "pref_snackbar_is_stopped"
-        const val PREF_SEND_USAGE_STATISTICS = "pref_send_usage_statistics"
-        const val PREF_CONFERENCE_TIME_ZONE = "pref_conference_time_zone"
-        const val PREF_SELECTED_FILTERS = "pref_selected_filters"
-        const val PREF_DARK_MODE_ENABLED = "pref_dark_mode"
-        const val PREF_USER_IS_ATTENDEE = "pref_user_is_attendee_" + BuildConfig.CONFERENCE_YEAR
+    //
+    suspend fun saveToDataStore(onboard: Boolean){
+        dataStore.edit {
+            it[PreferenceKeys.USER_ONBOARDING_KEY] = onboard
+        }
     }
-
-    fun registerOnPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
-        prefs.value.registerOnSharedPreferenceChangeListener(listener)
-    }
-}
-
-class BooleanPreference(
-    private val preferences: Lazy<SharedPreferences>,
-    private val name: String,
-    private val defaultValue: Boolean
-) : ReadWriteProperty<Any, Boolean> {
-
-    @WorkerThread
-    override fun getValue(thisRef: Any, property: KProperty<*>): Boolean {
-        return preferences.value.getBoolean(name, defaultValue)
-    }
-
-    override fun setValue(thisRef: Any, property: KProperty<*>, value: Boolean) {
-        preferences.value.edit { putBoolean(name, value) }
-    }
-}
-
-class StringPreference(
-    private val preferences: Lazy<SharedPreferences>,
-    private val name: String,
-    private val defaultValue: String?
-) : ReadWriteProperty<Any, String?> {
-
-    @WorkerThread
-    override fun getValue(thisRef: Any, property: KProperty<*>): String? {
-        return preferences.value.getString(name, defaultValue)
-    }
-
-    override fun setValue(thisRef: Any, property: KProperty<*>, value: String?) {
-        preferences.value.edit { putString(name, value) }
-    }
-}
-
-enum class UserIsAttendee {
-    IN_PERSON,
-    REMOTE,
-    NO_ANSWER // User never answered to this (e.g. 2018 user) or they dismissed the dialog.
 }

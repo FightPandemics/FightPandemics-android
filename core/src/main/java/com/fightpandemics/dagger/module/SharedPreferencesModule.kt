@@ -2,8 +2,8 @@ package com.fightpandemics.dagger.module
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.fightpandemics.data.prefs.PreferenceStorage
-import com.fightpandemics.data.prefs.SharedPreferenceStorage
+import com.fightpandemics.data.prefs.FightPandemicsPreferenceDataStore
+import com.fightpandemics.data.prefs.FightPandemicsPreferenceDataStoreImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -21,6 +21,6 @@ class SharedPreferencesModule(val context: Context, val name: String) {
 
     @Singleton
     @Provides
-    fun providesPreferenceStorage(context: Context): PreferenceStorage =
-        SharedPreferenceStorage(context)
+    fun providesPreferenceDataStore(context: Context): FightPandemicsPreferenceDataStore =
+        FightPandemicsPreferenceDataStoreImpl(context)
 }

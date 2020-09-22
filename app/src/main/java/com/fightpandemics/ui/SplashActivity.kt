@@ -7,10 +7,14 @@ import android.os.Handler
 import android.util.Log
 import androidx.activity.viewModels
 import com.fightpandemics.R
+import com.fightpandemics.result.EventObserver
 import com.fightpandemics.utils.ViewModelFactory
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ * A 'Trampoline' activity for sending users to an appropriate screen on launch.
+ */
 class SplashActivity : AppCompatActivity() {
 
     @Inject lateinit var viewModelFactory: ViewModelFactory
@@ -24,7 +28,8 @@ class SplashActivity : AppCompatActivity() {
 
         Timber.e(commonHome.toString())
 
-        goToOnBoardingActivity()
+        //goToOnBoardingActivity()
+        launch()
     }
 
     private fun goToOnBoardingActivity() {
@@ -33,13 +38,31 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun launch(){
-        /*
-        viewModel.launchDestination.observe(this, EventObserver { destination ->
+        splashViewModel.launchDestination.observe(this, EventObserver { destination ->
             when (destination) {
-                MAIN_ACTIVITY -> startActivity(Intent(this, MainActivity::class.java))
-                ONBOARDING -> startActivity(Intent(this, OnboardingActivity::class.java))
-            }.checkAllMatched
+                LaunchDestination.MAIN_ACTIVITY -> startActivity(Intent(this, MainActivity::class.java))
+                LaunchDestination.ONBOARDING -> startActivity(Intent(this, OnBoardingActivity::class.java))
+            }/*.checkAllMatched*/
             finish()
-        })*/
+        })
     }
 }
+
+/**
+ * Helper to force a when statement to assert all options are matched in a when statement.
+ *
+ * By default, Kotlin doesn't care if all branches are handled in a when statement. However, if you
+ * use the when statement as an expression (with a value) it will force all cases to be handled.
+ *
+ * This helper is to make a lightweight way to say you meant to match all of them.
+ *
+ * Usage:
+ *
+ * ```
+ * when(sealedObject) {
+ *     is OneType -> //
+ *     is AnotherType -> //
+ * }.checkAllMatched
+ */
+val <T> T.checkAllMatched: T
+    get() = this
