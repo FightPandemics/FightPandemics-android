@@ -14,20 +14,17 @@
     <string name="offering">Offering</string>
     <string name="requesting">Requesting</string>
 
-    <!--Profile-->
-    <string name="profile_title">Profile</string>
-    <string name="request_help">Request Help</string>
-    <string name="offer_help">Offer Help</string>
-    <string name="edit_profile">Edit Profile</string>
-    <string name="profile_activities">Activities</string>
-    <string name="profile_requests">Requests</string>
-    <string name="profile_content">I’m a 21-year-old chorus actor who enjoys walking, baking and badminton. I currently help the elderly in my neighborhood with their groceries.</string>
-    <string name="select">Select</string>
-    <string name="add_organisation">Add an organisation account</string>
-
     <string name="title_search">Search</string>
     <string name="title_inbox">Inbox</string>
     <string name="title_profile">Profile</string>
     <string name="title_home">Home</string>
+    <string name="skip_to_help_board">Skip to Help Board</string>
+    <string name="sign_in">Sign In</string>
+    <string name="join_now">Join Now</string>
+    <string name="on_boarding_avatar">On Boarding avatar</string>
+    <string name="welcome_to_fightpandemics">Welcome to FightPandemics</string>
+    <string name="find_and_share_support_with_people_near_you">Find and share support with people near you</string>
+    <string name="first_on_boarding_desc_text">FightPandemics is a social platform that connects organizations, communities and individuals who need help with those who can provide it.</string>
+    <string name="second_on_boarding_desc_text">Daily activities may be more risky for more vulnerable people. Let others know if you can help with essential needs like picking up groceries.</string>
 
 </resources>

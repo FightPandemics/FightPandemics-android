@@ -12,8 +12,10 @@ import androidx.core.view.marginBottom
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.fightpandemics.R
 import com.fightpandemics.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -59,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             destination: NavDestination,
             arguments: Bundle?
         ) {
-            // findViewById<Toolbar>(R.id.toolbar).title = destination.label
+            // findViewById<Toolbar>(R.id.profile_toolbar).title = destination.label
             when (destination.id) {
                 R.id.homeFragment, R.id.searchFragment, R.id.inboxFragment, R.id.profileFragment
                 -> showBottomBar(destination)
@@ -89,11 +91,10 @@ class MainActivity : AppCompatActivity() {
         )
 
         controller.observe(
-            this,
-            { navController ->
-                // setupActionBarWithNavController(navController)
-            }
-        )
+            this
+        ) { navController ->
+            setupActionBarWithNavController(navController)
+        }
         currentNavController = controller
     }
 
