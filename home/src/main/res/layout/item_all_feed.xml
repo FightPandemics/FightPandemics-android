@@ -171,7 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/offers"
+            android:text="@string/post_offers"
             style="@style/AndroidNativeP311Px"
             app:layout_constraintStart_toStartOf="@+id/user_avatar"
             app:layout_constraintTop_toTopOf="parent" />

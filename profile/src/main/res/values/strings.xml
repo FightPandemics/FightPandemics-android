@@ -30,5 +30,13 @@
     <string name="social_media">Facebook, LinkedIn, Twitter, Github</string>
     <string name="about_me">About me</string>
     <string name="about_me_subtitle">Write a self-introduction</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="social_media_links">Social Media Links</string>
+    <string name="facebook_url">Facebook URL</string>
+    <string name="linkedIn_url">LinkedIn URL</string>
+    <string name="twitter_url">Twitter URL</string>
+    <string name="github_url">Github URL</string>
+    <string name="personal_website">Personal Website</string>
 
 </resources>

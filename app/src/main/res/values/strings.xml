@@ -14,12 +14,6 @@
     <string name="offering">Offering</string>
     <string name="requesting">Requesting</string>
 
-    <string name="offers">Offers</string>
-    <string name="requests">Requests</string>
-    <string name="likes">Likes</string>
-    <string name="comments">Comments</string>
-    <string name="share">Share</string>
-
     <string name="title_search">Search</string>
     <string name="title_inbox">Inbox</string>
     <string name="title_profile">Profile</string>

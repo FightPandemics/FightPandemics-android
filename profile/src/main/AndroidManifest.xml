@@ -14,7 +14,9 @@
     </dist:module>
 
     <application>
-        <activity android:name=".ui.MyProfileActivity"></activity>
+        <activity android:name=".ui.SocialMediaLinksActivity"></activity>
+        <activity android:name=".ui.ChangeNameActivity" />
+        <activity android:name=".ui.MyProfileActivity" />
     </application>
 
 </manifest>
