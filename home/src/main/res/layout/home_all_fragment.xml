@@ -17,4 +17,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_all_feed" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
