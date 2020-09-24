@@ -2,11 +2,18 @@ package com.fightpandemics.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.fightpandemics.R
 
 open class BaseActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_base_fragment)
+    }
 
     fun launchActivity(
         clazz: Class<*>,
@@ -38,6 +45,17 @@ open class BaseActivity : AppCompatActivity() {
                 }
             }?.commitAllowingStateLoss()
         }
+    }
+
+    fun replaceFragment(fragment: Fragment, addToBackStack: Boolean) {
+        val transaction = supportFragmentManager?.beginTransaction()?.apply {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            replace(R.id.fragment_container, fragment, fragment::class.java.simpleName)
+            if (addToBackStack) {
+                addToBackStack(null)
+            }
+        }
+        transaction?.commitAllowingStateLoss()
     }
 
 }

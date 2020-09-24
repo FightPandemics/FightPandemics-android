@@ -16,7 +16,6 @@ import com.fightpandemics.R
 import com.fightpandemics.login.ui.LoginActivity
 import com.fightpandemics.utils.LoginStatusEnum
 import kotlinx.android.synthetic.main.activity_on_boarding.*
-import javax.inject.Inject
 
 class OnBoardingActivity : BaseActivity() {
 

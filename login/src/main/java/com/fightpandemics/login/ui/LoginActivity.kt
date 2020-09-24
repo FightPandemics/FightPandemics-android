@@ -1,12 +1,11 @@
 package com.fightpandemics.login.ui
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.fightpandemics.login.R
+import com.fightpandemics.ui.BaseActivity
 
-class LoginActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+class LoginActivity : BaseActivity() {
+
+    override fun onResume() {
+        super.onResume()
+        replaceFragment(SignUpFragment.newInstance("teste", "teste"), false)
     }
 }
