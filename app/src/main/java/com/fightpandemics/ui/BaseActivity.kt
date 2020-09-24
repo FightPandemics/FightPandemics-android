@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.fightpandemics.R
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -24,6 +25,7 @@ open class BaseActivity : AppCompatActivity() {
             } else {
                 startActivityForResult(this, requestCode)
             }
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
     }
 
