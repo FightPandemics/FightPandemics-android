@@ -1,4 +1,4 @@
-package com.fightpandemics.home.ui
+package com.fightpandemics.home.ui.filter
 
 //import com.fightpandemics.home.ui.tabs.requests.HomeRequestViewModel
 import android.os.Bundle
@@ -7,15 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.fightpandemics.home.R
 
-class FilterStartFragment : Fragment() {
+class FilterFragment : Fragment() {
 
     // Expandable / Collapsable clickable items
     private lateinit var filterLocationExpandable: TextView
     private lateinit var filterTypeExpandable: TextView
     private lateinit var filterFromWhomExpandable: TextView
+
     // Location, from whom and type options Views
     private lateinit var filterLocationOptions: View
     private lateinit var filterFromWhomOptions: View
@@ -24,7 +24,7 @@ class FilterStartFragment : Fragment() {
     //    private lateinit var viewModel: HomeRequestViewModel
 
     companion object {
-        fun newInstance() = FilterStartFragment()
+        fun newInstance() = FilterFragment()
     }
 
     override fun onCreateView(
