@@ -13,6 +13,8 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.fightpandemics.R
+import com.fightpandemics.login.ui.LoginActivity
+import com.fightpandemics.utils.LoginStatusEnum
 import kotlinx.android.synthetic.main.activity_on_boarding.*
 import javax.inject.Inject
 
@@ -59,12 +61,10 @@ class OnBoardingActivity : BaseActivity() {
             launchActivity(MainActivity::class.java, true,null,null)
         }
         bt_join_now.setOnClickListener {
-            TODO("Inject login component fragment or activity")
-//            launchActivity(LoginActivity::class.java, true, null, LoginStatusEnum.SIGN_UP.value)
+            launchActivity(LoginActivity::class.java, true, null, LoginStatusEnum.SIGN_UP.value)
         }
         bt_sign_in.setOnClickListener {
-            TODO("Inject login component fragment or activity")
-//            launchActivity(LoginActivity::class.java, true, null, LoginStatusEnum.SIGN_UP.value)
+            launchActivity(LoginActivity::class.java, true, null, LoginStatusEnum.SIGN_UP.value)
         }
 
         setPageViewController()
