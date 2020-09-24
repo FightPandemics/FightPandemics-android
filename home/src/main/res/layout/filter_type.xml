@@ -8,19 +8,20 @@
     <com.google.android.material.chip.ChipGroup
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         app:chipSpacingVertical="@dimen/activity_vertical_margin"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/medical_supplies_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medical Supplies"/>
+            android:text="Medical Supplies" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/r_and_d_chip"
@@ -28,14 +29,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="R\&amp;D"
-            tools:text="R_D"/>
+            tools:text="R_D" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/business_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Business"/>
+            android:text="Business" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/education_chip"

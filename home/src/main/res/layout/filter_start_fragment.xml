@@ -4,21 +4,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorWhite"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
 
     <ScrollView
+        android:id="@+id/filter_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/clear_filters_button"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_default="spread"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:animateLayoutChanges="true"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true">
 
             <TextView
                 android:id="@+id/filter_location_expandable"
@@ -34,6 +37,9 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:text="Location"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/location_options"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <include
@@ -42,8 +48,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
                 android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/location_line_divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/filter_location_expandable"
-                tools:layout_editor_absoluteX="-16dp"
                 tools:visibility="gone" />
 
             <View
@@ -51,7 +59,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="#4cd7d7d7"
-                app:layout_constraintTop_toBottomOf="@+id/location_options"/>
+                app:layout_constraintBottom_toTopOf="@+id/filter_from_whom_expandable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/location_options" />
 
             <TextView
                 android:id="@+id/filter_from_whom_expandable"
@@ -67,6 +78,9 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:text="From Whom"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/from_whom_options"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/location_options"
                 tools:layout_editor_absoluteX="-32dp" />
 
@@ -76,16 +90,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/from_whom_line_divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/filter_from_whom_expandable"
                 tools:layout_editor_absoluteX="34dp"
-                tools:visibility="visible" />
+                tools:visibility="gone" />
 
             <View
                 android:id="@+id/from_whom_line_divider"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="#4cd7d7d7"
-                app:layout_constraintTop_toBottomOf="@+id/from_whom_options"/>
+                app:layout_constraintBottom_toTopOf="@+id/filter_type_expandable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/from_whom_options" />
 
             <TextView
                 android:id="@+id/filter_type_expandable"
@@ -101,8 +121,11 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:text="Type"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/type_options"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/from_whom_options"
-                tools:layout_editor_absoluteX="16dp" />
+                tools:layout_editor_absoluteX="-145dp" />
 
             <include
                 android:id="@+id/type_options"
@@ -110,16 +133,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/type_line_divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/filter_type_expandable"
                 tools:layout_editor_absoluteX="-57dp"
-                tools:visibility="visible" />
+                tools:visibility="gone" />
 
             <View
                 android:id="@+id/type_line_divider"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="#4cd7d7d7"
-                app:layout_constraintTop_toBottomOf="@+id/type_options"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/type_options" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -130,24 +159,24 @@
         style="@style/SecondaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintWidth_default="spread"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="16dp"
         android:text="Clear filters"
+        app:layout_constraintTop_toBottomOf="@+id/filter_scroll_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/apply_filters_button"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_default="spread" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/apply_filters_button"
+        style="@style/PrimaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/PrimaryButton"
-        app:layout_constraintWidth_default="spread"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:text="Apply filters"
@@ -155,6 +184,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/clear_filters_button"
-        app:layout_constraintTop_toTopOf="@+id/clear_filters_button" />
+        app:layout_constraintTop_toTopOf="@+id/clear_filters_button"
+        app:layout_constraintWidth_default="spread" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
