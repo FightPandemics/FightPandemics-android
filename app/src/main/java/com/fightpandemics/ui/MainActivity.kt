@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.homeFragment, R.id.searchFragment, R.id.inboxFragment, R.id.profileFragment
                 -> showBottomBar(destination)
+                R.id.filterFragment -> bottomNavigationView.visibility = View.GONE
                 else -> bottomNavigationView.visibility = View.GONE
             }
         }
