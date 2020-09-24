@@ -11,8 +11,9 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val handler = Handler()
-        handler.postDelayed(this::goToOnBoardingActivity, 2000)
+        //val handler = Handler()
+//        handler.postDelayed(this::goToOnBoardingActivity, 2000)
+        goToOnBoardingActivity()
     }
 
     private fun goToOnBoardingActivity() {
