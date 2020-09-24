@@ -23,5 +23,4 @@ interface AppComponent {
     // fun homeComponent(): HomeComponent.Factory
 
     fun inject(application: Application)
-    // fun inject(loginActivity: LoginActivity)
 }

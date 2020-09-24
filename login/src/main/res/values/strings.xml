@@ -1,0 +1,34 @@
+<resources>
+    <!-- Strings related to login -->
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+
+    <!--Sign out Profile-->
+    <string name="log_in">Log in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="you_are_not_signed_in">You are not signed in</string>
+    <string name="sign_up_or_log_in_to_see_your_profile">Sign up or log in to see your profile</string>
+    <string name="you_are_not_signed_in_image">You are not signed in image</string>
+
+    <!--Profile-->
+    <string name="profile_title">Profile</string>
+    <string name="request_help">Request Help</string>
+    <string name="offer_help">Offer Help</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="profile_activities">Activities</string>
+    <string name="profile_requests">Requests</string>
+    <string name="profile_content">I’m a 21-year-old chorus actor who enjoys walking, baking and badminton. I currently help the elderly in my neighborhood with their groceries.</string>
+    <string name="select">Select</string>
+    <string name="add_organisation">Add an organisation account</string>
+    <string name="profile_my_organisation">My Organisation</string>
+    <string name="settings_action">Settings</string>
+    <string name="select_account">Select Account</string>
+</resources>
