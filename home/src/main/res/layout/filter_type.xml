@@ -21,85 +21,84 @@
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medical Supplies" />
+            android:text="@string/chip_medical_supplies" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/r_and_d_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="R\&amp;D"
-            tools:text="R_D" />
+            android:text="@string/chip_r_amp_d"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/business_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Business" />
+            android:text="@string/chip_business" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/education_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Education" />
+            android:text="@string/chip_education" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/funding_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Funding" />
+            android:text="@string/chip_funding" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/information_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Information" />
+            android:text="@string/chip_information" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/tech_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tech" />
+            android:text="@string/chip_tech" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/entertainment_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Entertainment" />
+            android:text="@string/chip_entertainment" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/legal_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Legal" />
+            android:text="@string/chip_legal" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/groceries_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Groceries/Food" />
+            android:text="@string/chip_groceries_food" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/wellbeing_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wellbeing/Mental" />
+            android:text="@string/chip_wellbeing_mental" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/type_others_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Others" />
+            android:text="@string/chip_others" />
 
     </com.google.android.material.chip.ChipGroup>
 

@@ -21,63 +21,63 @@
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Individuals" />
+            android:text="@string/chip_individuals" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/startup_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Startup" />
+            android:text="@string/chip_startup" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/company_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Company" />
+            android:text="@string/chip_company" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/community_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Community" />
+            android:text="@string/chip_community" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/university_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="University" />
+            android:text="@string/chip_university" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/goverment_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Goverment" />
+            android:text="@string/chip_goverment" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/health_care_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Health Care Providers" />
+            android:text="@string/chip_health_care_providers" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/nonprofit_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Non-profit" />
+            android:text="@string/chip_non_profit" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/from_whom_others_chip"
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Others" />
+            android:text="@string/chip_others" />
 
     </com.google.android.material.chip.ChipGroup>
 
