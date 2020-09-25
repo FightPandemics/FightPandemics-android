@@ -3,7 +3,7 @@ package com.fightpandemics.dagger
 import android.app.Application
 import android.content.Context
 import com.fightpandemics.dagger.scope.AppScope
-import com.fightpandemics.login.dagger.LoginComponent
+import com.fightpandemics.ui.SplashComponent
 import dagger.BindsInstance
 import dagger.Component
 
@@ -20,6 +20,8 @@ interface AppComponent {
         // with @BindsInstance, the Context passed in will be available in the graph
         fun create(@BindsInstance context: Context, coreComponent: CoreComponent): AppComponent
     }
+
+    fun splashComponent(): SplashComponent.Factory
 
     fun loginComponent(): LoginComponent.Factory
 

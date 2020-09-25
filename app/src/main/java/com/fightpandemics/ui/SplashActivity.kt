@@ -28,7 +28,6 @@ class SplashActivity : AppCompatActivity() {
 
         Timber.e(commonHome.toString())
 
-        //goToOnBoardingActivity()
         launch()
     }
 

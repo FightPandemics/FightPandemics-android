@@ -1,6 +1,8 @@
 package com.fightpandemics.data.prefs
 
 import android.content.Context
+import androidx.datastore.DataStore
+import androidx.datastore.preferences.*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,7 +20,7 @@ import kotlin.reflect.KProperty
  * Storage for app and user preferences.
  */
 interface FightPandemicsPreferenceDataStore {
-    val userOnboardingFlow : Flow<Boolean>
+    val userOnboardingFlow: Flow<Boolean>
     //var onboardingCompleted: Boolean
 }
 
@@ -28,7 +30,8 @@ private const val PREFERENCE_NAME = "fightpandemics"
  * [PreferenceDataStore] impl backed by [androidx.datastore.DataStore].
  */
 @Singleton
-class FightPandemicsPreferenceDataStoreImpl @Inject constructor(context: Context) : FightPandemicsPreferenceDataStore {
+class FightPandemicsPreferenceDataStoreImpl @Inject constructor(context: Context) :
+    FightPandemicsPreferenceDataStore {
 
     //Create some keys
     private object PreferenceKeys {
@@ -54,7 +57,7 @@ class FightPandemicsPreferenceDataStoreImpl @Inject constructor(context: Context
         }
 
     //
-    suspend fun saveToDataStore(onboard: Boolean){
+    suspend fun saveToDataStore(onboard: Boolean) {
         dataStore.edit {
             it[PreferenceKeys.USER_ONBOARDING_KEY] = onboard
         }

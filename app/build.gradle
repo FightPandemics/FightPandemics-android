@@ -35,7 +35,7 @@ android {
         jvmTarget = "1.8"
     }
 
-    dynamicFeatures = [':home', ':search', ':inbox', ':profile'/*, ':login'*/]
+    dynamicFeatures = [':home', ':search', ':inbox', ':profile']
 }
 
 dependencies {
