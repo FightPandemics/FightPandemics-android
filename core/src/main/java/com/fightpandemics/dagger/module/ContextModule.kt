@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -15,4 +16,9 @@ class ContextModule(private val application: Application) {
     @Singleton
     @Provides
     fun provideContext(): Context = application
+
+    @Singleton
+    @Named("Core")
+    @Provides
+    fun provideCoreString(): String = "Test Core Dagger Implementation"
 }

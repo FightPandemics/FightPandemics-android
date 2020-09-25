@@ -18,6 +18,7 @@
     <string name="title_inbox">Inbox</string>
     <string name="title_profile">Profile</string>
     <string name="title_home">Home</string>
+    <string name="title_login">Login</string>
     <string name="skip_to_help_board">Skip to Help Board</string>
     <string name="sign_in">Sign In</string>
     <string name="join_now">Join Now</string>
