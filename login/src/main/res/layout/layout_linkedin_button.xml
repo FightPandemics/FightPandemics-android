@@ -13,7 +13,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/ic_google"
+        android:layout_marginStart="16dp"
+        app:srcCompat="@mipmap/ic_linkedin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -27,9 +28,8 @@
         android:fontFamily="@font/poppins_medium"
         android:lineHeight="23.9sp"
         android:lineSpacingExtra="5.9sp"
-        android:text="Continue with linkedin"
+        android:text="Continue with LinkedIn"
         android:textColor="@color/colorWhite"
-
         android:textSize="18sp" />
 
 
