@@ -60,10 +60,10 @@ class OnBoardingActivity : BaseActivity() {
             launchActivity(MainActivity::class.java, true,null,null)
         }
         bt_join_now.setOnClickListener {
-            launchActivity(LoginActivity::class.java, true, null, LoginStatusEnum.SIGN_UP.value)
+            launchActivity(LoginActivity::class.java, false, null, LoginStatusEnum.SIGN_UP.value)
         }
         bt_sign_in.setOnClickListener {
-            launchActivity(LoginActivity::class.java, true, null, LoginStatusEnum.SIGN_UP.value)
+            launchActivity(LoginActivity::class.java, false, null, LoginStatusEnum.SIGN_UP.value)
         }
 
         setPageViewController()

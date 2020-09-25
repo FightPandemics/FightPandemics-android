@@ -14,4 +14,11 @@
         <item name="android:lineSpacingExtra">4sp</item>
     </style>
 
+    <style name="AndroidNativeP311Px">
+        <item name="android:textSize">11sp</item>
+        <item name="android:lineSpacingExtra">4.4sp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
+        <item name="android:textColor">@color/fightPandemicsNero</item>
+    </style>
+
 </resources>
