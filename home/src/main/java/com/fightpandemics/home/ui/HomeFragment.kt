@@ -4,11 +4,11 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.fightpandemics.home.R
 import com.fightpandemics.home.dagger.inject
@@ -67,7 +67,11 @@ class HomeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.filter -> findNavController().navigate(R.id.action_homeFragment_to_filterFragment)
+            R.id.filter -> Toast.makeText(
+                requireContext(),
+                "Here goes the Filter Fragment",
+                Toast.LENGTH_SHORT
+            ).show()
 
         }
         return true

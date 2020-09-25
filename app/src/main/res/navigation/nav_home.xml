@@ -12,14 +12,7 @@
         android:label="Home"
         app:moduleName="Fight_Pandemics.home"
         tools:layout="@layout/home_fragment">
-        <action
-            android:id="@+id/action_homeFragment_to_filterFragment"
-            app:destination="@id/filterFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/filterFragment"
-        android:name="com.fightpandemics.home.ui.filter.FilterFragment"
-        app:moduleName="home"
-        android:label="FilterFragment" />
+
 
 </navigation>
