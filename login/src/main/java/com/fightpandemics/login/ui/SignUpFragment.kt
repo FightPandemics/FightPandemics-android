@@ -11,27 +11,12 @@ import com.fightpandemics.login.R
 import com.fightpandemics.utils.ViewModelFactory
 import javax.inject.Inject
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class SignUpFragment : Fragment() {
 
     @Inject
     lateinit var loginViewModelFactory: ViewModelFactory
 
     private lateinit var viewModel: LoginViewModel
-
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -52,13 +37,7 @@ class SignUpFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(param1: String, param2: String) =
-            SignUpFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() = SignUpFragment()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

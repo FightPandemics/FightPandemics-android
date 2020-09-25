@@ -28,7 +28,7 @@ class LoginActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        replaceFragment(SignUpFragment.newInstance("teste", "teste"), false)
+        replaceFragment(SignUpFragment.newInstance(), false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
