@@ -1,4 +1,4 @@
-package com.fightpandemics.ui
+package com.fightpandemics.ui.splash
 
 import com.fightpandemics.dagger.scope.ActivityScope
 import dagger.Subcomponent

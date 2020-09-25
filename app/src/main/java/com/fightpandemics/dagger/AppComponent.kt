@@ -3,7 +3,8 @@ package com.fightpandemics.dagger
 import android.app.Application
 import android.content.Context
 import com.fightpandemics.dagger.scope.AppScope
-import com.fightpandemics.ui.SplashComponent
+import com.fightpandemics.login.dagger.LoginComponent
+import com.fightpandemics.ui.splash.SplashComponent
 import dagger.BindsInstance
 import dagger.Component
 
@@ -22,7 +23,6 @@ interface AppComponent {
     }
 
     fun splashComponent(): SplashComponent.Factory
-
     fun loginComponent(): LoginComponent.Factory
 
     fun inject(application: Application)

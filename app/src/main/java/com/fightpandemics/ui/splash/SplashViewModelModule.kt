@@ -1,12 +1,9 @@
-package com.fightpandemics.ui
+package com.fightpandemics.ui.splash
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.fightpandemics.dagger.scope.ActivityScope
 import com.fightpandemics.utils.ViewModelKey
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.multibindings.IntoMap
 
 /**

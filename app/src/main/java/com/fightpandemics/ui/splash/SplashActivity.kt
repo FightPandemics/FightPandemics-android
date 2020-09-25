@@ -1,13 +1,12 @@
-package com.fightpandemics.ui
+package com.fightpandemics.ui.splash
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import androidx.activity.viewModels
-import com.fightpandemics.R
 import com.fightpandemics.result.EventObserver
+import com.fightpandemics.ui.MainActivity
+import com.fightpandemics.ui.onboarding.OnBoardingActivity
 import com.fightpandemics.utils.ViewModelFactory
 import timber.log.Timber
 import javax.inject.Inject

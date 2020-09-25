@@ -1,4 +1,4 @@
-package com.fightpandemics.ui
+package com.fightpandemics.ui.onboarding
 
 import android.content.Context
 import android.os.Bundle
@@ -14,6 +14,8 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.fightpandemics.R
 import com.fightpandemics.login.ui.LoginActivity
+import com.fightpandemics.ui.BaseActivity
+import com.fightpandemics.ui.MainActivity
 import com.fightpandemics.utils.LoginStatusEnum
 import kotlinx.android.synthetic.main.activity_on_boarding.*
 

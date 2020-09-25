@@ -1,4 +1,4 @@
-package com.fightpandemics.ui
+package com.fightpandemics.ui.splash
 
 import android.app.Activity
 import com.fightpandemics.FightPandemicsApp

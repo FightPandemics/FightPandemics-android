@@ -1,13 +1,9 @@
-package com.fightpandemics.ui
+package com.fightpandemics.ui.splash
 
 import androidx.lifecycle.*
 import com.fightpandemics.dagger.scope.ActivityScope
 import com.fightpandemics.domain.OnboardingCompletedUseCase
 import com.fightpandemics.result.Event
-import com.fightpandemics.result.data
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**

@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
@@ -26,7 +26,7 @@
         </activity>
 
         <activity
-            android:name=".ui.OnBoardingActivity"
+            android:name=".ui.onboarding.OnBoardingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Onboarding"/>
 
