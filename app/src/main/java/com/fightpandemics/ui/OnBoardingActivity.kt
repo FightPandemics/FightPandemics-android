@@ -1,8 +1,6 @@
 package com.fightpandemics.ui
 
 import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +13,11 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.fightpandemics.R
+import com.fightpandemics.login.ui.LoginActivity
+import com.fightpandemics.utils.LoginStatusEnum
+import kotlinx.android.synthetic.main.activity_on_boarding.*
 
-class OnBoardingActivity : AppCompatActivity() {
+class OnBoardingActivity : BaseActivity() {
 
     private lateinit var pagerIndicator: LinearLayout
     private var dotCount: Int = 0
@@ -56,11 +57,18 @@ class OnBoardingActivity : AppCompatActivity() {
             }
         })
         skipText.setOnClickListener {
-            startActivity(Intent(applicationContext, MainActivity::class.java))
-            finish()
+            launchActivity(MainActivity::class.java, true,null,null)
         }
+        bt_join_now.setOnClickListener {
+            launchActivity(LoginActivity::class.java, true, null, LoginStatusEnum.SIGN_UP.value)
+        }
+        bt_sign_in.setOnClickListener {
+            launchActivity(LoginActivity::class.java, true, null, LoginStatusEnum.SIGN_UP.value)
+        }
+
         setPageViewController()
     }
+
 
     private fun loadData() {
         val images = listOf(R.drawable.onboarding_1_image, R.drawable.onboarding_2_image)

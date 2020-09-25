@@ -6,4 +6,5 @@ include ':home'
 include ':search'
 include ':inbox'
 include ':profile'
+include ':login'
 

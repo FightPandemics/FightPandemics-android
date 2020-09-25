@@ -1,8 +1,8 @@
 package com.fightpandemics.dagger
 
-import com.fightpandemics.ui.SplashComponent
+import com.fightpandemics.login.dagger.LoginComponent
 import dagger.Module
 
 // Subcomponents are children of the Component this module is included in.
-@Module(subcomponents = [SplashComponent::class])
+@Module(subcomponents = [LoginComponent::class])
 class AppSubcomponentsModule

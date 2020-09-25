@@ -10,6 +10,7 @@ import com.fightpandemics.dagger.module.SharedPreferencesModule
 import com.fightpandemics.dagger.module.ViewModelBuilderModule
 import com.fightpandemics.data.prefs.FightPandemicsPreferenceDataStore
 import dagger.Component
+import javax.inject.Named
 import javax.inject.Singleton
 
 /*
@@ -41,6 +42,7 @@ interface CoreComponent {
 
     // The return type of functions inside the component interface is what can be provided from the container
     fun provideContext(): Context
+    @Named("Core") fun provideCoreString(): String
     fun provideSharedPreferences(): SharedPreferences
     fun providesPreferenceDataStore(): FightPandemicsPreferenceDataStore
     // fun provideRetrofitService(): RequestInterface
