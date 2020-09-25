@@ -1,8 +1,6 @@
 package com.fightpandemics.data.prefs
 
 import android.content.Context
-import androidx.datastore.DataStore
-import androidx.datastore.preferences.*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
