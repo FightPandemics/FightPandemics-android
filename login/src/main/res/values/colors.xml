@@ -1,4 +1,5 @@
 <resources>
     <color name="black_overlay">#66000000</color>
     <color name="signup_screen_bg">#F5F6FB</color>
+    <color name="transparent_signup_screen_bg">#FFFFFFFF</color>
 </resources>
