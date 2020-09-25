@@ -35,7 +35,7 @@ android {
         jvmTarget = "1.8"
     }
 
-    dynamicFeatures = [':home', ':search', ':inbox', ':profile']
+    dynamicFeatures = [':home', ':search', ':inbox', ':profile'/*, ':login'*/]
 }
 
 dependencies {
@@ -52,8 +52,7 @@ dependencies {
 
     // Google Material Design
     implementation 'com.google.android.material:material:1.2.0'
-    implementation "androidx.fragment:fragment-ktx:1.2.5"
-    implementation 'androidx.annotation:annotation:1.1.0'
+
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.android.volley:volley:1.1.1'
 

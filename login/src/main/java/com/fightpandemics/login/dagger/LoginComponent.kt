@@ -1,29 +1,30 @@
 package com.fightpandemics.login.dagger
 
-import com.fightpandemics.dagger.scope.FeatureScope
-import com.fightpandemics.data.LoginDataSource
-import com.fightpandemics.ui.login.LoginActivity
-import dagger.Component
+import com.fightpandemics.dagger.scope.ActivityScope
+import com.fightpandemics.login.ui.LoginActivity
+import com.fightpandemics.login.ui.SignUpFragment
+import dagger.Subcomponent
+import javax.inject.Named
 
 /**
  * Component binding injections for the [:login] module.
  */
-@FeatureScope
-@Component(
-    modules = [LoginModule::class, LoginViewModelModule::class],
-    dependencies = [CoreComponent::class]
+@ActivityScope
+@Subcomponent(
+    modules = [LoginModule::class, LoginViewModelModule::class]
 )
 interface LoginComponent {
 
-    // Factory to create instances of the LoginComponent
-    @Component.Factory
+    // Factory that is used to create instances of the LoginComponent subcomponent
+    @Subcomponent.Factory
     interface Factory {
         // Takes an instance of CoreComponent when creating an instance of LoginComponent
-        fun create(coreComponent: CoreComponent): LoginComponent
+        fun create(): LoginComponent
     }
 
-    fun provideLoginDataSource(): LoginDataSource
+    @Named("Login") fun provideLoginString(): String
 
     fun inject(loginActivity: LoginActivity)
     //fun inject(loginFragment: LoginFragment)
+    fun inject(SignUpFragment: SignUpFragment)
 }

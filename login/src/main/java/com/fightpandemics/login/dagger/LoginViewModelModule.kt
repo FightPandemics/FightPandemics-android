@@ -1,7 +1,7 @@
 package com.fightpandemics.login.dagger
 
 import androidx.lifecycle.ViewModel
-import com.fightpandemics.ui.login.LoginViewModel
+import com.fightpandemics.login.ui.LoginViewModel
 import com.fightpandemics.utils.ViewModelKey
 import dagger.Binds
 import dagger.Module

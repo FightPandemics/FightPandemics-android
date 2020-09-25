@@ -1,9 +1,9 @@
 package com.fightpandemics.login.dagger
 
-import com.fightpandemics.data.LoginDataSource
+import com.fightpandemics.dagger.scope.ActivityScope
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
+import javax.inject.Named
 
 /**
  * Dagger module providing stuff for [:login] module.
@@ -11,8 +11,8 @@ import javax.inject.Singleton
 @Module
 class LoginModule {
 
+    @ActivityScope
+    @Named("Login")
     @Provides
-    fun provideLoginDataSource(): LoginDataSource =
-        LoginDataSource()
-
+    fun provideLoginString(): String = "Test Login Dagger Implementation"
 }
