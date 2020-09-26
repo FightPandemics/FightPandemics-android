@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:opacity="opaque">
 
-    <item android:drawable="@color/fightPandemics" />
+    <item android:drawable="@color/fightPandemicsSplashScreenBg" />
 
     <item
         android:drawable="@drawable/logo"
