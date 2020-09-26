@@ -1,7 +1,7 @@
 package com.fightpandemics.login.dagger
 
 import com.fightpandemics.dagger.scope.ActivityScope
-import com.fightpandemics.login.ui.LoginActivity
+import com.fightpandemics.login.ui.SignInFragment
 import com.fightpandemics.login.ui.SignUpFragment
 import dagger.Subcomponent
 import javax.inject.Named
@@ -24,7 +24,6 @@ interface LoginComponent {
 
     @Named("Login") fun provideLoginString(): String
 
-    fun inject(loginActivity: LoginActivity)
-    //fun inject(loginFragment: LoginFragment)
+    fun inject(signInFragment: SignInFragment)
     fun inject(SignUpFragment: SignUpFragment)
 }

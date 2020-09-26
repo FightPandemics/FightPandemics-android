@@ -2,20 +2,16 @@ package com.fightpandemics.ui.onboarding
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.FightPandemicsApp
 import com.fightpandemics.R
-import com.fightpandemics.ui.MainActivity
-import com.fightpandemics.ui.splash.SplashFragment
 import com.fightpandemics.utils.ViewModelFactory
 import com.google.android.material.button.MaterialButton
-import kotlinx.android.synthetic.main.fragment_onboard.view.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class OnboardFragment : Fragment() {
@@ -56,14 +52,16 @@ class OnboardFragment : Fragment() {
 //
 //        view.viewPager.adapter = adapter
 
-        rootView.findViewById<TextView>(R.id.tv_skip).setOnClickListener {
-            findNavController().navigate(R.id.action_onboardFragment_to_mainActivity)
-                .apply { requireActivity().finish() }
+        rootView.findViewById<MaterialButton>(R.id.bt_sign_in).setOnClickListener {
+            findNavController().navigate(R.id.action_onboardFragment_to_signInFragment)
         }
         rootView.findViewById<MaterialButton>(R.id.bt_join_now).setOnClickListener {
             findNavController().navigate(R.id.action_onboardFragment_to_signUpFragment)
         }
-
+        rootView.findViewById<TextView>(R.id.tv_skip).setOnClickListener {
+            findNavController().navigate(R.id.action_onboardFragment_to_mainActivity)
+                .apply { requireActivity().finish() }
+        }
         return rootView
     }
 }

@@ -11,7 +11,7 @@ import com.fightpandemics.login.dagger.inject
 import com.fightpandemics.utils.ViewModelFactory
 import javax.inject.Inject
 
-class SignUpFragment : Fragment() {
+class SignInFragment : Fragment() {
 
     @Inject
     lateinit var loginViewModelFactory: ViewModelFactory
@@ -27,6 +27,6 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
+        return inflater.inflate(R.layout.fragment_sign_in, container, false)
     }
 }

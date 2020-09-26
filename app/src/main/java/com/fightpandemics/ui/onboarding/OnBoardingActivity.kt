@@ -7,10 +7,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import com.fightpandemics.R
-import com.fightpandemics.login.ui.LoginActivity
 import com.fightpandemics.ui.BaseActivity
-import com.fightpandemics.ui.MainActivity
-import com.fightpandemics.utils.LoginStatusEnum
 import kotlinx.android.synthetic.main.activity_on_boarding.*
 
 class OnBoardingActivity : BaseActivity() {
@@ -55,13 +52,13 @@ class OnBoardingActivity : BaseActivity() {
         })
 
         skipText.setOnClickListener {
-            launchActivity(MainActivity::class.java, true,null,null)
+            //launchActivity(MainActivity::class.java, true,null,null)
         }
         bt_join_now.setOnClickListener {
-            launchActivity(LoginActivity::class.java, true, null, LoginStatusEnum.SIGN_UP.value)
+            //launchActivity(LoginActivity::class.java, false, null, LoginStatusEnum.SIGN_UP.value)
         }
         bt_sign_in.setOnClickListener {
-            launchActivity(LoginActivity::class.java, true, null, LoginStatusEnum.SIGN_UP.value)
+            //launchActivity(LoginActivity::class.java, false, null, LoginStatusEnum.SIGN_UP.value)
         }
 
         setPageViewController()

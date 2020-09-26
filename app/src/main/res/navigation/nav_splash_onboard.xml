@@ -9,7 +9,7 @@
         android:id="@+id/splashFragment"
         android:name="com.fightpandemics.ui.splash.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
+        tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_onboardFragment"
             app:destination="@id/onboardFragment"
@@ -31,7 +31,8 @@
         android:id="@+id/onboardFragment"
         android:name="com.fightpandemics.ui.onboarding.OnboardFragment"
         android:label="fragment_view_pager"
-        tools:layout="@layout/fragment_onboard" >
+        tools:layout="@layout/fragment_onboard">
+
         <action
             android:id="@+id/action_onboardFragment_to_mainActivity"
             app:destination="@id/mainActivity"
@@ -40,25 +41,15 @@
 
         <action
             android:id="@+id/action_onboardFragment_to_signUpFragment"
-            app:destination="@id/nav_signup_signin" >
-            <!--<argument android:name="article"
-                app:nullable="false"
-                app:argType="com.aliumujib.artic.views.models.ArticleUIModel" />-->
-        </action>
-
-       <!-- <action
-            android:id="@+id/action_onboardFragment_to_mainActivity"
-            app:destination="@id/mainActivity"
-            app:popUpTo="@id/onboardFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/nav_sign_up" />
 
         <action
-            android:id="@+id/action_onboardFragment_to_mainActivity"
-            app:destination="@id/mainActivity"
-            app:popUpTo="@id/onboardFragment"
-            app:popUpToInclusive="true" />-->
+            android:id="@+id/action_onboardFragment_to_signInFragment"
+            app:destination="@id/nav_sign_in" />
+
     </fragment>
 
-    <include app:graph="@navigation/nav_signup_signin" />
+    <include app:graph="@navigation/nav_sign_up" />
+    <include app:graph="@navigation/nav_sign_in" />
 
 </navigation>
