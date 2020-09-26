@@ -17,11 +17,11 @@ class InboxFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    private lateinit var viewModel: InboxViewModel
+
     companion object {
         fun newInstance() = InboxFragment()
     }
-
-    private lateinit var viewModel: InboxViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

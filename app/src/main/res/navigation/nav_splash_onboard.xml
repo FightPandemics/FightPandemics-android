@@ -1,5 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/my_nav.xml">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_splash_onboard"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.fightpandemics.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_onboardFragment"
+            app:destination="@id/onboardFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_mainActivity"
+            app:destination="@id/mainActivity"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.fightpandemics.ui.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+
+    <fragment
+        android:id="@+id/onboardFragment"
+        android:name="com.fightpandemics.ui.onboarding.OnboardFragment"
+        android:label="fragment_view_pager"
+        tools:layout="@layout/fragment_onboard" >
+        <action
+            android:id="@+id/action_onboardFragment_to_mainActivity"
+            app:destination="@id/mainActivity"
+            app:popUpTo="@id/onboardFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_onboardFragment_to_signUpFragment"
+            app:destination="@id/nav_signup_signin" >
+            <!--<argument android:name="article"
+                app:nullable="false"
+                app:argType="com.aliumujib.artic.views.models.ArticleUIModel" />-->
+        </action>
+
+       <!-- <action
+            android:id="@+id/action_onboardFragment_to_mainActivity"
+            app:destination="@id/mainActivity"
+            app:popUpTo="@id/onboardFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_onboardFragment_to_mainActivity"
+            app:destination="@id/mainActivity"
+            app:popUpTo="@id/onboardFragment"
+            app:popUpToInclusive="true" />-->
+    </fragment>
+
+    <include app:graph="@navigation/nav_signup_signin" />
 
 </navigation>

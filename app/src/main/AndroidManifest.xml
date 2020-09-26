@@ -25,10 +25,10 @@
             </intent-filter>
         </activity>
 
-        <activity
+        <!--<activity
             android:name=".ui.onboarding.OnBoardingActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Onboarding"/>
+            android:theme="@style/AppTheme.Onboarding"/>-->
 
         <activity
             android:name=".ui.MainActivity"

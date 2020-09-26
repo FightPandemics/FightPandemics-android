@@ -1,35 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fightPandemics"
-    tools:context=".ui.onboarding.OnBoardingActivity">
+    tools:context=".ui.onboarding.OnboardFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="0dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="0dp" />
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/onboardViewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="36dp"
         android:layout_marginBottom="36dp"
         app:layout_constraintBottom_toTopOf="@id/view_pager_counter_layout"
-        app:layout_constraintEnd_toEndOf="@id/guideline2"
-        app:layout_constraintStart_toStartOf="@id/guideline1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -38,8 +25,8 @@
         android:layout_height="50dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/bt_sign_in"
-        app:layout_constraintEnd_toEndOf="@id/guideline2"
-        app:layout_constraintStart_toStartOf="@id/guideline1" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_sign_in"
@@ -55,7 +42,7 @@
         app:cornerRadius="24dp"
         app:layout_constraintBottom_toTopOf="@id/tv_skip"
         app:layout_constraintEnd_toStartOf="@+id/bt_join_now"
-        app:layout_constraintStart_toStartOf="@id/guideline1"
+        app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="@color/fightPandemicsNeonBlue"
         app:strokeWidth="1dp" />
 
@@ -73,7 +60,7 @@
         android:textColor="@color/colorWhite"
         app:cornerRadius="24dp"
         app:layout_constraintBottom_toTopOf="@id/tv_skip"
-        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/bt_sign_in" />
 
     <TextView
@@ -85,7 +72,7 @@
         android:textColor="@color/fightPandemicsNeonBlue"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/guideline2"
-        app:layout_constraintStart_toStartOf="@id/guideline1" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

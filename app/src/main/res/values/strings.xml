@@ -29,5 +29,7 @@
     <string name="second_on_boarding_desc_text">Daily activities may be more risky for more vulnerable people. Let others know if you can help with essential needs like picking up groceries.</string>
     <string name="add">TODO</string>
     <string name="dot">TODO</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
