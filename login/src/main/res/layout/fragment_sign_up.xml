@@ -96,6 +96,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_signup_email"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:background="@drawable/btn_sign_email_background"
@@ -125,11 +126,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-    <!--    <include layout="@layout/profile_fragment_content" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

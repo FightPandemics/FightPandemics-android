@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.fightpandemics.login.R
 import com.fightpandemics.utils.ViewModelFactory
-import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.fragment_sign_up_email.*
 import javax.inject.Inject
 
-class SignUpFragment : Fragment() {
+class SignUpEmailFragment : Fragment() {
 
     @Inject
     lateinit var loginViewModelFactory: ViewModelFactory
@@ -35,18 +34,18 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
+        return inflater.inflate(R.layout.fragment_sign_up_email, container, false)
     }
 
     companion object {
-        fun newInstance() = SignUpFragment()
+        fun newInstance() = SignUpEmailFragment()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        cl_signup_email.setOnClickListener{
-            (activity as LoginActivity).replaceFragment(SignUpEmailFragment.newInstance(), true)
+        tv_sigin_instead.setOnClickListener{
+            (activity as LoginActivity).replaceFragment(SignInFragment.newInstance(), true)
         }
     }
 }
