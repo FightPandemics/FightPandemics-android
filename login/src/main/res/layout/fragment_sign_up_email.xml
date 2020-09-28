@@ -34,48 +34,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBar">
 
-        <TextView
-            android:id="@+id/tv_email"
+        <EditText
+            android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textSize="18sp"
             android:textColor="@color/fightPandemicsNeonBlue"
             android:lineSpacingExtra="3.7sp"
             android:fontFamily="@font/worksans_medium"
-            android:text="E-mail"
+            android:textColorHint="@color/fightPandemicsNeonBlue"
+            android:hint="E-mail"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:background="@drawable/textview_line_bottom"
+            android:inputType="textEmailAddress"
+
             />
 
-        <TextView
-            android:id="@+id/tv_password"
+        <EditText
+            android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textSize="18sp"
             android:textColor="@color/fightPandemicsNeonBlue"
             android:lineSpacingExtra="3.7sp"
             android:fontFamily="@font/worksans_medium"
-            android:text="Password"
-            app:layout_constraintTop_toBottomOf="@+id/tv_email"
-            app:layout_constraintStart_toStartOf="@+id/tv_email"
+            android:textColorHint="@color/fightPandemicsNeonBlue"
+            android:hint="Password"
+            app:layout_constraintTop_toBottomOf="@+id/et_email"
+            app:layout_constraintStart_toStartOf="@+id/et_email"
             android:layout_marginTop="34dp"
             android:background="@drawable/textview_line_bottom"
+            android:inputType="textPassword"
             />
 
-        <TextView
-            android:id="@+id/tv_repassword"
+        <EditText
+            android:id="@+id/et_repassword"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textSize="18sp"
             android:textColor="@color/fightPandemicsNeonBlue"
             android:lineSpacingExtra="3.7sp"
             android:fontFamily="@font/worksans_medium"
-            android:text="Re-enter password"
-            app:layout_constraintTop_toBottomOf="@+id/tv_password"
-            app:layout_constraintStart_toStartOf="@+id/tv_password"
+            android:hint="Re-enter password"
+            android:textColorHint="@color/fightPandemicsNeonBlue"
+            app:layout_constraintTop_toBottomOf="@+id/et_password"
+            app:layout_constraintStart_toStartOf="@+id/et_password"
             android:layout_marginTop="34dp"
             android:background="@drawable/textview_line_bottom"
+            android:inputType="textPassword"
             />
 
         <TextView
@@ -83,8 +90,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="By signing up, I agree to the Privacy Policy and Terms and Conditions"
-            app:layout_constraintTop_toBottomOf="@id/tv_repassword"
-            app:layout_constraintStart_toStartOf="@id/tv_repassword"
+            app:layout_constraintTop_toBottomOf="@id/et_repassword"
+            app:layout_constraintStart_toStartOf="@id/et_repassword"
             android:layout_marginTop="20dp"
             />
 
