@@ -3,9 +3,9 @@ package com.fightpandemics.domain
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import com.fightpandemics.result.Result
+import kotlinx.coroutines.flow.catch
 
 /**
  * Executes business logic in its execute method and keep posting updates to the result as
@@ -14,12 +14,11 @@ import com.fightpandemics.result.Result
  */
 abstract class FlowUseCase<in P, R>(private val coroutineDispatcher: CoroutineDispatcher) {
 
-    /*@ExperimentalCoroutinesApi
-    operator fun invoke(parameters: P): Flow<R> {
+    operator fun invoke(parameters: P): Flow<Result<R>> {
         return execute(parameters)
-            .catch { e -> *//*emit(Result.Error(Exception(e)))*//* }
+            .catch { e -> emit(Result.Error(Exception(e))) }
             .flowOn(coroutineDispatcher)
-    }*/
+    }
 
-    abstract fun execute(parameters: P): R
+    abstract fun execute(parameters: P): Flow<Result<R>>
 }

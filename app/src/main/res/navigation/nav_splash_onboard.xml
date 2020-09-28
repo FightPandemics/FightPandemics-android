@@ -11,15 +11,47 @@
         android:name="com.fightpandemics.ui.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
+
         <action
             android:id="@+id/action_splashFragment_to_onboardFragment"
             app:destination="@id/onboardFragment"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
+
         <action
             android:id="@+id/action_splashFragment_to_mainActivity"
             app:destination="@id/mainActivity"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/onboardFragment"
+        android:name="com.fightpandemics.ui.onboarding.OnBoardFragment"
+        android:label="fragment_view_pager"
+        tools:layout="@layout/fragment_onboard">
+
+        <action
+            android:id="@+id/action_onboardFragment_to_mainActivity"
+            app:destination="@id/mainActivity"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/onboardFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_onboardFragment_to_signUpFragment"
+            app:destination="@id/nav_sign_up"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/action_onboardFragment_to_signInFragment"
+            app:destination="@id/nav_sign_in"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"/>
+
     </fragment>
 
     <activity
@@ -27,28 +59,6 @@
         android:name="com.fightpandemics.ui.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
-
-    <fragment
-        android:id="@+id/onboardFragment"
-        android:name="com.fightpandemics.ui.onboarding.OnboardFragment"
-        android:label="fragment_view_pager"
-        tools:layout="@layout/fragment_onboard">
-
-        <action
-            android:id="@+id/action_onboardFragment_to_mainActivity"
-            app:destination="@id/mainActivity"
-            app:popUpTo="@id/onboardFragment"
-            app:popUpToInclusive="true" />
-
-        <action
-            android:id="@+id/action_onboardFragment_to_signUpFragment"
-            app:destination="@id/nav_sign_up" />
-
-        <action
-            android:id="@+id/action_onboardFragment_to_signInFragment"
-            app:destination="@id/nav_sign_in" />
-
-    </fragment>
 
     <include app:graph="@navigation/nav_sign_up" />
     <include app:graph="@navigation/nav_sign_in" />

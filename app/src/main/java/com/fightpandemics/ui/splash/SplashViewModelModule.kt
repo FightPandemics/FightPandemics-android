@@ -1,6 +1,7 @@
 package com.fightpandemics.ui.splash
 
 import androidx.lifecycle.ViewModel
+import com.fightpandemics.ui.onboarding.OnBoardViewModel
 import com.fightpandemics.utils.ViewModelKey
 import dagger.Binds
 import dagger.Module
@@ -20,4 +21,9 @@ abstract class SplashViewModelModule {
     @IntoMap
     @ViewModelKey(SplashViewModel::class)
     abstract fun bindSplashViewModel(viewModel: SplashViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OnBoardViewModel::class)
+    abstract fun bindOnBoardViewModel(viewModel: OnBoardViewModel): ViewModel
 }

@@ -9,7 +9,6 @@ import com.fightpandemics.R
  */
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme_Onboarding)
         inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)

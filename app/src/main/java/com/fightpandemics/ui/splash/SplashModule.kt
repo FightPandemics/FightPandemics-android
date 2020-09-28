@@ -1,14 +1,12 @@
 package com.fightpandemics.ui.splash
 
-import android.content.Context
 import com.fightpandemics.dagger.scope.ActivityScope
 import com.fightpandemics.data.CoroutinesDispatcherProvider
 import com.fightpandemics.data.prefs.FightPandemicsPreferenceDataStore
-import com.fightpandemics.data.prefs.FightPandemicsPreferenceDataStoreImpl
-import com.fightpandemics.domain.OnboardingCompletedUseCase
+import com.fightpandemics.domain.OnBoardCompleteActionUseCase
+import com.fightpandemics.domain.OnBoardCompletedUseCase
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 class SplashModule {
@@ -20,7 +18,15 @@ class SplashModule {
 
     @ActivityScope
     @Provides
-    fun providesOnboardingCompletedUseCase(preferenceDataStore: FightPandemicsPreferenceDataStore,
-                                    dispatcherProvider: CoroutinesDispatcherProvider
-    ): OnboardingCompletedUseCase = OnboardingCompletedUseCase(preferenceDataStore, dispatcherProvider)
+    fun providesOnBoardCompletedUseCase(
+        preferenceDataStore: FightPandemicsPreferenceDataStore,
+        dispatcherProvider: CoroutinesDispatcherProvider,
+    ): OnBoardCompletedUseCase = OnBoardCompletedUseCase(preferenceDataStore, dispatcherProvider)
+
+    @ActivityScope
+    @Provides
+    fun providesOnBoardCompleteActionUseCase(
+        preferenceDataStore: FightPandemicsPreferenceDataStore,
+        dispatcherProvider: CoroutinesDispatcherProvider,
+    ): OnBoardCompleteActionUseCase = OnBoardCompleteActionUseCase(preferenceDataStore, dispatcherProvider)
 }

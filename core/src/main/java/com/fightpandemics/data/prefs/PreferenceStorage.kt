@@ -1,8 +1,13 @@
 package com.fightpandemics.data.prefs
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
+import androidx.annotation.WorkerThread
+import androidx.core.content.edit
 import androidx.datastore.DataStore
 import androidx.datastore.preferences.*
+import com.fightpandemics.result.Result
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,8 +25,10 @@ import kotlin.reflect.KProperty
  * Storage for app and user preferences.
  */
 interface FightPandemicsPreferenceDataStore {
-    val userOnboardingFlow: Flow<Boolean>
-    //var onboardingCompleted: Boolean
+    var userOnboardingFlow: Flow<Boolean>
+    var onboardingCompleted: Boolean
+
+    suspend fun saveToDataStore(onboard: Boolean)
 }
 
 private const val PREFERENCE_NAME = "fightpandemics"
@@ -43,6 +50,15 @@ class FightPandemicsPreferenceDataStoreImpl @Inject constructor(context: Context
         name = PREFERENCE_NAME
     )
 
+    private val prefs: Lazy<SharedPreferences> = lazy { // Lazy to prevent IO access to main thread.
+        context.applicationContext.getSharedPreferences(
+            PREFERENCE_NAME, MODE_PRIVATE
+        )
+    }
+
+    override var onboardingCompleted by BooleanPreference(prefs, "preference_onboarding", false)
+
+
     //
     override var userOnboardingFlow: Flow<Boolean> = dataStore.data
         .catch { exception ->
@@ -57,9 +73,25 @@ class FightPandemicsPreferenceDataStoreImpl @Inject constructor(context: Context
         }
 
     //
-    suspend fun saveToDataStore(onboard: Boolean) {
+    override suspend fun saveToDataStore(onboard: Boolean) {
         dataStore.edit {
             it[PreferenceKeys.USER_ONBOARDING_KEY] = onboard
         }
+    }
+}
+
+// Property Delegate
+class BooleanPreference(
+    private val preferences: Lazy<SharedPreferences>,
+    private val name: String,
+    private val defaultValue: Boolean
+) : ReadWriteProperty<Any, Boolean> {
+
+    override fun getValue(thisRef: Any, property: KProperty<*>): Boolean {
+        return preferences.value.getBoolean(name, defaultValue)
+    }
+
+    override fun setValue(thisRef: Any, property: KProperty<*>, value: Boolean) {
+        preferences.value.edit { putBoolean(name, value) }
     }
 }

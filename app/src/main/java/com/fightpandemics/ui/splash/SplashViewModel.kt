@@ -2,8 +2,9 @@ package com.fightpandemics.ui.splash
 
 import androidx.lifecycle.*
 import com.fightpandemics.dagger.scope.ActivityScope
-import com.fightpandemics.domain.OnboardingCompletedUseCase
+import com.fightpandemics.domain.OnBoardCompletedUseCase
 import com.fightpandemics.result.Event
+import com.fightpandemics.result.data
 import javax.inject.Inject
 
 /**
@@ -11,16 +12,14 @@ import javax.inject.Inject
  */
 @ActivityScope
 class SplashViewModel @Inject constructor(
-    onboardingCompletedUseCase: OnboardingCompletedUseCase
+    onBoardCompletedUseCase: OnBoardCompletedUseCase,
 ) : ViewModel() {
 
-    //private val onboardingCompletedResult: LiveData<Result<Flow<Boolean>>> = liveData { emit(onboardingCompletedUseCase(Unit)) }
+    private val onboardingCompletedResult = liveData { emit(onBoardCompletedUseCase(Unit)) }
 
-    private val onboardingCompletedResults = onboardingCompletedUseCase.execute(Unit).asLiveData()
-
-    val launchDestination = onboardingCompletedResults.map {
-        if (!it) {
-            Event(LaunchDestination.ONBOARDING)
+    val launchDestination = onboardingCompletedResult.map {
+        if (!it.data!!) {
+            Event(LaunchDestination.ONBOARD)
         } else {
             Event(LaunchDestination.MAIN_ACTIVITY)
         }
@@ -28,6 +27,6 @@ class SplashViewModel @Inject constructor(
 }
 
 enum class LaunchDestination {
-    ONBOARDING,
+    ONBOARD,
     MAIN_ACTIVITY
 }
