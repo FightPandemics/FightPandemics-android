@@ -91,7 +91,8 @@
     </style>
 
     <style name="FilterChip" parent="Widget.MaterialComponents.Chip.Choice">
-<!--       <item name="chipBackgroundColor">@color/fightPandemicsWhiteSmoke</item>-->
+        <item name="chipBackgroundColor">@drawable/chip_selected_effect</item>
+        <item name="android:textColor">@drawable/chip_text_color_selected_effect</item>
         <item name="chipEndPadding">20dp</item>
         <item name="chipStartPadding">20dp</item>
         <item name="chipMinTouchTargetSize">32dp</item>
