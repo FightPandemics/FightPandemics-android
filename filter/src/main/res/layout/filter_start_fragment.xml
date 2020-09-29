@@ -7,29 +7,51 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
 
+    <include
+        android:id="@+id/filter_toolbar"
+        layout="@layout/filter_toolbar"
+        app:layout_constraintBottom_toTopOf="@id/filter_scroll_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:id="@+id/filter_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/clear_filters_button"
+        app:layout_constraintBottom_toTopOf="@id/clear_filters_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_default="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/filter_toolbar">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true">
+            android:animateLayoutChanges="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/filter_scroll_view">
 
-            <include
-                layout="@layout/filter_location_card"
-                android:id="@id/filter_location_expandable"
-                app:layout_constraintBottom_toTopOf="@+id/location_options"
+            <View
+                android:id="@+id/starter_line_divider"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#d7d7d7d7"
+                app:layout_constraintBottom_toTopOf="@+id/filter_location_expandable"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@id/filter_location_expandable"
+                layout="@layout/filter_location_card"
+                app:layout_constraintBottom_toTopOf="@+id/location_options"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/starter_line_divider" />
 
             <include
                 android:id="@+id/location_options"
@@ -73,13 +95,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/location_options"
                 tools:layout_editor_absoluteX="-32dp" />
 
-<!--            <include-->
-<!--                android:id="@id/filter_from_whom_expandable"-->
-<!--                layout="@layout/filter_from_whom_card"-->
-<!--                app:layout_constraintBottom_toTopOf="@+id/from_whom_options"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/location_options"/>-->
+            <!--            <include-->
+            <!--                android:id="@id/filter_from_whom_expandable"-->
+            <!--                layout="@layout/filter_from_whom_card"-->
+            <!--                app:layout_constraintBottom_toTopOf="@+id/from_whom_options"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/location_options"/>-->
 
             <include
                 android:id="@+id/from_whom_options"
@@ -124,13 +146,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/from_whom_options"
                 tools:layout_editor_absoluteX="-145dp" />
 
-<!--            <include-->
-<!--                layout="@layout/filter_type_card"-->
-<!--                android:id="@id/filter_type_expandable"-->
-<!--                app:layout_constraintBottom_toTopOf="@+id/type_options"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/from_whom_options"/>-->
+            <!--            <include-->
+            <!--                layout="@layout/filter_type_card"-->
+            <!--                android:id="@id/filter_type_expandable"-->
+            <!--                app:layout_constraintBottom_toTopOf="@+id/type_options"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/from_whom_options"/>-->
 
             <include
                 android:id="@+id/type_options"
