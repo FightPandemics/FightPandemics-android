@@ -34,6 +34,7 @@
             android:id="@+id/mainHostFragment"
             android:name="androidx.navigation.dynamicfeatures.fragment.DynamicNavHostFragment"
             android:layout_width="match_parent"
+            app:defaultNavHost="true"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
