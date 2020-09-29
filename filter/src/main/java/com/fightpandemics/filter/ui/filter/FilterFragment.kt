@@ -28,6 +28,9 @@ class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        Use checkedchipids and length to get amount of chips
+//        val selectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds
+
         binding.filterLocationExpandable.apply {
             setOnClickListener {
                 toggleContents(binding.locationOptions.root, binding.filterLocationExpandable)

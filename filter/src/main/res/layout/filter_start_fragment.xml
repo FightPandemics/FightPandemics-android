@@ -23,20 +23,9 @@
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true">
 
-            <TextView
-                android:id="@+id/filter_location_expandable"
-                style="@style/AndroidNativeH216Px"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:text="@string/filter_location"
-                android:textStyle="bold"
-                app:drawableEndCompat="@drawable/ic_plus_sign"
+            <include
+                layout="@layout/filter_location_card"
+                android:id="@id/filter_location_expandable"
                 app:layout_constraintBottom_toTopOf="@+id/location_options"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -84,6 +73,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/location_options"
                 tools:layout_editor_absoluteX="-32dp" />
 
+<!--            <include-->
+<!--                android:id="@id/filter_from_whom_expandable"-->
+<!--                layout="@layout/filter_from_whom_card"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/from_whom_options"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/location_options"/>-->
+
             <include
                 android:id="@+id/from_whom_options"
                 layout="@layout/filter_from_whom"
@@ -127,6 +124,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/from_whom_options"
                 tools:layout_editor_absoluteX="-145dp" />
 
+<!--            <include-->
+<!--                layout="@layout/filter_type_card"-->
+<!--                android:id="@id/filter_type_expandable"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/type_options"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/from_whom_options"/>-->
+
             <include
                 android:id="@+id/type_options"
                 layout="@layout/filter_type"
@@ -160,7 +165,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="16dp"
         android:text="@string/button_clear_filters"
