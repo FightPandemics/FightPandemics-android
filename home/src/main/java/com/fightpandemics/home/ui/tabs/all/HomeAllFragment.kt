@@ -21,8 +21,7 @@ class HomeAllFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.home_all_fragment, container, false)
-        return root
+        return inflater.inflate(R.layout.home_all_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

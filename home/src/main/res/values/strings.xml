@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="tab_all">All</string>
     <string name="tab_offers">Offers</string>
     <string name="tab_requests">Requests</string>
     <string name="filter">Filter</string>
+
+
+    <!--Home Tabs-->
+    <string name="offers">Offers</string>
+    <string name="requests">Requests</string>
+    <string name="likes">Likes</string>
+    <string name="comments">Comments</string>
+    <string name="share">Share</string>
+
 </resources>

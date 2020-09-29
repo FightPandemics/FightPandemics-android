@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Sign out Profile-->
+    <string name="log_in">Log in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="you_are_not_signed_in">You are not signed in</string>
+    <string name="sign_up_or_log_in_to_see_your_profile">Sign up or log in to see your profile</string>
+    <string name="you_are_not_signed_in_image">You are not signed in image</string>
+
     <!--Profile-->
     <string name="profile_title">Profile</string>
     <string name="request_help">Request Help</string>

@@ -12,8 +12,10 @@ import androidx.core.view.marginBottom
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.fightpandemics.R
 import com.fightpandemics.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -90,11 +92,10 @@ class MainActivity : AppCompatActivity() {
         )
 
         controller.observe(
-            this,
-            { navController ->
-                // setupActionBarWithNavController(navController)
-            }
-        )
+            this
+        ) { navController ->
+            setupActionBarWithNavController(navController)
+        }
         currentNavController = controller
     }
 

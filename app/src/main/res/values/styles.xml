@@ -2,8 +2,6 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
 
-
-
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
@@ -151,6 +149,11 @@
         <item name="android:topLeftRadius">40dp</item>
         <item name="android:topRightRadius">40dp</item>
         <item name="statusBarScrim">@color/material_on_surface_stroke</item>
+    </style>
+
+    <style name="SplashScreenTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
     <style name="BottomSheetOverlay" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
