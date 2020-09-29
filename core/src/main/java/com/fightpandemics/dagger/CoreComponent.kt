@@ -2,14 +2,10 @@ package com.fightpandemics.dagger
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.fightpandemics.dagger.module.ContextModule
-import com.fightpandemics.dagger.module.CoreModule
-import com.fightpandemics.dagger.module.DatabaseModule
-import com.fightpandemics.dagger.module.NetworkModule
-import com.fightpandemics.dagger.module.SharedPreferencesModule
-import com.fightpandemics.dagger.module.ViewModelBuilderModule
-import com.fightpandemics.data.prefs.FightPandemicsPreferenceDataStore
+import com.fightpandemics.dagger.module.*
+import com.fightpandemics.data.prefs.PreferenceStorage
 import dagger.Component
+import dagger.Lazy
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -41,10 +37,10 @@ interface CoreComponent {
     }
 
     // The return type of functions inside the component interface is what can be provided from the container
-    fun provideContext(): Context
-    @Named("Core") fun provideCoreString(): String
-    fun provideSharedPreferences(): SharedPreferences
-    fun providesPreferenceDataStore(): FightPandemicsPreferenceDataStore
+    //fun provideContext(): Context
+    fun provideString(): String
+    fun providesPreferenceStorage(): PreferenceStorage
     // fun provideRetrofitService(): RequestInterface
     // fun provideRepository(): Repository
+
 }

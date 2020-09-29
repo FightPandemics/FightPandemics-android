@@ -1,6 +1,8 @@
 package com.fightpandemics.ui.splash
 
 import com.fightpandemics.dagger.scope.ActivityScope
+import com.fightpandemics.domain.OnBoardCompleteActionUseCase
+import com.fightpandemics.domain.OnBoardCompletedUseCase
 import com.fightpandemics.ui.onboarding.OnBoardFragment
 import dagger.Subcomponent
 
@@ -17,4 +19,7 @@ interface SplashComponent {
     fun inject(splashActivity: SplashActivity)
     fun inject(splashFragment: SplashFragment)
     fun inject(onBoardFragment: OnBoardFragment)
+
+    fun providesOnBoardCompleteActionUseCase(): OnBoardCompleteActionUseCase
+    fun providesOnBoardCompletedUseCase() : OnBoardCompletedUseCase
 }

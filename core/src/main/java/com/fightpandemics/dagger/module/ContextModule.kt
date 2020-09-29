@@ -16,9 +16,4 @@ class ContextModule(private val application: Application) {
     @Singleton
     @Provides
     fun provideContext(): Context = application
-
-    @Singleton
-    @Named("Core")
-    @Provides
-    fun provideCoreString(): String = "Test Core Dagger Implementation"
 }

@@ -40,7 +40,7 @@ open class FightPandemicsApp : Application(), CoreComponentProvider, LoginCompon
             .factory()
             .create(
                 ContextModule(this),
-                SharedPreferencesModule(this, "name")
+                SharedPreferencesModule(this, "fightpandemics")
             ) // todo 3 - make name a const
     }
 

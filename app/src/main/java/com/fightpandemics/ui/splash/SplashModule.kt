@@ -13,11 +13,6 @@ class SplashModule {
 
     @ActivityScope
     @Provides
-    fun provideCommonHome(): String =
-        "DUPE"
-
-    @ActivityScope
-    @Provides
     fun providesOnBoardCompletedUseCase(
         preferenceDataStore: FightPandemicsPreferenceDataStore,
         dispatcherProvider: CoroutinesDispatcherProvider,

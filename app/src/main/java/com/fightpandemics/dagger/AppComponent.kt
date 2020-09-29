@@ -2,11 +2,14 @@ package com.fightpandemics.dagger
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import com.fightpandemics.dagger.scope.AppScope
+import com.fightpandemics.data.prefs.PreferenceStorage
 import com.fightpandemics.login.dagger.LoginComponent
 import com.fightpandemics.ui.splash.SplashComponent
 import dagger.BindsInstance
 import dagger.Component
+import dagger.Lazy
 
 @AppScope
 @Component(

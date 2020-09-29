@@ -1,20 +1,20 @@
 package com.fightpandemics.domain
 
+import com.fightpandemics.dagger.scope.ActivityScope
 import com.fightpandemics.data.CoroutinesDispatcherProvider
-import com.fightpandemics.data.prefs.FightPandemicsPreferenceDataStore
-import com.fightpandemics.result.Result
-import kotlinx.coroutines.withContext
+import com.fightpandemics.data.prefs.PreferenceStorage
 import javax.inject.Inject
 
 /**
  * Records whether onboarding has been completed.
  */
+@ActivityScope
 class OnBoardCompleteActionUseCase @Inject constructor(
-    private val preferenceDataStore: FightPandemicsPreferenceDataStore,
+    private val preferenceStorage: PreferenceStorage,
     private val dispatcherProvider: CoroutinesDispatcherProvider,
 ) : UseCase<Boolean, Unit>(dispatcherProvider.io) {
 
     override fun execute(completed: Boolean) {
-        preferenceDataStore.onboardingCompleted = completed
+        preferenceStorage.onboardingCompleted = completed
     }
 }
