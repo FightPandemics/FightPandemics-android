@@ -9,16 +9,15 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:background="@color/colorWhite"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!--text should be changed to Sign In programmatically-->
         <include
             android:id="@+id/toolbar"
-            layout="@layout/login_toolbar" />
+            layout="@layout/sign_up_toolbar" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,13 +36,13 @@
         <EditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:textSize="18sp"
             android:textColor="@color/fightPandemicsNeonBlue"
             android:lineSpacingExtra="3.7sp"
             android:fontFamily="@font/worksans_medium"
             android:textColorHint="@color/fightPandemicsNeonBlue"
-            android:hint="E-mail"
+            android:hint="@string/e_mail"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:background="@drawable/textview_line_bottom"
@@ -54,13 +53,13 @@
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:textSize="18sp"
             android:textColor="@color/fightPandemicsNeonBlue"
             android:lineSpacingExtra="3.7sp"
             android:fontFamily="@font/worksans_medium"
             android:textColorHint="@color/fightPandemicsNeonBlue"
-            android:hint="Password"
+            android:hint="@string/password"
             app:layout_constraintTop_toBottomOf="@+id/et_email"
             app:layout_constraintStart_toStartOf="@+id/et_email"
             android:layout_marginTop="34dp"
@@ -71,12 +70,12 @@
         <EditText
             android:id="@+id/et_repassword"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:textSize="18sp"
             android:textColor="@color/fightPandemicsNeonBlue"
             android:lineSpacingExtra="3.7sp"
             android:fontFamily="@font/worksans_medium"
-            android:hint="Re-enter password"
+            android:hint="@string/re_enter_password"
             android:textColorHint="@color/fightPandemicsNeonBlue"
             app:layout_constraintTop_toBottomOf="@+id/et_password"
             app:layout_constraintStart_toStartOf="@+id/et_password"
@@ -89,7 +88,7 @@
             style="@style/AndroidNativeP311Px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="By signing up, I agree to the Privacy Policy and Terms and Conditions"
+            android:text="@string/by_signing_up_i_agree_to_the_privacy_policy_and_terms_and_conditions"
             app:layout_constraintTop_toBottomOf="@id/et_repassword"
             app:layout_constraintStart_toStartOf="@id/et_repassword"
             android:layout_marginTop="20dp"
@@ -100,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:background="@drawable/btn_sign_email_background"
-            android:backgroundTint="#c7cefc"
+            android:backgroundTint="@color/color_botton_disabled"
             app:layout_constraintBottom_toTopOf="@id/tv_sigin_instead"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -113,9 +112,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:textColor="#ffffff"
+                android:textColor="@color/color_white"
                 android:lineSpacingExtra="5.9sp"
-                android:text="Join now"
+                android:text="@string/join_now"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -130,7 +129,7 @@
             android:textSize="16sp"
             android:textColor="@color/fightPandemicsNeonBlue"
             android:lineSpacingExtra="4.9sp"
-            android:text="Have an account? Sign in instead "
+            android:text="@string/have_an_account_sign_in_instead"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

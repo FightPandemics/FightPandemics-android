@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/btn_sign_social_background"
-    android:backgroundTint="#0177b5"
+    android:backgroundTint="@color/color_linkedIn_button"
     >
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -28,7 +28,7 @@
         android:fontFamily="@font/poppins_medium"
         android:lineHeight="23.9sp"
         android:lineSpacingExtra="5.9sp"
-        android:text="Continue with LinkedIn"
+        android:text="@string/continue_with_linkedin"
         android:textColor="@color/colorWhite"
         android:textSize="18sp" />
 
