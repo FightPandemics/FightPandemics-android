@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite"
     android:fitsSystemWindows="true">
 
@@ -26,98 +26,139 @@
         android:layout_height="0dp"
         android:background="@color/signup_screen_bg"
         android:paddingStart="31dp"
-        android:paddingEnd="30dp"
         android:paddingTop="34dp"
+        android:paddingEnd="30dp"
         android:paddingBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBar">
 
-        <EditText
-            android:id="@+id/et_email"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEmail"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textSize="18sp"
-            android:textColor="@color/fightPandemicsNeonBlue"
-            android:lineSpacingExtra="3.7sp"
-            android:fontFamily="@font/worksans_medium"
-            android:textColorHint="@color/fightPandemicsNeonBlue"
+            android:layout_height="wrap_content"
             android:hint="@string/e_mail"
-            app:layout_constraintTop_toTopOf="parent"
+            app:boxBackgroundMode="none"
+            app:errorEnabled="false"
+            app:hintEnabled="true"
+            android:textColorHint="@color/fightPandemicsNeonBlue"
+            app:hintTextAppearance="@style/SignUPTextHint"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@drawable/textview_line_bottom"
-            android:inputType="textEmailAddress"
+            app:layout_constraintTop_toTopOf="parent">
 
-            />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:textAppearance="@style/AndroidNativeP311Px"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/textview_line_bottom"
+                android:paddingStart="2dp"
+                android:paddingTop="8dp"
+                app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/et_password"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPassword"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textSize="18sp"
-            android:textColor="@color/fightPandemicsNeonBlue"
-            android:lineSpacingExtra="3.7sp"
-            android:fontFamily="@font/worksans_medium"
-            android:textColorHint="@color/fightPandemicsNeonBlue"
+            android:layout_height="wrap_content"
             android:hint="@string/password"
-            app:layout_constraintTop_toBottomOf="@+id/et_email"
-            app:layout_constraintStart_toStartOf="@+id/et_email"
-            android:layout_marginTop="34dp"
-            android:background="@drawable/textview_line_bottom"
-            android:inputType="textPassword"
-            />
-
-        <EditText
-            android:id="@+id/et_repassword"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textSize="18sp"
-            android:textColor="@color/fightPandemicsNeonBlue"
-            android:lineSpacingExtra="3.7sp"
-            android:fontFamily="@font/worksans_medium"
-            android:hint="@string/re_enter_password"
+            app:boxBackgroundMode="none"
+            app:errorEnabled="false"
+            app:hintEnabled="true"
             android:textColorHint="@color/fightPandemicsNeonBlue"
-            app:layout_constraintTop_toBottomOf="@+id/et_password"
-            app:layout_constraintStart_toStartOf="@+id/et_password"
+            app:hintTextAppearance="@style/SignUPTextHint"
+            app:layout_constraintStart_toStartOf="@id/tilEmail"
+            app:layout_constraintTop_toBottomOf="@id/tilEmail"
             android:layout_marginTop="34dp"
-            android:background="@drawable/textview_line_bottom"
-            android:inputType="textPassword"
-            />
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/fightPandemicsPerano"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textAppearance="@style/AndroidNativeP311Px"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/textview_line_bottom"
+                android:paddingStart="2dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingTop="8dp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/re_enter_password"
+            app:boxBackgroundMode="none"
+            app:errorEnabled="false"
+            app:hintEnabled="true"
+            android:textColorHint="@color/fightPandemicsNeonBlue"
+            app:hintTextAppearance="@style/SignUPTextHint"
+            app:layout_constraintStart_toStartOf="@id/tilPassword"
+            app:layout_constraintTop_toBottomOf="@id/tilPassword"
+            android:layout_marginTop="34dp"
+            android:paddingTop="24dp"
+            app:passwordToggleTint="@color/fightPandemicsPerano"
+            app:passwordToggleEnabled="true"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_repassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textAppearance="@style/AndroidNativeP311Px"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/textview_line_bottom"
+                android:paddingStart="2dp"
+                android:paddingTop="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:drawableEnd="@drawable/ic_password_eye"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView
             style="@style/AndroidNativeP311Px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/by_signing_up_i_agree_to_the_privacy_policy_and_terms_and_conditions"
-            app:layout_constraintTop_toBottomOf="@id/et_repassword"
-            app:layout_constraintStart_toStartOf="@id/et_repassword"
             android:layout_marginTop="20dp"
-            />
+            android:text="@string/by_signing_up_i_agree_to_the_privacy_policy_and_terms_and_conditions"
+            app:layout_constraintStart_toStartOf="@id/tilRePassword"
+            app:layout_constraintTop_toBottomOf="@id/tilRePassword" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_btn_join"
             android:layout_width="match_parent"
             android:layout_height="54dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/btn_sign_email_background"
             android:backgroundTint="@color/color_botton_disabled"
             app:layout_constraintBottom_toTopOf="@id/tv_sigin_instead"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="16dp"
-            android:layout_marginStart="7dp"
-            android:layout_marginEnd="7dp"
-            >
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="@color/color_white"
                 android:lineSpacingExtra="5.9sp"
                 android:text="@string/join_now"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/color_white"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
 
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -126,16 +167,14 @@
             android:id="@+id/tv_sigin_instead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/fightPandemicsNeonBlue"
+            android:layout_marginBottom="24dp"
             android:lineSpacingExtra="4.9sp"
             android:text="@string/have_an_account_sign_in_instead"
+            android:textColor="@color/fightPandemicsNeonBlue"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="24dp"
-            />
-
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

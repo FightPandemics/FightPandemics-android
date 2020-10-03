@@ -16,7 +16,10 @@
     </dist:module>-->
 
     <application>
-        <activity android:name=".ui.LoginActivity"/>
+        <activity
+            android:name=".ui.LoginActivity"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,23 +1,29 @@
 package com.fightpandemics.login.ui
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fightpandemics.login.R
-import com.fightpandemics.utils.ViewModelFactory
+import com.fightpandemics.utils.*
 import kotlinx.android.synthetic.main.fragment_sign_up_email.*
 import javax.inject.Inject
 
-class SignUpEmailFragment : Fragment() {
+
+class SignUpEmailFragment : Fragment(), ICheckLayoutEditText {
 
     @Inject
     lateinit var loginViewModelFactory: ViewModelFactory
 
     private lateinit var viewModel: LoginViewModel
+
+    private var validEmail : Boolean = false
+    private var validPassword : Boolean = false
+    private var validRePassword : Boolean = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -46,6 +52,33 @@ class SignUpEmailFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         tv_sigin_instead.setOnClickListener{
             (activity as LoginActivity).replaceFragment(SignInFragment.newInstance(), true)
+        }
+
+        validEmail = et_email.validate("Please enter a valid email address", tilEmail, this){
+               s -> s.isValidEmail()
+        }
+
+        validPassword = et_password.validate("Please enter a valid password", tilPassword, this){ s -> s.isValidPassword() }
+
+        validRePassword = et_repassword.validate("Please repeat same password", tilRePassword, this){
+                s -> s.isValidRePassword(et_password.getString())
+        }
+        cl_btn_join.setOnClickListener {
+            if(validEmail && validPassword && validRePassword){
+                executeSignUP()
+            }
+        }
+    }
+
+    private fun executeSignUP() {
+
+    }
+
+    override fun checkLayout() {
+        if(validEmail && validPassword && validRePassword){
+            cl_btn_join.setBackgroundColor(resources.getColor(R.color.fightPandemicsNeonBlue));
+        }else{
+            cl_btn_join.setBackgroundColor(resources.getColor(R.color.color_botton_disabled));
         }
     }
 }
