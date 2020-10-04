@@ -1,9 +1,6 @@
 language: android
 jdk: oraclejdk8
 
-licenses:
-    - '.+'
-
 env:
   global:
     - ANDROID_TARGET=android-22
