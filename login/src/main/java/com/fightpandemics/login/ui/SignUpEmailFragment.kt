@@ -1,7 +1,6 @@
 package com.fightpandemics.login.ui
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,14 +53,14 @@ class SignUpEmailFragment : Fragment(), ICheckLayoutEditText {
             (activity as LoginActivity).replaceFragment(SignInFragment.newInstance(), true)
         }
 
-        validEmail = et_email.validate("Please enter a valid email address", tilEmail, this){
-               s -> s.isValidEmail()
+        validEmail = et_email.validate("Please enter a valid email address", tilEmail, this){ s -> s.isValidEmail()
         }
 
         validPassword = et_password.validate("Please enter a valid password", tilPassword, this){ s -> s.isValidPassword() }
 
-        validRePassword = et_repassword.validate("Please repeat same password", tilRePassword, this){
-                s -> s.isValidRePassword(et_password.getString())
+        validRePassword = et_repassword.validate("Please repeat same password", tilRePassword, this){ s -> s.isValidRePassword(
+            et_password.getString()
+        )
         }
         cl_btn_join.setOnClickListener {
             if(validEmail && validPassword && validRePassword){
