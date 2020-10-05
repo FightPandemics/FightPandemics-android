@@ -51,7 +51,10 @@ fun String.isValidEmail(): Boolean = this.isNotEmpty() &&
 fun String.isValidPassword(): Boolean = this.isNotEmpty()
 
 
-fun String.isValidRePassword(pass : String): Boolean = this?.isNotEmpty() && pass?.isNotEmpty() && this.equals(pass)
+fun String.isValidRePassword(pass : String): Boolean{
+    return this?.isNotEmpty() && pass?.isNotEmpty() && this.equals(pass)
+}
+
 
 
 

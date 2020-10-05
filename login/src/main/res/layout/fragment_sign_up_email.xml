@@ -146,7 +146,7 @@
             android:layout_marginEnd="7dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/btn_sign_email_background"
-            android:backgroundTint="@color/color_botton_disabled"
+            android:backgroundTint="@color/color_button_disabled"
             app:layout_constraintBottom_toTopOf="@id/tv_sigin_instead"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">

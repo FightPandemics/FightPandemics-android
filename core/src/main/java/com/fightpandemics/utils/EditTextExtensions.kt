@@ -30,7 +30,7 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
  * et_email.validate("Minimum length is 6"){ s-> s.length>=6 }
  *
  * */
-fun EditText.validate(message: String, textInputLayout : TextInputLayout, checkLayoutEditText : ICheckLayoutEditText, validator: (String) -> Boolean) : Boolean{
+fun EditText.validate(message: String, textInputLayout : TextInputLayout,  validator: (String) -> Boolean) : Boolean{
     this.afterTextChanged {
         if(it.isNotEmpty()){
             textInputLayout.isErrorEnabled = true
@@ -38,7 +38,6 @@ fun EditText.validate(message: String, textInputLayout : TextInputLayout, checkL
         }else{
             textInputLayout.isErrorEnabled = false
         }
-        checkLayoutEditText.checkLayout()
     }
     return validator(this.getString())
 }
@@ -59,7 +58,5 @@ fun EditText.getStringTrim(): String{
     return this.getString().trim()
 }
 
-interface ICheckLayoutEditText{
-    fun checkLayout()
-}
+
 
