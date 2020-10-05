@@ -57,6 +57,9 @@ fun EditText.getString(): String{
 fun EditText.getStringTrim(): String{
     return this.getString().trim()
 }
+fun EditText.isEmpty(): Boolean{
+    return this.getString().trim().isEmpty()
+}
 
 
 

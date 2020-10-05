@@ -72,6 +72,7 @@ class SignUpEmailFragment : Fragment() {
                 executeSignUP()
             }
         }
+
     }
 
     private fun executeSignUP() {
@@ -101,7 +102,11 @@ class SignUpEmailFragment : Fragment() {
     private fun checkValidations(boolean: Boolean, id: Int) {
         when (id) {
             tilEmail.id -> validEmail = boolean
-            tilPassword.id -> validPassword = boolean
+            tilPassword.id -> {
+                validPassword = boolean
+                if(!et_repassword.isEmpty())
+                et_repassword.text = et_repassword.text
+            }
             tilRePassword.id -> validRePassword = boolean
         }
         checkLayoutSignUPButton()

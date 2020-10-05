@@ -24,6 +24,12 @@
     <style name="SignUPTextHint">
         <item name="android:textSize">12sp</item>
         <item name="fontFamily">@font/worksans_medium</item>
+        <item name="android:textColorHint">@color/fightPandemicsNeonBlue</item>
+    </style>
+
+    <style name="SignUPText">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/worksans_medium</item>
         <item name="android:textColor">@color/fightPandemicsNero</item>
         <item name="android:textColorHint">@color/fightPandemicsNeonBlue</item>
     </style>
