@@ -2,22 +2,16 @@ package com.fightpandemics.home.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.fightpandemics.home.R
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.ui.tabs.HomePagerAdapter
-import com.fightpandemics.home.ui.tabs.OnTabSelected
 import com.fightpandemics.home.utils.TAB_TITLES
 import com.fightpandemics.utils.ViewModelFactory
 import com.google.android.material.tabs.TabLayout
@@ -68,7 +62,7 @@ class HomeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.filter -> Toast.makeText(context, "Filter Clicked", Toast.LENGTH_LONG).show()
+            R.id.filter -> findNavController().navigate(com.fightpandemics.R.id.action_homeFragment_to_filterFragment)
         }
         return true
     }

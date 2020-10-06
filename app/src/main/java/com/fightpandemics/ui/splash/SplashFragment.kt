@@ -1,22 +1,16 @@
 package com.fightpandemics.ui.splash
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.R
 import com.fightpandemics.result.EventObserver
-import com.fightpandemics.ui.MainActivity
 import com.fightpandemics.utils.ViewModelFactory
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
-import timber.log.Timber
 import javax.inject.Inject
 
 class SplashFragment : Fragment() {
@@ -28,7 +22,7 @@ class SplashFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
     private val splashViewModel by viewModels<SplashViewModel> { viewModelFactory }
 
-    val mLifecycleScope = lifecycleScope
+    private val mLifecycleScope = this@SplashFragment.lifecycleScope
 
     companion object {
         fun newInstance() = SplashFragment()
@@ -45,11 +39,6 @@ class SplashFragment : Fragment() {
             delay(2000)
             launch()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mLifecycleScope.cancel()
     }
 
     private fun launch() {

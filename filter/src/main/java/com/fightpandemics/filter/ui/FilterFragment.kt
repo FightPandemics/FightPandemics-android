@@ -1,4 +1,4 @@
-package com.fightpandemics.filter.ui.filter
+package com.fightpandemics.filter.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,6 +22,7 @@ class FilterFragment : Fragment() {
     ): View? {
 
         binding = FilterStartFragmentBinding.inflate(inflater)
+
         return binding.root
     }
 

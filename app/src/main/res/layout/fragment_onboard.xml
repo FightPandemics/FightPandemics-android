@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,23 +9,25 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/onboardViewPager"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="36dp"
-        app:layout_constraintBottom_toTopOf="@id/view_pager_counter_layout"
+        app:layout_constraintBottom_toTopOf="@+id/tabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/view_pager_counter_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/bt_sign_in"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/bt_sign_in"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabBackground="@drawable/dot_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_sign_in"
@@ -34,7 +35,7 @@
         android:layout_width="155dp"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/sign_in"
         android:textAllCaps="false"
         android:textColor="@color/fightPandemicsNeonBlue"
@@ -42,6 +43,7 @@
         app:cornerRadius="24dp"
         app:layout_constraintBottom_toTopOf="@id/tv_skip"
         app:layout_constraintEnd_toStartOf="@+id/bt_join_now"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="@color/fightPandemicsNeonBlue"
         app:strokeWidth="1dp" />
@@ -51,9 +53,8 @@
         style="Widget.MaterialComponents.Button"
         android:layout_width="155dp"
         android:layout_height="60dp"
-        android:layout_marginStart="15dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/fightPandemicsNeonBlue"
         android:text="@string/join_now"
         android:textAllCaps="false"
@@ -61,6 +62,7 @@
         app:cornerRadius="24dp"
         app:layout_constraintBottom_toTopOf="@id/tv_skip"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/bt_sign_in" />
 
     <TextView

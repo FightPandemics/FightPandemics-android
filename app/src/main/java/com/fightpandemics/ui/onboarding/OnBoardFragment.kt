@@ -1,7 +1,6 @@
 package com.fightpandemics.ui.onboarding
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +9,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.fightpandemics.R
 import com.fightpandemics.result.EventObserver
-import com.fightpandemics.ui.MainActivity
-import com.fightpandemics.ui.splash.SplashViewModel
 import com.fightpandemics.utils.ViewModelFactory
 import com.google.android.material.button.MaterialButton
-import timber.log.Timber
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import javax.inject.Inject
 
 class OnBoardFragment : Fragment() {
@@ -40,19 +39,12 @@ class OnBoardFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_onboard, container, false)
 
-//        val fragmentList = arrayListOf<Fragment>(
-//            /*FirstScreen(),
-//            SecondScreen(),
-//            ThirdScreen()*/
-//        )
-//
-//        val adapter = OnBoardingAdapter(
-//            fragmentList,
-//            requireActivity().supportFragmentManager,
-//            lifecycle
-//        )
-//
-//        view.viewPager.adapter = adapter
+        val onboardViewPager = rootView.findViewById<ViewPager2>(R.id.onboardViewPager)
+        val tabLayout = rootView.findViewById<TabLayout>(R.id.tabLayout)
+
+        val onBoardingAdapters = OnBoardAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
+        onboardViewPager.adapter = onBoardingAdapters
+        TabLayoutMediator(tabLayout, onboardViewPager) { tab, position -> }.attach()
 
         rootView.findViewById<MaterialButton>(R.id.bt_sign_in).setOnClickListener {
             findNavController().navigate(R.id.action_onboardFragment_to_signInFragment)
@@ -64,7 +56,6 @@ class OnBoardFragment : Fragment() {
 
         rootView.findViewById<TextView>(R.id.tv_skip).setOnClickListener {
             onBoardViewModel.skipToHelpBoardClick()
-
             onBoardViewModel.navigateToMainActivity.observe(viewLifecycleOwner, EventObserver {
                 this.run {
                     findNavController().navigate(R.id.action_onboardFragment_to_mainActivity)

@@ -1,4 +1,4 @@
-package com.fightpandemics.filter.ui.filter
+package com.fightpandemics.filter.ui
 
 import androidx.lifecycle.ViewModel
 
