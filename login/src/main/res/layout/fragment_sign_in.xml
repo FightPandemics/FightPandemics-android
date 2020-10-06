@@ -76,6 +76,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:id="@+id/tv_privacy_policy"
             style="@style/AndroidNativeP311Px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,6 +89,7 @@
             />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_btn_email"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:background="@drawable/btn_sign_email_background"
@@ -112,6 +114,103 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!--Screen 2 views-->
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="18sp"
+            android:textColor="@color/fightPandemicsNeonBlue"
+            android:lineSpacingExtra="3.7sp"
+            android:visibility="invisible"
+            android:fontFamily="@font/worksans_medium"
+            android:textColorHint="@color/fightPandemicsNeonBlue"
+            android:hint="@string/e_mail"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/textview_line_bottom"
+            android:inputType="textEmailAddress"
+            />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="18sp"
+            android:textColor="@color/fightPandemicsNeonBlue"
+            android:lineSpacingExtra="3.7sp"
+            android:visibility="invisible"
+            android:fontFamily="@font/worksans_medium"
+            android:textColorHint="@color/fightPandemicsNeonBlue"
+            android:hint="@string/password"
+            app:layout_constraintTop_toBottomOf="@+id/et_email"
+            app:layout_constraintStart_toStartOf="@+id/et_email"
+            android:layout_marginTop="34dp"
+            android:background="@drawable/textview_line_bottom"
+            android:inputType="textPassword"
+            />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_btn_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/btn_sign_email_background"
+            android:backgroundTint="@color/colorPrimary"
+            android:visibility="invisible"
+            app:layout_constraintTop_toBottomOf="@id/et_password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="35dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="7dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/color_white"
+                android:lineSpacingExtra="5.9sp"
+                android:text="@string/sign_in"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/fightPandemicsNeonBlue"
+            android:lineSpacingExtra="4.9sp"
+            android:visibility="invisible"
+            android:text="@string/forgot_password"
+            app:layout_constraintTop_toBottomOf="@id/layout_btn_sign_in"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_join_now_instead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/fightPandemicsNeonBlue"
+            android:lineSpacingExtra="4.9sp"
+            android:visibility="invisible"
+            android:text="@string/don_t_have_an_account_join_now_instead"
+            app:layout_constraintTop_toBottomOf="@id/tv_forgot_password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

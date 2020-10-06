@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fightpandemics.login.R
+import com.fightpandemics.login.makeInvisible
+import com.fightpandemics.login.makeVisible
 import com.fightpandemics.utils.ViewModelFactory
+import kotlinx.android.synthetic.main.fragment_sign_in.*
 import javax.inject.Inject
 
 
@@ -17,6 +20,8 @@ class SignInFragment : Fragment() {
     lateinit var loginViewModelFactory: ViewModelFactory
 
     private lateinit var viewModel: LoginViewModel
+    private var email: String? = null
+    private var password: String? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -34,6 +39,59 @@ class SignInFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sign_in, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        layout_btn_email.setOnClickListener {
+            navigateToSignInWithEmail()
+        }
+
+        layout_btn_sign_in.setOnClickListener {
+            validateFieldsAndDoLogin()
+        }
+
+        tv_join_now_instead.setOnClickListener {
+            navigateToSignUp()
+        }
+    }
+
+
+    private fun navigateToSignInWithEmail() {
+        layout_btn_google.makeInvisible()
+        layout_btn_facebook.makeInvisible()
+        layout_btn_linkedin.makeInvisible()
+        tv_privacy_policy.makeInvisible()
+        layout_btn_email.makeInvisible()
+        et_email.makeVisible()
+        et_password.makeVisible()
+        layout_btn_sign_in.makeVisible()
+        tv_forgot_password.makeVisible()
+        tv_join_now_instead.makeVisible()
+    }
+
+    private fun doLogin(email: String, password: String) {
+        viewModel.doLogin(email, password)
+    }
+
+    private fun validateFieldsAndDoLogin() {
+        when {
+            viewModel.allInputFieldsHaveBeenFilled(et_email.text.toString().trim(), et_password.text.toString().trim())
+                    && viewModel.inValidEmail(et_email.text.toString().trim()).isNullOrEmpty()
+            -> {
+                email = et_email.text.toString().trim()
+                password = et_password.text.toString().trim()
+                doLogin(email!!, password!!)
+            }
+            !viewModel.allInputFieldsHaveBeenFilled(et_email.text.toString().trim(), et_password.text.toString().trim())
+            -> {}//Display error messages
+            viewModel.inValidEmail(et_email.text.toString().trim())!!.isNotEmpty() -> {}//Display "Please Enter a Valid Email Address"
+        }
+    }
+
+    private fun navigateToSignUp() {
+        (activity as LoginActivity).replaceFragment(SignUpFragment.newInstance(), true)
     }
 
     companion object {
