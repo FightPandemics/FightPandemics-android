@@ -9,11 +9,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
+import com.google.android.material.transition.MaterialSharedAxis
 
 class FilterFragment : Fragment() {
 
     private val viewModel: FilterFragmentViewModel by viewModels()
     private lateinit var binding: FilterStartFragmentBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,7 +34,6 @@ class FilterFragment : Fragment() {
     ): View? {
 
         binding = FilterStartFragmentBinding.inflate(inflater)
-
         return binding.root
     }
 

@@ -16,6 +16,7 @@ import com.fightpandemics.home.utils.TAB_TITLES
 import com.fightpandemics.utils.ViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.transition.MaterialSharedAxis
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
@@ -35,7 +36,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         setHasOptionsMenu(true)
         val rootView = inflater.inflate(R.layout.home_fragment, container, false)
@@ -62,7 +63,15 @@ class HomeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.filter -> findNavController().navigate(com.fightpandemics.R.id.action_homeFragment_to_filterFragment)
+            R.id.filter -> {
+                exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+                    duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+                }
+                reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+                    duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+                }
+                findNavController().navigate(com.fightpandemics.R.id.action_homeFragment_to_filterFragment)
+            }
         }
         return true
     }

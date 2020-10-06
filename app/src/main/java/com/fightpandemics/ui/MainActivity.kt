@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_1)
+        setContentView(R.layout.activity_main)
 
         bottomNavigationView = findViewById(R.id.bottomNavBar)
         fab = findViewById(R.id.fab)
@@ -52,12 +52,34 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         } // Else, need to wait for onRestoreInstanceState
-        //setUpNavDestinationChangeListener()
         setUpBottomNavigationAndFab()
     }
 
-    private fun setUpBottomNavigationAndFab() {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        setupBottomNavigationBar()
+    }
 
+    private fun setupBottomNavigationBar() {
+        val navGraphIds = listOf(
+            R.navigation.nav_home,
+            R.navigation.nav_search,
+            R.navigation.nav_inbox,
+            R.navigation.nav_profile
+        )
+
+        val controller = bottomNavigationView.setupWithNavController(
+            navGraphIds = navGraphIds,
+            fragmentManager = supportFragmentManager,
+            containerId = R.id.mainHostFragment,
+            intent = intent
+        )
+
+        controller.observe(this) { setupActionBarWithNavController(it) }
+        currentNavController = controller
+    }
+
+    private fun setUpBottomNavigationAndFab() {
         currentNavController?.observe(this) {
             it.addOnDestinationChangedListener(this@MainActivity)
         }
@@ -84,34 +106,9 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 showBottomBar(destination)
                 dot.visibility = View.VISIBLE
                 fab.show()
-
             }
             R.id.filterFragment -> hideBottomBar()
-
         }
-    }
-
-    private fun setupBottomNavigationBar() {
-        val navGraphIds = listOf(
-            R.navigation.nav_home,
-            R.navigation.nav_search,
-            R.navigation.nav_inbox,
-            R.navigation.nav_profile
-        )
-
-        val controller = bottomNavigationView.setupWithNavController(
-            navGraphIds = navGraphIds,
-            fragmentManager = supportFragmentManager,
-            containerId = R.id.mainHostFragment,
-            intent = intent
-        )
-
-        controller.observe(
-            this
-        ) { navController ->
-            setupActionBarWithNavController(navController)
-        }
-        currentNavController = controller
     }
 
     private fun showBottomBar(destination: NavDestination) {

@@ -1,45 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.fightpandemics.widget.InsetDispatchingCoordinatorLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <include
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/fabCreateAsOrg"
-        layout="@layout/item_button_create_as_org" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/colorWhite"
+        android:clickable="false"
+        android:elevation="6dp"
+        android:fontFamily="@font/poppins_medium"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/create_as_an_organization"
+        android:textAllCaps="false"
+        android:textColor="@color/fightPandemicsNeonBlue"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/fabCreateAsIndiv"
+        app:layout_constraintEnd_toEndOf="@+id/fabCreateAsIndiv"
+        app:pressedTranslationZ="12dp"
+        app:srcCompat="@drawable/ic_add" />
 
-    <include
-        android:id="@+id/fabCreateAsIndividual"
-        layout="@layout/item_button_create_as_individual" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/fabCreateAsIndiv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/colorWhite"
+        android:clickable="false"
+        android:elevation="12dp"
+        android:fontFamily="@font/poppins_medium"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/create_as_an_individual"
+        android:textAllCaps="false"
+        android:textColor="@color/fightPandemicsNeonBlue"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/fab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:pressedTranslationZ="12dp"
+        app:srcCompat="@drawable/ic_add" />
 
-    <include
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        layout="@layout/item_fab_add" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="64dp"
+        android:backgroundTint="@color/fightPandemicsNeonBlue"
+        android:contentDescription="@string/add"
+        app:backgroundTint="@color/fightPandemicsNeonBlue"
+        app:elevation="6dp"
+        app:hoveredFocusedTranslationZ="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomNavBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:pressedTranslationZ="0dp"
+        app:srcCompat="@drawable/ic_add"
+        app:tint="@color/fightPandemicsWhiteSmoke" />
 
-    <include
+    <ImageView
         android:id="@+id/dot"
-        layout="@layout/item_dot" />
+        android:layout_width="6dp"
+        android:layout_height="6dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="13dp"
+        android:contentDescription="@string/dot"
+        android:elevation="14dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomNavBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/dot" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/mainHostFragment"
-            android:name="androidx.navigation.dynamicfeatures.fragment.DynamicNavHostFragment"
-            android:layout_width="match_parent"
-            app:defaultNavHost="true"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/mainHostFragment"
+        android:name="androidx.navigation.dynamicfeatures.fragment.DynamicNavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavBar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <include layout="@layout/item_bottom_nav_view" />
-
-    </LinearLayout>
-
-</com.fightpandemics.widget.InsetDispatchingCoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
