@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
 import com.google.android.material.transition.MaterialSharedAxis
@@ -32,8 +33,8 @@ class FilterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FilterStartFragmentBinding.inflate(inflater)
+        binding.filterToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         return binding.root
     }
 
@@ -43,11 +44,11 @@ class FilterFragment : Fragment() {
 //        Use checkedchipids and length to get amount of chips
 //        val selectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds
 
-        binding.filterLocationExpandable.apply {
+        /*binding.filterLocationExpandable.apply {
             setOnClickListener {
                 toggleContents(binding.locationOptions.root, binding.filterLocationExpandable)
             }
-        }
+        }*/
 
         binding.filterFromWhomExpandable.apply {
             setOnClickListener {

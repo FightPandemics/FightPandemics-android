@@ -7,25 +7,41 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
 
-    <include
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/filter_toolbar"
-        layout="@layout/filter_toolbar"
-        app:layout_constraintBottom_toTopOf="@id/filter_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorWhite"
+        android:clipChildren="false"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:layout_collapseMode="pin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_close">
+
+        <TextView
+            android:id="@+id/filter"
+            style="@style/AndroidNativeH216Px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:paddingTop="4dp"
+            android:text="Filters" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <ScrollView
         android:id="@+id/filter_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@id/clear_filters_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_default="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filter_toolbar">
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -183,35 +199,41 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/clear_filters_button"
-        style="@style/SecondaryButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="Widget.MaterialComponents.Button"
+        android:layout_width="156dp"
+        android:layout_height="60dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
         android:layout_marginBottom="16dp"
         android:text="@string/button_clear_filters"
+        android:textAllCaps="false"
+        android:textColor="@color/fightPandemicsNeonBlue"
+        app:backgroundTint="@color/colorWhite"
+        app:cornerRadius="24dp"
+        app:strokeColor="@color/fightPandemicsNeonBlue"
+        app:strokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/apply_filters_button"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filter_scroll_view"
         app:layout_constraintWidth_default="spread" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/apply_filters_button"
-        style="@style/PrimaryButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        style="Widget.MaterialComponents.Button"
+        android:layout_width="156dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:textSize="14sp"
+        android:backgroundTint="@color/fightPandemicsNeonBlue"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        app:cornerRadius="24dp"
         android:text="@string/button_apply_filters"
         app:layout_constraintBottom_toBottomOf="@+id/clear_filters_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/clear_filters_button"
-        app:layout_constraintTop_toTopOf="@+id/clear_filters_button"
         app:layout_constraintWidth_default="spread" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
