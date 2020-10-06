@@ -86,7 +86,8 @@ class SignInFragment : Fragment() {
             }
             !viewModel.allInputFieldsHaveBeenFilled(et_email.text.toString().trim(), et_password.text.toString().trim())
             -> {}//Display error messages
-            viewModel.inValidEmail(et_email.text.toString().trim())!!.isNotEmpty() -> {}//Display "Please Enter a Valid Email Address"
+            viewModel.inValidEmail(et_email.text.toString().trim())!!.isNotEmpty()
+            -> {}//Display "Please Enter a Valid Email Address"
         }
     }
 
