@@ -9,11 +9,16 @@ import com.fightpandemics.dagger.DaggerAppComponent
 import com.fightpandemics.dagger.DaggerCoreComponent
 import com.fightpandemics.dagger.module.ContextModule
 import com.fightpandemics.dagger.module.SharedPreferencesModule
+import com.fightpandemics.filter.dagger.FilterComponent
+import com.fightpandemics.filter.dagger.FilterComponentProvider
 import com.fightpandemics.login.dagger.LoginComponent
 import com.fightpandemics.login.dagger.LoginComponentProvider
 import timber.log.Timber
 
-open class FightPandemicsApp : Application(), CoreComponentProvider, LoginComponentProvider {
+open class FightPandemicsApp : Application(),
+    CoreComponentProvider,
+    LoginComponentProvider,
+    FilterComponentProvider {
 
     override fun onCreate() {
         super.onCreate()
@@ -46,6 +51,10 @@ open class FightPandemicsApp : Application(), CoreComponentProvider, LoginCompon
 
     override fun provideLoginComponent(): LoginComponent {
         return appComponent.loginComponent().create()
+    }
+
+    override fun provideFilterComponent(): FilterComponent {
+        return appComponent.filterComponent().create()
     }
 
     companion object {

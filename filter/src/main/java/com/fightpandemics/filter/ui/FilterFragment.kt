@@ -1,5 +1,6 @@
 package com.fightpandemics.filter.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +9,24 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
+import com.fightpandemics.utils.ViewModelFactory
 import com.google.android.material.transition.MaterialSharedAxis
+import javax.inject.Inject
 
 class FilterFragment : Fragment() {
 
-    private val viewModel: FilterFragmentViewModel by viewModels()
+    @Inject
+    lateinit var filterViewModelFactory: ViewModelFactory
+
     private lateinit var binding: FilterStartFragmentBinding
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        inject(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

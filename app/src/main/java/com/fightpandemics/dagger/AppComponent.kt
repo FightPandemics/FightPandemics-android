@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.fightpandemics.dagger.scope.AppScope
 import com.fightpandemics.data.prefs.PreferenceStorage
+import com.fightpandemics.filter.dagger.FilterComponent
 import com.fightpandemics.login.dagger.LoginComponent
 import com.fightpandemics.ui.splash.SplashComponent
 import dagger.BindsInstance
@@ -27,6 +28,7 @@ interface AppComponent {
 
     fun splashComponent(): SplashComponent.Factory
     fun loginComponent(): LoginComponent.Factory
+    fun filterComponent(): FilterComponent.Factory
 
     fun inject(application: Application)
 }
