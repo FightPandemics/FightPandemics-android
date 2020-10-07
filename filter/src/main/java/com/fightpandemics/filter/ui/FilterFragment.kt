@@ -14,6 +14,7 @@ import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
 import com.fightpandemics.utils.ViewModelFactory
 import com.google.android.material.transition.MaterialSharedAxis
+import kotlinx.android.synthetic.main.filter_location_options.view.*
 import javax.inject.Inject
 
 class FilterFragment : Fragment() {
@@ -52,19 +53,23 @@ class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        Use checkedchipids and length to get amount of chips
-//        val selectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds
-
         binding.filterLocationExpandable.apply {
             this.locationEmptyCard.apply {
                 setOnClickListener {
-                    toggleContents(binding.locationOptions.root, this)
+                    toggleContents(binding.locationOptions.root, binding.filterLocationExpandable.locationEmptyCard)
+                    var selectedLocationQuery = binding.locationOptions.root.location_search.query
+                    if (selectedLocationQuery.isNotEmpty()){
+                        binding.filterLocationExpandable.selectedChipsText.visibility = View.VISIBLE
+                    }else{
+                        binding.filterLocationExpandable.selectedChipsText.visibility = View.GONE
+                    }
                 }
             }
         }
 
         binding.filterFromWhomExpandable.apply {
             setOnClickListener {
+                val selectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds
                 toggleContents(binding.fromWhomOptions.root, binding.filterFromWhomExpandable)
             }
         }

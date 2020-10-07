@@ -71,7 +71,7 @@
 
             <include
                 android:id="@+id/location_options"
-                layout="@layout/filter_location"
+                layout="@layout/filter_location_options"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
                 android:visibility="gone"
