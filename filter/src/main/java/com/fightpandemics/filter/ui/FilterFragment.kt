@@ -55,11 +55,13 @@ class FilterFragment : Fragment() {
 //        Use checkedchipids and length to get amount of chips
 //        val selectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds
 
-        /*binding.filterLocationExpandable.apply {
-            setOnClickListener {
-                toggleContents(binding.locationOptions.root, binding.filterLocationExpandable)
+        binding.filterLocationExpandable.apply {
+            this.locationEmptyCard.apply {
+                setOnClickListener {
+                    toggleContents(binding.locationOptions.root, this)
+                }
             }
-        }*/
+        }
 
         binding.filterFromWhomExpandable.apply {
             setOnClickListener {
