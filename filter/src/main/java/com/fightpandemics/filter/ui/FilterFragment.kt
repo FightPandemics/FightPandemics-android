@@ -46,7 +46,7 @@ class FilterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         binding = FilterStartFragmentBinding.inflate(inflater)
         binding.filterToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
@@ -59,11 +59,13 @@ class FilterFragment : Fragment() {
         binding.filterLocationExpandable.apply {
             this.locationEmptyCard.apply {
                 setOnClickListener {
-                    toggleContents(binding.locationOptions.root, binding.filterLocationExpandable.locationEmptyCard)
+                    toggleContents(binding.locationOptions.root,
+                        binding.filterLocationExpandable.locationEmptyCard)
                     var selectedLocationQuery = binding.locationOptions.root.location_search.query
-                    if (selectedLocationQuery.isNotEmpty() && ! binding.root.location_options.isVisible){
-                        binding.filterLocationExpandable.filtersAppliedText.visibility = View.VISIBLE
-                    }else{
+                    if (selectedLocationQuery.isNotEmpty() && !binding.root.location_options.isVisible) {
+                        binding.filterLocationExpandable.filtersAppliedText.visibility =
+                            View.VISIBLE
+                    } else {
                         binding.filterLocationExpandable.filtersAppliedText.visibility = View.GONE
                     }
                 }
@@ -73,12 +75,16 @@ class FilterFragment : Fragment() {
         binding.filterFromWhomExpandable.apply {
             this.fromWhomEmptyCard.apply {
                 setOnClickListener {
-                    val selectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds.size
-                    toggleContents(binding.fromWhomOptions.root, binding.filterFromWhomExpandable.fromWhomEmptyCard)
-                    if (! binding.root.from_whom_options.isVisible && selectedChips > 0){
-                        binding.filterFromWhomExpandable.filtersAppliedText.visibility = View.VISIBLE
-                        binding.filterFromWhomExpandable.filtersAppliedText.text = "${selectedChips} applied"
-                    }else{
+                    val selectedChips =
+                        binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds.size
+                    toggleContents(binding.fromWhomOptions.root,
+                        binding.filterFromWhomExpandable.fromWhomEmptyCard)
+                    if (!binding.root.from_whom_options.isVisible && selectedChips > 0) {
+                        binding.filterFromWhomExpandable.filtersAppliedText.visibility =
+                            View.VISIBLE
+                        binding.filterFromWhomExpandable.filtersAppliedText.text =
+                            "${selectedChips} applied"
+                    } else {
                         binding.filterFromWhomExpandable.filtersAppliedText.visibility = View.GONE
                     }
                 }
@@ -88,11 +94,20 @@ class FilterFragment : Fragment() {
         binding.filterTypeExpandable.apply {
             this.typeEmptyCard.apply {
                 setOnClickListener {
-                    toggleContents(binding.typeOptions.root, binding.filterTypeExpandable.typeEmptyCard)
+                    val selectedChips = binding.typeOptions.typeChipGroup.checkedChipIds.size
+                    toggleContents(binding.typeOptions.root,
+                        binding.filterTypeExpandable.typeEmptyCard)
+                    if (!binding.root.type_options.isVisible && selectedChips > 0) {
+                        binding.filterTypeExpandable.filtersAppliedText.visibility = View.VISIBLE
+                        binding.filterTypeExpandable.filtersAppliedText.text =
+                            "${selectedChips} applied"
+                    } else {
+                        binding.filterTypeExpandable.filtersAppliedText.visibility = View.GONE
+                    }
                 }
             }
-        }
 
+        }
     }
 
     private fun toggleContents(optionsView: View, clickableTextView: TextView) {
@@ -116,3 +131,4 @@ class FilterFragment : Fragment() {
     }
 
 }
+

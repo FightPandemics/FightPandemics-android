@@ -233,6 +233,7 @@
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
         app:cornerRadius="24dp"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="@+id/clear_filters_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
