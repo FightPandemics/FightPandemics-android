@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="@+id/location_empty_card" />
 
     <TextView
-        android:id="@+id/selected_chips_text"
+        android:id="@+id/filters_applied_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
