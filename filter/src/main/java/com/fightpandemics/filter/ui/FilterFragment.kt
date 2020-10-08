@@ -68,17 +68,22 @@ class FilterFragment : Fragment() {
         }
 
         binding.filterFromWhomExpandable.apply {
-            setOnClickListener {
-                val selectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds
-                toggleContents(binding.fromWhomOptions.root, binding.filterFromWhomExpandable)
+            this.fromWhomEmptyCard.apply {
+                setOnClickListener {
+                    val selectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds
+                    toggleContents(binding.fromWhomOptions.root, binding.filterFromWhomExpandable.fromWhomEmptyCard)
+                }
             }
         }
 
         binding.filterTypeExpandable.apply {
-            setOnClickListener {
-                toggleContents(binding.typeOptions.root, binding.filterTypeExpandable)
+            this.typeEmptyCard.apply {
+                setOnClickListener {
+                    toggleContents(binding.typeOptions.root, binding.filterTypeExpandable.typeEmptyCard)
+                }
             }
         }
+
     }
 
     private fun toggleContents(optionsView: View, clickableTextView: TextView) {
