@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.fightpandemics.login.R
 import com.fightpandemics.login.makeInvisible
 import com.fightpandemics.login.makeVisible
+import com.fightpandemics.ui.BaseActivity
 import com.fightpandemics.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import javax.inject.Inject
@@ -64,8 +65,8 @@ class SignInFragment : Fragment() {
         layout_btn_linkedin.makeInvisible()
         tv_privacy_policy.makeInvisible()
         layout_btn_email.makeInvisible()
-        et_email.makeVisible()
-        et_password.makeVisible()
+        etFirstName.makeVisible()
+        etLastName.makeVisible()
         layout_btn_sign_in.makeVisible()
         tv_forgot_password.makeVisible()
         tv_join_now_instead.makeVisible()
@@ -77,22 +78,22 @@ class SignInFragment : Fragment() {
 
     private fun validateFieldsAndDoLogin() {
         when {
-            viewModel.allInputFieldsHaveBeenFilled(et_email.text.toString().trim(), et_password.text.toString().trim())
-                    && viewModel.inValidEmail(et_email.text.toString().trim()).isNullOrEmpty()
+            viewModel.allInputFieldsHaveBeenFilled(etFirstName.text.toString().trim(), etLastName.text.toString().trim())
+                    && viewModel.inValidEmail(etFirstName.text.toString().trim()).isNullOrEmpty()
             -> {
-                email = et_email.text.toString().trim()
-                password = et_password.text.toString().trim()
+                email = etFirstName.text.toString().trim()
+                password = etLastName.text.toString().trim()
                 doLogin(email!!, password!!)
             }
-            !viewModel.allInputFieldsHaveBeenFilled(et_email.text.toString().trim(), et_password.text.toString().trim())
+            !viewModel.allInputFieldsHaveBeenFilled(etFirstName.text.toString().trim(), etLastName.text.toString().trim())
             -> {}//Display error messages
-            viewModel.inValidEmail(et_email.text.toString().trim())!!.isNotEmpty()
+            viewModel.inValidEmail(etFirstName.text.toString().trim())!!.isNotEmpty()
             -> {}//Display "Please Enter a Valid Email Address"
         }
     }
 
     private fun navigateToSignUp() {
-        (activity as LoginActivity).replaceFragment(SignUpFragment.newInstance(), true)
+        (activity as BaseActivity).replaceFragment(SignUpFragment.newInstance(), true)
     }
 
     companion object {

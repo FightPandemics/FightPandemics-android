@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@id/appBar">
 
         <EditText
-            android:id="@+id/et_email"
+            android:id="@+id/etFirstName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textSize="18sp"
@@ -50,7 +50,7 @@
             />
 
         <EditText
-            android:id="@+id/et_password"
+            android:id="@+id/etLastName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textSize="18sp"
@@ -59,8 +59,8 @@
             android:fontFamily="@font/worksans_medium"
             android:textColorHint="@color/fightPandemicsNeonBlue"
             android:hint="@string/password"
-            app:layout_constraintTop_toBottomOf="@+id/et_email"
-            app:layout_constraintStart_toStartOf="@+id/et_email"
+            app:layout_constraintTop_toBottomOf="@+id/etFirstName"
+            app:layout_constraintStart_toStartOf="@+id/etFirstName"
             android:layout_marginTop="34dp"
             android:background="@drawable/textview_line_bottom"
             android:inputType="textPassword"
@@ -73,7 +73,7 @@
             android:layout_height="54dp"
             android:background="@drawable/btn_sign_email_background"
             android:backgroundTint="@color/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/et_password"
+            app:layout_constraintTop_toBottomOf="@id/etLastName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="35dp"

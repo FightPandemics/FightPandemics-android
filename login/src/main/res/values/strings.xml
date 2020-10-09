@@ -8,7 +8,11 @@
     <string name="sign_up_with_email">Sign up with Email</string>
     <string name="sign_in">Sign In</string>
     <string name="join_now">Join Now</string>
+    <string name="complete_profile">Complete Profile</string>
     <string name="e_mail">E-mail</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="address">Location</string>
     <string name="password">Password</string>
     <string name="re_enter_password">Re-enter password</string>
     <string name="continue_with_facebook">Continue with Facebook</string>

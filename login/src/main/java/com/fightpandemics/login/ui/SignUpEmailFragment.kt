@@ -1,7 +1,6 @@
 package com.fightpandemics.login.ui
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
@@ -13,6 +12,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fightpandemics.login.R
+import com.fightpandemics.ui.BaseActivity
 import com.fightpandemics.utils.*
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_sign_up_email.*
@@ -81,7 +81,7 @@ class SignUpEmailFragment : Fragment() {
     }
 
     private fun executeSignUP() {
-
+        (activity as BaseActivity).replaceFragment(CompeteProfileFragment.newInstance(), true)
     }
 
     private fun EditText.validateET(
