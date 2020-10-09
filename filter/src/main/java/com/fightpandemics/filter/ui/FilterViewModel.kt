@@ -18,10 +18,15 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     * */
 
     var isLocationOptionsExpanded = MutableLiveData<Boolean>()
+    var isFromWhomOptionsExpanded = MutableLiveData<Boolean>()
+    var isTypeOptionsExpanded = MutableLiveData<Boolean>()
+
     var locationQuery = MutableLiveData<CharSequence>()
 
     init {
         isLocationOptionsExpanded.value = false
+        isFromWhomOptionsExpanded.value = false
+        isTypeOptionsExpanded.value = false
     }
 
     fun toggleView(optionsCardState : MutableLiveData<Boolean>){

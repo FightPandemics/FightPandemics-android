@@ -25,7 +25,6 @@ class FilterFragment : Fragment() {
     @Inject
     lateinit var filterViewModelFactory: ViewModelFactory
     private lateinit var filterViewModel: FilterViewModel
-
     private lateinit var binding: FilterStartFragmentBinding
 
     override fun onAttach(context: Context) {
@@ -66,6 +65,18 @@ class FilterFragment : Fragment() {
             }
         }
 
+        binding.filterFromWhomExpandable.fromWhomEmptyCard.apply {
+            setOnClickListener{
+                filterViewModel.toggleView(filterViewModel.isFromWhomOptionsExpanded)
+            }
+        }
+
+        binding.filterTypeExpandable.typeEmptyCard.apply {
+            setOnClickListener{
+                filterViewModel.toggleView(filterViewModel.isTypeOptionsExpanded)
+            }
+        }
+
         filterViewModel.isLocationOptionsExpanded.observe(viewLifecycleOwner, Observer {isExpanded->
             if (isExpanded){
                 expandContents(binding.locationOptions.root, binding.filterLocationExpandable.locationEmptyCard)
@@ -82,65 +93,41 @@ class FilterFragment : Fragment() {
             }
         })
 
-//        binding.filterLocationExpandable.apply {
-//            this.locationEmptyCard.apply {
-//                setOnClickListener {
-//                    toggleContents(binding.locationOptions.root, binding.filterLocationExpandable.locationEmptyCard)
-//                    var selectedLocationQuery = binding.locationOptions.root.location_search.query
-//                    if (selectedLocationQuery.isNotEmpty() && !binding.root.location_options.isVisible) {
-//                        binding.filterLocationExpandable.filtersAppliedText.visibility =
-//                            View.VISIBLE
-//                    } else {
-//                        binding.filterLocationExpandable.filtersAppliedText.visibility = View.GONE
-//                    }
-//                }
-//            }
-//        }
+        filterViewModel.isFromWhomOptionsExpanded.observe(viewLifecycleOwner, Observer {isExpanded->
+            if (isExpanded){
+                expandContents(binding.fromWhomOptions.root, binding.filterFromWhomExpandable.fromWhomEmptyCard)
+                binding.filterFromWhomExpandable.filtersAppliedText.visibility = View.GONE
+            }else {
+                collapseContents(binding.fromWhomOptions.root, binding.filterFromWhomExpandable.fromWhomEmptyCard)
 
-//        binding.filterLocationExpandable.locationEmptyCard.apply {
-//            setOnClickListener{
-//                filterViewModel.toggleView(filterViewModel.isLocationOptionsExpanded)
-//            }
-//        }
-
-        binding.filterFromWhomExpandable.apply {
-            this.fromWhomEmptyCard.apply {
-                setOnClickListener {
-                    val selectedChips =
-                        binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds.size
-                    toggleContents(binding.fromWhomOptions.root,
-                        binding.filterFromWhomExpandable.fromWhomEmptyCard)
-                    if (!binding.root.from_whom_options.isVisible && selectedChips > 0) {
-                        binding.filterFromWhomExpandable.filtersAppliedText.visibility =
-                            View.VISIBLE
-                        binding.filterFromWhomExpandable.filtersAppliedText.text =
-                            "${selectedChips} applied"
-                    } else {
-                        binding.filterFromWhomExpandable.filtersAppliedText.visibility = View.GONE
-                    }
+                // TODO: find a better way of writing this
+                val selectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds.size
+                if (selectedChips > 0) {
+                    binding.filterFromWhomExpandable.filtersAppliedText.visibility = View.VISIBLE
+                    binding.filterFromWhomExpandable.filtersAppliedText.text = "${selectedChips} applied"
                 }
-            }
-        }
 
-        binding.filterTypeExpandable.apply {
-            this.typeEmptyCard.apply {
-                setOnClickListener {
-                    val selectedChips = binding.typeOptions.typeChipGroup.checkedChipIds.size
-                    toggleContents(binding.typeOptions.root,
-                        binding.filterTypeExpandable.typeEmptyCard)
-                    if (!binding.root.type_options.isVisible && selectedChips > 0) {
-                        binding.filterTypeExpandable.filtersAppliedText.visibility = View.VISIBLE
-                        binding.filterTypeExpandable.filtersAppliedText.text =
-                            "${selectedChips} applied"
-                    } else {
-                        binding.filterTypeExpandable.filtersAppliedText.visibility = View.GONE
-                    }
+            }
+        })
+
+        filterViewModel.isTypeOptionsExpanded.observe(viewLifecycleOwner, Observer {isExpanded->
+            if (isExpanded){
+                expandContents(binding.typeOptions.root, binding.filterTypeExpandable.typeEmptyCard)
+                binding.filterTypeExpandable.filtersAppliedText.visibility = View.GONE
+            }else {
+                collapseContents(binding.typeOptions.root, binding.filterTypeExpandable.typeEmptyCard)
+
+                // TODO: find a better way of writing this
+                val selectedChips = binding.typeOptions.typeChipGroup.checkedChipIds.size
+                if (!binding.root.type_options.isVisible && selectedChips > 0) {
+                    binding.filterTypeExpandable.filtersAppliedText.visibility = View.VISIBLE
+                    binding.filterTypeExpandable.filtersAppliedText.text = "${selectedChips} applied"
                 }
-            }
 
-        }
+            }
+        })
+
     }
-
 
     private fun expandContents(optionsView: View, clickableTextView: TextView){
         optionsView.visibility = View.VISIBLE
@@ -162,26 +149,6 @@ class FilterFragment : Fragment() {
         )
     }
 
-
-    private fun toggleContents(optionsView: View, clickableTextView: TextView) {
-        if (optionsView.visibility == View.VISIBLE) {
-            optionsView.visibility = View.GONE
-            clickableTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                0,
-                0,
-                R.drawable.ic_plus_sign,
-                0
-            )
-        } else {
-            optionsView.visibility = View.VISIBLE
-            clickableTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                0,
-                0,
-                R.drawable.ic_minus_sign,
-                0
-            )
-        }
-    }
 
 }
 
