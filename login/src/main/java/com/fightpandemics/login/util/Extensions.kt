@@ -1,4 +1,4 @@
-package com.fightpandemics.login
+package com.fightpandemics.login.util
 
 import android.view.View
 

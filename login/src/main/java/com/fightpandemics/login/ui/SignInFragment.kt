@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fightpandemics.login.R
-import com.fightpandemics.login.makeInvisible
-import com.fightpandemics.login.makeVisible
+import com.fightpandemics.login.util.makeInvisible
+import com.fightpandemics.login.util.makeVisible
 import com.fightpandemics.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import javax.inject.Inject
@@ -85,9 +85,17 @@ class SignInFragment : Fragment() {
                 doLogin(email!!, password!!)
             }
             !viewModel.allInputFieldsHaveBeenFilled(et_email.text.toString().trim(), et_password.text.toString().trim())
-            -> {}//Display error messages
+            -> {
+                et_email_layout.isErrorEnabled = true
+                et_email_layout.error = "Email cannot be Empty"
+                et_password_layout.isErrorEnabled = true
+                et_password_layout.error = "Password cannot be Empty"
+            }
             viewModel.inValidEmail(et_email.text.toString().trim())!!.isNotEmpty()
-            -> {}//Display "Please Enter a Valid Email Address"
+            -> {
+                et_email_layout.isErrorEnabled = true
+                et_email_layout.error = "Please Enter a Valid Email Address"
+            }
         }
     }
 

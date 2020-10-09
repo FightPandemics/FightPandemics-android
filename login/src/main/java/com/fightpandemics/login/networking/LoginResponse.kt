@@ -1,4 +1,4 @@
-package com.fightpandemics.data.model.login
+package com.fightpandemics.login.networking
 
 data class LoginResponse(
     val email: String,

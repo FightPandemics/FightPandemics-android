@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import com.fightpandemics.dagger.module.ContextModule
 import com.fightpandemics.dagger.module.CoreModule
 import com.fightpandemics.dagger.module.DatabaseModule
-import com.fightpandemics.dagger.module.NetworkModule
 import com.fightpandemics.dagger.module.SharedPreferencesModule
 import com.fightpandemics.dagger.module.ViewModelBuilderModule
 import dagger.Component
@@ -23,7 +22,6 @@ import javax.inject.Singleton
         CoreModule::class,
         ContextModule::class,
         DatabaseModule::class,
-        NetworkModule::class,
         SharedPreferencesModule::class,
         ViewModelBuilderModule::class
     ]
