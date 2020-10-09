@@ -1,6 +1,7 @@
 package com.fightpandemics.login.ui
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import com.fightpandemics.dagger.CoreComponentProvider
 import com.fightpandemics.login.dagger.LoginComponent
@@ -26,11 +27,6 @@ class LoginActivity : BaseActivity() {
     // Reference to the Login graph
     lateinit var loginComponent: LoginComponent
 
-    override fun onResume() {
-        super.onResume()
-        replaceFragment(SignUpFragment.newInstance(), false)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         loginComponent = (applicationContext as LoginComponentProvider)
             .provideLoginComponent()
@@ -39,6 +35,7 @@ class LoginActivity : BaseActivity() {
 
         super.onCreate(savedInstanceState)
 
+        replaceFragment(SignUpFragment.newInstance(), false)
         Timber.e(stringCore)
         Timber.e(stringLogin)
     }
