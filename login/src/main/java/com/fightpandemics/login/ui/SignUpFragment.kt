@@ -11,6 +11,7 @@ import com.fightpandemics.login.R
 import com.fightpandemics.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.fragment_sign_up_email.*
+import kotlinx.android.synthetic.main.sign_up_toolbar.*
 import javax.inject.Inject
 
 class SignUpFragment : Fragment() {
@@ -47,6 +48,9 @@ class SignUpFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         cl_signup_email.setOnClickListener{
             (activity as LoginActivity).replaceFragment(SignUpEmailFragment.newInstance(), true)
+        }
+        back_arrow.setOnClickListener {
+            activity?.onBackPressed()
         }
     }
 }

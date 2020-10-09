@@ -16,6 +16,7 @@ import com.fightpandemics.login.R
 import com.fightpandemics.utils.*
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_sign_up_email.*
+import kotlinx.android.synthetic.main.sign_up_toolbar.*
 import javax.inject.Inject
 
 
@@ -66,6 +67,10 @@ class SignUpEmailFragment : Fragment() {
         et_repassword.validateET("Please repeat same password", tilRePassword) { s ->s.isValidRePassword(
             et_password.getString()
         )}
+
+        back_arrow.setOnClickListener {
+            activity?.onBackPressed()
+        }
 
         cl_btn_join.setOnClickListener {
             if (validEmail && validPassword && validRePassword) {
