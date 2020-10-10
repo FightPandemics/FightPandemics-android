@@ -105,7 +105,6 @@ class SignUpEmailFragment : Fragment() {
 
     private fun executeSignUp(email: String, password: String, confirmPassword: String) {
         viewModel.executeSignUp(email, password, confirmPassword)
-        (activity as BaseActivity).replaceFragment(CompeteProfileFragment.newInstance(), true)
     }
 
     private fun EditText.validateET(

@@ -83,8 +83,8 @@ class SignInFragment : Fragment() {
         layout_btn_linkedin.makeInvisible()
         tv_privacy_policy.makeInvisible()
         layout_btn_email.makeInvisible()
-        etFirstName.makeVisible()
-        etLastName.makeVisible()
+        et_email_layout.makeVisible()
+        et_password_layout.makeVisible()
         layout_btn_sign_in.makeVisible()
         tv_forgot_password.makeVisible()
         tv_join_now_instead.makeVisible()
@@ -100,11 +100,11 @@ class SignInFragment : Fragment() {
 
     private fun validateFieldsAndDoLogin() {
         when {
-            viewModel.allInputFieldsHaveBeenFilled(etFirstName.text.toString().trim(), etLastName.text.toString().trim())
-                    && viewModel.inValidEmail(etFirstName.text.toString().trim()).isNullOrEmpty()
+            viewModel.allInputFieldsHaveBeenFilled(et_email.text.toString().trim(), et_password.text.toString().trim())
+                    && viewModel.inValidEmail(et_email.text.toString().trim()).isNullOrEmpty()
             -> {
-                email = etFirstName.text.toString().trim()
-                password = etLastName.text.toString().trim()
+                email = et_email.text.toString().trim()
+                password = et_password.text.toString().trim()
                 doLogin(email!!, password!!)
             }
             !viewModel.allInputFieldsHaveBeenFilled(et_email.text.toString().trim(), et_password.text.toString().trim())
@@ -132,7 +132,7 @@ class SignInFragment : Fragment() {
                     progressDialog.hide()
                     et_email_layout.snack(message = "Login Successful",
                         actionCallBack = {
-                            navigateToHomePage()
+                            navigateToCompleteProfile()
                         })
                 }
                 is Result.Error -> {
@@ -162,8 +162,8 @@ class SignInFragment : Fragment() {
         })
     }
 
-    private fun navigateToHomePage() {
-        //startActivity(Intent(requireContext(), MainActivity::class.java))
+    private fun navigateToCompleteProfile() {
+        (activity as BaseActivity).replaceFragment(CompeteProfileFragment.newInstance(), true)
     }
 
     private fun navigateToSignUp() {
