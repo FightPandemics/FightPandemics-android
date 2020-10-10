@@ -11,4 +11,7 @@ interface ApiService {
 
     @POST("/api/auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
+
+    @POST("/api/auth/change-password")
+    suspend fun changePassword(@Body email: String): Response<ChangePasswordResponse>
 }

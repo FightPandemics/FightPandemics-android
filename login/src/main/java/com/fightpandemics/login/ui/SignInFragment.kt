@@ -1,16 +1,23 @@
 package com.fightpandemics.login.ui
 
+import android.app.ProgressDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.fightpandemics.login.R
+import com.fightpandemics.login.data.Result
 import com.fightpandemics.login.util.makeInvisible
 import com.fightpandemics.login.util.makeVisible
+import com.fightpandemics.login.util.snack
 import com.fightpandemics.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_sign_in.*
+import kotlinx.android.synthetic.main.fragment_sign_in.et_email
+import kotlinx.android.synthetic.main.fragment_sign_in.et_password
 import javax.inject.Inject
 
 
@@ -22,6 +29,13 @@ class SignInFragment : Fragment() {
     private lateinit var viewModel: LoginViewModel
     private var email: String? = null
     private var password: String? = null
+
+    private val progressDialog by lazy {
+        ProgressDialog(requireContext()).apply {
+            setMessage("Login in progress...")
+            setCancelable(false)
+        }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -55,6 +69,12 @@ class SignInFragment : Fragment() {
         tv_join_now_instead.setOnClickListener {
             navigateToSignUp()
         }
+
+        tv_forgot_password.setOnClickListener {
+            changePassword(et_email.text.toString().trim())
+        }
+        observeLogin()
+        observeChangePassword()
     }
 
 
@@ -73,6 +93,10 @@ class SignInFragment : Fragment() {
 
     private fun doLogin(email: String, password: String) {
         viewModel.doLogin(email, password)
+    }
+
+    private fun changePassword(email: String) {
+        viewModel.changePassword(email)
     }
 
     private fun validateFieldsAndDoLogin() {
@@ -97,6 +121,50 @@ class SignInFragment : Fragment() {
                 et_email_layout.error = "Please Enter a Valid Email Address"
             }
         }
+    }
+
+    private fun observeLogin() {
+        viewModel.login.observe(viewLifecycleOwner, { result ->
+            when (result) {
+                Result.Loading -> {
+                    progressDialog.show()
+                }
+                is Result.Success -> {
+                    progressDialog.hide()
+                    et_email_layout.snack(message = "Login Successful",
+                        actionCallBack = {
+                            navigateToHomePage()
+                        })
+                }
+                is Result.Error -> {
+                    progressDialog.hide()
+                    et_email_layout.snack(message = result.exception.localizedMessage)
+                }
+            }
+        })
+    }
+
+    private fun observeChangePassword() {
+        viewModel.changePassword.observe(viewLifecycleOwner, { result ->
+            val resp = (result as Result.Success).data
+            when (result) {
+                Result.Success(resp) -> {
+                    et_email_layout.snack(message = resp!!.responseMessage)
+                }
+                is Result.Error -> {
+                    val msg: String? = if (!resp!!.message.isNullOrBlank()) {
+                        resp.message
+                    } else {
+                        result.exception.localizedMessage
+                    }
+                    et_email_layout.snack(message = msg)
+                }
+            }
+        })
+    }
+
+    private fun navigateToHomePage() {
+        //startActivity(Intent(requireContext(), MainActivity::class.java))
     }
 
     private fun navigateToSignUp() {

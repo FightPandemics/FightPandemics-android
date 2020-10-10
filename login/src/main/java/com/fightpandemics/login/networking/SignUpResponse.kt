@@ -1,4 +1,6 @@
 package com.fightpandemics.login.networking
 
-class SignUpResponse {
-}
+data class SignUpResponse(
+    val emailVerified: Boolean,
+    val token: String
+) : BaseResponse()
