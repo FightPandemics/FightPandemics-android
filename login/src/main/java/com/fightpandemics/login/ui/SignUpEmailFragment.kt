@@ -11,11 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.fightpandemics.login.R
 import com.fightpandemics.login.data.Result
 import com.fightpandemics.login.util.snack
+import com.fightpandemics.ui.BaseActivity
 import com.fightpandemics.utils.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
@@ -105,6 +105,7 @@ class SignUpEmailFragment : Fragment() {
 
     private fun executeSignUp(email: String, password: String, confirmPassword: String) {
         viewModel.executeSignUp(email, password, confirmPassword)
+        (activity as BaseActivity).replaceFragment(CompeteProfileFragment.newInstance(), true)
     }
 
     private fun EditText.validateET(

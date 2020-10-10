@@ -180,40 +180,6 @@
             />
         </com.google.android.material.textfield.TextInputLayout>
 
-<!--        <EditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:textSize="18sp"-->
-<!--            android:textColor="@color/fightPandemicsNeonBlue"-->
-<!--            android:lineSpacingExtra="3.7sp"-->
-<!--            android:visibility="invisible"-->
-<!--            android:fontFamily="@font/worksans_medium"-->
-<!--            android:textColorHint="@color/fightPandemicsNeonBlue"-->
-<!--            android:hint="@string/e_mail"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            android:background="@drawable/textview_line_bottom"-->
-<!--            android:inputType="textEmailAddress"-->
-<!--            />-->
-
-<!--        <EditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:textSize="18sp"-->
-<!--            android:textColor="@color/fightPandemicsNeonBlue"-->
-<!--            android:lineSpacingExtra="3.7sp"-->
-<!--            android:visibility="invisible"-->
-<!--            android:fontFamily="@font/worksans_medium"-->
-<!--            android:textColorHint="@color/fightPandemicsNeonBlue"-->
-<!--            android:hint="@string/password"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/et_email_layout"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/et_email_layout"-->
-<!--            android:layout_marginTop="34dp"-->
-<!--            android:background="@drawable/textview_line_bottom"-->
-<!--            android:inputType="textPassword"-->
-<!--            />-->
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_btn_sign_in"
             android:layout_width="match_parent"

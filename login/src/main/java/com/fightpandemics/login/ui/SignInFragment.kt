@@ -2,18 +2,17 @@ package com.fightpandemics.login.ui
 
 import android.app.ProgressDialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import com.fightpandemics.login.R
 import com.fightpandemics.login.data.Result
 import com.fightpandemics.login.util.makeInvisible
 import com.fightpandemics.login.util.makeVisible
 import com.fightpandemics.login.util.snack
+import com.fightpandemics.ui.BaseActivity
 import com.fightpandemics.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import kotlinx.android.synthetic.main.fragment_sign_in.et_email
@@ -84,8 +83,8 @@ class SignInFragment : Fragment() {
         layout_btn_linkedin.makeInvisible()
         tv_privacy_policy.makeInvisible()
         layout_btn_email.makeInvisible()
-        et_email.makeVisible()
-        et_password.makeVisible()
+        etFirstName.makeVisible()
+        etLastName.makeVisible()
         layout_btn_sign_in.makeVisible()
         tv_forgot_password.makeVisible()
         tv_join_now_instead.makeVisible()
@@ -101,11 +100,11 @@ class SignInFragment : Fragment() {
 
     private fun validateFieldsAndDoLogin() {
         when {
-            viewModel.allInputFieldsHaveBeenFilled(et_email.text.toString().trim(), et_password.text.toString().trim())
-                    && viewModel.inValidEmail(et_email.text.toString().trim()).isNullOrEmpty()
+            viewModel.allInputFieldsHaveBeenFilled(etFirstName.text.toString().trim(), etLastName.text.toString().trim())
+                    && viewModel.inValidEmail(etFirstName.text.toString().trim()).isNullOrEmpty()
             -> {
-                email = et_email.text.toString().trim()
-                password = et_password.text.toString().trim()
+                email = etFirstName.text.toString().trim()
+                password = etLastName.text.toString().trim()
                 doLogin(email!!, password!!)
             }
             !viewModel.allInputFieldsHaveBeenFilled(et_email.text.toString().trim(), et_password.text.toString().trim())
@@ -168,7 +167,7 @@ class SignInFragment : Fragment() {
     }
 
     private fun navigateToSignUp() {
-        (activity as LoginActivity).replaceFragment(SignUpFragment.newInstance(), true)
+        (activity as BaseActivity).replaceFragment(SignUpFragment.newInstance(), true)
     }
 
     companion object {
