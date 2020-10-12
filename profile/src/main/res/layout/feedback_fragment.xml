@@ -6,6 +6,32 @@
     android:layout_height="match_parent"
     android:background="@color/fightPandemicsWhiteSmoke">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/feedback_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorWhite"
+        android:clipChildren="false"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:layout_collapseMode="pin"
+        app:layout_constraintBottom_toTopOf="@+id/feedback_scroll_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_x">
+
+        <TextView
+            android:id="@+id/filter"
+            style="@style/AndroidNativeH216Px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:paddingTop="4dp"
+            android:text="Feedback" />
+    </com.google.android.material.appbar.MaterialToolbar>
+
     <ScrollView
         android:id="@+id/feedback_scroll_view"
         android:layout_width="match_parent"
@@ -14,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_default="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/feedback_toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/feedback_nested_constraint_layout"
@@ -225,7 +251,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
