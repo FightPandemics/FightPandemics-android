@@ -36,30 +36,32 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.profile_fragment, container, false)
+//        return inflater.inflate(R.layout.profile_fragment, container, false)
+        return inflater.inflate(R.layout.feedback_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+//    override fun onActivityCreated(savedInstanceState: Bundle?) {
+//        super.onActivityCreated(savedInstanceState)
+//        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+//
+//        overview.setOnClickListener {
+//            Timber.d("Overview")
+//        }
+//
+//        toolbar.setOnMenuItemClickListener {
+//
+//            when (it.itemId) {
+//                R.id.settings -> {
+//                    Timber.d("Settings")
+//                    true
+//                }
+//
+//                else -> {
+//                    super.onOptionsItemSelected(it)
+//                }
+//            }
+//        }
+//
+//    }
 
-        overview.setOnClickListener {
-            Timber.d("Overview")
-        }
-
-        toolbar.setOnMenuItemClickListener {
-
-            when (it.itemId) {
-                R.id.settings -> {
-                    Timber.d("Settings")
-                    true
-                }
-
-                else -> {
-                    super.onOptionsItemSelected(it)
-                }
-            }
-        }
-
-    }
 }
