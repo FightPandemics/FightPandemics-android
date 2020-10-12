@@ -1,12 +1,11 @@
 package com.fightpandemics.dagger
 
-import android.content.Context
-import android.content.SharedPreferences
 import com.fightpandemics.dagger.module.*
+import com.fightpandemics.data.api.FightPandemicsAPI
 import com.fightpandemics.data.prefs.PreferenceStorage
+import com.fightpandemics.data.remote.PostsRemoteDataSource
+import com.fightpandemics.domain.repository.PostsRepository
 import dagger.Component
-import dagger.Lazy
-import javax.inject.Named
 import javax.inject.Singleton
 
 /*
@@ -17,10 +16,11 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        CoreModule::class,
         ContextModule::class,
+        DataModule::class,
         DatabaseModule::class,
         NetworkModule::class,
+        RemoteModule::class,
         SharedPreferencesModule::class,
         ViewModelBuilderModule::class
     ]
@@ -32,7 +32,7 @@ interface CoreComponent {
     interface Factory {
         fun create(
             contextModule: ContextModule,
-            sharedPreferencesModule: SharedPreferencesModule
+            sharedPreferencesModule: SharedPreferencesModule,
         ): CoreComponent
     }
 
@@ -40,7 +40,9 @@ interface CoreComponent {
     //fun provideContext(): Context
     fun provideString(): String
     fun providesPreferenceStorage(): PreferenceStorage
-    // fun provideRetrofitService(): RequestInterface
-    // fun provideRepository(): Repository
+
+
+    fun providePostsRepository(): PostsRepository
+    fun provideFightPandemicsAPI(): FightPandemicsAPI
 
 }

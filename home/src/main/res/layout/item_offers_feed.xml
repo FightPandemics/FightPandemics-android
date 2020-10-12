@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.fightpandemics.home.custom.ProfileImageView
+        <com.fightpandemics.widgets.ProfileImageView
             android:id="@+id/user_avatar"
             android:layout_width="36dp"
             android:layout_height="36dp"
@@ -35,7 +35,7 @@
             tools:text="Victor Maragioglio" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/dot_normal"
             android:layout_width="8dp"
             android:layout_height="8dp"
             android:src="@drawable/ic_dot"
@@ -52,9 +52,9 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/poppins_medium"
             android:textColor="?colorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/imageView5"
+            app:layout_constraintBottom_toBottomOf="@+id/dot_normal"
+            app:layout_constraintStart_toEndOf="@+id/dot_normal"
+            app:layout_constraintTop_toTopOf="@+id/dot_normal"
             tools:text="Berlin, Germany" />
 
         <com.google.android.material.chip.ChipGroup

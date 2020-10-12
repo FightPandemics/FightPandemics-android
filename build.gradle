@@ -22,11 +22,12 @@ buildscript {
             'glide'              : '4.9.0',
             'googleServices'     : '4.3.0',
             'gson'               : '2.8.6',
-            'kotlin'             : '1.4.0',
+            'kotlin'             : '1.4.10',
             'ktlint'             : '0.36.0',
             'lifecycle'          : '2.3.0-alpha02',
             'lottie'             : '3.0.2',
             'material'           : '1.2.1',
+            'moshi'              : '1.11.0',
             'navigation'         : '2.3.0',
             'okhttp'             : '4.7.2',
             'retrofit'           : '2.9.0',
@@ -44,7 +45,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:4.0.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
         classpath "org.jlleitschuh.gradle:ktlint-gradle:9.3.0"

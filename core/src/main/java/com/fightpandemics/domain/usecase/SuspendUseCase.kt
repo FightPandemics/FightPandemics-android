@@ -1,18 +1,21 @@
-package com.fightpandemics.domain
+package com.fightpandemics.domain.usecase
 
+import com.fightpandemics.result.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import com.fightpandemics.result.Result
 
 /**
  * Executes business logic synchronously or asynchronously using Coroutines.
+ *
+ * The [execute] method of [SuspendUseCase] is a suspend function as opposed to the
+ * [UseCase.execute] method of [UseCase].
  */
-abstract class UseCase<in P, R>(private val coroutineDispatcher: CoroutineDispatcher) {
+abstract class SuspendUseCase<in P, R>(private val coroutineDispatcher: CoroutineDispatcher) {
 
-    /** Executes the use case asynchronously and returns a [Result1].
+    /** Executes the use case asynchronously and returns a [Result].
      *
-     * @return a [Result1].
+     * @return a [Result].
      *
      * @param parameters the input parameters to run the use case with
      */
@@ -36,5 +39,5 @@ abstract class UseCase<in P, R>(private val coroutineDispatcher: CoroutineDispat
      * Override this to set the code to be executed.
      */
     @Throws(RuntimeException::class)
-    protected abstract fun execute(parameters: P): R
+    protected abstract suspend fun execute(parameters: P): R
 }

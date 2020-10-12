@@ -2,6 +2,7 @@ package com.fightpandemics.domain
 
 import com.fightpandemics.data.CoroutinesDispatcherProvider
 import com.fightpandemics.data.prefs.PreferenceStorage
+import com.fightpandemics.domain.usecase.UseCase
 import javax.inject.Inject
 
 /**

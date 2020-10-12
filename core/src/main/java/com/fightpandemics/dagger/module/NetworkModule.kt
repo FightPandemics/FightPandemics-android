@@ -4,12 +4,13 @@ import com.fightpandemics.BuildConfig
 import com.fightpandemics.data.interceptors.ErrorHandlerInterceptor
 import com.fightpandemics.data.interceptors.OfflineResponseCacheInterceptor
 import com.fightpandemics.data.interceptors.ResponseCacheInterceptor
-import com.fightpandemics.data.remote.RequestInterface
+import com.fightpandemics.data.api.FightPandemicsAPI
 import com.fightpandemics.data.remote.RetrofitService
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
-import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
@@ -22,8 +23,8 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofitService(okHttpClient: Lazy<OkHttpClient>): RequestInterface =
-        RetrofitService.createService(okHttpClient, RequestInterface::class.java)
+    fun provideRetrofitService(moshi: Moshi, okHttpClient: Lazy<OkHttpClient>): FightPandemicsAPI =
+        RetrofitService.createService(moshi, okHttpClient, FightPandemicsAPI::class.java)
 
     @Singleton
     @Provides
@@ -31,7 +32,7 @@ class NetworkModule {
         httpLoggingInterceptor: HttpLoggingInterceptor,
         responseCacheInterceptor: ResponseCacheInterceptor,
         offlineResponseCacheInterceptor: OfflineResponseCacheInterceptor,
-        errorHandlerInterceptor: ErrorHandlerInterceptor
+        errorHandlerInterceptor: ErrorHandlerInterceptor,
     ): OkHttpClient {
         val okHttpClient = OkHttpClient
             .Builder()
@@ -45,6 +46,13 @@ class NetworkModule {
         }
         return okHttpClient.build()
     }
+
+    @Singleton
+    @Provides
+    fun provideMoshi(): Moshi = Moshi
+            .Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
 
     @Singleton
     @Provides

@@ -5,15 +5,26 @@ import androidx.fragment.app.Fragment
 import com.fightpandemics.FightPandemicsApp
 import com.fightpandemics.dagger.CoreComponentProvider
 import com.fightpandemics.home.ui.HomeFragment
+import com.fightpandemics.home.ui.tabs.all.HomeAllFragment
 
-fun inject(fragment: Fragment) {
+fun inject(homeFragment: HomeFragment) {
     val appComponent =
-        (fragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
+        (homeFragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
 
     DaggerHomeComponent
         .factory()
-        .create(appComponent, fragment.coreComponent())
-        .inject(fragment as HomeFragment)
+        .create(appComponent, homeFragment.coreComponent())
+        .inject(homeFragment)
+}
+
+fun inject(homeAllFragment: HomeAllFragment) {
+    val appComponent =
+        (homeAllFragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
+
+    DaggerHomeComponent
+        .factory()
+        .create(appComponent, homeAllFragment.coreComponent())
+        .inject(homeAllFragment)
 }
 
 fun Fragment.coreComponent() = requireActivity().coreComponent()

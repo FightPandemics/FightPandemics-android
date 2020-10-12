@@ -3,7 +3,13 @@ package com.fightpandemics.home.dagger
 import com.fightpandemics.dagger.AppComponent
 import com.fightpandemics.dagger.CoreComponent
 import com.fightpandemics.dagger.scope.FeatureScope
+import com.fightpandemics.data.CoroutinesDispatcherProvider
+import com.fightpandemics.domain.repository.PostsRepository
+import com.fightpandemics.home.domain.LoadPostsUseCase
 import com.fightpandemics.home.ui.HomeFragment
+import com.fightpandemics.home.ui.tabs.all.HomeAllFragment
+import com.fightpandemics.home.ui.tabs.offers.HomeOfferFragment
+import com.fightpandemics.home.ui.tabs.requests.HomeRequestFragment
 import dagger.Component
 
 /**
@@ -24,4 +30,7 @@ interface HomeComponent {
     }
 
     fun inject(homeFragment: HomeFragment)
+    fun inject(homeAllFragment: HomeAllFragment)
+    fun inject(homeOfferFragment: HomeOfferFragment)
+    fun inject(homeRequestFragment: HomeRequestFragment)
 }
