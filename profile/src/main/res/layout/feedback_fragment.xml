@@ -9,8 +9,11 @@
     <ScrollView
         android:id="@+id/feedback_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/submit_button"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/submit_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="spread"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +51,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/feedback_title" />
 
             <include
-                android:visibility="gone"
                 android:id="@+id/feedback_needs_rating"
                 layout="@layout/feedback_needs_rating"
                 android:layout_width="match_parent"
@@ -207,7 +209,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <include
-                android:visibility="gone"
                 layout="@layout/feedback_covid_impact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -219,16 +220,17 @@
 
     </ScrollView>
 
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:layout_marginTop="24dp"-->
-<!--        android:id="@+id/submit_button"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/feedback_scroll_view"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent">-->
-<!--    </com.google.android.material.button.MaterialButton>-->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/feedback_scroll_view"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
