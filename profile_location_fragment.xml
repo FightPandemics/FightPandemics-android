@@ -24,7 +24,7 @@
         android:layout_marginTop="68dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/group_1193" />
+        app:srcCompat="@drawable/ic_back_arrow" />
 
     <TextView
         android:id="@+id/location_title_text"
@@ -79,7 +79,7 @@
         android:layout_marginTop="48dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_location_header"
-        app:srcCompat="@drawable/map_pin" />
+        app:srcCompat="@drawable/ic_map_pin" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/profile_location_recyclerView"

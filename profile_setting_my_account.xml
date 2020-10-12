@@ -119,7 +119,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.857"
-        app:srcCompat="@drawable/group_1193" />
+        app:srcCompat="@drawable/ic_back_arrow" />
 
     <TextView
         android:id="@+id/name_txt"

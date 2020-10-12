@@ -35,7 +35,7 @@
         android:id="@+id/profile_location_header"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/bottom_nav_background"
+        android:background="@drawable/profile_header_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,7 +139,7 @@
         android:layout_marginTop="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/group_1193" />
+        app:srcCompat="@drawable/ic_back_arrow" />
 
     <TextView
         android:id="@+id/other_details_text"
@@ -169,7 +169,7 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_location_header"
-        app:srcCompat="@drawable/ratio_selected" />
+        app:srcCompat="@drawable/ic_checked_box" />
 
     <ImageView
         android:id="@+id/img_voluteerHR_box"
@@ -179,7 +179,7 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_info_box"
-        app:srcCompat="@drawable/ratio_default" />
+        app:srcCompat="@drawable/ic_unchecked_box" />
 
     <ImageView
         android:id="@+id/img_medical_help_box"
@@ -189,7 +189,7 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/here_to_request_test"
-        app:srcCompat="@drawable/ratio_default" />
+        app:srcCompat="@drawable/ic_unchecked_box" />
 
     <ImageView
         android:id="@+id/img_otherHelp_box"
@@ -199,7 +199,7 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_medical_help_box"
-        app:srcCompat="@drawable/ratio_default" />
+        app:srcCompat="@drawable/ic_unchecked_box" />
 
     <ImageView
         android:id="@+id/img_info_box"
@@ -209,6 +209,6 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_donation_box"
-        app:srcCompat="@drawable/ratio_default" />
+        app:srcCompat="@drawable/ic_unchecked_box" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
