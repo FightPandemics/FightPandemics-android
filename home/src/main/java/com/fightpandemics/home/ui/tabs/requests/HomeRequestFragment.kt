@@ -50,7 +50,7 @@ class HomeRequestFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getRequestPosts()
+        //getRequestPosts()
     }
 
     private fun getRequestPosts() {

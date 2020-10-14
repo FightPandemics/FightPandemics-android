@@ -56,8 +56,8 @@ class HomeOfferFragment : Fragment() {
     private fun getOfferPosts() {
         //errorLoadingText.visibility = View.GONE
 
-        homeViewModel.getPosts("offer")
-        homeViewModel.postsState.observe(viewLifecycleOwner, {
+        homeViewModel.getOffers("request")
+        homeViewModel.offerState.observe(viewLifecycleOwner, {
             when {
                 it.isLoading -> bindLoading(it.isLoading)
                 it.posts!!.isNotEmpty() -> {

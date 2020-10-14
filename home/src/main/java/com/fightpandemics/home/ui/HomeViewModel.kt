@@ -25,6 +25,9 @@ class HomeViewModel @Inject constructor(
     private val _postsState = MutableLiveData<PostsViewState>()
     val postsState: LiveData<PostsViewState> get() = _postsState
 
+    private val _offerState = MutableLiveData<OffersViewState>()
+    val offerState: LiveData<OffersViewState> get() = _offerState
+
     init {
 //        getPosts(null)
 //        getPosts("request")
@@ -37,6 +40,8 @@ class HomeViewModel @Inject constructor(
         return viewModelScope.launch {
             loadPostsUseCase(objective)
                 .collect {
+
+
                     withContext(dispatcherProvider.main) {
                         when (it) {
                             is Result.Success -> _postsState.value =
@@ -45,6 +50,30 @@ class HomeViewModel @Inject constructor(
                                 PostsViewState(isLoading = false, error = it, posts = emptyList())
                         }
                     }
+
+
+                }
+        }
+    }
+
+    fun getOffers(objective: String?): Job {
+        // Set a default loading state
+        _offerState.value?.isLoading = true
+        return viewModelScope.launch {
+            loadPostsUseCase(objective)
+                .collect {
+
+
+                    withContext(dispatcherProvider.main) {
+                        when (it) {
+                            is Result.Success -> _offerState.value =
+                                OffersViewState(isLoading = false, error = null, posts = it.data)
+                            is Result.Error -> _offerState.value =
+                                OffersViewState(isLoading = false, error = it, posts = emptyList())
+                        }
+                    }
+
+
                 }
         }
     }
@@ -62,6 +91,12 @@ class HomeViewModel @Inject constructor(
  * UI Model for [HomeFragment].
  */
 data class PostsViewState(
+    var isLoading: Boolean,
+    val error: Result.Error?,
+    val posts: List<Post>?,
+)
+
+data class OffersViewState(
     var isLoading: Boolean,
     val error: Result.Error?,
     val posts: List<Post>?,
