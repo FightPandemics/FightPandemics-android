@@ -12,8 +12,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"> <!--TODO - add support for RTL android:supportsRtl="true"-->
 
         <activity
             android:name=".ui.splash.SplashActivity"
@@ -24,11 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!--<activity
-            android:name=".ui.onboarding.OnBoardingActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Onboarding"/>-->
 
         <activity
             android:name=".ui.MainActivity"

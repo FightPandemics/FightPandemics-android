@@ -6,6 +6,8 @@ import com.fightpandemics.FightPandemicsApp
 import com.fightpandemics.dagger.CoreComponentProvider
 import com.fightpandemics.home.ui.HomeFragment
 import com.fightpandemics.home.ui.tabs.all.HomeAllFragment
+import com.fightpandemics.home.ui.tabs.offers.HomeOfferFragment
+import com.fightpandemics.home.ui.tabs.requests.HomeRequestFragment
 
 fun inject(homeFragment: HomeFragment) {
     val appComponent =
@@ -25,6 +27,26 @@ fun inject(homeAllFragment: HomeAllFragment) {
         .factory()
         .create(appComponent, homeAllFragment.coreComponent())
         .inject(homeAllFragment)
+}
+
+fun inject(homeOfferFragment: HomeOfferFragment) {
+    val appComponent =
+        (homeOfferFragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
+
+    DaggerHomeComponent
+        .factory()
+        .create(appComponent, homeOfferFragment.coreComponent())
+        .inject(homeOfferFragment)
+}
+
+fun inject(homeRequestFragment: HomeRequestFragment) {
+    val appComponent =
+        (homeRequestFragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
+
+    DaggerHomeComponent
+        .factory()
+        .create(appComponent, homeRequestFragment.coreComponent())
+        .inject(homeRequestFragment)
 }
 
 fun Fragment.coreComponent() = requireActivity().coreComponent()

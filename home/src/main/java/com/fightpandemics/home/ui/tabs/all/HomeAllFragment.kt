@@ -14,8 +14,6 @@ import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.ui.HomeViewModel
 import com.fightpandemics.home.ui.tabs.PostsAdapter
 import com.fightpandemics.utils.ViewModelFactory
-import kotlinx.android.synthetic.main.home_all_fragment.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class HomeAllFragment : Fragment() {
@@ -59,7 +57,6 @@ class HomeAllFragment : Fragment() {
         //errorLoadingText.visibility = View.GONE
 
         homeViewModel.getPosts(null)
-
         homeViewModel.postsState.observe(viewLifecycleOwner, {
             when {
                 it.isLoading -> bindLoading(it.isLoading)
@@ -67,6 +64,7 @@ class HomeAllFragment : Fragment() {
                     bindLoading(it.isLoading)
                     postList.visibility = View.VISIBLE
                     postsAdapter = PostsAdapter(it.posts)
+                    postsAdapter.notifyDataSetChanged()
                     postList.adapter = postsAdapter
                 }
             }
@@ -116,5 +114,4 @@ class HomeAllFragment : Fragment() {
     private fun bindLoading(isLoading: Boolean) {
         progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
-
 }
