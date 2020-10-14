@@ -45,6 +45,7 @@ class HomeAllFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.home_all_fragment, container, false)
         progressBar = rootView.findViewById(R.id.progressBar)
         postList = rootView.findViewById(R.id.postList)
+        postsAdapter = PostsAdapter()
         return rootView
     }
 
@@ -56,19 +57,19 @@ class HomeAllFragment : Fragment() {
     private fun getPosts() {
         //errorLoadingText.visibility = View.GONE
 
-        homeViewModel.getPosts(null)
+        //homeViewModel.getPosts(null)
         homeViewModel.postsState.observe(viewLifecycleOwner, {
             when {
                 it.isLoading -> bindLoading(it.isLoading)
                 it.posts!!.isNotEmpty() -> {
                     bindLoading(it.isLoading)
                     postList.visibility = View.VISIBLE
-                    postsAdapter = PostsAdapter(it.posts)
-                    postsAdapter.notifyDataSetChanged()
-                    postList.adapter = postsAdapter
+                    postsAdapter.submitList(it.posts)
                 }
             }
         })
+        postsAdapter.notifyDataSetChanged()
+        postList.adapter = postsAdapter
 
 
 //        sharedHomeViewModel.state.observe(viewLifecycleOwner, onChanged = {

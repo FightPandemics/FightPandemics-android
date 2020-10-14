@@ -2,6 +2,7 @@ package com.fightpandemics.home.ui.tabs.requests
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.data.model.posts.Post
 import com.fightpandemics.home.R
@@ -22,4 +23,13 @@ class HomeRequestAdapter(private val posts: List<Post>) :
     }
 
     override fun getItemCount(): Int = posts.size
+
+    private val DIFF_CALLBACK: DiffUtil.ItemCallback<*> = object : DiffUtil.ItemCallback<Post>() {
+        override fun areItemsTheSame(oldPost: Post, newPost: Post): Boolean {
+            return oldPost.author?.id === newPost.author?.id
+        }
+        override fun areContentsTheSame(oldPost: Post, newPost: Post): Boolean {
+            return oldPost == newPost
+        }
+    }
 }

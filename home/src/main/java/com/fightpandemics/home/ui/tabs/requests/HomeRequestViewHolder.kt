@@ -59,9 +59,9 @@ class HomeRequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
         }
 
 
-        Timber.e(post.distance.toString())
-        Timber.e(post.expireAt.toString())
-        Timber.e(post.visibility.toString())
+        //Timber.e(post.distance.toString())
+        //Timber.e(post.expireAt.toString())
+        //Timber.e(post.visibility.toString())
 
 
         setOnClickListener { onItemClickListener?.invoke(post) }

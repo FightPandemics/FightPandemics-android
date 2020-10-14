@@ -45,30 +45,31 @@ class HomeOfferFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.home_offer_fragment, container, false)
         progressBar = rootView.findViewById(R.id.progressBar)
         postList = rootView.findViewById(R.id.postList)
+        postAdapter = PostsAdapter()
         return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //getOfferPosts()
+        getOfferPosts()
     }
 
     private fun getOfferPosts() {
         //errorLoadingText.visibility = View.GONE
 
-        homeViewModel.getOffers("request")
+        //homeViewModel.getOffers("offer")
         homeViewModel.offerState.observe(viewLifecycleOwner, {
             when {
                 it.isLoading -> bindLoading(it.isLoading)
                 it.posts!!.isNotEmpty() -> {
                     bindLoading(it.isLoading)
                     postList.visibility = View.VISIBLE
-                    postAdapter = PostsAdapter(it.posts)
-                    postAdapter.notifyDataSetChanged()
-                    postList.adapter = postAdapter
+                    postAdapter.submitList(it.posts)
                 }
             }
         })
+        postAdapter.notifyDataSetChanged()
+        postList.adapter = postAdapter
 
 
 //        sharedHomeViewModel.state.observe(viewLifecycleOwner, onChanged = {

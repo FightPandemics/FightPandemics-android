@@ -1,17 +1,18 @@
 package com.fightpandemics.home.ui
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.fightpandemics.dagger.scope.FeatureScope
 import com.fightpandemics.data.CoroutinesDispatcherProvider
 import com.fightpandemics.data.model.posts.Post
 import com.fightpandemics.home.domain.LoadPostsUseCase
 import com.fightpandemics.result.Result
-import com.fightpandemics.result.data
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 
 @FeatureScope
@@ -25,34 +26,55 @@ class HomeViewModel @Inject constructor(
     private val _postsState = MutableLiveData<PostsViewState>()
     val postsState: LiveData<PostsViewState> get() = _postsState
 
-    private val _offerState = MutableLiveData<OffersViewState>()
-    val offerState: LiveData<OffersViewState> get() = _offerState
+    private val _offerState = MutableLiveData<PostsViewState>()
+    val offerState: LiveData<PostsViewState> get() = _offerState
+
+    private val _requestState = MutableLiveData<PostsViewState>()
+    val requestState: LiveData<PostsViewState> get() = _requestState
 
     init {
-//        getPosts(null)
-//        getPosts("request")
-//        getPosts("offer")
+        getPosts(null)
+        getOffers("offer")
+        getRequests("request")
     }
 
     fun getPosts(objective: String?): Job {
         // Set a default loading state
         _postsState.value?.isLoading = true
         return viewModelScope.launch {
-            loadPostsUseCase(objective)
-                .collect {
 
+            val ss = async {
+                loadPostsUseCase(objective)
+            }
 
-                    withContext(dispatcherProvider.main) {
-                        when (it) {
-                            is Result.Success -> _postsState.value =
-                                PostsViewState(isLoading = false, error = null, posts = it.data)
-                            is Result.Error -> _postsState.value =
-                                PostsViewState(isLoading = false, error = it, posts = emptyList())
-                        }
+            ss.await().collect {
+                when (it) {
+                    is Result.Success -> {
+                        _postsState.value = PostsViewState(isLoading = false, error = null, posts = it.data)
                     }
-
-
+                    is Result.Error -> _postsState.value =
+                        PostsViewState(isLoading = false, error = it, posts = emptyList())
                 }
+            }
+
+
+//            loadPostsUseCase(objective)
+//                .collect {
+//
+//                    withContext(dispatcherProvider.main) {
+//                        when (it) {
+//                            is Result.Success -> {
+//                                Timber.e(it.data.get(0).author?.name.toString())
+//                                _postsState.value = PostsViewState(isLoading = false, error = null, posts = it.data)
+//
+//                            }
+//                            is Result.Error -> _postsState.value =
+//                                PostsViewState(isLoading = false, error = it, posts = emptyList())
+//                        }
+//                    }
+//                }
+
+
         }
     }
 
@@ -60,29 +82,57 @@ class HomeViewModel @Inject constructor(
         // Set a default loading state
         _offerState.value?.isLoading = true
         return viewModelScope.launch {
-            loadPostsUseCase(objective)
-                .collect {
 
+            val ss = async {
+                loadPostsUseCase(objective)
+            }
 
-                    withContext(dispatcherProvider.main) {
-                        when (it) {
-                            is Result.Success -> _offerState.value =
-                                OffersViewState(isLoading = false, error = null, posts = it.data)
-                            is Result.Error -> _offerState.value =
-                                OffersViewState(isLoading = false, error = it, posts = emptyList())
-                        }
+            ss.await().collect {
+                when (it) {
+                    is Result.Success -> {
+                        _offerState.value = PostsViewState(isLoading = false, error = null, posts = it.data)
                     }
-
-
+                    is Result.Error -> _offerState.value =
+                        PostsViewState(isLoading = false, error = it, posts = emptyList())
                 }
+            }
+
+//            loadPostsUseCase(objective)
+//                .collect {
+//                        when (it) {
+//                            is Result.Success -> {
+//                                Timber.e(it.data.get(0).author?.name.toString())
+//                                _offerState.value = OffersViewState(isLoading = false, error = null, posts = it.data)
+//
+//                            }
+//                            is Result.Error -> _offerState.value =
+//                                OffersViewState(isLoading = false, error = it, posts = emptyList())
+//                        }
+//                }
         }
     }
 
+    fun getRequests(objective: String?): Job {
+        // Set a default loading state
+        _requestState.value?.isLoading = true
+        return viewModelScope.launch {
+
+            val ss = async {
+                loadPostsUseCase(objective)
+            }
+
+            ss.await().collect {
+                when (it) {
+                    is Result.Success -> {
+                        _requestState.value = PostsViewState(isLoading = false, error = null, posts = it.data)
+                    }
+                    is Result.Error -> _requestState.value =
+                        PostsViewState(isLoading = false, error = it, posts = emptyList())
+                }
+            }}}
+
 //    fun retry() {
 //        getPosts()
-//    }
-//    fun getEvolutions(pokeId: Int) {
-//        getEvolutionsNow(pokeId)
 //    }
 
 }
@@ -91,12 +141,6 @@ class HomeViewModel @Inject constructor(
  * UI Model for [HomeFragment].
  */
 data class PostsViewState(
-    var isLoading: Boolean,
-    val error: Result.Error?,
-    val posts: List<Post>?,
-)
-
-data class OffersViewState(
     var isLoading: Boolean,
     val error: Result.Error?,
     val posts: List<Post>?,

@@ -26,7 +26,7 @@ class HomeRequestFragment : Fragment() {
 
     private lateinit var progressBar: ProgressBar
     private lateinit var requestList: RecyclerView
-    private lateinit var homeRequestAdapter: HomeRequestAdapter
+    private lateinit var homeRequestAdapter: PostsAdapter
 
     companion object {
         fun newInstance() = HomeRequestFragment()
@@ -45,30 +45,31 @@ class HomeRequestFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.home_request_fragment, container, false)
         progressBar = rootView.findViewById(R.id.progressBar)
         requestList = rootView.findViewById(R.id.requestList)
+        homeRequestAdapter = PostsAdapter()
         return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //getRequestPosts()
+        getRequestPosts()
     }
 
     private fun getRequestPosts() {
         //errorLoadingText.visibility = View.GONE
 
-        homeViewModel.getPosts("request")
-        homeViewModel.postsState.observe(viewLifecycleOwner, {
+        //homeViewModel.getPosts("request")
+        homeViewModel.requestState.observe(viewLifecycleOwner, {
             when {
                 it.isLoading -> bindLoading(it.isLoading)
                 it.posts!!.isNotEmpty() -> {
                     bindLoading(it.isLoading)
                     requestList.visibility = View.VISIBLE
-                    homeRequestAdapter = HomeRequestAdapter(it.posts)
-                    homeRequestAdapter.notifyDataSetChanged()
-                    requestList.adapter = homeRequestAdapter
+                    homeRequestAdapter.submitList(it.posts)
                 }
             }
         })
+        homeRequestAdapter.notifyDataSetChanged()
+        requestList.adapter = homeRequestAdapter
 
 
 //        sharedHomeViewModel.state.observe(viewLifecycleOwner, onChanged = {

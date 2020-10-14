@@ -20,19 +20,11 @@ class LoadPostsUseCase @Inject constructor(
 
     override suspend fun execute(parameters: String?): Flow<Result<List<Post>>> {
         return postsRepository.getPosts(parameters).map { results ->
-            Timber.e("3ERGHNDBHJDNHJD")
             when (results) {
-                is Result.Success -> {
-
-                    results
-                }
-                is Result.Error -> {
-
-                    results
-                }
+                is Result.Success -> results
+                is Result.Error -> results
                 else -> Result.Error(IllegalStateException("Result must be Success or Error"))
             }
-
         }
     }
 }

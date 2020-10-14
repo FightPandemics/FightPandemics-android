@@ -1,5 +1,6 @@
 package com.fightpandemics.home.ui.tabs
 
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -10,7 +11,6 @@ import com.fightpandemics.home.R
 import com.fightpandemics.home.utils.userInitials
 import com.fightpandemics.utils.GlideApp
 import com.fightpandemics.widgets.ProfileImageView
-import android.view.LayoutInflater
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import timber.log.Timber
@@ -58,11 +58,7 @@ class PostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             chipGroup.addView(chip)
         }
 
-
-        Timber.e(post.distance.toString())
         Timber.e(post.expireAt.toString())
-        Timber.e(post.visibility.toString())
-
 
         setOnClickListener { onItemClickListener?.invoke(post) }
 

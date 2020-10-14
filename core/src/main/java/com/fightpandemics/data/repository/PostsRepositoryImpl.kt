@@ -29,12 +29,14 @@ class PostsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getPosts(objective: String?): Flow<Result<List<Post>>> {
-        val posts = postsRemoteDataSource.fetchPosts(objective)
+        /*val posts = postsRemoteDataSource.fetchPosts(objective)
         postsChannel.offer(Result.Success(posts))
-        return postsChannel.asFlow()
+        return postsChannel.asFlow()*/
+
+        return flow {
+            val posts = postsRemoteDataSource.fetchPosts(objective)
+            emit(Result.Success(posts))
+        }
     }
-//    return flow {
-//            val posts = postsRemoteDataSource.fetchPosts(objective)
-//            emit(Result.Success(posts))
-//        }
+
 }

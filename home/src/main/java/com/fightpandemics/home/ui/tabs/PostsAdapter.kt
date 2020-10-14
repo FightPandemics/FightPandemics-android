@@ -2,11 +2,16 @@ package com.fightpandemics.home.ui.tabs
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.data.model.posts.Post
 import com.fightpandemics.home.R
 
-class PostsAdapter(private val posts: List<Post>) : RecyclerView.Adapter<PostsViewHolder>() {
+class PostsAdapter : RecyclerView.Adapter<PostsViewHolder>() {
+
+    private val mPostsDiffer: AsyncListDiffer<Post> =
+        AsyncListDiffer(this, POSTS_DIFF_CALLBACK)
 
     var onItemClickListener: ((Post) -> Unit)? = null
 
@@ -17,8 +22,26 @@ class PostsAdapter(private val posts: List<Post>) : RecyclerView.Adapter<PostsVi
     }
 
     override fun onBindViewHolder(postsViewHolder: PostsViewHolder, position: Int) {
-        postsViewHolder.bind(posts.get(position), onItemClickListener)
+        val post: Post = mPostsDiffer.currentList.get(position)
+        postsViewHolder.bind(post, onItemClickListener)
     }
 
-    override fun getItemCount(): Int = posts.size
+    override fun getItemCount(): Int = mPostsDiffer.currentList.size
+
+    fun submitList(posts: List<Post>) {
+        mPostsDiffer.submitList(posts)
+    }
+
+    companion object {
+        val POSTS_DIFF_CALLBACK = object : DiffUtil.ItemCallback<Post>() {
+            override fun areItemsTheSame(oldPost: Post, newPost: Post): Boolean {
+                return oldPost.author?.id === newPost.author?.id
+            }
+
+            override fun areContentsTheSame(oldPost: Post, newPost: Post): Boolean {
+                return oldPost == newPost
+            }
+        }
+    }
 }
+
