@@ -22,6 +22,7 @@ class PostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val user_avatar = itemView.findViewById(R.id.user_avatar) as ProfileImageView
     val user_full_name = itemView.findViewById(R.id.user_full_name) as TextView
     val post_title = itemView.findViewById(R.id.post_title) as TextView
+    val time_posted = itemView.findViewById(R.id.time_posted) as TextView
     val user_location = itemView.findViewById(R.id.user_location) as TextView
     val post_content = itemView.findViewById(R.id.post_content) as TextView
     val likes_count = itemView.findViewById(R.id.likes_count) as TextView
@@ -58,7 +59,10 @@ class PostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             chipGroup.addView(chip)
         }
 
-        Timber.e(post.expireAt.toString())
+        val time_post = 12.toString()
+        time_posted.text = "Posted $time_post hrs ago"
+        Timber.e(time_post)
+
 
         setOnClickListener { onItemClickListener?.invoke(post) }
 
