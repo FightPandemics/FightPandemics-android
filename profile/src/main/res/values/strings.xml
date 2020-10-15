@@ -28,5 +28,7 @@
     <string name="privacy_policy">Privacy policy</string>
     <string name="support">Support</string>
     <string name="feedback">Feedback</string>
+    <string name="update_public_profile">Update public profile</string>
+    <string name="update_account_information">Update account information</string>
 
 </resources>

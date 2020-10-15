@@ -43,7 +43,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/myAccountContainer"
+        android:id="@+id/updatePublicProfileContainer"
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:layout_marginTop="132dp"
@@ -55,24 +55,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
         android:fontFamily="@font/worksans_regular"
         android:lineHeight="20sp"
-        android:text="@string/my_account"
+        android:text="@string/update_public_profile"
         android:textColor="@color/fightPandemicsNeonBlue"
         android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="@id/myAccountContainer"
-        app:layout_constraintTop_toTopOf="@id/myAccountContainer" />
-
-    <TextView
-        style="@style/AndroidNativeP212Px"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="34dp"
-        android:text="@string/join_now"
-        app:layout_constraintLeft_toLeftOf="@id/myAccountContainer"
-        app:layout_constraintTop_toTopOf="@id/myAccountContainer" />
+        app:layout_constraintBottom_toBottomOf="@id/updatePublicProfileContainer"
+        app:layout_constraintLeft_toLeftOf="@id/updatePublicProfileContainer"
+        app:layout_constraintTop_toTopOf="@id/updatePublicProfileContainer" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -80,15 +70,46 @@
         android:layout_marginEnd="20dp"
         android:rotation="270"
         android:src="@drawable/ic_arrow_down"
-        app:layout_constraintBottom_toBottomOf="@id/myAccountContainer"
-        app:layout_constraintRight_toRightOf="@id/myAccountContainer"
-        app:layout_constraintTop_toTopOf="@id/myAccountContainer" />
+        app:layout_constraintBottom_toBottomOf="@id/updatePublicProfileContainer"
+        app:layout_constraintRight_toRightOf="@id/updatePublicProfileContainer"
+        app:layout_constraintTop_toTopOf="@id/updatePublicProfileContainer" />
+
+    <View
+        android:id="@+id/updateAccountInfoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/updatePublicProfileContainer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/worksans_regular"
+        android:lineHeight="20sp"
+        android:text="@string/update_account_information"
+        android:textColor="@color/fightPandemicsNeonBlue"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/updateAccountInfoContainer"
+        app:layout_constraintLeft_toLeftOf="@id/updateAccountInfoContainer"
+        app:layout_constraintTop_toTopOf="@id/updateAccountInfoContainer" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:rotation="270"
+        android:src="@drawable/ic_arrow_down"
+        app:layout_constraintBottom_toBottomOf="@id/updateAccountInfoContainer"
+        app:layout_constraintRight_toRightOf="@id/updateAccountInfoContainer"
+        app:layout_constraintTop_toTopOf="@id/updateAccountInfoContainer" />
 
     <View
         android:id="@+id/aboutUsContainer"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_marginTop="218dp"
+        android:layout_marginTop="279dp"
         android:background="@color/colorWhite"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
