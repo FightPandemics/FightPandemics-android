@@ -66,6 +66,9 @@ dependencies {
     // Dagger
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
 
+    //
+    api 'com.jakewharton.threetenabp:threetenabp:1.2.4'
+
     // LiveEvent - Library to emit single event
     implementation "com.github.hadilq.liveevent:liveevent:1.2.0"
 

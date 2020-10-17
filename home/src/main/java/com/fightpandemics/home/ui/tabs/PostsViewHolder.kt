@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 import com.fightpandemics.data.model.posts.Post
 import com.fightpandemics.home.R
+import com.fightpandemics.home.utils.getPostCreated
 import com.fightpandemics.home.utils.userInitials
 import com.fightpandemics.utils.GlideApp
 import com.fightpandemics.widgets.ProfileImageView
@@ -61,7 +62,7 @@ class PostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val time_post = 12.toString()
         time_posted.text = "Posted $time_post hrs ago"
-        Timber.e(time_post)
+        Timber.e(getPostCreated("2020-10-15T15:44:04.009Z").toString())
 
 
         setOnClickListener { onItemClickListener?.invoke(post) }

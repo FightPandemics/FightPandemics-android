@@ -13,6 +13,7 @@ import com.fightpandemics.filter.dagger.FilterComponent
 import com.fightpandemics.filter.dagger.FilterComponentProvider
 import com.fightpandemics.login.dagger.LoginComponent
 import com.fightpandemics.login.dagger.LoginComponentProvider
+import com.jakewharton.threetenabp.AndroidThreeTen
 import timber.log.Timber
 
 open class FightPandemicsApp : Application(),
@@ -21,6 +22,9 @@ open class FightPandemicsApp : Application(),
     FilterComponentProvider {
 
     override fun onCreate() {
+        // ThreeTenBP for times and dates, called before super to be available for objects
+        AndroidThreeTen.init(this)
+
         super.onCreate()
 
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
