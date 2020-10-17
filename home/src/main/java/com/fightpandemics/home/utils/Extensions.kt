@@ -17,15 +17,6 @@ val TAB_TITLES = arrayOf(
     com.fightpandemics.home.R.string.tab_requests
 )
 
-fun TextView.applyStyle(isSelected: Boolean) {
-    val style = if (isSelected) R.style.TabText_Selected else R.style.TabText_Unselected
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        this.setTextAppearance(style)
-    } else {
-        this.setTextAppearance(context, style)
-    }
-}
-
 fun userInitials(userName: String?): String {
     val user_avatar_first_initials = userName?.split("\\s".toRegex())?.get(0)?.get(0)
     val user_avatar_second_initials = userName?.split("\\s".toRegex())?.get(1)
