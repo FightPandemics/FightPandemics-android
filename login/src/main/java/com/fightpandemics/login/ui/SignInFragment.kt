@@ -1,5 +1,6 @@
 package com.fightpandemics.login.ui
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,11 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fightpandemics.login.R
-import com.fightpandemics.login.makeInvisible
-import com.fightpandemics.login.makeVisible
+import com.fightpandemics.login.data.Result
+import com.fightpandemics.login.util.makeInvisible
+import com.fightpandemics.login.util.makeVisible
+import com.fightpandemics.login.util.snack
 import com.fightpandemics.ui.BaseActivity
 import com.fightpandemics.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_sign_in.*
+import kotlinx.android.synthetic.main.fragment_sign_in.et_email
+import kotlinx.android.synthetic.main.fragment_sign_in.et_password
 import javax.inject.Inject
 
 
@@ -23,6 +28,13 @@ class SignInFragment : Fragment() {
     private lateinit var viewModel: LoginViewModel
     private var email: String? = null
     private var password: String? = null
+
+    private val progressDialog by lazy {
+        ProgressDialog(requireContext()).apply {
+            setMessage("Login in progress...")
+            setCancelable(false)
+        }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -56,6 +68,12 @@ class SignInFragment : Fragment() {
         tv_join_now_instead.setOnClickListener {
             navigateToSignUp()
         }
+
+        tv_forgot_password.setOnClickListener {
+            changePassword(et_email.text.toString().trim())
+        }
+        observeLogin()
+        observeChangePassword()
     }
 
 
@@ -65,8 +83,8 @@ class SignInFragment : Fragment() {
         layout_btn_linkedin.makeInvisible()
         tv_privacy_policy.makeInvisible()
         layout_btn_email.makeInvisible()
-        etFirstName.makeVisible()
-        etLastName.makeVisible()
+        et_email_layout.makeVisible()
+        et_password_layout.makeVisible()
         layout_btn_sign_in.makeVisible()
         tv_forgot_password.makeVisible()
         tv_join_now_instead.makeVisible()
@@ -76,20 +94,76 @@ class SignInFragment : Fragment() {
         viewModel.doLogin(email, password)
     }
 
+    private fun changePassword(email: String) {
+        viewModel.changePassword(email)
+    }
+
     private fun validateFieldsAndDoLogin() {
         when {
-            viewModel.allInputFieldsHaveBeenFilled(etFirstName.text.toString().trim(), etLastName.text.toString().trim())
-                    && viewModel.inValidEmail(etFirstName.text.toString().trim()).isNullOrEmpty()
+            viewModel.allInputFieldsHaveBeenFilled(et_email.text.toString().trim(), et_password.text.toString().trim())
+                    && viewModel.inValidEmail(et_email.text.toString().trim()).isNullOrEmpty()
             -> {
-                email = etFirstName.text.toString().trim()
-                password = etLastName.text.toString().trim()
+                email = et_email.text.toString().trim()
+                password = et_password.text.toString().trim()
                 doLogin(email!!, password!!)
             }
-            !viewModel.allInputFieldsHaveBeenFilled(etFirstName.text.toString().trim(), etLastName.text.toString().trim())
-            -> {}//Display error messages
-            viewModel.inValidEmail(etFirstName.text.toString().trim())!!.isNotEmpty()
-            -> {}//Display "Please Enter a Valid Email Address"
+            !viewModel.allInputFieldsHaveBeenFilled(et_email.text.toString().trim(), et_password.text.toString().trim())
+            -> {
+                et_email_layout.isErrorEnabled = true
+                et_email_layout.error = "Email cannot be Empty"
+                et_password_layout.isErrorEnabled = true
+                et_password_layout.error = "Password cannot be Empty"
+            }
+            viewModel.inValidEmail(et_email.text.toString().trim())!!.isNotEmpty()
+            -> {
+                et_email_layout.isErrorEnabled = true
+                et_email_layout.error = "Please Enter a Valid Email Address"
+            }
         }
+    }
+
+    private fun observeLogin() {
+        viewModel.login.observe(viewLifecycleOwner, { result ->
+            when (result) {
+                Result.Loading -> {
+                    progressDialog.show()
+                }
+                is Result.Success -> {
+                    progressDialog.hide()
+                    et_email_layout.snack(message = "Login Successful",
+                        actionCallBack = {
+                            navigateToCompleteProfile()
+                        })
+                }
+                is Result.Error -> {
+                    progressDialog.hide()
+                    et_email_layout.snack(message = result.exception.localizedMessage)
+                }
+            }
+        })
+    }
+
+    private fun observeChangePassword() {
+        viewModel.changePassword.observe(viewLifecycleOwner, { result ->
+            val resp = (result as Result.Success).data
+            when (result) {
+                Result.Success(resp) -> {
+                    et_email_layout.snack(message = resp!!.responseMessage)
+                }
+                is Result.Error -> {
+                    val msg: String? = if (!resp!!.message.isNullOrBlank()) {
+                        resp.message
+                    } else {
+                        result.exception.localizedMessage
+                    }
+                    et_email_layout.snack(message = msg)
+                }
+            }
+        })
+    }
+
+    private fun navigateToCompleteProfile() {
+        (activity as BaseActivity).replaceFragment(CompeteProfileFragment.newInstance(), true)
     }
 
     private fun navigateToSignUp() {

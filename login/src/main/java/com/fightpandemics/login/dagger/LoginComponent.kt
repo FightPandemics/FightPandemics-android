@@ -10,7 +10,11 @@ import javax.inject.Named
  */
 @ActivityScope
 @Subcomponent(
-    modules = [LoginModule::class, LoginViewModelModule::class]
+    modules = [
+        LoginModule::class,
+        LoginViewModelModule::class,
+        LoginNetworkModule::class
+    ]
 )
 interface LoginComponent {
 

@@ -1,5 +1,6 @@
 package com.fightpandemics.login.ui
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.ColorFilter
 import android.graphics.PorterDuff
@@ -12,8 +13,11 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fightpandemics.login.R
+import com.fightpandemics.login.data.Result
+import com.fightpandemics.login.util.snack
 import com.fightpandemics.ui.BaseActivity
 import com.fightpandemics.utils.*
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_sign_up_email.*
 import kotlinx.android.synthetic.main.sign_up_toolbar.*
@@ -30,6 +34,13 @@ class SignUpEmailFragment : Fragment() {
     private var validEmail: Boolean = false
     private var validPassword: Boolean = false
     private var validRePassword: Boolean = false
+
+    private val progressDialog by lazy {
+        ProgressDialog(requireContext()).apply {
+            setMessage("Registering user...")
+            setCancelable(false)
+        }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -60,13 +71,21 @@ class SignUpEmailFragment : Fragment() {
             (activity as LoginActivity).replaceFragment(SignInFragment.newInstance(), true)
         }
 
-        et_email.validateET("Please enter a valid email address", tilEmail) { s -> s.isValidEmail() }
+        et_email.validateET(
+            "Please enter a valid email address",
+            tilEmail
+        ) { s -> s.isValidEmail() }
 
-        et_password.validateET("Please enter a valid password", tilPassword) { s -> s.isValidPassword() }
+        et_password.validateET(
+            "Please enter a valid password",
+            tilPassword
+        ) { s -> s.isValidPassword() }
 
-        et_repassword.validateET("Please repeat same password", tilRePassword) { s ->s.isValidRePassword(
-            et_password.getString()
-        )}
+        et_repassword.validateET("Please repeat same password", tilRePassword) { s ->
+            s.isValidRePassword(
+                et_password.getString()
+            )
+        }
 
         back_arrow.setOnClickListener {
             activity?.onBackPressed()
@@ -74,14 +93,18 @@ class SignUpEmailFragment : Fragment() {
 
         cl_btn_join.setOnClickListener {
             if (validEmail && validPassword && validRePassword) {
-                executeSignUP()
+                executeSignUp(
+                    et_email.text.toString().trim(),
+                    et_password.text.toString().trim(),
+                    et_repassword.text.toString().trim()
+                )
             }
         }
-
+        observeSignUp()
     }
 
-    private fun executeSignUP() {
-        (activity as BaseActivity).replaceFragment(CompeteProfileFragment.newInstance(), true)
+    private fun executeSignUp(email: String, password: String, confirmPassword: String) {
+        viewModel.executeSignUp(email, password, confirmPassword)
     }
 
     private fun EditText.validateET(
@@ -109,21 +132,55 @@ class SignUpEmailFragment : Fragment() {
             tilEmail.id -> validEmail = boolean
             tilPassword.id -> {
                 validPassword = boolean
-                if(!et_repassword.isEmpty())
-                et_repassword.text = et_repassword.text
+                if (!et_repassword.isEmpty())
+                    et_repassword.text = et_repassword.text
             }
             tilRePassword.id -> validRePassword = boolean
         }
-        checkLayoutSignUPButton()
+        checkLayoutSignUpButton()
     }
 
-    private fun checkLayoutSignUPButton() {
+    private fun checkLayoutSignUpButton() {
         if (validEmail && validPassword && validRePassword) {
-            val filter: ColorFilter = PorterDuffColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP)
+            val filter: ColorFilter = PorterDuffColorFilter(
+                resources.getColor(R.color.colorPrimary),
+                PorterDuff.Mode.SRC_ATOP
+            )
             cl_btn_join.background.colorFilter = filter
         } else {
-            val filter: ColorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_button_disabled), PorterDuff.Mode.SRC_ATOP)
+            val filter: ColorFilter = PorterDuffColorFilter(
+                resources.getColor(R.color.color_button_disabled),
+                PorterDuff.Mode.SRC_ATOP
+            )
             cl_btn_join.background.colorFilter = filter
         }
+    }
+
+    private fun observeSignUp() {
+        viewModel.signUp.observe(viewLifecycleOwner, { result ->
+            when (result) {
+                Result.Loading -> {
+                    progressDialog.show()
+                }
+                is Result.Success -> {
+                    progressDialog.hide()
+                    et_repassword.snack(
+                            message = "Registration Successful, Check your email and verify account to login",
+                            actionText = "LOGIN",
+                            actionCallBack = {
+                                navigateToSignIn()
+                            }, length = Snackbar.LENGTH_INDEFINITE
+                    )
+                }
+                is Result.Error -> {
+                    progressDialog.hide()
+                    et_repassword.snack(message = result.exception.localizedMessage)
+                }
+            }
+        })
+    }
+
+    private fun navigateToSignIn() {
+        (activity as LoginActivity).replaceFragment(SignInFragment.newInstance(), true)
     }
 }
