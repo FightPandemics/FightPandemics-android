@@ -2,13 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorWhite"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingEnd="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin">
+    android:background="@color/colorWhite"
+    android:paddingVertical="@dimen/activity_vertical_margin"
+    android:paddingHorizontal="@dimen/activity_horizontal_margin">
 
     <TextView
         android:id="@+id/rating_text"
@@ -16,16 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="How has COVID-19 impacted you?"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/rating_radio_group"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:id="@+id/rating_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -34,31 +32,34 @@
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_1"
-            android:buttonTint="@color/fightPandemicsNeonBlue"
-            android:text="I go to work/school normally"
+            style="@style/VerticalRadioButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="I go to work/school normally" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_2"
-            android:buttonTint="@color/fightPandemicsNeonBlue"
-            android:text="I am healthy but in a stay-at-home quarantine"
+            style="@style/VerticalRadioButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/fightPandemicsNeonBlue"
+            android:text="I am healthy but in a stay-at-home quarantine" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_3"
-            android:buttonTint="@color/fightPandemicsNeonBlue"
-            android:text="I have mild symptoms but haven't been tested"
+            style="@style/VerticalRadioButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/fightPandemicsNeonBlue"
+            android:text="I have mild symptoms but haven't been tested" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_4"
-            android:buttonTint="@color/fightPandemicsNeonBlue"
-            android:text="I am diagnosed with Covid-19"
+            style="@style/VerticalRadioButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/fightPandemicsNeonBlue"
+            android:text="I am diagnosed with Covid-19" />
 
     </RadioGroup>
 

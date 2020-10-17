@@ -89,11 +89,13 @@
                 app:layout_constraintTop_toBottomOf="@id/feedback_description" />
 
             <include
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
                 android:id="@+id/feedback_question1"
                 layout="@layout/feedback_question1"
-                app:layout_constraintTop_toBottomOf="@+id/feedback_needs_rating"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/feedback_needs_rating" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
