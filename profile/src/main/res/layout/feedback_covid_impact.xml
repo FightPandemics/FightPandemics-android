@@ -34,24 +34,28 @@
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_1"
+            android:buttonTint="@color/fightPandemicsNeonBlue"
             android:text="I go to work/school normally"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_2"
+            android:buttonTint="@color/fightPandemicsNeonBlue"
             android:text="I am healthy but in a stay-at-home quarantine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_3"
+            android:buttonTint="@color/fightPandemicsNeonBlue"
             android:text="I have mild symptoms but haven't been tested"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_4"
+            android:buttonTint="@color/fightPandemicsNeonBlue"
             android:text="I am diagnosed with Covid-19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
