@@ -21,5 +21,13 @@
     <string name="profile_my_organisation">My Organisation</string>
     <string name="settings_action">Settings</string>
     <string name="select_account">Select Account</string>
+    <string name="i_am_here_to">I am here to ...</string>
+    <string name="donations">Donations</string>
+    <string name="information">Information</string>
+    <string name="other_help">Other Help</string>
+    <string name="save">save</string>
+    <string name="location">Location</string>
+    <string name="my_account">My Account</string>
+    <string name="location">Location</string>
 
 </resources>
