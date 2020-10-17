@@ -47,12 +47,16 @@ fun String.firstAndSecondName(): String {
 fun String.isValidEmail(): Boolean = this.isNotEmpty() &&
             Patterns.EMAIL_ADDRESS.matcher(this.trim()).matches()
 
-// TODO check if there are other rules for password like at least 8 chars
-fun String.isValidPassword(): Boolean = this.isNotEmpty()
+
+fun String.isValidPassword(): Boolean {
+    val passwordRegex =
+        "(((?=.*[a-z])(?=.*[A-Z])(?=.*\\d))|((?=.*[A-Z])(?=.*\\d)(?=.*[!@#\$%^&*]))|((?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%^&*]))|((?=.*[a-z])(?=.*\\d)(?=.*[!@#\$%^&*]))).{8,}".toRegex()
+    return this.matches(passwordRegex)
+}
 
 
 fun String.isValidRePassword(pass : String): Boolean{
-    return this?.isNotEmpty() && pass?.isNotEmpty() && this.equals(pass)
+    return this.isNotEmpty() && pass.isNotEmpty() && this == pass
 }
 
 

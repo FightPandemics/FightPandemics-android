@@ -64,9 +64,8 @@ class LoginViewModel @Inject constructor(private val repository: DataRepository)
         viewModelScope.launch {
             try {
                 val response = repository.changePassword(email)
-                var responseModel: ChangePasswordModel? = null
                 if (response.isSuccessful && response.code() == 0) {
-                    responseModel = ChangePasswordMapper().transformRemoteToLocal(response.body()!!)
+                    val responseModel = ChangePasswordMapper().transformRemoteToLocal(response.body()!!)
                     _changePassword.postValue(Result.Success(responseModel))
                 } else {
                     _changePassword.postValue(Result.Error(Exception(response.message())))

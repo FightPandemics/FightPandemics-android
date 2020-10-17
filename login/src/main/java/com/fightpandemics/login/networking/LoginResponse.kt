@@ -5,4 +5,4 @@ data class LoginResponse(
     val emailVerified: Boolean,
     val token: String,
     val user: Any
-) : BaseResponse()
+) : ErrorResponse()
