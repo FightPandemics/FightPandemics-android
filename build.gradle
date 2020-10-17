@@ -28,7 +28,7 @@ buildscript {
             'lottie'             : '3.0.2',
             'material'           : '1.2.1',
             'moshi'              : '1.11.0',
-            'navigation'         : '2.3.0',
+            'navigation'         : '2.3.1',
             'okhttp'             : '4.7.2',
             'retrofit'           : '2.9.0',
             'room'               : '2.2.5',
@@ -45,7 +45,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.2'
+        classpath 'com.android.tools.build:gradle:4.1.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
         classpath "org.jlleitschuh.gradle:ktlint-gradle:9.3.0"
