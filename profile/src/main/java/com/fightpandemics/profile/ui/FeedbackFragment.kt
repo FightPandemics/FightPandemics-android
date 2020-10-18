@@ -64,6 +64,14 @@ class FeedbackFragment : Fragment() {
             feedbackViewModel.displayActiveBorder(binding.feedbackQuestion2.root, hasFocus)
         }
 
+        binding.feedbackQuestion3.root.your_answer_edit_text.setOnFocusChangeListener { view, hasFocus ->
+            feedbackViewModel.displayActiveBorder(binding.feedbackQuestion3.root, hasFocus)
+        }
+
+        binding.feedbackQuestion4.root.your_answer_edit_text.setOnFocusChangeListener { view, hasFocus ->
+            feedbackViewModel.displayActiveBorder(binding.feedbackQuestion4.root, hasFocus)
+        }
+
     }
 
 

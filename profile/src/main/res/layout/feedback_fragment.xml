@@ -107,6 +107,26 @@
                 app:layout_constraintTop_toBottomOf="@+id/feedback_question1" />
 
             <include
+                android:id="@+id/feedback_question3"
+                layout="@layout/feedback_question3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/feedback_between_questions_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/feedback_question2" />
+
+            <include
+                android:id="@+id/feedback_question4"
+                layout="@layout/feedback_question4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/feedback_between_questions_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/feedback_question3" />
+
+            <include
                 android:id="@+id/feedback_covid_radio_group"
                 layout="@layout/feedback_covid_impact"
                 android:layout_width="match_parent"
@@ -114,7 +134,7 @@
                 android:layout_marginTop="@dimen/feedback_between_questions_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/feedback_question2" />
+                app:layout_constraintTop_toBottomOf="@+id/feedback_question4" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
