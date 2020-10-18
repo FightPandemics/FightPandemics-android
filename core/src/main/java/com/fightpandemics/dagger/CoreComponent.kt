@@ -3,7 +3,7 @@ package com.fightpandemics.dagger
 import com.fightpandemics.dagger.module.*
 import com.fightpandemics.data.api.FightPandemicsAPI
 import com.fightpandemics.data.prefs.PreferenceStorage
-import com.fightpandemics.data.remote.PostsRemoteDataSource
+import com.fightpandemics.domain.repository.LoginRepository
 import com.fightpandemics.domain.repository.PostsRepository
 import dagger.Component
 import javax.inject.Singleton
@@ -43,6 +43,7 @@ interface CoreComponent {
 
 
     fun providePostsRepository(): PostsRepository
+    fun provideLoginRepository(): LoginRepository
     fun provideFightPandemicsAPI(): FightPandemicsAPI
 
 }

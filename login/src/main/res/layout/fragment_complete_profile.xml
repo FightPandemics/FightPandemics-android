@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <include
+        android:id="@+id/complete_profile_toolbar"
+        layout="@layout/sign_up_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_complete_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/signup_screen_bg"
+        android:paddingStart="31dp"
+        android:paddingTop="34dp"
+        android:paddingEnd="30dp"
+        android:paddingBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/complete_profile_toolbar"
+        app:layout_constraintVertical_bias="1.0">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/first_name"
+            android:textColorHint="@color/fightPandemicsNeonBlue"
+            app:boxBackgroundMode="none"
+            app:errorEnabled="false"
+            app:hintEnabled="true"
+            app:hintTextAppearance="@style/SignUPTextHint"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textview_line_bottom"
+                android:inputType="text"
+                android:paddingStart="2dp"
+                android:paddingTop="8dp"
+                android:textAppearance="@style/SignUPText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:hint="@string/last_name"
+            android:textColorHint="@color/fightPandemicsNeonBlue"
+            app:boxBackgroundMode="none"
+            app:errorEnabled="false"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+            app:hintTextAppearance="@style/SignUPTextHint"
+            app:layout_constraintStart_toStartOf="@id/content_complete_profile"
+            app:layout_constraintTop_toBottomOf="@id/tilFirstName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textview_line_bottom"
+                android:inputType="text"
+                android:paddingStart="2dp"
+                android:paddingTop="8dp"
+                android:textAppearance="@style/SignUPText"
+                app:endIconDrawable="@drawable/ic_eye_toogle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:hint="@string/address"
+            android:textColorHint="@color/fightPandemicsNeonBlue"
+            app:boxBackgroundMode="none"
+            app:errorEnabled="false"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+            app:hintTextAppearance="@style/SignUPTextHint"
+            app:layout_constraintStart_toStartOf="@id/content_complete_profile"
+            app:layout_constraintTop_toBottomOf="@id/tilLastName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textview_line_bottom"
+                android:inputType="text"
+                android:paddingStart="2dp"
+                android:paddingTop="8dp"
+                android:textAppearance="@style/SignUPText"
+                app:endIconDrawable="@drawable/ic_eye_toogle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/okoko"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilAddress">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I am here to offer:"
+                android:textColor="@color/fightPandemicsNeonBlue"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+            <TextView
+                style="@style/AndroidNativeP311Px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Optional"
+                app:layout_constraintEnd_toEndOf="@id/okoko"
+                app:layout_constraintTop_toBottomOf="@id/okoko" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clBtnComplete"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/btn_sign_email_background"
+            android:backgroundTint="@color/fightPandemicsNeonBlue"
+            app:layout_constraintBottom_toTopOf="@id/tv_sigin_instead"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="5.9sp"
+                android:text="@string/complete_profile"
+                android:textColor="@color/color_white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/tv_sigin_instead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:lineSpacingExtra="20.9sp"
+            android:text="@string/have_an_account_sign_in_instead"
+            android:textColor="@color/fightPandemicsNeonBlue"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,6 @@
 package com.fightpandemics.data.model.login
 
-data class LoginResponse(
-    val email: String,
+data class SignUpResponse(
     val emailVerified: Boolean,
-    val token: String,
-    val user: Any
+    val token: String
 ) : ErrorResponse()

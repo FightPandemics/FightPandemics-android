@@ -1,4 +1,4 @@
-package com.fightpandemics.data.remote
+package com.fightpandemics.data.remote.posts
 
 import com.fightpandemics.data.model.posts.Post
 import com.fightpandemics.data.model.posts.Posts

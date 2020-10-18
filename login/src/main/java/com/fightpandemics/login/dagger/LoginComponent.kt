@@ -1,10 +1,10 @@
 package com.fightpandemics.login.dagger
 
 import com.fightpandemics.dagger.scope.ActivityScope
+import com.fightpandemics.login.domain.LoginUseCase
 import com.fightpandemics.login.ui.SignInFragment
 import com.fightpandemics.login.ui.SignUpFragment
 import dagger.Subcomponent
-import javax.inject.Named
 
 /**
  * Component binding injections for the [:login] module.
@@ -22,8 +22,10 @@ interface LoginComponent {
         fun create(): LoginComponent
     }
 
-    @Named("Login") fun provideLoginString(): String
-
     fun inject(signInFragment: SignInFragment)
     fun inject(SignUpFragment: SignUpFragment)
+    //fun inject(SignUpFragment: SignUpEmailFragment)
+    //fun inject(CompeteProfileFragment: CompeteProfileFragment)
+
+    fun providesLoginUseCase(): LoginUseCase
 }

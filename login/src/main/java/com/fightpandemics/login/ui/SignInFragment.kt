@@ -5,17 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
 import com.fightpandemics.utils.ViewModelFactory
+import com.google.android.material.appbar.MaterialToolbar
 import javax.inject.Inject
 
 class SignInFragment : Fragment() {
 
     @Inject
     lateinit var loginViewModelFactory: ViewModelFactory
-    private lateinit var viewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModels<LoginViewModel> { loginViewModelFactory }
+    private lateinit var sign_in_toolbar: MaterialToolbar
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -27,6 +31,11 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_in, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_sign_in, container, false)
+
+        sign_in_toolbar = rootView.findViewById(R.id.sign_in_toolbar)
+        sign_in_toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+
+        return rootView
     }
 }

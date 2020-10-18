@@ -2,14 +2,13 @@ package com.fightpandemics.data.repository
 
 import com.fightpandemics.data.model.posts.Post
 import com.fightpandemics.data.model.posts.Posts
-import com.fightpandemics.data.remote.PostsRemoteDataSource
+import com.fightpandemics.data.remote.posts.PostsRemoteDataSource
 import com.fightpandemics.domain.repository.PostsRepository
 import com.fightpandemics.result.Result
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 

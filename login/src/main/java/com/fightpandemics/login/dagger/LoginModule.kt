@@ -1,9 +1,11 @@
 package com.fightpandemics.login.dagger
 
-import com.fightpandemics.dagger.scope.ActivityScope
+import com.fightpandemics.data.CoroutinesDispatcherProvider
+import com.fightpandemics.domain.repository.LoginRepository
+import com.fightpandemics.login.domain.LoginUseCase
 import dagger.Module
 import dagger.Provides
-import javax.inject.Named
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * Dagger module providing stuff for [:login] module.
@@ -11,8 +13,10 @@ import javax.inject.Named
 @Module
 class LoginModule {
 
-    @ActivityScope
-    @Named("Login")
+    @ExperimentalCoroutinesApi
     @Provides
-    fun provideLoginString(): String = "Test Login Dagger Implementation"
+    fun provideLoginUseCase(
+        loginRepository: LoginRepository,
+        dispatcherProvider: CoroutinesDispatcherProvider
+    ): LoginUseCase = LoginUseCase(loginRepository, dispatcherProvider)
 }
