@@ -21,8 +21,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="@dimen/activity_horizontal_margin"
-        android:paddingVertical="@dimen/activity_vertical_margin">
+        android:paddingHorizontal="@dimen/feedback_horizontal_margin"
+        android:paddingVertical="@dimen/feedback_vertical_padding">
 
         <TextView
             android:id="@+id/question_text_view"

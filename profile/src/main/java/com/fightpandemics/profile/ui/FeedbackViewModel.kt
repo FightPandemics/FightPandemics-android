@@ -11,12 +11,11 @@ import javax.inject.Inject
 class FeedbackViewModel @Inject constructor() : ViewModel(){
 
     fun displayActiveBorder(materialCard: MaterialCardView, hasFocus: Boolean){
-
         if (hasFocus){
             materialCard.vertical_accent.visibility = View.VISIBLE
         }else{
             materialCard.vertical_accent.visibility = View.GONE
         }
-
     }
+
 }

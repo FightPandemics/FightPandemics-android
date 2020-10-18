@@ -55,9 +55,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/fightPandemicsWhiteSmoke"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingHorizontal="@dimen/feedback_horizontal_margin"
+                android:paddingTop="@dimen/feedback_between_questions_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:text="Thank you for being an early user of FightPandemics!"
                 app:layout_constraintBottom_toTopOf="@+id/feedback_description"
@@ -68,10 +67,9 @@
             <TextView
                 android:id="@+id/feedback_description"
                 style="@style/AndroidNativeP114Px"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingHorizontal="@dimen/feedback_horizontal_margin"
                 android:text="Please fill out this survey so we can create a better product."
                 app:layout_constraintBottom_toTopOf="@+id/feedback_needs_rating"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +81,7 @@
                 layout="@layout/feedback_needs_rating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/feedback_between_questions_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/feedback_description" />
@@ -93,7 +91,7 @@
                 layout="@layout/feedback_question1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/feedback_between_questions_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/feedback_needs_rating" />
@@ -103,7 +101,7 @@
                 layout="@layout/feedback_question2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/feedback_between_questions_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/feedback_question1" />
@@ -113,11 +111,10 @@
                 layout="@layout/feedback_covid_impact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/feedback_between_questions_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/feedback_question2" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -130,9 +127,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="@dimen/feedback_between_questions_margin"
+        android:layout_marginBottom="@dimen/feedback_between_questions_margin"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

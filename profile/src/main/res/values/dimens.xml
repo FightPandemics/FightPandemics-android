@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="feedback_between_questions_margin">24dp</dimen>
+    <dimen name="feedback_horizontal_margin">30dp</dimen>
+    <dimen name="feedback_vertical_padding">24dp</dimen>
+
+</resources>
