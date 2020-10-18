@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    card_view:cardElevation="0dp"
+    android:animateLayoutChanges="true"
     card_view:cardBackgroundColor="@color/colorWhite"
-    card_view:cardCornerRadius="0dp">
+    card_view:cardCornerRadius="0dp"
+    card_view:cardElevation="0dp">
 
     <FrameLayout
+        android:id="@+id/vertical_accent"
         android:layout_width="3dp"
         android:layout_height="match_parent"
-        android:background="@color/fightPandemicsNeonBlue" />
+        android:background="@color/fightPandemicsNeonBlue"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -20,14 +25,14 @@
         android:paddingVertical="@dimen/activity_vertical_margin">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/question_text_view"
             style="@style/AndroidNativeP114Px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Which features are the most valuable to you?" />
 
         <EditText
-            android:id="@+id/textInputLayout"
+            android:id="@+id/your_answer_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Your answer"
