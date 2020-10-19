@@ -10,7 +10,7 @@
     card_view:cardElevation="0dp">
 
     <FrameLayout
-        android:id="@+id/vertical_accent"
+        android:id="@+id/verticalAccent3"
         android:layout_width="3dp"
         android:layout_height="match_parent"
         android:background="@color/fightPandemicsNeonBlue"
@@ -25,14 +25,14 @@
         android:paddingVertical="@dimen/feedback_vertical_padding">
 
         <TextView
-            android:id="@+id/question_text_view"
+            android:id="@+id/questionTextView"
             style="@style/AndroidNativeP114Px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/feedback_for_us" />
 
         <EditText
-            android:id="@+id/your_answer_edit_text"
+            android:id="@+id/yourAnswerEditText3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/your_answer"
