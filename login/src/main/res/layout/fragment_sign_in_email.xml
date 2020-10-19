@@ -122,7 +122,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lineSpacingExtra="4.9sp"
-        android:text=""
         android:textColor="@color/fightPandemicsNeonBlue"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"

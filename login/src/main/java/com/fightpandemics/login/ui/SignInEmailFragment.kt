@@ -79,8 +79,8 @@ class SignInEmailFragment : Fragment() {
 
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
-
                 view.invalidate()
+                findNavController().navigate(R.id.action_signInEmailFragment_to_signUpFragment)
             }
 
             override fun updateDrawState(ds: TextPaint) {
