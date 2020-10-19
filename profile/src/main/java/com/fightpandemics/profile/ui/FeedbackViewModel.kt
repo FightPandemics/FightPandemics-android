@@ -11,4 +11,4 @@ import kotlinx.android.synthetic.main.feedback_question1.view.*
 import javax.inject.Inject
 
 @FeatureScope
-class FeedbackViewModel @Inject constructor() : ViewModel(){ }
+class FeedbackViewModel @Inject constructor() : ViewModel(){}

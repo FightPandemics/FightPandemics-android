@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:paddingTop="4dp"
-            android:text="Feedback" />
+            android:text="@string/feedback_appbar" />
 
     </com.google.android.material.appbar.MaterialToolbar>
 
@@ -58,7 +58,7 @@
                 android:paddingHorizontal="@dimen/feedback_horizontal_margin"
                 android:paddingTop="@dimen/feedback_between_questions_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                android:text="Thank you for being an early user of FightPandemics!"
+                android:text="@string/thank_you_early_user"
                 app:layout_constraintBottom_toTopOf="@+id/feedback_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/feedback_horizontal_margin"
-                android:text="Please fill out this survey so we can create a better product."
+                android:text="@string/please_fill_out_this_survey"
                 app:layout_constraintBottom_toTopOf="@+id/feedback_needs_rating"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -150,7 +150,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="@dimen/feedback_between_questions_margin"
         android:layout_marginBottom="@dimen/feedback_between_questions_margin"
-        android:text="Submit"
+        android:text="@string/submit_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

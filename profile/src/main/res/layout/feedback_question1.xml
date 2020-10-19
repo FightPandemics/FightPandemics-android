@@ -29,13 +29,13 @@
             style="@style/AndroidNativeP114Px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="If you could change one thing about FightPandemics, what would it be?" />
+            android:text="@string/change_one_thing_about_fightpandemics" />
 
         <EditText
             android:id="@+id/your_answer_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Your answer"
+            android:hint="@string/your_answer"
             android:inputType="textMultiLine"
             android:textAppearance="@style/AndroidNativeP114Px" />
 

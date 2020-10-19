@@ -29,13 +29,13 @@
             style="@style/AndroidNativeP114Px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="What is your age? " />
+            android:text="@string/what_is_your_age" />
 
         <EditText
             android:id="@+id/your_answer_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Your answer"
+            android:hint="@string/your_answer"
             android:inputType="textMultiLine"
             android:textAppearance="@style/AndroidNativeP114Px" />
 
