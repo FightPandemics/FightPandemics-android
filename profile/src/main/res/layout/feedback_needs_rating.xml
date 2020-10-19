@@ -23,51 +23,97 @@
         android:id="@+id/rating_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rating_text">
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/rating_1"
-            style="@style/VerticalRadioButton"
-            android:layout_width="wrap_content"
+        <!--        <com.google.android.material.radiobutton.MaterialRadioButton-->
+        <!--            android:id="@+id/rating_1"-->
+        <!--            style="@style/VerticalRadioButton"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="1" />-->
+
+        <RadioButton
+            android:id="@+id/radio0"
+            style="@style/RatingRadioButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="1" />
+
+        <!--        android:layout_weight="1"-->
+        <!--        android:button="@null"-->
+        <!--        android:drawableBottom="?android:attr/listChoiceIndicatorSingle"-->
+        <!--        android:gravity="center_horizontal|bottom"-->
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_2"
-            style="@style/VerticalRadioButton"
-            android:layout_width="wrap_content"
+            style="@style/RatingRadioButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="2" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_3"
-            style="@style/VerticalRadioButton"
-            android:layout_width="wrap_content"
+            style="@style/RatingRadioButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="3" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_4"
-            style="@style/VerticalRadioButton"
-            android:layout_width="wrap_content"
+            style="@style/RatingRadioButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="4" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_5"
-            style="@style/VerticalRadioButton"
-            android:layout_width="wrap_content"
+            style="@style/RatingRadioButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="5" />
 
     </RadioGroup>
+
+<!--    <EditText-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/rating_radio_group"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="hello"/>-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Poorly"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rating_radio_group"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Very Well"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.940"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rating_radio_group"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

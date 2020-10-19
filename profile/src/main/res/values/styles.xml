@@ -4,5 +4,25 @@
     <style name="VerticalRadioButton" parent="AndroidNativeP114Px">
         <item name="android:buttonTint">@color/fightPandemicsNeonBlue</item>
     </style>
-    
+
+    <style name="RatingRadioButton" parent="AndroidNativeP114Px">
+        <item name="android:buttonTint">@color/fightPandemicsNeonBlue</item>
+        <item name="android:background">@color/colorWhite</item>
+
+        <item name="android:button">@null</item>
+        <item name="android:drawableBottom">?android:attr/listChoiceIndicatorSingle</item>
+        <item name="android:gravity">center_horizontal|bottom</item>
+
+<!--        <item name="listChoiceIndicatorSingle">@android:drawable/btn_radio_holo_dark</item>-->
+        <!--        android:button="@null"-->
+        <!--        android:drawableBottom="?android:attr/listChoiceIndicatorSingle"-->
+        <!--        android:gravity="center_horizontal|bottom"-->
+    </style>
+
+    <style name="RadioWithTextOnTop">
+        <item name="android:button">@null</item>
+        <item name="android:drawableBottom">?android:attr/listChoiceIndicatorSingle</item>
+        <item name="android:gravity">center_horizontal|bottom</item>
+    </style>
+
 </resources>
