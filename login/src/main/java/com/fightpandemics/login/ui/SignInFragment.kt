@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
 import com.fightpandemics.utils.ViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
 import javax.inject.Inject
 
 class SignInFragment : Fragment() {
@@ -35,6 +36,10 @@ class SignInFragment : Fragment() {
 
         sign_in_toolbar = rootView.findViewById(R.id.sign_in_toolbar)
         sign_in_toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+
+        rootView.findViewById<MaterialButton>(R.id.btn_sign_in_email).setOnClickListener {
+            findNavController().navigate(R.id.action_signInFragment_to_signInEmailFragment)
+        }
 
         return rootView
     }

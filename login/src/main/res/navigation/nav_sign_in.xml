@@ -10,6 +10,20 @@
         android:id="@+id/signInFragment"
         android:name="com.fightpandemics.login.ui.SignInFragment"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" />
+        tools:layout="@layout/fragment_sign_in" >
+
+        <action
+            android:id="@+id/action_signInFragment_to_signInEmailFragment"
+            app:destination="@id/signInEmailFragment"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="false" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/signInEmailFragment"
+        android:name="com.fightpandemics.login.ui.SignInEmailFragment"
+        android:label="fragment_sign_in_email"
+        tools:layout="@layout/fragment_sign_in_email"/>
 
 </navigation>
