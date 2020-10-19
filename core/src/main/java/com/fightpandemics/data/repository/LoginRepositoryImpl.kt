@@ -9,6 +9,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import retrofit2.Response
+import java.lang.Exception
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -21,11 +22,14 @@ class LoginRepositoryImpl @Inject constructor(
     override suspend fun login(loginRequest: LoginRequest): Flow<Result<LoginResponse?>> =
         channelFlow {
             val loginResponse = loginRemoteDataSource.login(loginRequest)
-            // TODO - save user info in sharedpreference
-            channel.offer(
-                Result.Success(loginResponse.body())
-            )
-
+            if(loginResponse.isSuccessful){
+                // TODO - save user info in sharedpreference
+                channel.offer(
+                    Result.Success(loginResponse.body())
+                )
+            } else{
+                channel.offer(Result.Error(Exception(loginResponse.errorBody().toString())))
+            }
             awaitClose { }
         }
 
