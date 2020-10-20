@@ -28,8 +28,6 @@ class FeedbackFragment : Fragment() {
         fun newInstance() = FeedbackFragment()
     }
 
-    private lateinit var viewModel: ProfileViewModel
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
