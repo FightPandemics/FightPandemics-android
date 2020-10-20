@@ -24,10 +24,6 @@ class FeedbackFragment : Fragment() {
     lateinit var binding: FeedbackFragmentBinding
     lateinit var feedbackViewModel: FeedbackViewModel
 
-    companion object {
-        fun newInstance() = FeedbackFragment()
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -98,5 +94,9 @@ class FeedbackFragment : Fragment() {
                 )
             )
         }
+    }
+
+    companion object {
+        fun newInstance() = FeedbackFragment()
     }
 }
