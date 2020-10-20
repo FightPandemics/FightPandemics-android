@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fightPandemicsWhiteSmoke">
+    android:background="@color/fightPandemicsGhostWhite"
+    >
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/feedback_toolbar"
@@ -52,7 +53,6 @@
                 style="@style/AndroidNativeH216Px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/fightPandemicsWhiteSmoke"
                 android:paddingHorizontal="@dimen/feedback_horizontal_margin"
                 android:paddingTop="@dimen/feedback_between_questions_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
@@ -136,6 +136,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/submit_button"
+                style="@style/PrimaryButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
