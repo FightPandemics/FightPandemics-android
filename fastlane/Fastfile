@@ -1,3 +1,5 @@
+# which defines the "lanes" that drive the behavior of fastlane
+
 # This file contains the fastlane.tools configuration
 # You can find the documentation at https://docs.fastlane.tools
 #
@@ -16,6 +18,14 @@
 default_platform(:android)
 
 platform :android do
+
+  # Runs before all tasks
+  before_all do
+
+    ENV["LC_ALL"]
+    ENV["LANG"]
+  end
+
   desc "Runs all the tests"
   lane :test do
     gradle(task: "test")
