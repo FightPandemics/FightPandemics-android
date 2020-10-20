@@ -1,6 +1,6 @@
 package com.fightpandemics.login.dagger
 
-import com.fightpandemics.dagger.scope.ActivityScope
+import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.login.domain.LoginUseCase
 import com.fightpandemics.login.ui.SignInEmailFragment
 import com.fightpandemics.login.ui.SignInFragment

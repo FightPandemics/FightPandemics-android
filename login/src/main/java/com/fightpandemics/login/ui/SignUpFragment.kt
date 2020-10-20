@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
-import com.fightpandemics.utils.ViewModelFactory
+import com.fightpandemics.core.utils.ViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
 import javax.inject.Inject
 

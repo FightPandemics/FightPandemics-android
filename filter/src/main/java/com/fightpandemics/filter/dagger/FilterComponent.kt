@@ -1,6 +1,6 @@
 package com.fightpandemics.filter.dagger
 
-import com.fightpandemics.dagger.scope.ActivityScope
+import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.filter.ui.FilterFragment
 import dagger.Subcomponent
 

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.fightpandemics.data.model.posts.Post
+import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.home.R
 
 class PostsAdapter : RecyclerView.Adapter<PostsViewHolder>() {

@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fightpandemics.dagger.scope.ActivityScope
+import com.fightpandemics.core.dagger.scope.ActivityScope
+import com.fightpandemics.core.result.Event
 import com.fightpandemics.domain.OnBoardCompleteActionUseCase
-import com.fightpandemics.result.Event
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

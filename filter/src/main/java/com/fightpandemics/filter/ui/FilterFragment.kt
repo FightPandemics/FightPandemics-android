@@ -7,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
-import com.fightpandemics.utils.ViewModelFactory
+import com.fightpandemics.core.utils.ViewModelFactory
 import com.google.android.material.transition.MaterialSharedAxis
 import javax.inject.Inject
 

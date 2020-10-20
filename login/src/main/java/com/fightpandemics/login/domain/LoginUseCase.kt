@@ -1,13 +1,13 @@
 package com.fightpandemics.login.domain
 
-import com.fightpandemics.dagger.scope.ActivityScope
-import com.fightpandemics.data.CoroutinesDispatcherProvider
-import com.fightpandemics.data.model.login.LoginRequest
-import com.fightpandemics.data.model.login.LoginResponse
-import com.fightpandemics.domain.repository.LoginRepository
-import com.fightpandemics.domain.usecase.FlowUseCase
-import com.fightpandemics.result.Result
-import com.fightpandemics.result.data
+import com.fightpandemics.core.dagger.scope.ActivityScope
+import com.fightpandemics.core.data.CoroutinesDispatcherProvider
+import com.fightpandemics.core.data.model.login.LoginRequest
+import com.fightpandemics.core.data.model.login.LoginResponse
+import com.fightpandemics.core.domain.repository.LoginRepository
+import com.fightpandemics.core.domain.usecase.FlowUseCase
+import com.fightpandemics.core.result.Result
+import com.fightpandemics.core.result.data
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow

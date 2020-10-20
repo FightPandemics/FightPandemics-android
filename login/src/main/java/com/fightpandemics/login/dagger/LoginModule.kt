@@ -1,7 +1,7 @@
 package com.fightpandemics.login.dagger
 
-import com.fightpandemics.data.CoroutinesDispatcherProvider
-import com.fightpandemics.domain.repository.LoginRepository
+import com.fightpandemics.core.data.CoroutinesDispatcherProvider
+import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.login.domain.LoginUseCase
 import dagger.Module
 import dagger.Provides

@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
-import com.fightpandemics.home.R
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.ui.tabs.HomePagerAdapter
 import com.fightpandemics.home.utils.TAB_TITLES
-import com.fightpandemics.utils.ViewModelFactory
+import com.fightpandemics.core.utils.ViewModelFactory
+import com.fightpandemics.home.R
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialSharedAxis
@@ -65,7 +65,7 @@ class HomeFragment : Fragment() {
                 reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
                     duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
                 }
-                findNavController().navigate(com.fightpandemics.R.id.action_homeFragment_to_filterFragment)
+                //findNavController().navigate(R.id.action_homeFragment_to_filterFragment)
             }
         }
         return true

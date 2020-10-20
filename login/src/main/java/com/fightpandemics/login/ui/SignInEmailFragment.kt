@@ -1,13 +1,10 @@
 package com.fightpandemics.login.ui
 
 import android.content.Context
-import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
@@ -18,12 +15,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
-import com.fightpandemics.utils.ViewModelFactory
+import com.fightpandemics.core.utils.ViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
-import timber.log.Timber
 import javax.inject.Inject
-
 
 class SignInEmailFragment : Fragment() {
 

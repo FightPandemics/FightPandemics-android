@@ -2,7 +2,7 @@ package com.fightpandemics.login.dagger
 
 import androidx.lifecycle.ViewModel
 import com.fightpandemics.login.ui.LoginViewModel
-import com.fightpandemics.utils.ViewModelKey
+import com.fightpandemics.core.utils.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

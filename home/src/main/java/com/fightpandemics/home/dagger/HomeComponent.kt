@@ -1,10 +1,8 @@
 package com.fightpandemics.home.dagger
 
+import com.fightpandemics.core.dagger.CoreComponent
+import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.dagger.AppComponent
-import com.fightpandemics.dagger.CoreComponent
-import com.fightpandemics.dagger.scope.FeatureScope
-import com.fightpandemics.data.CoroutinesDispatcherProvider
-import com.fightpandemics.domain.repository.PostsRepository
 import com.fightpandemics.home.domain.LoadPostsUseCase
 import com.fightpandemics.home.ui.HomeFragment
 import com.fightpandemics.home.ui.tabs.all.HomeAllFragment

@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fightpandemics.dagger.scope.FeatureScope
-import com.fightpandemics.data.CoroutinesDispatcherProvider
-import com.fightpandemics.data.model.posts.Post
+import com.fightpandemics.core.dagger.scope.FeatureScope
+import com.fightpandemics.core.data.CoroutinesDispatcherProvider
+import com.fightpandemics.core.data.model.posts.Post
+import com.fightpandemics.core.result.Result
 import com.fightpandemics.home.domain.LoadPostsUseCase
-import com.fightpandemics.result.Result
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect

@@ -1,6 +1,6 @@
 package com.fightpandemics.ui.splash
 
-import com.fightpandemics.dagger.scope.ActivityScope
+import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.domain.OnBoardCompleteActionUseCase
 import com.fightpandemics.domain.OnBoardCompletedUseCase
 import com.fightpandemics.ui.onboarding.OnBoardFragment

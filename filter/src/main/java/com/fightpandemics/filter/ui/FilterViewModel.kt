@@ -1,7 +1,7 @@
 package com.fightpandemics.filter.ui
 
 import androidx.lifecycle.ViewModel
-import com.fightpandemics.dagger.scope.ActivityScope
+import com.fightpandemics.core.dagger.scope.ActivityScope
 import javax.inject.Inject
 
 @ActivityScope

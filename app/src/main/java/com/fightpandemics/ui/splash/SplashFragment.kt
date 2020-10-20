@@ -7,9 +7,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.R
-import com.fightpandemics.result.EventObserver
-import com.fightpandemics.utils.ViewModelFactory
-import kotlinx.coroutines.cancel
+import com.fightpandemics.core.result.EventObserver
+import com.fightpandemics.core.utils.ViewModelFactory
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 

@@ -1,8 +1,8 @@
 package com.fightpandemics.ui.splash
 
-import com.fightpandemics.dagger.scope.ActivityScope
-import com.fightpandemics.data.CoroutinesDispatcherProvider
-import com.fightpandemics.data.prefs.FightPandemicsPreferenceDataStore
+import com.fightpandemics.core.dagger.scope.ActivityScope
+import com.fightpandemics.core.data.CoroutinesDispatcherProvider
+import com.fightpandemics.core.data.prefs.FightPandemicsPreferenceDataStore
 import com.fightpandemics.domain.OnBoardCompleteActionUseCase
 import com.fightpandemics.domain.OnBoardCompletedUseCase
 import dagger.Module

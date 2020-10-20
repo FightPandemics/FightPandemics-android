@@ -13,7 +13,7 @@ import com.fightpandemics.home.R
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.ui.HomeViewModel
 import com.fightpandemics.home.ui.tabs.PostsAdapter
-import com.fightpandemics.utils.ViewModelFactory
+import com.fightpandemics.core.utils.ViewModelFactory
 import javax.inject.Inject
 
 class HomeOfferFragment : Fragment() {

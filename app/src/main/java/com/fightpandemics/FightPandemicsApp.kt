@@ -2,13 +2,13 @@ package com.fightpandemics
 
 import android.app.Application
 import android.content.Context
+import com.fightpandemics.core.dagger.CoreComponent
+import com.fightpandemics.core.dagger.CoreComponentProvider
+import com.fightpandemics.core.dagger.DaggerCoreComponent
+import com.fightpandemics.core.dagger.module.ContextModule
+import com.fightpandemics.core.dagger.module.SharedPreferencesModule
 import com.fightpandemics.dagger.AppComponent
-import com.fightpandemics.dagger.CoreComponent
-import com.fightpandemics.dagger.CoreComponentProvider
 import com.fightpandemics.dagger.DaggerAppComponent
-import com.fightpandemics.dagger.DaggerCoreComponent
-import com.fightpandemics.dagger.module.ContextModule
-import com.fightpandemics.dagger.module.SharedPreferencesModule
 import com.fightpandemics.filter.dagger.FilterComponent
 import com.fightpandemics.filter.dagger.FilterComponentProvider
 import com.fightpandemics.login.dagger.LoginComponent

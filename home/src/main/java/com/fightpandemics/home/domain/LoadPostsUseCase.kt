@@ -1,12 +1,11 @@
 package com.fightpandemics.home.domain
 
-import com.fightpandemics.dagger.scope.FeatureScope
-import com.fightpandemics.data.CoroutinesDispatcherProvider
-import com.fightpandemics.data.model.posts.Post
-import com.fightpandemics.data.model.posts.Posts
-import com.fightpandemics.domain.repository.PostsRepository
-import com.fightpandemics.domain.usecase.FlowUseCase
-import com.fightpandemics.result.Result
+import com.fightpandemics.core.dagger.scope.FeatureScope
+import com.fightpandemics.core.data.CoroutinesDispatcherProvider
+import com.fightpandemics.core.data.model.posts.Post
+import com.fightpandemics.core.domain.repository.PostsRepository
+import com.fightpandemics.core.domain.usecase.FlowUseCase
+import com.fightpandemics.core.result.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import timber.log.Timber

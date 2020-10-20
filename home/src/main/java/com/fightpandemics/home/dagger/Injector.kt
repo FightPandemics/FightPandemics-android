@@ -3,7 +3,7 @@ package com.fightpandemics.home.dagger
 import android.app.Activity
 import androidx.fragment.app.Fragment
 import com.fightpandemics.FightPandemicsApp
-import com.fightpandemics.dagger.CoreComponentProvider
+import com.fightpandemics.core.dagger.CoreComponentProvider
 import com.fightpandemics.home.ui.HomeFragment
 import com.fightpandemics.home.ui.tabs.all.HomeAllFragment
 import com.fightpandemics.home.ui.tabs.offers.HomeOfferFragment

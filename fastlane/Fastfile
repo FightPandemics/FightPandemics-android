@@ -26,6 +26,11 @@ platform :android do
     ENV["LANG"]
   end
 
+  desc "Build a debug APK"
+  lane :debug_build do
+    gradle(task: "clean assembleDebug")
+  end
+
   desc "Runs all the tests"
   lane :test do
     gradle(task: "test")

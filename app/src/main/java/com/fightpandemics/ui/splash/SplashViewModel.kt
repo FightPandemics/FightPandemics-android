@@ -1,10 +1,10 @@
 package com.fightpandemics.ui.splash
 
 import androidx.lifecycle.*
-import com.fightpandemics.dagger.scope.ActivityScope
+import com.fightpandemics.core.dagger.scope.ActivityScope
+import com.fightpandemics.core.result.Event
+import com.fightpandemics.core.result.data
 import com.fightpandemics.domain.OnBoardCompletedUseCase
-import com.fightpandemics.result.Event
-import com.fightpandemics.result.data
 import javax.inject.Inject
 
 /**

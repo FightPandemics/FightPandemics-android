@@ -6,12 +6,12 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
-import com.fightpandemics.data.model.posts.Post
+import com.fightpandemics.core.data.model.posts.Post
+import com.fightpandemics.core.utils.GlideApp
+import com.fightpandemics.core.widgets.ProfileImageView
 import com.fightpandemics.home.R
 import com.fightpandemics.home.utils.getPostCreated
 import com.fightpandemics.home.utils.userInitials
-import com.fightpandemics.utils.GlideApp
-import com.fightpandemics.widgets.ProfileImageView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import timber.log.Timber
