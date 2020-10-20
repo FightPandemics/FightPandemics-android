@@ -36,6 +36,16 @@ platform :android do
     gradle(task: "test")
   end
 
+  desc "Use Bundle Tool to Generate APK from AAB"
+  lane :bundletool_test do
+    bundletool(
+      verbose: true,
+      bundletool_version: '1.3.0',
+      aab_path: 'resources/fightpandemics.aab',
+      apk_output_path: "resources/universal_apk/fightpandemics.apk"
+    )
+  end
+
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
     gradle(task: "clean assembleRelease")
