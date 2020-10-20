@@ -1,9 +1,7 @@
 package com.fightpandemics.home.utils
 
 import android.os.Build
-import android.widget.TextView
 import androidx.annotation.RequiresApi
-import com.fightpandemics.R
 import org.threeten.bp.*
 import org.threeten.bp.format.DateTimeFormatter
 import timber.log.Timber
@@ -18,11 +16,16 @@ val TAB_TITLES = arrayOf(
 )
 
 fun userInitials(userName: String?): String {
-    val user_avatar_first_initials = userName?.split("\\s".toRegex())?.get(0)?.get(0)
-    val user_avatar_second_initials = userName?.split("\\s".toRegex())?.get(1)
-        ?.get(0) // TODO 3 - May throw IndexOutOfBoundsException if no second name
-    val userInitials = "$user_avatar_first_initials$user_avatar_second_initials"
-    return userInitials
+    val splitName = userName!!.split("\\s".toRegex()).toMutableList()
+    val firstInitials = splitName[0][0]
+
+    return when {
+        splitName.size > 1 -> {
+            val secondInitials = splitName[1][0]
+            "$firstInitials$secondInitials".toUpperCase(Locale.ROOT)
+        }
+        else -> "$firstInitials".toUpperCase(Locale.ROOT)
+    }
 }
 
 // TODO 4 - Convert raw time to 2020-10-14T 22:57:54.009Z  - "yyyy-MM-dd'T'HH:mm:ss.SSSZ"	2001-07-04T12:08:56.235-0700
@@ -76,7 +79,7 @@ fun getPostCreated(createdAt: String?): String? {
     val localZonedDateTime = utcLocalDateTime
         .atOffset(ZoneOffset.UTC)
         .atZoneSameInstant(ZoneId.systemDefault())
-    
+
     val created = localZonedDateTime.toInstant()
 
     val now = Instant.now()

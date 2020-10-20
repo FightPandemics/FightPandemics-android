@@ -14,6 +14,7 @@ import com.fightpandemics.home.ui.tabs.HomePagerAdapter
 import com.fightpandemics.home.utils.TAB_TITLES
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.home.R
+import com.fightpandemics.home.R.*
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialSharedAxis
@@ -39,7 +40,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         setHasOptionsMenu(true)
-        val rootView = inflater.inflate(R.layout.home_fragment, container, false)
+        val rootView = inflater.inflate(layout.home_fragment, container, false)
 
         homePager = rootView.findViewById(R.id.homePager)
         homeTabs = rootView.findViewById(R.id.homeTabs)
@@ -60,12 +61,12 @@ class HomeFragment : Fragment() {
         when (item.itemId) {
             R.id.filter -> {
                 exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-                    duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+                    duration = resources.getInteger(integer.reply_motion_duration_large).toLong()
                 }
                 reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-                    duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+                    duration = resources.getInteger(integer.reply_motion_duration_large).toLong()
                 }
-                //findNavController().navigate(R.id.action_homeFragment_to_filterFragment)
+                findNavController().navigate(com.fightpandemics.R.id.action_homeFragment_to_filterFragment)
             }
         }
         return true
