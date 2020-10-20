@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,9 +15,7 @@ import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
 import com.fightpandemics.profile.databinding.FeedbackFragmentBinding
 import com.fightpandemics.utils.ViewModelFactory
-import com.google.android.material.card.MaterialCardView
 import javax.inject.Inject
-//import com.fightpandemics.profile.databinding
 
 class FeedbackFragment : Fragment() {
 
@@ -73,26 +70,23 @@ class FeedbackFragment : Fragment() {
             displayActiveBorder(binding.feedbackQuestion4.verticalAccent4, hasFocus)
             displayFilledEditText(binding.feedbackQuestion4.yourAnswerEditText4, hasFocus)
         }
-
     }
 
-    fun displayActiveBorder(verticalAccent: FrameLayout, hasFocus: Boolean){
-        if (hasFocus){
+    fun displayActiveBorder(verticalAccent: FrameLayout, hasFocus: Boolean) {
+        if (hasFocus) {
             verticalAccent.visibility = View.VISIBLE
-        }else{
+        } else {
             verticalAccent.visibility = View.GONE
         }
     }
 
-    fun displayFilledEditText(editText: EditText, hasFocus: Boolean){
+    fun displayFilledEditText(editText: EditText, hasFocus: Boolean) {
         // Only when the text is empty, the view should not be highlighted
         val answer = editText.text.toString()
-        if (answer == "" && !hasFocus){
-            editText.backgroundTintList = ColorStateList.valueOf( ResourcesCompat.getColor(resources, R.color.empty_edittext_color, null) )
-        }else{
-            editText.backgroundTintList = ColorStateList.valueOf( ResourcesCompat.getColor(resources, R.color.filled_edittext_color, null) )
+        if (answer == "" && !hasFocus) {
+            editText.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.empty_edittext_color, null))
+        } else {
+            editText.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.filled_edittext_color, null))
         }
     }
-
-
 }

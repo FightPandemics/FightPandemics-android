@@ -1,20 +1,14 @@
 package com.fightpandemics.profile.ui
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.Toast
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
-import com.fightpandemics.profile.databinding.FeedbackFragmentBinding
 import com.fightpandemics.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.profile_toolbar.*
 import timber.log.Timber
