@@ -25,8 +25,6 @@ class ProfileFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    lateinit var binding: FeedbackFragmentBinding
-
     companion object {
         fun newInstance() = ProfileFragment()
     }
@@ -43,83 +41,31 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FeedbackFragmentBinding.inflate(inflater)
-        return binding.root
-//        return inflater.inflate(R.layout.profile_fragment, container, false)
+        return inflater.inflate(R.layout.profile_fragment, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Get the viewmodel
-//        feedbackViewModel = ViewModelProvider(this).get(FeedbackViewModel::class.java)
-
-        binding.feedbackQuestion1.yourAnswerEditText1.setOnFocusChangeListener { _, hasFocus ->
-            displayActiveBorder(binding.feedbackQuestion1.verticalAccent1, hasFocus)
-            displayFilledEditText(binding.feedbackQuestion1.yourAnswerEditText1, hasFocus)
+        overview.setOnClickListener {
+            Timber.d("Overview")
         }
 
-        binding.feedbackQuestion2.yourAnswerEditText2.setOnFocusChangeListener { _, hasFocus ->
-            displayActiveBorder(binding.feedbackQuestion2.verticalAccent2, hasFocus)
-            displayFilledEditText(binding.feedbackQuestion2.yourAnswerEditText2, hasFocus)
-        }
+        toolbar.setOnMenuItemClickListener {
 
-        binding.feedbackQuestion3.yourAnswerEditText3.setOnFocusChangeListener { _, hasFocus ->
-            displayActiveBorder(binding.feedbackQuestion3.verticalAccent3, hasFocus)
-            displayFilledEditText(binding.feedbackQuestion3.yourAnswerEditText3, hasFocus)
-        }
+            when (it.itemId) {
+                R.id.settings -> {
+                    Timber.d("Settings")
+                    true
+                }
 
-        binding.feedbackQuestion4.yourAnswerEditText4.setOnFocusChangeListener { _, hasFocus ->
-            displayActiveBorder(binding.feedbackQuestion4.verticalAccent4, hasFocus)
-            displayFilledEditText(binding.feedbackQuestion4.yourAnswerEditText4, hasFocus)
+                else -> {
+                    super.onOptionsItemSelected(it)
+                }
+            }
         }
 
     }
-
-    fun displayActiveBorder(verticalAccent: FrameLayout, hasFocus: Boolean){
-        if (hasFocus){
-            verticalAccent.visibility = View.VISIBLE
-        }else{
-            verticalAccent.visibility = View.GONE
-        }
-    }
-
-    fun displayFilledEditText(editText: EditText, hasFocus: Boolean){
-        // Only when the text is empty, the view should not be highlighted
-        val answer = editText.text.toString()
-        if (answer == "" && !hasFocus){
-//            editText.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.empty_edittext_color) ))
-            editText.backgroundTintList = ColorStateList.valueOf( ResourcesCompat.getColor(resources, R.color.empty_edittext_color, null) )
-        }else{
-//            editText.setBackgroundTintList(ColorStateList.valueOf( resources.getColor(R.color.filled_edittext_color)))
-            editText.backgroundTintList = ColorStateList.valueOf( ResourcesCompat.getColor(resources, R.color.filled_edittext_color, null) )
-//            ResourcesCompat.getColor(resources, R.color.filled_edittext_color, null)
-        }
-    }
-
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-//
-//        overview.setOnClickListener {
-//            Timber.d("Overview")
-//        }
-//
-//        toolbar.setOnMenuItemClickListener {
-//
-//            when (it.itemId) {
-//                R.id.settings -> {
-//                    Timber.d("Settings")
-//                    true
-//                }
-//
-//                else -> {
-//                    super.onOptionsItemSelected(it)
-//                }
-//            }
-//        }
-//
-//    }
 
 }
