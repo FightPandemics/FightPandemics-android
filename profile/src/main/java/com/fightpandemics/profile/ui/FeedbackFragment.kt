@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fightpandemics.profile.R
@@ -52,22 +54,22 @@ class FeedbackFragment : Fragment() {
         // Get the viewmodel
         feedbackViewModel = ViewModelProvider(this).get(FeedbackViewModel::class.java)
 
-        binding.feedbackQuestion1.yourAnswerEditText1.setOnFocusChangeListener { view, hasFocus ->
+        binding.feedbackQuestion1.yourAnswerEditText1.setOnFocusChangeListener { _, hasFocus ->
             displayActiveBorder(binding.feedbackQuestion1.verticalAccent1, hasFocus)
             displayFilledEditText(binding.feedbackQuestion1.yourAnswerEditText1, hasFocus)
         }
 
-        binding.feedbackQuestion2.yourAnswerEditText2.setOnFocusChangeListener { view, hasFocus ->
+        binding.feedbackQuestion2.yourAnswerEditText2.setOnFocusChangeListener { _, hasFocus ->
             displayActiveBorder(binding.feedbackQuestion2.verticalAccent2, hasFocus)
             displayFilledEditText(binding.feedbackQuestion2.yourAnswerEditText2, hasFocus)
         }
 
-        binding.feedbackQuestion3.yourAnswerEditText3.setOnFocusChangeListener { view, hasFocus ->
+        binding.feedbackQuestion3.yourAnswerEditText3.setOnFocusChangeListener { _, hasFocus ->
             displayActiveBorder(binding.feedbackQuestion3.verticalAccent3, hasFocus)
             displayFilledEditText(binding.feedbackQuestion3.yourAnswerEditText3, hasFocus)
         }
 
-        binding.feedbackQuestion4.yourAnswerEditText4.setOnFocusChangeListener { view, hasFocus ->
+        binding.feedbackQuestion4.yourAnswerEditText4.setOnFocusChangeListener { _, hasFocus ->
             displayActiveBorder(binding.feedbackQuestion4.verticalAccent4, hasFocus)
             displayFilledEditText(binding.feedbackQuestion4.yourAnswerEditText4, hasFocus)
         }
@@ -83,17 +85,12 @@ class FeedbackFragment : Fragment() {
     }
 
     fun displayFilledEditText(editText: EditText, hasFocus: Boolean){
-        /*
-        not text & focus = highlight
-        text & focus = highlight
-        text & no focus = highlight
-        not text & no focus = nothing
-         */
+        // Only when the text is empty, the view should not be highlighted
         val answer = editText.text.toString()
         if (answer == "" && !hasFocus){
-            editText.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.empty_edittext_color) ))
+            editText.backgroundTintList = ColorStateList.valueOf( ResourcesCompat.getColor(resources, R.color.empty_edittext_color, null) )
         }else{
-            editText.setBackgroundTintList(ColorStateList.valueOf( resources.getColor(R.color.filled_edittext_color)))
+            editText.backgroundTintList = ColorStateList.valueOf( ResourcesCompat.getColor(resources, R.color.filled_edittext_color, null) )
         }
     }
 
