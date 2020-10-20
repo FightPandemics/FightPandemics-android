@@ -13,7 +13,7 @@
         style="@style/AndroidNativeP114Px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="How well does FightPandemics meet your needs?"
+        android:text="@string/fightpandemics_meet_needs"
         app:layout_constraintBottom_toTopOf="@+id/rating_radio_group"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,25 +33,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rating_text">
 
-        <!--        <com.google.android.material.radiobutton.MaterialRadioButton-->
-        <!--            android:id="@+id/rating_1"-->
-        <!--            style="@style/VerticalRadioButton"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="1" />-->
-
         <RadioButton
             android:id="@+id/radio0"
             style="@style/RatingRadioButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="1" />
-
-        <!--        android:layout_weight="1"-->
-        <!--        android:button="@null"-->
-        <!--        android:drawableBottom="?android:attr/listChoiceIndicatorSingle"-->
-        <!--        android:gravity="center_horizontal|bottom"-->
+            android:text="@string/rating1"
+            android:theme="@style/RatingRadioButtonColor" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_2"
@@ -59,7 +48,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2" />
+            android:text="@string/rating2"
+            android:theme="@style/RatingRadioButtonColor" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_3"
@@ -67,7 +57,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="3" />
+            android:text="@string/rating3"
+            android:theme="@style/RatingRadioButtonColor" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_4"
@@ -75,7 +66,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="4" />
+            android:text="@string/rating4"
+            android:theme="@style/RatingRadioButtonColor" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_5"
@@ -83,20 +75,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="5" />
+            android:text="@string/rating5"
+            android:theme="@style/RatingRadioButtonColor" />
 
     </RadioGroup>
-
-<!--    <EditText-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/rating_radio_group"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="hello"/>-->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Poorly"
+        android:text="@string/poorly"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.09"
@@ -107,7 +94,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Very Well"
+        android:text="@string/very_well"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.940"

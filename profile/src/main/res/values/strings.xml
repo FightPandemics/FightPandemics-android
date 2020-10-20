@@ -37,5 +37,13 @@
     <string name="healthy_but_in_a_stay_at_home">I am healthy but in a stay-at-home quarantine</string>
     <string name="mild_symptoms">I have mild symptoms but haven\'t been tested</string>
     <string name="diagnosed_with_covid_19">I am diagnosed with Covid-19</string>
+    <string name="fightpandemics_meet_needs">How well does FightPandemics meet your needs?</string>
+    <string name="rating1">1</string>
+    <string name="rating2">2</string>
+    <string name="rating3">3</string>
+    <string name="rating4">4</string>
+    <string name="rating5">5</string>
+    <string name="poorly">Poorly</string>
+    <string name="very_well">Very Well</string>
 
 </resources>

@@ -8,15 +8,14 @@
     <style name="RatingRadioButton" parent="AndroidNativeP114Px">
         <item name="android:buttonTint">@color/fightPandemicsNeonBlue</item>
         <item name="android:background">@color/colorWhite</item>
-
         <item name="android:button">@null</item>
         <item name="android:drawableBottom">?android:attr/listChoiceIndicatorSingle</item>
         <item name="android:gravity">center_horizontal|bottom</item>
+    </style>
 
-<!--        <item name="listChoiceIndicatorSingle">@android:drawable/btn_radio_holo_dark</item>-->
-        <!--        android:button="@null"-->
-        <!--        android:drawableBottom="?android:attr/listChoiceIndicatorSingle"-->
-        <!--        android:gravity="center_horizontal|bottom"-->
+    <style name="RatingRadioButtonColor" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/fightPandemicsNeonBlue</item>
+        <item name="colorControlActivated">@color/fightPandemicsNeonBlue</item>
     </style>
 
     <style name="RadioWithTextOnTop">
