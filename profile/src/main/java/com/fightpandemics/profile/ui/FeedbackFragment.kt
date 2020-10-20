@@ -84,9 +84,21 @@ class FeedbackFragment : Fragment() {
         // Only when the text is empty, the view should not be highlighted
         val answer = editText.text.toString()
         if (answer == "" && !hasFocus) {
-            editText.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.empty_edittext_color, null))
+            editText.backgroundTintList = ColorStateList.valueOf(
+                ResourcesCompat.getColor(
+                    resources,
+                    R.color.empty_edittext_color,
+                    null
+                )
+            )
         } else {
-            editText.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.filled_edittext_color, null))
+            editText.backgroundTintList = ColorStateList.valueOf(
+                ResourcesCompat.getColor(
+                    resources,
+                    R.color.filled_edittext_color,
+                    null
+                )
+            )
         }
     }
 }
