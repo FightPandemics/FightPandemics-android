@@ -8,6 +8,7 @@
     android:background="@drawable/dialogue_text_background">
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_feedback_msg"
         style="@style/AndroidNativeH314Px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
