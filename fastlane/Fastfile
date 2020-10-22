@@ -42,7 +42,7 @@ platform :android do
       verbose: true,
       bundletool_version: '1.3.0',
       aab_path: 'resources/fightpandemics.aab',
-      apk_output_path: "resources/universal_apk/fightpandemics.apk"
+      apk_output_path: 'resources/bundletool_temp/universal_apk/myapk.apk'
     )
   end
 
