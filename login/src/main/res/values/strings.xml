@@ -1,9 +1,7 @@
 <resources>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="by_signing_up_i_agree_to_the_privacy_policy_and_terms_and_conditions">By signing up, I agree to the Privacy Policy and Terms and Conditions</string>
+    <string name="by_signing_up_i_agree_to_the_privacy_policy_and_terms_and_conditions">
+        By signing up, I agree to the Privacy Policy and Terms and Conditions
+    </string>
     <string name="continue_with_email">Continue with Email</string>
     <string name="sign_up_with_email">Sign up with Email</string>
     <string name="sign_in">Sign In</string>
@@ -20,4 +18,8 @@
     <string name="have_an_account_sign_in_instead">Have an account? Sign in instead</string>
     <string name="don_t_have_an_account_join_now_instead">Don’t have an account? Join now instead</string>
     <string name="forgot_password">Forgot password?</string>
+
+    <string name="email_empty">Email cannot be Empty</string>
+    <string name="email_invalid">Please Enter a Valid Email Address</string>
+    <string name="password_empty">Password cannot be Empty</string>
 </resources>

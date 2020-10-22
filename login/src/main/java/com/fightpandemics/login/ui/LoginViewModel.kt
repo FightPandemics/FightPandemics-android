@@ -3,12 +3,31 @@ package com.fightpandemics.login.ui
 import androidx.lifecycle.ViewModel
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.login.domain.LoginUseCase
+import timber.log.Timber
 import javax.inject.Inject
 
 @ActivityScope
 class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) : ViewModel() {
-}
 
+    fun doLogin(email: String, password: String) {
+        Timber.e("$email $password")
+        /*val loginRequest = LoginRequest(email, password)
+        _login.postValue(Result.Loading)
+        viewModelScope.launch {
+            try {
+                val response = repository.login(loginRequest)
+                if (response.isSuccessful && response.code() == 0) {
+                    val model = LoginDataMapper().transformRemoteToLocal(response.body()!!)
+                    _login.postValue(Result.Success(model))
+                    //Consume the response here - Save it to local or display to the User if needed
+                } else {
+                    _login.postValue(Result.Error(Exception(response.message())))
+                }
+            } catch (error: Throwable) {
+                _login.postValue(Result.Error(error))
+            }*/
+    }
+}
 
 
 /*
@@ -43,24 +62,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
         }
     }
 
-    fun doLogin(email: String, password: String) {
-        val loginRequest = LoginRequest(email, password)
-        _login.postValue(Result.Loading)
-        viewModelScope.launch {
-            try {
-                val response = repository.login(loginRequest)
-                if (response.isSuccessful && response.code() == 0) {
-                    val model = LoginDataMapper().transformRemoteToLocal(response.body()!!)
-                    _login.postValue(Result.Success(model))
-                    //Consume the response here - Save it to local or display to the User if needed
-                } else {
-                    _login.postValue(Result.Error(Exception(response.message())))
-                }
-            } catch (error: Throwable) {
-                _login.postValue(Result.Error(error))
-            }
-        }
-    }
+
 
     fun changePassword(email: String) {
         viewModelScope.launch {
@@ -77,21 +79,6 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
                 _changePassword.postValue(Result.Error(error))
             }
         }
-    }
-
-    fun allInputFieldsHaveBeenFilled(email: String, password: String): Boolean {
-        if (email == "" || password == "") {
-            return false
-        }
-        return true
-    }
-
-    fun inValidEmail(value: String): String? {
-        val valueMatcher = Pattern.compile(Patterns.EMAIL_ADDRESS.pattern()).matcher(value)
-        if (valueMatcher.matches()) {
-            return null
-        }
-        return "Please Enter a Valid Email Address"
     }
 }
 * */
