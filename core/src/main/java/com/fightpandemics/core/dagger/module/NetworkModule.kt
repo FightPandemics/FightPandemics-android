@@ -1,6 +1,6 @@
 package com.fightpandemics.core.dagger.module
 
-import com.fightpandemics.BuildConfig
+import com.fightpandemics.core.BuildConfig
 import com.fightpandemics.core.data.api.FightPandemicsAPI
 import com.fightpandemics.core.data.interceptors.ErrorHandlerInterceptor
 import com.fightpandemics.core.data.interceptors.OfflineResponseCacheInterceptor

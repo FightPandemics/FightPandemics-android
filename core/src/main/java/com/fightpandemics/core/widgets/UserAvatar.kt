@@ -14,7 +14,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
-import com.fightpandemics.R
+import com.fightpandemics.core.R
 import com.fightpandemics.core.utils.GlideApp
 
 class UserAvatar : RelativeLayout {
