@@ -6,6 +6,7 @@ import com.fightpandemics.core.data.repository.LoginRepositoryImpl
 import com.fightpandemics.core.data.repository.PostsRepositoryImpl
 import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.core.domain.repository.PostsRepository
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -19,7 +20,7 @@ import javax.inject.Singleton
 @ExperimentalCoroutinesApi
 @Module
 class DataModule {
-    
+
     @Singleton
     @Provides
     fun providePostsRepository(postsRemoteDataSource: PostsRemoteDataSource): PostsRepository =
@@ -27,6 +28,9 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideLoginRepository(loginRemoteDataSource: LoginRemoteDataSource): LoginRepository =
-        LoginRepositoryImpl(loginRemoteDataSource)
+    fun provideLoginRepository(
+        moshi: Moshi,
+        loginRemoteDataSource: LoginRemoteDataSource
+    ): LoginRepository =
+        LoginRepositoryImpl(moshi, loginRemoteDataSource)
 }

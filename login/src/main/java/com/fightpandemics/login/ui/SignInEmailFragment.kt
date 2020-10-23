@@ -2,19 +2,13 @@ package com.fightpandemics.login.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
-import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.login.R
@@ -26,14 +20,17 @@ import com.fightpandemics.login.util.joinNow
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_sign_in_email.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import timber.log.Timber
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 class SignInEmailFragment : Fragment() {
 
     @Inject
     lateinit var loginViewModelFactory: ViewModelFactory
 
-    private val loginViewModel: LoginViewModel by viewModels<LoginViewModel> { loginViewModelFactory }
+    private val loginViewModel: LoginViewModel by viewModels { loginViewModelFactory }
     private lateinit var sign_in_email_toolbar: MaterialToolbar
     private lateinit var btn_sign_in: MaterialButton
     private lateinit var tv_join_now_instead: TextView
@@ -64,12 +61,18 @@ class SignInEmailFragment : Fragment() {
             hideKeyboard(requireActivity())
             validateFieldsAndDoLogin()
         }
-
         return rootView
     }
 
     private fun doLogin(email: String, password: String) {
         loginViewModel.doLogin(email, password)
+        loginViewModel.login.observe(viewLifecycleOwner, {
+            when {
+                //it.isLoading -> Timber.e("LOGGED IN ${it.email}")
+                it.emailVerified -> Timber.e("LOGGED IN ${it.email}")
+                !it.emailVerified -> Timber.e("ERROR ${it.error}")
+            }
+        })
     }
 
     private fun validateFieldsAndDoLogin() {

@@ -2,6 +2,7 @@ package com.fightpandemics.core.dagger.module
 
 import com.fightpandemics.core.BuildConfig
 import com.fightpandemics.core.data.api.FightPandemicsAPI
+import com.fightpandemics.core.data.interceptors.AuthenticationInterceptor
 import com.fightpandemics.core.data.interceptors.ErrorHandlerInterceptor
 import com.fightpandemics.core.data.interceptors.OfflineResponseCacheInterceptor
 import com.fightpandemics.core.data.interceptors.ResponseCacheInterceptor
@@ -42,6 +43,7 @@ class NetworkModule {
             okHttpClient
                 .addNetworkInterceptor(responseCacheInterceptor)
                 .addInterceptor(offlineResponseCacheInterceptor)
+                .addInterceptor(AuthenticationInterceptor("auth-token"))
                 .addInterceptor(errorHandlerInterceptor)
         }
         return okHttpClient.build()
@@ -50,9 +52,9 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideMoshi(): Moshi = Moshi
-            .Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
+        .Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
 
     @Singleton
     @Provides

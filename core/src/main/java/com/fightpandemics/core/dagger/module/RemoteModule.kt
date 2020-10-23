@@ -1,5 +1,6 @@
 package com.fightpandemics.core.dagger.module
 
+import com.fightpandemics.core.data.CoroutinesDispatcherProvider
 import com.fightpandemics.core.data.api.FightPandemicsAPI
 import com.fightpandemics.core.data.remote.login.LoginRemoteDataSource
 import com.fightpandemics.core.data.remote.login.LoginRemoteDataSourceImpl

@@ -42,16 +42,13 @@ class HomeViewModel @Inject constructor(
         // Set a default loading state
         _postsState.value?.isLoading = true
         return viewModelScope.launch {
-
-            val ss = async {
+            val deferredPosts = async {
                 loadPostsUseCase(objective)
             }
-
-            ss.await().collect {
+            deferredPosts.await().collect {
                 when (it) {
-                    is Result.Success -> {
-                        _postsState.value = PostsViewState(isLoading = false, error = null, posts = it.data)
-                    }
+                    is Result.Success -> _postsState.value =
+                        PostsViewState(isLoading = false, error = null, posts = it.data)
                     is Result.Error -> _postsState.value =
                         PostsViewState(isLoading = false, error = it, posts = emptyList())
                 }
@@ -90,7 +87,8 @@ class HomeViewModel @Inject constructor(
             ss.await().collect {
                 when (it) {
                     is Result.Success -> {
-                        _offerState.value = PostsViewState(isLoading = false, error = null, posts = it.data)
+                        _offerState.value =
+                            PostsViewState(isLoading = false, error = null, posts = it.data)
                     }
                     is Result.Error -> _offerState.value =
                         PostsViewState(isLoading = false, error = it, posts = emptyList())
@@ -124,12 +122,15 @@ class HomeViewModel @Inject constructor(
             ss.await().collect {
                 when (it) {
                     is Result.Success -> {
-                        _requestState.value = PostsViewState(isLoading = false, error = null, posts = it.data)
+                        _requestState.value =
+                            PostsViewState(isLoading = false, error = null, posts = it.data)
                     }
                     is Result.Error -> _requestState.value =
                         PostsViewState(isLoading = false, error = it, posts = emptyList())
                 }
-            }}}
+            }
+        }
+    }
 
 //    fun retry() {
 //        getPosts()

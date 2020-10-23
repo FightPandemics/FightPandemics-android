@@ -3,11 +3,10 @@ package com.fightpandemics.core.data.api
 import com.fightpandemics.core.data.model.login.*
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
+import kotlinx.coroutines.Deferred
+import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface FightPandemicsAPI {
 
@@ -17,8 +16,9 @@ interface FightPandemicsAPI {
     @GET("api/posts/")
     suspend fun getPosts(@Query("objective") objective: String?): List<Post>
 
-    @POST("/api/auth/login")
-    suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
+    @Headers("content-type: application/json")
+    @POST("api/auth/login")
+    suspend fun login(@Body loginRequest: LoginRequest): Response<*>
 
 
 

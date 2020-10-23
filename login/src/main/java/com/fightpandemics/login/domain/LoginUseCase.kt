@@ -7,7 +7,6 @@ import com.fightpandemics.core.data.model.login.LoginResponse
 import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.core.domain.usecase.FlowUseCase
 import com.fightpandemics.core.result.Result
-import com.fightpandemics.core.result.data
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
@@ -19,16 +18,17 @@ import javax.inject.Inject
 class LoginUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
     dispatcherProvider: CoroutinesDispatcherProvider,
-) : FlowUseCase<Any, LoginResponse>(dispatcherProvider.io) {
+) : FlowUseCase<LoginRequest, Any>(dispatcherProvider.io) {
 
-    override suspend fun execute(parameters: Any?): Flow<Result<LoginResponse>> {
+    override suspend fun execute(parameters: LoginRequest?): Flow<Result<Any>> {
         return channelFlow {
-            loginRepository.login(parameters as LoginRequest).collect {
-                if (it is Result.Success) {
-                    channel.offer(Result.Success(it.data) as Result<LoginResponse>)
-                } else {
-                    channel.offer(Result.Error(Exception(it.data?.error)))
+            loginRepository.login(parameters)!!.collect {
+                val result = when (it) {
+                    is Result.Success -> it as Result<LoginResponse>
+                    is Result.Error -> it
+                    else -> null
                 }
+                channel.offer(result as Result<Any>)
             }
         }
     }

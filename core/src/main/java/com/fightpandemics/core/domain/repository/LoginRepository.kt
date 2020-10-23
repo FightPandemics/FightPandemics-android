@@ -7,7 +7,7 @@ import retrofit2.Response
 
 interface LoginRepository {
 
-    suspend fun login(loginRequest: LoginRequest): Flow<Result<LoginResponse?>>
+    suspend fun login(loginRequest: LoginRequest?): Flow<Result<*>>?
 
 
     suspend fun signUp(signUpRequest: SignUpRequest): Response<SignUpResponse>

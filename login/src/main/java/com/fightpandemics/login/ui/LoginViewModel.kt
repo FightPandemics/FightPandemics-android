@@ -1,33 +1,77 @@
 package com.fightpandemics.login.ui
 
+import DataClasses.User
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.ActivityScope
+import com.fightpandemics.core.data.model.login.LoginRequest
+import com.fightpandemics.core.data.model.login.LoginResponse
+import com.fightpandemics.core.result.Result
 import com.fightpandemics.login.domain.LoginUseCase
-import timber.log.Timber
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @ActivityScope
-class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val loginUseCase: LoginUseCase
+) : ViewModel() {
+    private val _login = MutableLiveData<LoginViewState>()
+    val login: LiveData<LoginViewState> = _login
 
+    @ExperimentalCoroutinesApi
     fun doLogin(email: String, password: String) {
-        Timber.e("$email $password")
-        /*val loginRequest = LoginRequest(email, password)
-        _login.postValue(Result.Loading)
+        _login.value?.isLoading = true
+
         viewModelScope.launch {
-            try {
-                val response = repository.login(loginRequest)
-                if (response.isSuccessful && response.code() == 0) {
-                    val model = LoginDataMapper().transformRemoteToLocal(response.body()!!)
-                    _login.postValue(Result.Success(model))
-                    //Consume the response here - Save it to local or display to the User if needed
-                } else {
-                    _login.postValue(Result.Error(Exception(response.message())))
+            val deferredLogin = async {
+                loginUseCase(LoginRequest(email, password))
+            }
+            deferredLogin.await().collect {
+                when (it) {
+                    is Result.Success -> {
+                        val loginResponse = it.data as LoginResponse
+                        _login.value = LoginViewState(
+                            false,
+                            loginResponse.email,
+                            loginResponse.emailVerified!!,
+                            loginResponse.token,
+                            loginResponse.user,
+                            null
+                        )
+                    }
+                    is Result.Error -> {
+                        _login.value = LoginViewState(
+                            false,
+                            null,
+                            false,
+                            null,
+                            null,
+                            it.exception.message.toString()
+                        )
+                    }
                 }
-            } catch (error: Throwable) {
-                _login.postValue(Result.Error(error))
-            }*/
+            }
+        }
     }
 }
+
+/**
+ * UI Models for [SignInEmailFragment].
+ */
+data class LoginViewState(
+    var isLoading: Boolean,
+    val email: String?,
+    val emailVerified: Boolean,
+    val token: String?,
+    val user: User?,
+    val error: String?
+)
 
 
 /*
@@ -36,9 +80,6 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
 
     private val _signUp = MutableLiveData<Result<SignUpModel>>()
     val signUp: LiveData<Result<SignUpModel>> = _signUp
-
-    private val _login = MutableLiveData<Result<LoginModel>>()
-    val login: LiveData<Result<LoginModel>> = _login
 
     private val _changePassword = MutableLiveData<Result<ChangePasswordModel>>()
     val changePassword: LiveData<Result<ChangePasswordModel>> = _changePassword
