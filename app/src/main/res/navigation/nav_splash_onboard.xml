@@ -44,7 +44,7 @@
             android:id="@+id/action_onboardFragment_to_signUpFragment"
             app:destination="@id/nav_sign_up"
             app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/action_onboardFragment_to_signInFragment"

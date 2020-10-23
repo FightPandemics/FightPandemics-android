@@ -86,7 +86,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_sign_in"
-        style="Widget.MaterialComponents.Button"
+        style="@style/MaterialButtonStyle"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="24dp"

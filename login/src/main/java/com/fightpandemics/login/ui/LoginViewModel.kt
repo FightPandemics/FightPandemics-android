@@ -12,6 +12,7 @@ import com.fightpandemics.core.result.Result
 import com.fightpandemics.login.domain.LoginUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,7 +33,9 @@ class LoginViewModel @Inject constructor(
             val deferredLogin = async {
                 loginUseCase(LoginRequest(email, password))
             }
-            deferredLogin.await().collect {
+            deferredLogin.await().catch {
+
+            } .collect {
                 when (it) {
                     is Result.Success -> {
                         val loginResponse = it.data as LoginResponse

@@ -22,4 +22,6 @@
     <string name="email_empty">Email cannot be Empty</string>
     <string name="email_invalid">Please Enter a Valid Email Address</string>
     <string name="password_empty">Password cannot be Empty</string>
+    <string name="signingin">Signing In...</string>
+    <string name="loggedin">Logged In...</string>
 </resources>

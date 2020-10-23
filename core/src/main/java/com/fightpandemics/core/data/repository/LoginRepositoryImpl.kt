@@ -26,12 +26,15 @@ class LoginRepositoryImpl @Inject constructor(
     override suspend fun login(loginRequest: LoginRequest?): Flow<Result<*>>? {
         return channelFlow {
             val response = loginRequest?.let { loginRemoteDataSource.login(it) }
-            if (response!!.isSuccessful) { /*loginResponse.code() == 200*/
-                val loginResponse = response.parseJsonResponse<LoginResponse>(moshi)
-                channel.offer(Result.Success(loginResponse))
-            } else { /*loginResponse.code() == 401*/
-                val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
-                channel.offer(Result.Error(Exception(myError?.message)))
+            when {
+                response!!.isSuccessful && response.code() == 200 -> {
+                    val loginResponse = response.parseJsonResponse<LoginResponse>(moshi)
+                    channel.offer(Result.Success(loginResponse))
+                }
+                response.code() == 401 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
             }
             awaitClose { }
         }

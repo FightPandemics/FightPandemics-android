@@ -1,6 +1,8 @@
 package com.fightpandemics.login.ui
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,10 @@ import com.fightpandemics.login.util.allInputFieldsHaveBeenFilled
 import com.fightpandemics.login.util.hideKeyboard
 import com.fightpandemics.login.util.inValidEmail
 import com.fightpandemics.login.util.joinNow
+import com.github.razir.progressbutton.attachTextChangeAnimator
+import com.github.razir.progressbutton.bindProgressButton
+import com.github.razir.progressbutton.hideProgress
+import com.github.razir.progressbutton.showProgress
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_sign_in_email.*
@@ -57,7 +63,18 @@ class SignInEmailFragment : Fragment() {
         sign_in_email_toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
         btn_sign_in = rootView.findViewById(R.id.btn_sign_in)
+
+        this.bindProgressButton(btn_sign_in)
+        btn_sign_in.attachTextChangeAnimator() // (Optional) Enable fade In / Fade out animations
         btn_sign_in.setOnClickListener {
+            // Show progress with "Loading" text
+            btn_sign_in.showProgress {
+                buttonTextRes = R.string.signingin
+                progressColor = Color.WHITE
+            }
+            it.apply {
+                isEnabled = false
+            }
             hideKeyboard(requireActivity())
             validateFieldsAndDoLogin()
         }
@@ -68,9 +85,30 @@ class SignInEmailFragment : Fragment() {
         loginViewModel.doLogin(email, password)
         loginViewModel.login.observe(viewLifecycleOwner, {
             when {
-                //it.isLoading -> Timber.e("LOGGED IN ${it.email}")
-                it.emailVerified -> Timber.e("LOGGED IN ${it.email}")
-                !it.emailVerified -> Timber.e("ERROR ${it.error}")
+                it.isLoading -> {
+
+                }
+                it.emailVerified -> {
+                    displayButton(false, R.string.loggedin)
+                    Timber.e("LOGGED IN ${it.email}")
+                    if (it.user == null) {
+
+                        // TODO 7 - Navigate to complete profile screen.
+                    } else {
+                        // TODO 9 - Fix this hardcoded string
+                        val PACKAGE_NAME = "com.fightpandemics"
+                        val intent = Intent().setClassName(
+                            PACKAGE_NAME,
+                            "$PACKAGE_NAME.ui.MainActivity"
+                        )
+                        startActivity(intent).apply { requireActivity().finish() }
+                    }
+                }
+                !it.emailVerified -> {
+                    displayButton(true, R.string.sign_in)
+                    Timber.e("ERROR ${it.error}")
+                    // TODO 8 - Display snackbar
+                }
             }
         })
     }
@@ -87,14 +125,19 @@ class SignInEmailFragment : Fragment() {
                 displayErrorMsgs(displayEmail = false, displayPass = false, null, null)
                 doLogin(email!!, password!!)
             }
-            !allInputFieldsHaveBeenFilled(email, password) -> displayErrorMsgs(
-                displayEmail = true,
-                displayPass = true,
-                displayEmailError = getString(R.string.email_empty),
-                displayPassError = getString(R.string.password_empty)
-            )
-            inValidEmail(email)?.isNotEmpty()!! ->
+            !allInputFieldsHaveBeenFilled(email, password) -> {
+                displayErrorMsgs(
+                    displayEmail = true,
+                    displayPass = true,
+                    displayEmailError = getString(R.string.email_empty),
+                    displayPassError = getString(R.string.password_empty)
+                )
+                displayButton(true, R.string.sign_in)
+            }
+            inValidEmail(email)?.isNotEmpty()!! -> {
                 displayErrorMsgs(true, false, getString(R.string.email_invalid), null)
+                displayButton(true, R.string.sign_in)
+            }
         }
     }
 
@@ -108,5 +151,9 @@ class SignInEmailFragment : Fragment() {
         et_email_layout.error = displayEmailError
         et_password_layout.isErrorEnabled = displayPass
         et_password_layout.error = displayPassError
+    }
+
+    private fun displayButton(active: Boolean, text: Int) {
+        btn_sign_in.hideProgress(text).apply { btn_sign_in.isEnabled = active }
     }
 }

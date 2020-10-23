@@ -2,6 +2,10 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
+    <style name="MaterialButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="backgroundTint">@color/buttonselector</item>
+    </style>
+
     <style name="AndroidNativeH122Px">
         <item name="android:textSize">22sp</item>
         <item name="android:lineSpacingExtra">6sp</item>
