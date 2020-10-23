@@ -8,6 +8,13 @@
         <item name="android:textColor">@color/fightPandemicsNero</item>
     </style>
 
+    <style name="AndroidNativeP114Px">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
+        <item name="android:textColor">@color/fightPandemicsNero</item>
+    </style>
+
     <style name="FilterChip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@drawable/chip_selected_effect</item>
         <item name="android:textColor">@drawable/chip_text_color_selected_effect</item>

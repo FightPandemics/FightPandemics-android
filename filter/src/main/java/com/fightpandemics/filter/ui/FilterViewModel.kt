@@ -29,10 +29,9 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         isTypeOptionsExpanded.value = false
     }
 
-    fun toggleView(optionsCardState : MutableLiveData<Boolean>){
-       optionsCardState.value = ! optionsCardState.value!!
+    fun toggleView(optionsCardState: MutableLiveData<Boolean>) {
+        optionsCardState.value = !optionsCardState.value!!
     }
-
 
 
 }
