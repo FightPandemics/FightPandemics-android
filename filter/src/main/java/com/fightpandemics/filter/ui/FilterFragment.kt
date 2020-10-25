@@ -190,7 +190,7 @@ class FilterFragment : Fragment() {
         val placesClient = Places.createClient(requireContext())
 
         // Use fields to define the data types to return.
-        val placeFields: List<Place.Field> = listOf(Place.Field.NAME)
+        val placeFields: List<Place.Field> = listOf(Place.Field.ADDRESS, Place.Field.LAT_LNG)
 
         // Use the builder to create a FindCurrentPlaceRequest.
         val request: FindCurrentPlaceRequest = FindCurrentPlaceRequest.newInstance(placeFields)
@@ -200,22 +200,25 @@ class FilterFragment : Fragment() {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED ) {
 
-            Toast.makeText(requireContext(), "You already have permissions, great!", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), "You already have permissions, great!", Toast.LENGTH_SHORT).show()
 
             val placeResponse = placesClient.findCurrentPlace(request)
             placeResponse.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val response = task.result
-                    for (placeLikelihood: PlaceLikelihood in response?.placeLikelihoods
-                        ?: emptyList()) {
-                        Timber.i("Place '${placeLikelihood.place.name}' has likelihood: ${placeLikelihood.likelihood}")
-                        Toast.makeText(requireContext(), "Place '${placeLikelihood.place.name}' has likelihood: ${placeLikelihood.likelihood}", Toast.LENGTH_SHORT).show()
-                    }
+                    binding.locationOptions.locationSearch.setText(response.placeLikelihoods[0].place.address ?: "Not found")
+//                    for (placeLikelihood: PlaceLikelihood in response?.placeLikelihoods
+//                        ?: emptyList()) {
+//                        binding.locationOptions.locationSearch.setText(placeLikelihood.place.address)
+//                        break
+//                        Timber.i("Place '${placeLikelihood.place.address}', '${placeLikelihood.place.latLng}' has likelihood: ${placeLikelihood.likelihood}")
+//                        Toast.makeText(requireContext(), "Place '${placeLikelihood.place.address}', '${placeLikelihood.place.latLng}' has likelihood: ${placeLikelihood.likelihood}", Toast.LENGTH_SHORT).show()
+//                    }
                 } else {
                     val exception = task.exception
                     if (exception is ApiException) {
                         Timber.e("Place not found: ${exception.statusCode}")
-                        Toast.makeText(requireContext(), "Place not found: ${exception.statusCode}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Place not found: Exception status code ${exception.statusCode}", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -227,7 +230,7 @@ class FilterFragment : Fragment() {
     }
 
     private fun getLocationPermission(){
-        // TODO: Add information prompt thing
+        // TODO: Add custom alert dialog
         if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)){
             AlertDialog.Builder(requireContext())
                 .setTitle("Allow FightPandemics to access your location?")
@@ -253,11 +256,10 @@ class FilterFragment : Fragment() {
 //        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             STORAGE_PERMISSION_CODE -> {
-
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(requireContext(), "Permission Granted yeiihh", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
                 }
 
             }
