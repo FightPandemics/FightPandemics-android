@@ -2,7 +2,10 @@ package com.fightpandemics.filter.ui
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -205,13 +208,13 @@ class FilterFragment : Fragment() {
                     val response = task.result
                     for (placeLikelihood: PlaceLikelihood in response?.placeLikelihoods
                         ?: emptyList()) {
-//                        Timber.i("Place '${placeLikelihood.place.name}' has likelihood: ${placeLikelihood.likelihood}")
+                        Timber.i("Place '${placeLikelihood.place.name}' has likelihood: ${placeLikelihood.likelihood}")
                         Toast.makeText(requireContext(), "Place '${placeLikelihood.place.name}' has likelihood: ${placeLikelihood.likelihood}", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     val exception = task.exception
                     if (exception is ApiException) {
-//                        Timber.e("Place not found: ${exception.statsCode}")
+                        Timber.e("Place not found: ${exception.statusCode}")
                         Toast.makeText(requireContext(), "Place not found: ${exception.statusCode}", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -225,7 +228,21 @@ class FilterFragment : Fragment() {
 
     private fun getLocationPermission(){
         // TODO: Add information prompt thing
-        requestPermissions(arrayOf("android.permission.ACCESS_FINE_LOCATION"), STORAGE_PERMISSION_CODE)
+        if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)){
+            AlertDialog.Builder(requireContext())
+                .setTitle("Allow FightPandemics to access your location?")
+                .setMessage("FightPandemics uses location to show hospitals and aid information near you.")
+                .setPositiveButton("ALLOW", DialogInterface.OnClickListener { dialog, which ->
+                    requestPermissions(arrayOf("android.permission.ACCESS_FINE_LOCATION"), STORAGE_PERMISSION_CODE)
+                })
+                .setNegativeButton("CANCEL", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.dismiss()
+                }).create().show()
+            }
+        else {
+            requestPermissions(arrayOf("android.permission.ACCESS_FINE_LOCATION"), STORAGE_PERMISSION_CODE)
+        }
+
     }
 
     override fun onRequestPermissionsResult(
