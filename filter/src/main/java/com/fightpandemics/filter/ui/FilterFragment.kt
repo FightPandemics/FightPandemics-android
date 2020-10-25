@@ -1,14 +1,18 @@
 package com.fightpandemics.filter.ui
 
-import android.content.ContentValues.TAG
+import android.Manifest
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.VoicemailContract
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,11 +23,14 @@ import com.fightpandemics.home.BuildConfig
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
 import com.fightpandemics.utils.ViewModelFactory
-import com.google.android.gms.common.api.Status
+import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.google.android.libraries.places.api.model.PlaceLikelihood
+import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.AutocompleteActivity
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.android.synthetic.main.filter_location_options.view.*
 import kotlinx.android.synthetic.main.filter_start_fragment.view.*
@@ -36,6 +43,9 @@ class FilterFragment : Fragment() {
     lateinit var filterViewModelFactory: ViewModelFactory
     private lateinit var filterViewModel: FilterViewModel
     private lateinit var binding: FilterStartFragmentBinding
+
+    val AUTOCOMPLETE_REQUEST_CODE = 1
+    val STORAGE_PERMISSION_CODE = 1
 
     private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
 
@@ -69,7 +79,6 @@ class FilterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
         // Get the viewmodel
         filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
 
@@ -79,10 +88,14 @@ class FilterFragment : Fragment() {
             }
         }
 
-        binding.filterFromWhomExpandable.fromWhomEmptyCard.apply {
-            setOnClickListener {
-                filterViewModel.toggleView(filterViewModel.isFromWhomOptionsExpanded)
-            }
+//        binding.filterFromWhomExpandable.fromWhomEmptyCard.apply {
+//            setOnClickListener {
+//                filterViewModel.toggleView(filterViewModel.isFromWhomOptionsExpanded)
+//            }
+//        }
+
+        binding.filterFromWhomExpandable.fromWhomEmptyCard.setOnClickListener {
+            filterViewModel.toggleView(filterViewModel.isTypeOptionsExpanded)
         }
 
         binding.filterTypeExpandable.typeEmptyCard.apply {
@@ -171,38 +184,125 @@ class FilterFragment : Fragment() {
             }
         })
 
-        setupPlaces()
+        // Places API Logic
+        binding.locationOptions.locationSearch.setOnClickListener {
+            launchPlacesIntent()
+        }
+
+        binding.locationOptions.shareMyLocation.setOnClickListener {
+            getCurrentLocation()
+        }
+
 
     }
 
-    private fun setupPlaces(){
-
-//        val apiKey = "AIzaSyCASyXjbvJ-0zNDcmFU625zaPLfEfGIFBA"
-        // Initialize the SDK
+    private fun getCurrentLocation() {
         Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
         // Create a new PlacesClient instance
-        val placesClient = Places.createClient(requireActivity().applicationContext)
+        val placesClient = Places.createClient(requireContext())
 
-        // Initialize the AutocompleteSupportFragment.
-//        val autocompleteFragment = binding.locationOptions.autocompleteFragment as AutocompleteSupportFragment
-        val autocompleteFragment  = childFragmentManager.findFragmentByTag("autocomplete_fragment") as? AutocompleteSupportFragment ?: return Timber.i("Couldnt find the child")
+        // Use fields to define the data types to return.
+        val placeFields: List<Place.Field> = listOf(Place.Field.NAME)
 
-        // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME))
+        // Use the builder to create a FindCurrentPlaceRequest.
+        val request: FindCurrentPlaceRequest = FindCurrentPlaceRequest.newInstance(placeFields)
 
-        // Set up a PlaceSelectionListener to handle the response.
-        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
-            override fun onPlaceSelected(place: Place) {
-                // TODO: Get info about the selected place.
-                Timber.i( "Place: ${place.name}, ${place.id}")
+        // Call findCurrentPlace and handle the response (first check that the user has granted permission).
+        if (ContextCompat.checkSelfPermission( requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED ) {
+
+            Toast.makeText(requireContext(), "You already have permissions, great!", Toast.LENGTH_SHORT).show()
+
+            val placeResponse = placesClient.findCurrentPlace(request)
+            placeResponse.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val response = task.result
+                    for (placeLikelihood: PlaceLikelihood in response?.placeLikelihoods
+                        ?: emptyList()) {
+//                        Timber.i("Place '${placeLikelihood.place.name}' has likelihood: ${placeLikelihood.likelihood}")
+                        Toast.makeText(requireContext(), "Place '${placeLikelihood.place.name}' has likelihood: ${placeLikelihood.likelihood}", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    val exception = task.exception
+                    if (exception is ApiException) {
+//                        Timber.e("Place not found: ${exception.statusCode}")
+                        Toast.makeText(requireContext(), "Place not found: ${exception.statusCode}", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
+        } else {
+            // A local method to request required permissions;
+            // See https://developer.android.com/training/permissions/requesting
+            getLocationPermission()
+        }
+    }
 
-            override fun onError(status: Status) {
-                // TODO: Handle the error.
-                Timber.i( "An error occurred: $status")
+    private fun getLocationPermission(){
+
+        Timber.i("Do request permissions prompt")
+        requestPermissions(arrayOf("android.permission.ACCESS_FINE_LOCATION"), STORAGE_PERMISSION_CODE)
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Timber.i("I returned from permissions")
+        when (requestCode) {
+            STORAGE_PERMISSION_CODE -> {
+
+                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Permission Granted yeiihh", Toast.LENGTH_SHORT).show()
+                }
+
             }
-        })
+        }
 
+    }
+
+
+    private fun launchPlacesIntent() {
+        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
+
+        // Set the fields to specify which types of place data to
+        // return after the user has made a selection.
+        val fields = listOf(Place.Field.ID, Place.Field.NAME)
+
+        // Start the autocomplete intent.
+        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
+            .build(requireActivity().applicationContext)
+        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    data?.let {
+                        val place = Autocomplete.getPlaceFromIntent(data)
+                        Timber.i("Place: ${place.name}, ${place.id}")
+                    }
+                }
+                AutocompleteActivity.RESULT_ERROR -> {
+                    // TODO: Handle the error.
+                    data?.let {
+                        val status = Autocomplete.getStatusFromIntent(data)
+                        Timber.i(status.statusMessage)
+                    }
+                }
+                Activity.RESULT_CANCELED -> {
+                    // The user canceled the operation.
+                }
+            }
+            return
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
 
