@@ -44,9 +44,9 @@ class FilterFragment : Fragment() {
     private lateinit var filterViewModel: FilterViewModel
     private lateinit var binding: FilterStartFragmentBinding
 
-    val AUTOCOMPLETE_REQUEST_CODE = 1
-    val STORAGE_PERMISSION_CODE = 1
-
+    // Places API variables
+    private val AUTOCOMPLETE_REQUEST_CODE = 1
+    private val STORAGE_PERMISSION_CODE = 1
     private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
 
     override fun onAttach(context: Context) {
@@ -82,26 +82,16 @@ class FilterFragment : Fragment() {
         // Get the viewmodel
         filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
 
-        binding.filterLocationExpandable.locationEmptyCard.apply {
-            setOnClickListener {
-                filterViewModel.toggleView(filterViewModel.isLocationOptionsExpanded)
-            }
+        binding.filterLocationExpandable.locationEmptyCard.setOnClickListener {
+            filterViewModel.toggleView(filterViewModel.isLocationOptionsExpanded)
         }
-
-//        binding.filterFromWhomExpandable.fromWhomEmptyCard.apply {
-//            setOnClickListener {
-//                filterViewModel.toggleView(filterViewModel.isFromWhomOptionsExpanded)
-//            }
-//        }
 
         binding.filterFromWhomExpandable.fromWhomEmptyCard.setOnClickListener {
-            filterViewModel.toggleView(filterViewModel.isTypeOptionsExpanded)
+            filterViewModel.toggleView(filterViewModel.isFromWhomOptionsExpanded)
         }
 
-        binding.filterTypeExpandable.typeEmptyCard.apply {
-            setOnClickListener {
-                filterViewModel.toggleView(filterViewModel.isTypeOptionsExpanded)
-            }
+        binding.filterTypeExpandable.typeEmptyCard.setOnClickListener {
+            filterViewModel.toggleView(filterViewModel.isTypeOptionsExpanded)
         }
 
         filterViewModel.isLocationOptionsExpanded.observe(
@@ -120,11 +110,6 @@ class FilterFragment : Fragment() {
                     )
 
 //                    // TODO: find a better way of writing this / uncomment this
-//                    val selectedLocationQuery = binding.locationOptions.root.location_search.query
-//                    if (selectedLocationQuery.isNotEmpty()) {
-//                        binding.filterLocationExpandable.filtersAppliedText.visibility =
-//                            View.VISIBLE
-//                    }
                     val selectedLocationQuery =
                         binding.locationOptions.root.location_search.text.toString()
                     if (selectedLocationQuery != "") {
@@ -226,7 +211,7 @@ class FilterFragment : Fragment() {
                 } else {
                     val exception = task.exception
                     if (exception is ApiException) {
-//                        Timber.e("Place not found: ${exception.statusCode}")
+//                        Timber.e("Place not found: ${exception.statsCode}")
                         Toast.makeText(requireContext(), "Place not found: ${exception.statusCode}", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -239,10 +224,8 @@ class FilterFragment : Fragment() {
     }
 
     private fun getLocationPermission(){
-
-        Timber.i("Do request permissions prompt")
+        // TODO: Add information prompt thing
         requestPermissions(arrayOf("android.permission.ACCESS_FINE_LOCATION"), STORAGE_PERMISSION_CODE)
-
     }
 
     override fun onRequestPermissionsResult(
@@ -251,7 +234,6 @@ class FilterFragment : Fragment() {
         grantResults: IntArray
     ) {
 //        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        Timber.i("I returned from permissions")
         when (requestCode) {
             STORAGE_PERMISSION_CODE -> {
 
