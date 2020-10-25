@@ -1,33 +1,15 @@
 package com.fightpandemics.login.ui
 
-import android.app.ProgressDialog
-import android.content.Context
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.fightpandemics.login.R
-import com.fightpandemics.login.data.Result
-import com.fightpandemics.login.data.model.SignUpModel
-import com.fightpandemics.login.util.snack
-import com.fightpandemics.ui.BaseActivity
-import com.fightpandemics.utils.*
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.fragment_sign_up_email.*
-import kotlinx.android.synthetic.main.sign_up_toolbar.*
-import javax.inject.Inject
-
 
 class SignUpEmailFragment : Fragment() {
 
-    @Inject
+    /*@Inject
     lateinit var loginViewModelFactory: ViewModelFactory
 
     private lateinit var viewModel: LoginViewModel
@@ -44,7 +26,7 @@ class SignUpEmailFragment : Fragment() {
 
         // Now you can access loginViewModel here and onCreateView too
         // (shared instance with the Activity and the other Fragment)
-    }
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +37,7 @@ class SignUpEmailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        /*viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         tv_sigin_instead.setOnClickListener {
             (activity as LoginActivity).replaceFragment(SignInFragment.newInstance(), true)
         }
@@ -89,14 +71,14 @@ class SignUpEmailFragment : Fragment() {
                 )
             }
         }
-        observeSignUp()
+        observeSignUp()*/
     }
 
     private fun executeSignUp(email: String, password: String, confirmPassword: String) {
-        viewModel.executeSignUp(email, password, confirmPassword)
+        //viewModel.executeSignUp(email, password, confirmPassword)
     }
 
-    private fun EditText.validateET(
+    /*private fun EditText.validateET(
         message: String,
         textInputLayout: TextInputLayout,
         validator: (String) -> Boolean
@@ -174,5 +156,5 @@ class SignUpEmailFragment : Fragment() {
 
     private fun navigateToSignIn() {
         (activity as LoginActivity).replaceFragment(SignInFragment.newInstance(), true)
-    }
+    }*/
 }

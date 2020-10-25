@@ -20,10 +20,10 @@ class AuthenticationInterceptor /*@Inject constructor(
             .newBuilder()
             //.header("Authorization", token)
 
-        requestBuilder.addHeader(
+       /* requestBuilder.addHeader(
             "xx",
             "Bearer ${authTokenManager.getToken()}"
-        )
+        )*/
 //        requestBuilder.addHeader(
 //            "xx",
 //            "Bearer ${deviceTokenManager.getDeviceToken()}"
