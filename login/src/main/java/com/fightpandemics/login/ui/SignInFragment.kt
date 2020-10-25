@@ -13,13 +13,15 @@ import com.fightpandemics.login.dagger.inject
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 class SignInFragment : Fragment() {
 
     @Inject
     lateinit var loginViewModelFactory: ViewModelFactory
-    private val loginViewModel: LoginViewModel by viewModels<LoginViewModel> { loginViewModelFactory }
+    private val loginViewModel: LoginViewModel by viewModels { loginViewModelFactory }
     private lateinit var sign_in_toolbar: MaterialToolbar
 
     override fun onAttach(context: Context) {
@@ -40,7 +42,6 @@ class SignInFragment : Fragment() {
         rootView.findViewById<MaterialButton>(R.id.btn_sign_in_email).setOnClickListener {
             findNavController().navigate(R.id.action_signInFragment_to_signInEmailFragment)
         }
-
         return rootView
     }
 }

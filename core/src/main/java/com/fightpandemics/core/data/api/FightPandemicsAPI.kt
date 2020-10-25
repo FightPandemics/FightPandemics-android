@@ -20,11 +20,11 @@ interface FightPandemicsAPI {
     @POST("api/auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<*>
 
-
-
-
-    @POST("/api/auth/signup")
+    @POST("api/auth/signup")
     suspend fun signUp(@Body signUpRequest: SignUpRequest): Response<SignUpResponse>
+
+
+
 
     @POST("/api/auth/change-password")
     suspend fun changePassword(@Body email: String): Response<ChangePasswordResponse>

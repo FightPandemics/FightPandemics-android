@@ -43,7 +43,7 @@ class NetworkModule {
             okHttpClient
                 .addNetworkInterceptor(responseCacheInterceptor)
                 .addInterceptor(offlineResponseCacheInterceptor)
-                .addInterceptor(AuthenticationInterceptor("auth-token"))
+                //.addInterceptor(AuthenticationInterceptor("auth-token"))
                 .addInterceptor(errorHandlerInterceptor)
         }
         return okHttpClient.build()

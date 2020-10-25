@@ -7,27 +7,12 @@
     android:fitsSystemWindows="true">
 
     <include
-        android:id="@+id/toolbar"
         layout="@layout/sign_up_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
-    <!--<com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBar"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/colorWhite"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/sign_up_toolbar" />
-    </com.google.android.material.appbar.AppBarLayout>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content_sign_up"
@@ -40,7 +25,7 @@
         android:paddingBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/sign_up_toolbar">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilEmail"
