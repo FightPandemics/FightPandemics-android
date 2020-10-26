@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.home.R
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.ui.HomeViewModel
 import com.fightpandemics.home.ui.tabs.PostsAdapter
 import com.fightpandemics.core.utils.ViewModelFactory
+import timber.log.Timber
 import javax.inject.Inject
 
 class HomeAllFragment : Fragment() {
@@ -45,7 +47,7 @@ class HomeAllFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.home_all_fragment, container, false)
         progressBar = rootView.findViewById(R.id.progressBar)
         postList = rootView.findViewById(R.id.postList)
-        postsAdapter = PostsAdapter()
+        postsAdapter = PostsAdapter(homeViewModel)
         return rootView
     }
 
@@ -65,6 +67,10 @@ class HomeAllFragment : Fragment() {
                     bindLoading(it.isLoading)
                     postList.visibility = View.VISIBLE
                     postsAdapter.submitList(it.posts)
+                    postsAdapter.onItemClickListener = { post ->
+                        Timber.e("${post.author?.name}")
+                        //findNavController().navigate(PokeListFragmentDirections.actionPokeListFragmentToPokeDetailFragment(post._id))
+                    }
                 }
             }
         })

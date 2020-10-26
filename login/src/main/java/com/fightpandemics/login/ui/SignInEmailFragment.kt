@@ -15,10 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
-import com.fightpandemics.login.util.allInputFieldsHaveBeenFilled
-import com.fightpandemics.login.util.hideKeyboard
-import com.fightpandemics.login.util.inValidEmail
-import com.fightpandemics.login.util.joinNow
+import com.fightpandemics.login.util.*
 import com.github.razir.progressbutton.attachTextChangeAnimator
 import com.github.razir.progressbutton.bindProgressButton
 import com.github.razir.progressbutton.hideProgress
@@ -57,7 +54,9 @@ class SignInEmailFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_sign_in_email, container, false)
 
         tv_join_now_instead = rootView.findViewById(R.id.tv_join_now_instead)
-        tv_join_now_instead.joinNow(requireActivity())
+        tv_join_now_instead.apply {
+            joinNow(this)
+        }
 
         sign_in_email_toolbar = rootView.findViewById(R.id.sign_in_email_toolbar)
         sign_in_email_toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
@@ -75,7 +74,7 @@ class SignInEmailFragment : Fragment() {
             it.apply {
                 isEnabled = false
             }
-            hideKeyboard(requireActivity())
+            this.view?.let { dismissKeyboard(it) }
             validateFieldsAndDoLogin()
         }
         return rootView

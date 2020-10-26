@@ -1,6 +1,5 @@
 package com.fightpandemics.login.util
 
-import android.app.Activity
 import android.content.Context
 import android.text.SpannableString
 import android.text.Spanned
@@ -49,22 +48,21 @@ fun View.snack(
     }.show()
 }
 
-fun hideKeyboard(context: Activity) {
-    val inputMethodManager =
-        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-    // Check if no view has focus
-    val currentFocusedView = context.currentFocus
-    currentFocusedView?.let {
-        inputMethodManager.hideSoftInputFromWindow(
-            currentFocusedView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS
-        )
-    }
+fun showKeyboard(view: View) {
+    val imm =
+        view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(view, InputMethodManager.SHOW_FORCED)
 }
 
-fun TextView.joinNow(context: Context) {
+fun dismissKeyboard(view: View) {
+    val imm =
+        view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+fun TextView.joinNow(view: View) {
     val joinString =
-        SpannableString(context.getString(R.string.don_t_have_an_account_join_now_instead))
+        SpannableString(view.context.getString(R.string.don_t_have_an_account_join_now_instead))
 
     val joinNowClickableSpan: ClickableSpan = object : JoinNowClickableSpan() {
         override fun onClick(widget: View) {

@@ -1,5 +1,6 @@
 package com.fightpandemics.core.data.repository
 
+import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
 import com.fightpandemics.core.data.remote.posts.PostsRemoteDataSource
@@ -38,4 +39,11 @@ class PostsRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun updatePost(postRequest: PostRequest) {
+        postsRemoteDataSource.updatePost(postRequest.post._id, postRequest)
+    }
+
+    override suspend fun updatePost(postId: String, userId: String) {
+        postsRemoteDataSource.updatePost(postId, userId)
+    }
 }

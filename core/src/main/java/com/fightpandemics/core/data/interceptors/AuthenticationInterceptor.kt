@@ -24,7 +24,6 @@ class AuthenticationInterceptor @Inject constructor(
                 val finalToken = "Bearer ${token}"
                 requestBuilder
                     .addHeader("Authorization", finalToken)
-                    //.addHeader("Cookie", sessionToken)
                     .build()
             }
         }

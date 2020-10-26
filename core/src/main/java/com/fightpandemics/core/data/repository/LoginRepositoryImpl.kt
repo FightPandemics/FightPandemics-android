@@ -30,8 +30,8 @@ class LoginRepositoryImpl @Inject constructor(
             when {
                 response!!.isSuccessful && response.code() == 200 -> {
                     val loginResponse = response.parseJsonResponse<LoginResponse>(moshi)
+                    Timber.e("${loginResponse?.user?.id}")
                     authTokenLocalDataSource.setToken(loginResponse?.token)
-                    Timber.e("${loginResponse?.token}")
                     channel.offer(Result.Success(loginResponse))
                 }
                 response.code() == 401 -> {

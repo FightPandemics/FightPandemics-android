@@ -7,23 +7,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.home.R
+import com.fightpandemics.home.ui.HomeEventListener
 
-class PostsAdapter : RecyclerView.Adapter<PostsViewHolder>() {
+class PostsAdapter(
+    private val homeEventListener: HomeEventListener
+) : RecyclerView.Adapter<PostsViewHolder>() {
 
     private val mPostsDiffer: AsyncListDiffer<Post> =
         AsyncListDiffer(this, POSTS_DIFF_CALLBACK)
 
     var onItemClickListener: ((Post) -> Unit)? = null
+    var onLikeClickListener: ((Post) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_all_feed, parent, false)
-        return PostsViewHolder(itemView)
+        return PostsViewHolder(homeEventListener, itemView)
     }
 
     override fun onBindViewHolder(postsViewHolder: PostsViewHolder, position: Int) {
         val post: Post = mPostsDiffer.currentList.get(position)
-        postsViewHolder.bind(post, onItemClickListener)
+        postsViewHolder.bind(post, onLikeClickListener/*, onItemClickListener*/)
     }
 
     override fun getItemCount(): Int = mPostsDiffer.currentList.size

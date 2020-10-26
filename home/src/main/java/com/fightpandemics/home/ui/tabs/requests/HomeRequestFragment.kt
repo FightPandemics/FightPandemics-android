@@ -45,7 +45,7 @@ class HomeRequestFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.home_request_fragment, container, false)
         progressBar = rootView.findViewById(R.id.progressBar)
         requestList = rootView.findViewById(R.id.requestList)
-        homeRequestAdapter = PostsAdapter()
+        homeRequestAdapter = PostsAdapter(homeViewModel)
         return rootView
     }
 

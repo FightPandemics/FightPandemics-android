@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/starred"
+        android:drawable="@drawable/ic_like_active"
+        android:state_checked="true" />
+
+    <item
+        android:id="@+id/unstarred"
+        android:drawable="@drawable/ic_like_unactive"
+        android:state_checked="false" />
+
+</selector>

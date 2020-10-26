@@ -13,13 +13,14 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @FeatureScope
 class HomeViewModel @Inject constructor(
     private val loadPostsUseCase: LoadPostsUseCase,
     private val dispatcherProvider: CoroutinesDispatcherProvider,
-) : ViewModel() {
+) : ViewModel(), HomeEventListener {
 
     val s: String = "SAME"
 
@@ -53,25 +54,6 @@ class HomeViewModel @Inject constructor(
                         PostsViewState(isLoading = false, error = it, posts = emptyList())
                 }
             }
-
-
-//            loadPostsUseCase(objective)
-//                .collect {
-//
-//                    withContext(dispatcherProvider.main) {
-//                        when (it) {
-//                            is Result.Success -> {
-//                                Timber.e(it.data.get(0).author?.name.toString())
-//                                _postsState.value = PostsViewState(isLoading = false, error = null, posts = it.data)
-//
-//                            }
-//                            is Result.Error -> _postsState.value =
-//                                PostsViewState(isLoading = false, error = it, posts = emptyList())
-//                        }
-//                    }
-//                }
-
-
         }
     }
 
@@ -94,19 +76,6 @@ class HomeViewModel @Inject constructor(
                         PostsViewState(isLoading = false, error = it, posts = emptyList())
                 }
             }
-
-//            loadPostsUseCase(objective)
-//                .collect {
-//                        when (it) {
-//                            is Result.Success -> {
-//                                Timber.e(it.data.get(0).author?.name.toString())
-//                                _offerState.value = OffersViewState(isLoading = false, error = null, posts = it.data)
-//
-//                            }
-//                            is Result.Error -> _offerState.value =
-//                                OffersViewState(isLoading = false, error = it, posts = emptyList())
-//                        }
-//                }
         }
     }
 
@@ -132,7 +101,11 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-//    fun retry() {
+    override fun onStarClicked(post: Post) {
+        Timber.e(post._id)
+    }
+
+    //    fun retry() {
 //        getPosts()
 //    }
 
@@ -146,3 +119,6 @@ data class PostsViewState(
     val error: Result.Error?,
     val posts: List<Post>?,
 )
+
+interface HomeEventListener : EventActions {
+}

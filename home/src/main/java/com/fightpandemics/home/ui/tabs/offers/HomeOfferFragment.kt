@@ -45,7 +45,7 @@ class HomeOfferFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.home_offer_fragment, container, false)
         progressBar = rootView.findViewById(R.id.progressBar)
         postList = rootView.findViewById(R.id.postList)
-        postAdapter = PostsAdapter()
+        postAdapter = PostsAdapter(homeViewModel)
         return rootView
     }
 
