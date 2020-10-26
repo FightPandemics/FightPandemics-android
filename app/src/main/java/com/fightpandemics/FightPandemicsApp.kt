@@ -49,8 +49,8 @@ open class FightPandemicsApp : Application(),
             .factory()
             .create(
                 ContextModule(this),
-                SharedPreferencesModule(this, "fightpandemics")
-            ) // todo 3 - make name a const
+                SharedPreferencesModule(this)
+            )
     }
 
     override fun provideLoginComponent(): LoginComponent {

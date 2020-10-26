@@ -38,7 +38,6 @@ interface CoreComponent {
 
     // The return type of functions inside the component interface is what can be provided from the container
     //fun provideContext(): Context
-    fun provideString(): String
     fun providesPreferenceStorage(): PreferenceStorage
 
 

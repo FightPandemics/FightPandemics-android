@@ -1,5 +1,9 @@
 package com.fightpandemics.core.dagger.module
 
+import com.fightpandemics.core.data.local.AuthTokenLocalDataSource
+import com.fightpandemics.core.data.local.AuthTokenLocalDataSourceImpl
+import com.fightpandemics.core.data.prefs.FightPandemicsPreferenceDataStore
+import com.fightpandemics.core.data.prefs.PreferenceStorage
 import com.fightpandemics.core.data.remote.login.LoginRemoteDataSource
 import com.fightpandemics.core.data.remote.posts.PostsRemoteDataSource
 import com.fightpandemics.core.data.repository.LoginRepositoryImpl
@@ -30,7 +34,15 @@ class DataModule {
     @Provides
     fun provideLoginRepository(
         moshi: Moshi,
-        loginRemoteDataSource: LoginRemoteDataSource
+        loginRemoteDataSource: LoginRemoteDataSource,
+        authTokenLocalDataSource: AuthTokenLocalDataSource
     ): LoginRepository =
-        LoginRepositoryImpl(moshi, loginRemoteDataSource)
+        LoginRepositoryImpl(moshi, loginRemoteDataSource, authTokenLocalDataSource)
+
+    @Singleton
+    @Provides
+    fun provideAuthTokenLocalDataSource(
+        preferenceDataStore: FightPandemicsPreferenceDataStore
+    ): AuthTokenLocalDataSource =
+        AuthTokenLocalDataSourceImpl(preferenceDataStore)
 }

@@ -15,9 +15,6 @@ import javax.inject.Inject
 class SplashFragment : Fragment() {
 
     @Inject
-    lateinit var commonHome: String
-
-    @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val splashViewModel by viewModels<SplashViewModel> { viewModelFactory }
 

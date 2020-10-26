@@ -6,6 +6,7 @@ import com.fightpandemics.core.data.interceptors.AuthenticationInterceptor
 import com.fightpandemics.core.data.interceptors.ErrorHandlerInterceptor
 import com.fightpandemics.core.data.interceptors.OfflineResponseCacheInterceptor
 import com.fightpandemics.core.data.interceptors.ResponseCacheInterceptor
+import com.fightpandemics.core.data.local.AuthTokenLocalDataSource
 import com.fightpandemics.core.data.remote.RetrofitService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -30,6 +31,7 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(
+        authenticationInterceptor: AuthenticationInterceptor,
         httpLoggingInterceptor: HttpLoggingInterceptor,
         responseCacheInterceptor: ResponseCacheInterceptor,
         offlineResponseCacheInterceptor: OfflineResponseCacheInterceptor,
@@ -38,12 +40,15 @@ class NetworkModule {
         val okHttpClient = OkHttpClient
             .Builder()
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(authenticationInterceptor)
+        // TODO  10 - Add authenticator
+        //.authenticator(new AccessTokenAuthenticator())
+
 
         if (BuildConfig.DEBUG) {
             okHttpClient
                 .addNetworkInterceptor(responseCacheInterceptor)
                 .addInterceptor(offlineResponseCacheInterceptor)
-                //.addInterceptor(AuthenticationInterceptor("auth-token"))
                 .addInterceptor(errorHandlerInterceptor)
         }
         return okHttpClient.build()
@@ -66,6 +71,13 @@ class NetworkModule {
                 HttpLoggingInterceptor.Level.NONE
             }
         }
+
+    @Singleton
+    @Provides
+    fun provideAuthenticationInterceptor(
+        authTokenLocalDataSource: AuthTokenLocalDataSource
+    ): AuthenticationInterceptor =
+        AuthenticationInterceptor(authTokenLocalDataSource)
 
     @Singleton
     @Provides

@@ -12,16 +12,12 @@ import javax.inject.Singleton
  * Provide [SharedPreferences] to this app's components.
  */
 @Module
-class SharedPreferencesModule(val context: Context, val name: String) {
-
-    @Singleton
-    @Provides
-    fun provideString(): String = name
+class SharedPreferencesModule(val context: Context) {
 
     @Singleton
     @Provides
     fun providesPreferenceStorage(
-        context: Context, name: String
+        context: Context
     ): PreferenceStorage =
-        FightPandemicsPreferenceDataStore(context, name)
+        FightPandemicsPreferenceDataStore(context)
 }

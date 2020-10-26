@@ -21,9 +21,6 @@ import javax.inject.Inject
 class OnBoardFragment : Fragment() {
 
     @Inject
-    lateinit var commonHome: String
-
-    @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val onBoardViewModel by viewModels<OnBoardViewModel> { viewModelFactory }
 

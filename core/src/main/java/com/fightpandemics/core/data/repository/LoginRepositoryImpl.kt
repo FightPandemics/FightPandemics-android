@@ -1,5 +1,6 @@
 package com.fightpandemics.core.data.repository
 
+import com.fightpandemics.core.data.local.AuthTokenLocalDataSource
 import com.fightpandemics.core.data.model.login.*
 import com.fightpandemics.core.data.remote.login.LoginRemoteDataSource
 import com.fightpandemics.core.domain.repository.LoginRepository
@@ -18,9 +19,9 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 class LoginRepositoryImpl @Inject constructor(
-    /*private val localDataSource: LocalDataSource,*/
     val moshi: Moshi,
-    private val loginRemoteDataSource: LoginRemoteDataSource
+    private val loginRemoteDataSource: LoginRemoteDataSource,
+    private val authTokenLocalDataSource: AuthTokenLocalDataSource
 ) : LoginRepository {
 
     override suspend fun login(loginRequest: LoginRequest?): Flow<Result<*>>? {
@@ -29,6 +30,8 @@ class LoginRepositoryImpl @Inject constructor(
             when {
                 response!!.isSuccessful && response.code() == 200 -> {
                     val loginResponse = response.parseJsonResponse<LoginResponse>(moshi)
+                    authTokenLocalDataSource.setToken(loginResponse?.token)
+                    Timber.e("${loginResponse?.token}")
                     channel.offer(Result.Success(loginResponse))
                 }
                 response.code() == 401 -> {
