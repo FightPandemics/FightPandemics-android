@@ -35,6 +35,8 @@ android {
 //        viewBinding true
 //    }
 
+    //testing on how to create branches and prs(pull request)
+
     buildTypes {
         release {
             minifyEnabled false
