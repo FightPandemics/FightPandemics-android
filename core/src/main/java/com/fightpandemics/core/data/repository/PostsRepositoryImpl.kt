@@ -3,6 +3,7 @@ package com.fightpandemics.core.data.repository
 import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
+import com.fightpandemics.core.data.prefs.PreferenceStorage
 import com.fightpandemics.core.data.remote.posts.PostsRemoteDataSource
 import com.fightpandemics.core.domain.repository.PostsRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -16,6 +17,7 @@ import javax.inject.Inject
 @FlowPreview
 @ExperimentalCoroutinesApi
 class PostsRepositoryImpl @Inject constructor(
+    private val preferenceStorage: PreferenceStorage,
     private val postsRemoteDataSource: PostsRemoteDataSource,
 ) : PostsRepository {
 
@@ -43,7 +45,8 @@ class PostsRepositoryImpl @Inject constructor(
         postsRemoteDataSource.updatePost(postRequest.post._id, postRequest)
     }
 
-    override suspend fun updatePost(postId: String, userId: String) {
-        postsRemoteDataSource.updatePost(postId, userId)
+    override suspend fun updatePost(postId: String) {
+        val userId = preferenceStorage.userId
+        postsRemoteDataSource.updatePost(postId, userId!!)
     }
 }

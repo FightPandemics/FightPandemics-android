@@ -6,6 +6,7 @@ import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.domain.repository.PostsRepository
 import com.fightpandemics.core.domain.usecase.FlowUseCase
+import com.fightpandemics.core.domain.usecase.SuspendUseCase
 import com.fightpandemics.core.domain.usecase.UseCase
 import javax.inject.Inject
 
@@ -13,9 +14,9 @@ import javax.inject.Inject
 class UpdatePostUsecase @Inject constructor(
     private val postsRepository: PostsRepository,
     dispatcherProvider: CoroutinesDispatcherProvider,
-) : UseCase<PostRequest, Any>(dispatcherProvider.default)  {
+) : SuspendUseCase<Post, Any>(dispatcherProvider.default)  {
 
-    override fun execute(parameters: PostRequest): Any {
-        TODO("Not yet implemented")
+    override suspend fun execute(parameters: Post): Any {
+        return postsRepository.updatePost(parameters._id)
     }
 }

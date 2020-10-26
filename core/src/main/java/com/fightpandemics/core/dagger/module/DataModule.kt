@@ -27,8 +27,11 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun providePostsRepository(postsRemoteDataSource: PostsRemoteDataSource): PostsRepository =
-        PostsRepositoryImpl(postsRemoteDataSource)
+    fun providePostsRepository(
+        preferenceStorage: PreferenceStorage,
+        postsRemoteDataSource: PostsRemoteDataSource
+    ): PostsRepository =
+        PostsRepositoryImpl(preferenceStorage, postsRemoteDataSource)
 
     @Singleton
     @Provides

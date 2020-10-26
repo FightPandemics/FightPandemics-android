@@ -12,6 +12,7 @@ import kotlin.reflect.KProperty
 interface PreferenceStorage {
     var onboardingCompleted: Boolean
     var token: String?
+    var userId: String?
 }
 
 // [PreferenceStorage] impl backed by [android.content.SharedPreferences].
@@ -23,6 +24,7 @@ class FightPandemicsPreferenceDataStore @Inject constructor(
         const val PREFS_NAME = "fightpandemics"
         const val PREF_ONBOARDING = "pref_onboarding"
         const val PREF_AUTH_TOKEN = "pref_auth_token"
+        const val PREF_USER_ID = "pref_user_id"
     }
 
     private val sharedPreferences: Lazy<SharedPreferences> =
@@ -39,6 +41,12 @@ class FightPandemicsPreferenceDataStore @Inject constructor(
     override var token: String? by StringPreference(
         sharedPreferences,
         PREF_AUTH_TOKEN,
+        null
+    )
+
+    override var userId: String? by StringPreference(
+        sharedPreferences,
+        PREF_USER_ID,
         null
     )
 }

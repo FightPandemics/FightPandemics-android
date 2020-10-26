@@ -9,7 +9,7 @@ data class Post(
     val expireAt: Any?,
     val externalLinks: ExternalLinks?,
     val language: List<String>?,
-    val liked: Boolean?,
+    var liked: Boolean?,
     val likesCount: Int?,
     val objective: String?,
     val title: String?,

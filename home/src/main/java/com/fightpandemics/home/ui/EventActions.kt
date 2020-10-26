@@ -6,5 +6,5 @@ import com.fightpandemics.core.data.model.posts.Post
  * Actions that can be performed on events.
  */
 interface EventActions {
-    fun onStarClicked(post: Post)
+    fun onLikeClicked(post: Post)
 }

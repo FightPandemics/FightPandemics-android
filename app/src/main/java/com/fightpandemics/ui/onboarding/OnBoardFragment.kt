@@ -44,11 +44,21 @@ class OnBoardFragment : Fragment() {
         TabLayoutMediator(tabLayout, onboardViewPager) { tab, position -> }.attach()
 
         rootView.findViewById<MaterialButton>(R.id.bt_sign_in).setOnClickListener {
-            findNavController().navigate(R.id.action_onboardFragment_to_signInFragment)
+            onBoardViewModel.signInClick()
+            onBoardViewModel.navigateToSignIn.observe(viewLifecycleOwner, EventObserver {
+                this.run {
+                    findNavController().navigate(R.id.action_onboardFragment_to_signInFragment)
+                }
+            })
         }
 
         rootView.findViewById<MaterialButton>(R.id.bt_join_now).setOnClickListener {
-            findNavController().navigate(R.id.action_onboardFragment_to_signUpFragment)
+            onBoardViewModel.signUpClick()
+            onBoardViewModel.navigateToSignUp.observe(viewLifecycleOwner, EventObserver {
+                this.run {
+                    findNavController().navigate(R.id.action_onboardFragment_to_signUpFragment)
+                }
+            })
         }
 
         rootView.findViewById<TextView>(R.id.tv_skip).setOnClickListener {

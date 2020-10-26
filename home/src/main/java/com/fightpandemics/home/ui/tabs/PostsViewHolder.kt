@@ -68,7 +68,11 @@ class PostsViewHolder(
 
             like.isChecked = post.liked!!
             like.setOnClickListener {
-                homeEventListener.onStarClicked(post)
+                post.liked = !post.liked!!
+                /*it.apply {
+                    isChecked = post
+                }*/
+                homeEventListener.onLikeClicked(post)
             }
             likes_count.text = post.likesCount.toString()
             comments_count.text = post.commentsCount.toString()
