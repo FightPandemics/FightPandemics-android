@@ -35,19 +35,20 @@
         app:layout_constraintTop_toTopOf="@+id/location_empty_card" />
 
     <TextView
+        android:id="@+id/filters_applied_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         style="@style/AndroidNativeP212Px"
         android:textColor="@color/fightPandemicsSuvaGrey"
-        android:text="0 applied"
+        android:text="1 applied"
         app:layout_constraintBottom_toBottomOf="@+id/location_empty_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/location_text"
         app:layout_constraintTop_toTopOf="@+id/location_empty_card"
         android:visibility="gone"
-        tools:visibility="visible"
+        tools:visibility="gone"
         app:layout_constraintVertical_bias="0.405" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
