@@ -1,5 +1,6 @@
 package com.fightpandemics.filter.ui
 
+import com.fightpandemics.home.BuildConfig
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
@@ -71,7 +72,7 @@ class FilterFragment : Fragment() {
     // Places API variables
     private val AUTOCOMPLETE_REQUEST_CODE = 1
     private val STORAGE_PERMISSION_CODE = 1
-    private val PLACES_API_KEY: String = "BuildConfig.PLACES_API_KEY"
+    private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -103,7 +104,6 @@ class FilterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
 
         // Get the viewmodel
@@ -164,7 +164,8 @@ class FilterFragment : Fragment() {
 
                     // TODO: find a better way of writing this
                     //Timber.e("QWERTYUIOP" + total.toString())
-                    whomSelectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds.size
+                    whomSelectedChips =
+                        binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds.size
 
                     total += whomSelectedChips!!
 
