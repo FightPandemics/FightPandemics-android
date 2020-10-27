@@ -57,7 +57,7 @@
             style="@style/FilterChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/chip_goverment" />
+            android:text="@string/chip_government" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/health_care_chip"

@@ -15,6 +15,7 @@ import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.ui.HomeViewModel
 import com.fightpandemics.home.ui.tabs.PostsAdapter
 import com.fightpandemics.core.utils.ViewModelFactory
+import com.google.android.material.button.MaterialButton
 import timber.log.Timber
 import javax.inject.Inject
 

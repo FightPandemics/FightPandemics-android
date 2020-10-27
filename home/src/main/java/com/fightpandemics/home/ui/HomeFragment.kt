@@ -18,6 +18,7 @@ import com.fightpandemics.home.R.*
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialSharedAxis
+import timber.log.Timber
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
@@ -51,6 +52,15 @@ class HomeFragment : Fragment() {
 
         setupUi()
         return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // We use a String here, but any type that can be put in a Bundle is supported
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
+            viewLifecycleOwner) { result ->
+            // Do something with the result.
+            Timber.e(result)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

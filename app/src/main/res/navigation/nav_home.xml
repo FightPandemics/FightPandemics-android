@@ -15,7 +15,9 @@
 
         <action
             android:id="@+id/action_homeFragment_to_filterFragment"
-            app:destination="@id/nav_filter" />
+            app:destination="@id/nav_filter"
+            app:launchSingleTop="true" />
+
     </fragment>
 
     <include app:graph="@navigation/nav_filter" />

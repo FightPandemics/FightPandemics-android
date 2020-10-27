@@ -11,5 +11,14 @@
         android:name="com.fightpandemics.filter.ui.FilterFragment"
         android:label="Filter"
         app:moduleName="Fight_Pandemics.filter"
-        tools:layout="@layout/filter_start_fragment" />
+        tools:layout="@layout/filter_start_fragment" >
+
+        <!--<action
+            android:id="@+id/action_homeFragment_to_filterFragment"
+            app:destination="@id/nav_filter" />-->
+
+    </fragment>
+
+<!--    <include app:graph="@navigation/nav_home" />-->
+
 </navigation>

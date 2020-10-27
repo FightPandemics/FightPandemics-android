@@ -17,13 +17,13 @@
     <string name="chip_company">Company</string>
     <string name="chip_community">Community</string>
     <string name="chip_university">University</string>
-    <string name="chip_goverment">Goverment</string>
+    <string name="chip_government">Government</string>
     <string name="chip_health_care_providers">Health Care Providers</string>
     <string name="chip_non_profit">Non-profit</string>
     <string name="chip_others">Others</string>
 
     <string name="chip_medical_supplies">Medical Supplies</string>
-    <string name="chip_r_amp_d"><![CDATA[R&amp;D]]></string>
+    <string name="chip_r_amp_d">R&amp;D</string>
     <string name="chip_business">Business</string>
     <string name="chip_education">Education</string>
     <string name="chip_funding">Funding</string>
@@ -33,5 +33,6 @@
     <string name="chip_legal">Legal</string>
     <string name="chip_groceries_food">Groceries/Food</string>
     <string name="chip_wellbeing_mental">Wellbeing/Mental</string>
+    <string name="filters_title">Filters</string>
 
 </resources>

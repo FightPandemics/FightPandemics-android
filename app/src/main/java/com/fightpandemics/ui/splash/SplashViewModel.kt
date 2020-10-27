@@ -1,6 +1,8 @@
 package com.fightpandemics.ui.splash
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import androidx.lifecycle.map
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.core.result.Event
 import com.fightpandemics.core.result.data
@@ -16,7 +18,6 @@ class SplashViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val onboardingCompletedResult = liveData { emit(onBoardCompletedUseCase(Unit)) }
-
     val launchDestination = onboardingCompletedResult.map {
         if (!it.data!!) {
             Event(LaunchDestination.ONBOARD)

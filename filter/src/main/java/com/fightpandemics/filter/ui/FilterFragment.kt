@@ -21,11 +21,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.BuildConfig
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
-import com.fightpandemics.utils.ViewModelFactory
 import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -50,7 +50,7 @@ class FilterFragment : Fragment() {
     // Places API variables
     private val AUTOCOMPLETE_REQUEST_CODE = 1
     private val STORAGE_PERMISSION_CODE = 1
-    private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
+    private val PLACES_API_KEY: String = "BuildConfig.PLACES_API_KEY"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -74,13 +74,19 @@ class FilterFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FilterStartFragmentBinding.inflate(inflater)
+
         binding.filterToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+
+        binding.applyFiltersButton.setOnClickListener {
+            findNavController().previousBackStackEntry?.savedStateHandle?.set("key", "PPPP")
+            findNavController().popBackStack()
+        }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         // Get the viewmodel
         filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
@@ -180,8 +186,6 @@ class FilterFragment : Fragment() {
         binding.locationOptions.shareMyLocation.setOnClickListener {
             getCurrentLocation()
         }
-
-
     }
 
     private fun getCurrentLocation() {
@@ -267,7 +271,6 @@ class FilterFragment : Fragment() {
 
     }
 
-
     private fun launchPlacesIntent() {
         Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
 
@@ -306,7 +309,6 @@ class FilterFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-
     private fun expandContents(optionsView: View, clickableTextView: TextView) {
         optionsView.visibility = View.VISIBLE
         clickableTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(
@@ -326,7 +328,6 @@ class FilterFragment : Fragment() {
             0
         )
     }
-
 
 }
 
