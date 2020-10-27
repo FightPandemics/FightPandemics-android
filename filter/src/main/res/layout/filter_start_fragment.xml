@@ -191,7 +191,6 @@
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:backgroundTint="@drawable/primary_button_selector"
         android:enabled="false"
-        android:text="@string/button_apply_filters"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"

@@ -54,15 +54,6 @@ class HomeFragment : Fragment() {
         return rootView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // We use a String here, but any type that can be put in a Bundle is supported
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
-            viewLifecycleOwner) { result ->
-            // Do something with the result.
-            Timber.e(result)
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.home_menu, menu)
     }

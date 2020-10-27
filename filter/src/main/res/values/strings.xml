@@ -10,7 +10,10 @@
     <string name="filter_from_whom">From Whom</string>
     <string name="filter_type">Type</string>
     <string name="button_clear_filters">Clear filters</string>
-    <string name="button_apply_filters">Apply filters</string>
+
+    <string name="button_apply_filter">Apply filter</string>
+    <string name="button_apply_filter_">Apply %1$d filter</string>
+    <string name="button_apply_filters">Apply %1$d filters</string>
 
     <string name="chip_individuals">Individuals</string>
     <string name="chip_startup">Startup</string>

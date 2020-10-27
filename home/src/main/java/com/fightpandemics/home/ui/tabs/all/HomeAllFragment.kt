@@ -53,6 +53,11 @@ class HomeAllFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<String>>("key")?.observe(
+            viewLifecycleOwner) { result ->
+            // Do something with the result.
+            Timber.e(result.toString())
+        }
         super.onViewCreated(view, savedInstanceState)
         getPosts()
     }

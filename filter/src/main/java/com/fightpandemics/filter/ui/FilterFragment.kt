@@ -3,7 +3,6 @@ package com.fightpandemics.filter.ui
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -14,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -23,13 +21,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.filter.dagger.inject
-import com.fightpandemics.home.BuildConfig
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
 import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.model.PlaceLikelihood
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
@@ -39,6 +35,7 @@ import kotlinx.android.synthetic.main.filter_location_options.view.*
 import kotlinx.android.synthetic.main.filter_start_fragment.view.*
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 class FilterFragment : Fragment() {
 
@@ -46,6 +43,30 @@ class FilterFragment : Fragment() {
     lateinit var filterViewModelFactory: ViewModelFactory
     private lateinit var filterViewModel: FilterViewModel
     private lateinit var binding: FilterStartFragmentBinding
+    private var whomSelectedChips: Int? = 0
+    private var typeSelectedChips: Int? = 0
+    private var total: Int = 0
+
+    var x: Int by Delegates.observable(0) { prop, old, new ->
+        when (new) {
+            0 -> {
+                binding.applyFiltersButton.isEnabled = false
+                binding.applyFiltersButton.text =
+                    getString(R.string.button_apply_filter)
+            }
+            1 -> {
+                binding.applyFiltersButton.isEnabled = true
+                binding.applyFiltersButton.text =
+                    getString(R.string.button_apply_filter_, new)
+            }
+            else -> {
+                binding.applyFiltersButton.isEnabled = true
+                binding.applyFiltersButton.text =
+                    getString(R.string.button_apply_filters, new)
+            }
+        }
+    }
+
 
     // Places API variables
     private val AUTOCOMPLETE_REQUEST_CODE = 1
@@ -77,16 +98,13 @@ class FilterFragment : Fragment() {
 
         binding.filterToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
-        binding.applyFiltersButton.setOnClickListener {
-            findNavController().previousBackStackEntry?.savedStateHandle?.set("key", "PPPP")
-            findNavController().popBackStack()
-        }
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         // Get the viewmodel
         filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
@@ -145,17 +163,22 @@ class FilterFragment : Fragment() {
                     )
 
                     // TODO: find a better way of writing this
-                    val selectedChips =
-                        binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds.size
-                    if (selectedChips > 0) {
+                    //Timber.e("QWERTYUIOP" + total.toString())
+                    whomSelectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds.size
+
+                    total += whomSelectedChips!!
+
+                    //Timber.e("ASDFGHJ" + total.toString())
+                    if (whomSelectedChips!! > 0) {
                         binding.filterFromWhomExpandable.filtersAppliedText.visibility =
                             View.VISIBLE
                         binding.filterFromWhomExpandable.filtersAppliedText.text =
-                            "${selectedChips} applied"
+                            "${whomSelectedChips} applied"
                     }
-
                 }
+                //whomSelectedChips?.let { x.plus(it) }
             })
+
 
         filterViewModel.isTypeOptionsExpanded.observe(viewLifecycleOwner, Observer { isExpanded ->
             if (isExpanded) {
@@ -168,15 +191,61 @@ class FilterFragment : Fragment() {
                 )
 
                 // TODO: find a better way of writing this
-                val selectedChips = binding.typeOptions.typeChipGroup.checkedChipIds.size
-                if (!binding.root.type_options.isVisible && selectedChips > 0) {
+                typeSelectedChips = binding.typeOptions.typeChipGroup.checkedChipIds.size
+                if (!binding.root.type_options.isVisible && typeSelectedChips!! > 0) {
                     binding.filterTypeExpandable.filtersAppliedText.visibility = View.VISIBLE
                     binding.filterTypeExpandable.filtersAppliedText.text =
-                        "${selectedChips} applied"
+                        "${typeSelectedChips} applied"
                 }
-
             }
+
+
+//            when (typeSelectedChips) {
+//                0 -> {
+//                    binding.applyFiltersButton.isEnabled = false
+//                    binding.applyFiltersButton.text =
+//                        getString(R.string.button_apply_filter)
+//                }
+//                1 -> {
+//                    binding.applyFiltersButton.isEnabled = true
+//                    binding.applyFiltersButton.text =
+//                        getString(R.string.button_apply_filter_, typeSelectedChips)
+//                }
+//                else -> {
+//                    binding.applyFiltersButton.isEnabled = true
+//                    binding.applyFiltersButton.text =
+//                        getString(R.string.button_apply_filters, typeSelectedChips)
+//                }
+//            }
+
         })
+
+//        Timber.e("ZXCVBNM" + total.toString())
+//        when (total) {
+//            0 -> {
+//                binding.applyFiltersButton.isEnabled = false
+//                binding.applyFiltersButton.text =
+//                    getString(R.string.button_apply_filter)
+//            }
+//            1 -> {
+//                binding.applyFiltersButton.isEnabled = true
+//                binding.applyFiltersButton.text =
+//                    getString(R.string.button_apply_filter_, typeSelectedChips)
+//            }
+//            else -> {
+//                binding.applyFiltersButton.isEnabled = true
+//                binding.applyFiltersButton.text =
+//                    getString(R.string.button_apply_filters, typeSelectedChips)
+//            }
+//        }
+
+        binding.applyFiltersButton.setOnClickListener {
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                "key",
+                listOf("1", "2")
+            )
+            findNavController().popBackStack()
+        }
 
         // Places API Logic
         binding.locationOptions.locationSearch.setOnClickListener {
@@ -200,9 +269,11 @@ class FilterFragment : Fragment() {
         val request: FindCurrentPlaceRequest = FindCurrentPlaceRequest.newInstance(placeFields)
 
         // Call findCurrentPlace and handle the response (first check that the user has granted permission).
-        if (ContextCompat.checkSelfPermission( requireContext(),
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED ) {
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
 
 //            Toast.makeText(requireContext(), "You already have permissions, great!", Toast.LENGTH_SHORT).show()
 
@@ -210,7 +281,9 @@ class FilterFragment : Fragment() {
             placeResponse.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val response = task.result
-                    binding.locationOptions.locationSearch.setText(response.placeLikelihoods[0].place.address ?: "Not found")
+                    binding.locationOptions.locationSearch.setText(
+                        response.placeLikelihoods[0].place.address ?: "Not found"
+                    )
 //                    for (placeLikelihood: PlaceLikelihood in response?.placeLikelihoods
 //                        ?: emptyList()) {
 //                        binding.locationOptions.locationSearch.setText(placeLikelihood.place.address)
@@ -222,7 +295,11 @@ class FilterFragment : Fragment() {
                     val exception = task.exception
                     if (exception is ApiException) {
                         Timber.e("Place not found: ${exception.statusCode}")
-                        Toast.makeText(requireContext(), "Place not found: Exception status code ${exception.statusCode}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Place not found: Exception status code ${exception.statusCode}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -233,21 +310,26 @@ class FilterFragment : Fragment() {
         }
     }
 
-    private fun getLocationPermission(){
+    private fun getLocationPermission() {
         // TODO: Add custom alert dialog
-        if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)){
+        if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
             AlertDialog.Builder(requireContext())
                 .setTitle("Allow FightPandemics to access your location?")
                 .setMessage("FightPandemics uses location to show hospitals and aid information near you.")
                 .setPositiveButton("ALLOW", DialogInterface.OnClickListener { dialog, which ->
-                    requestPermissions(arrayOf("android.permission.ACCESS_FINE_LOCATION"), STORAGE_PERMISSION_CODE)
+                    requestPermissions(
+                        arrayOf("android.permission.ACCESS_FINE_LOCATION"),
+                        STORAGE_PERMISSION_CODE
+                    )
                 })
                 .setNegativeButton("CANCEL", DialogInterface.OnClickListener { dialog, id ->
                     dialog.dismiss()
                 }).create().show()
-            }
-        else {
-            requestPermissions(arrayOf("android.permission.ACCESS_FINE_LOCATION"), STORAGE_PERMISSION_CODE)
+        } else {
+            requestPermissions(
+                arrayOf("android.permission.ACCESS_FINE_LOCATION"),
+                STORAGE_PERMISSION_CODE
+            )
         }
 
     }
@@ -263,7 +345,8 @@ class FilterFragment : Fragment() {
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT)
+                        .show()
                 }
 
             }
