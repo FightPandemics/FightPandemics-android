@@ -22,11 +22,13 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     var isTypeOptionsExpanded = MutableLiveData<Boolean>()
 
     var locationQuery = MutableLiveData<CharSequence>()
+    var random_locations = MutableLiveData<List<String>>()
 
     init {
         isLocationOptionsExpanded.value = false
         isFromWhomOptionsExpanded.value = false
         isTypeOptionsExpanded.value = false
+        random_locations.value = listOf("California, USA", "Massachusetts, USA", "Panama, Panama", "New York, USA")
     }
 
     fun toggleView(optionsCardState: MutableLiveData<Boolean>) {

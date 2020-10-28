@@ -20,6 +20,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
@@ -74,6 +76,10 @@ class FilterFragment : Fragment() {
     private val STORAGE_PERMISSION_CODE = 1
     private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
 
+    // Recycler View variables
+    private var layoutManager: RecyclerView.LayoutManager? = null
+//    private var adapter: RecyclerView.Adapter<FilterAdapter.ViewHolder>? = null
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -108,6 +114,24 @@ class FilterFragment : Fragment() {
 
         // Get the viewmodel
         filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
+
+
+       // recycler view
+        val adapter = FilterAdapter()
+        binding.locationOptions.autoCompleteLocationsRecyclerView.apply {
+            // set a LinearLayoutManager to handle Android
+            // RecyclerView behavior
+            layoutManager = LinearLayoutManager(activity)
+            // set the custom adapter to the RecyclerView
+            this.adapter = adapter
+        }
+
+        filterViewModel.random_locations.observe(viewLifecycleOwner, Observer{
+           it?.let {
+              adapter.data = it
+           }
+        })
+
 
         binding.filterLocationExpandable.locationEmptyCard.setOnClickListener {
             filterViewModel.toggleView(filterViewModel.isLocationOptionsExpanded)
