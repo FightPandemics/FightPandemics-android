@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -27,9 +28,13 @@ import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken
+import com.google.android.libraries.places.api.model.RectangularBounds
+import com.google.android.libraries.places.api.model.TypeFilter
+import com.google.android.libraries.places.api.net.*
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
@@ -272,9 +277,14 @@ class FilterFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        // Places API Logic
-        binding.locationOptions.locationSearch.setOnClickListener {
-            launchPlacesIntent()
+//        // Places API Logic
+//        binding.locationOptions.locationSearch.setOnClickListener {
+//            launchPlacesIntent()
+//        }
+
+        binding.locationOptions.locationSearch.doOnTextChanged { text, start, before, count ->
+            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+            autocompletePlaces(text.toString())
         }
 
         binding.locationOptions.shareMyLocation.setOnClickListener {
@@ -376,6 +386,72 @@ class FilterFragment : Fragment() {
 
             }
         }
+
+    }
+
+    private fun autocompletePlaces(query: String){
+        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
+        // Create a new PlacesClient instance
+        val placesClient = Places.createClient(requireContext())
+        // Create a new token for the autocomplete session. Pass this to FindAutocompletePredictionsRequest,
+        // and once again when the user makes a selection (for example when calling fetchPlace()).
+        val token = AutocompleteSessionToken.newInstance()
+
+        // Create a RectangularBounds object.
+        val bounds = RectangularBounds.newInstance(
+            LatLng(-33.880490, 151.184363),
+            LatLng(-33.858754, 151.229596)
+        )
+        // Use the builder to create a FindAutocompletePredictionsRequest.
+        val request =
+            FindAutocompletePredictionsRequest.builder()
+                // Call either setLocationBias() OR setLocationRestriction().
+//                .setLocationBias(bounds)
+                //.setLocationRestriction(bounds)
+//                .setOrigin(LatLng(-33.8749937, 151.2041382))
+//                .setCountries("AU", "NZ")
+                .setTypeFilter(TypeFilter.ADDRESS)
+                .setSessionToken(token)
+                .setQuery(query)
+                .build()
+        placesClient.findAutocompletePredictions(request)
+            .addOnSuccessListener { response: FindAutocompletePredictionsResponse ->
+                Timber.i("Places: success")
+                for (prediction in response.autocompletePredictions) {
+                    Timber.i(prediction.placeId)
+                    Timber.i(prediction.getPrimaryText(null).toString())
+                    getLatLng(prediction.placeId)
+                }
+            }.addOnFailureListener { exception: Exception? ->
+                Timber.i("Places: failure")
+                if (exception is ApiException) {
+                    Timber.e("Place not found: " + exception.statusCode)
+                }
+            }
+    }
+
+    private fun getLatLng(placeId: String){
+        val placesClient = Places.createClient(requireContext())
+        // Define a Place ID.
+//        val placeId = "INSERT_PLACE_ID_HERE"
+
+        // Specify the fields to return.
+        val placeFields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG)
+
+        // Construct a request object, passing the place ID and fields array.
+        val request = FetchPlaceRequest.newInstance(placeId, placeFields)
+
+        placesClient.fetchPlace(request)
+            .addOnSuccessListener { response: FetchPlaceResponse ->
+                val place = response.place
+                Timber.i("Places found: ${place.name}, ${place.latLng}")
+            }.addOnFailureListener { exception: Exception ->
+                if (exception is ApiException) {
+                    Timber.i("Places not found: ${exception.message}")
+                    val statusCode = exception.statusCode
+                    TODO("Handle error with given status code")
+                }
+            }
 
     }
 
