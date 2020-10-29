@@ -286,11 +286,6 @@ class FilterFragment : Fragment() {
             autocompletePlaces(text.toString())
         }
 
-//        binding.locationOptions.locationSearch.doOnTextChanged { text, start, before, count ->
-//            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
-//            autocompletePlaces(text.toString())
-//        }
-
         binding.locationOptions.shareMyLocation.setOnClickListener {
             getCurrentLocation()
         }
