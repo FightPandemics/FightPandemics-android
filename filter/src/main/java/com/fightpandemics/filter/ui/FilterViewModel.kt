@@ -23,6 +23,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
 
     var locationQuery = MutableLiveData<CharSequence>()
     var random_locations = MutableLiveData<List<String>>()
+    var autocomplete_locations = MutableLiveData<List<String>>()
 
     init {
         isLocationOptionsExpanded.value = false

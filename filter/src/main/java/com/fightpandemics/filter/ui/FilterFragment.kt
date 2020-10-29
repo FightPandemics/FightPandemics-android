@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -124,14 +125,12 @@ class FilterFragment : Fragment() {
        // recycler view
         val adapter = FilterAdapter()
         binding.locationOptions.autoCompleteLocationsRecyclerView.apply {
-            // set a LinearLayoutManager to handle Android
             // RecyclerView behavior
-            layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
             this.adapter = adapter
         }
 
-        filterViewModel.random_locations.observe(viewLifecycleOwner, Observer{
+        filterViewModel.autocomplete_locations.observe(viewLifecycleOwner, Observer{
            it?.let {
               adapter.data = it
            }
@@ -282,10 +281,15 @@ class FilterFragment : Fragment() {
 //            launchPlacesIntent()
 //        }
 
-        binding.locationOptions.locationSearch.doOnTextChanged { text, start, before, count ->
+        binding.locationOptions.locationSearch.doAfterTextChanged { text ->
             Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
             autocompletePlaces(text.toString())
         }
+
+//        binding.locationOptions.locationSearch.doOnTextChanged { text, start, before, count ->
+//            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+//            autocompletePlaces(text.toString())
+//        }
 
         binding.locationOptions.shareMyLocation.setOnClickListener {
             getCurrentLocation()
@@ -414,14 +418,26 @@ class FilterFragment : Fragment() {
                 .setSessionToken(token)
                 .setQuery(query)
                 .build()
+
+        val placesList: MutableList<String> = mutableListOf()
+
         placesClient.findAutocompletePredictions(request)
             .addOnSuccessListener { response: FindAutocompletePredictionsResponse ->
                 Timber.i("Places: success")
                 for (prediction in response.autocompletePredictions) {
-                    Timber.i(prediction.placeId)
-                    Timber.i(prediction.getPrimaryText(null).toString())
-                    getLatLng(prediction.placeId)
+                    placesList.add(prediction.getPrimaryText(null).toString())
+//                    Timber.i(prediction.placeId)
+//                    Timber.i(prediction.getPrimaryText(null).toString())
+//                    getLatLng(prediction.placeId)
                 }
+                for (place in placesList){
+                    Timber.i("Place" + place)
+                }
+                filterViewModel.autocomplete_locations.value = placesList
+//                for (place in filterViewModel.autocomplete_locations.value){
+//                    Timber.i("Place" + place)
+//                }
+
             }.addOnFailureListener { exception: Exception? ->
                 Timber.i("Places: failure")
                 if (exception is ApiException) {
@@ -431,9 +447,9 @@ class FilterFragment : Fragment() {
     }
 
     private fun getLatLng(placeId: String){
-        val placesClient = Places.createClient(requireContext())
         // Define a Place ID.
 //        val placeId = "INSERT_PLACE_ID_HERE"
+        val placesClient = Places.createClient(requireContext())
 
         // Specify the fields to return.
         val placeFields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG)

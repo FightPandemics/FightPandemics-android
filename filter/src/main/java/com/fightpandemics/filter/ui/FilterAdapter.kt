@@ -36,7 +36,7 @@ class FilterAdapter : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return 2
+        // TODO: maybe add variable for this, instead of magic number
         return data.size
     }
 
