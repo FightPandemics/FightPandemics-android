@@ -91,7 +91,6 @@ class SignInEmailFragment : Fragment() {
                     displayButton(false, R.string.loggedin)
                     Timber.e("LOGGED IN ${it.email}")
                     if (it.user == null) {
-
                         // TODO 7 - Navigate to complete profile screen.
                     } else {
                         // TODO 9 - Fix this hardcoded string

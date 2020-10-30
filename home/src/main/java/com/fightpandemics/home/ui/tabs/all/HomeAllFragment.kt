@@ -10,12 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.home.R
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.ui.HomeViewModel
 import com.fightpandemics.home.ui.tabs.PostsAdapter
-import com.fightpandemics.core.utils.ViewModelFactory
-import com.google.android.material.button.MaterialButton
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -56,8 +55,13 @@ class HomeAllFragment : Fragment() {
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<String>>("key")?.observe(
             viewLifecycleOwner) { result ->
             // Do something with the result.
+
             Timber.e(result.toString())
         }
+        // If you’d only like to handle a result only once, you must call remove() on the
+        // SavedStateHandle to clear the result. If you do not remove the result, the LiveData
+        // will continue to return the last result to any new Observer instances.
+        // findNavController().currentBackStackEntry?.savedStateHandle?.remove<List<String>>("key")
         super.onViewCreated(view, savedInstanceState)
         getPosts()
     }

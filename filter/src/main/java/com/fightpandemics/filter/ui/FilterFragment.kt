@@ -95,15 +95,12 @@ class FilterFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FilterStartFragmentBinding.inflate(inflater)
-
         binding.filterToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
 
         // Get the viewmodel
@@ -148,27 +145,23 @@ class FilterFragment : Fragment() {
             })
 
         filterViewModel.isFromWhomOptionsExpanded.observe(
-            viewLifecycleOwner,
-            Observer { isExpanded ->
+            viewLifecycleOwner, Observer { isExpanded ->
                 if (isExpanded) {
                     expandContents(
                         binding.fromWhomOptions.root,
                         binding.filterFromWhomExpandable.fromWhomEmptyCard
                     )
                     binding.filterFromWhomExpandable.filtersAppliedText.visibility = View.GONE
+                    whomSelectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds.size
+                    x -= whomSelectedChips!!
                 } else {
                     collapseContents(
                         binding.fromWhomOptions.root,
                         binding.filterFromWhomExpandable.fromWhomEmptyCard
                     )
-
                     // TODO: find a better way of writing this
-                    //Timber.e("QWERTYUIOP" + total.toString())
                     whomSelectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds.size
-
-                    total += whomSelectedChips!!
-
-                    //Timber.e("ASDFGHJ" + total.toString())
+                    x += whomSelectedChips!!
                     if (whomSelectedChips!! > 0) {
                         binding.filterFromWhomExpandable.filtersAppliedText.visibility =
                             View.VISIBLE
@@ -176,14 +169,14 @@ class FilterFragment : Fragment() {
                             "${whomSelectedChips} applied"
                     }
                 }
-                //whomSelectedChips?.let { x.plus(it) }
             })
-
 
         filterViewModel.isTypeOptionsExpanded.observe(viewLifecycleOwner, Observer { isExpanded ->
             if (isExpanded) {
                 expandContents(binding.typeOptions.root, binding.filterTypeExpandable.typeEmptyCard)
                 binding.filterTypeExpandable.filtersAppliedText.visibility = View.GONE
+                typeSelectedChips = binding.typeOptions.typeChipGroup.checkedChipIds.size
+                x -= typeSelectedChips!!
             } else {
                 collapseContents(
                     binding.typeOptions.root,
@@ -192,52 +185,14 @@ class FilterFragment : Fragment() {
 
                 // TODO: find a better way of writing this
                 typeSelectedChips = binding.typeOptions.typeChipGroup.checkedChipIds.size
+                x += typeSelectedChips!!
                 if (!binding.root.type_options.isVisible && typeSelectedChips!! > 0) {
                     binding.filterTypeExpandable.filtersAppliedText.visibility = View.VISIBLE
                     binding.filterTypeExpandable.filtersAppliedText.text =
                         "${typeSelectedChips} applied"
                 }
             }
-
-
-//            when (typeSelectedChips) {
-//                0 -> {
-//                    binding.applyFiltersButton.isEnabled = false
-//                    binding.applyFiltersButton.text =
-//                        getString(R.string.button_apply_filter)
-//                }
-//                1 -> {
-//                    binding.applyFiltersButton.isEnabled = true
-//                    binding.applyFiltersButton.text =
-//                        getString(R.string.button_apply_filter_, typeSelectedChips)
-//                }
-//                else -> {
-//                    binding.applyFiltersButton.isEnabled = true
-//                    binding.applyFiltersButton.text =
-//                        getString(R.string.button_apply_filters, typeSelectedChips)
-//                }
-//            }
-
         })
-
-//        Timber.e("ZXCVBNM" + total.toString())
-//        when (total) {
-//            0 -> {
-//                binding.applyFiltersButton.isEnabled = false
-//                binding.applyFiltersButton.text =
-//                    getString(R.string.button_apply_filter)
-//            }
-//            1 -> {
-//                binding.applyFiltersButton.isEnabled = true
-//                binding.applyFiltersButton.text =
-//                    getString(R.string.button_apply_filter_, typeSelectedChips)
-//            }
-//            else -> {
-//                binding.applyFiltersButton.isEnabled = true
-//                binding.applyFiltersButton.text =
-//                    getString(R.string.button_apply_filters, typeSelectedChips)
-//            }
-//        }
 
         binding.applyFiltersButton.setOnClickListener {
             findNavController().previousBackStackEntry?.savedStateHandle?.set(
