@@ -2,6 +2,7 @@ package com.fightpandemics.login.dagger
 
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.login.domain.LoginUseCase
+import com.fightpandemics.login.ui.CompleteProfileFragment
 import com.fightpandemics.login.ui.SignInEmailFragment
 import com.fightpandemics.login.ui.SignInFragment
 import com.fightpandemics.login.ui.SignUpFragment
@@ -27,7 +28,7 @@ interface LoginComponent {
     fun inject(signInEmailFragment: SignInEmailFragment)
     fun inject(signUpFragment: SignUpFragment)
     //fun inject(SignUpFragment: SignUpEmailFragment)
-    //fun inject(CompeteProfileFragment: CompeteProfileFragment)
+    fun inject(completeProfileFragment: CompleteProfileFragment)
 
     fun providesLoginUseCase(): LoginUseCase
 }

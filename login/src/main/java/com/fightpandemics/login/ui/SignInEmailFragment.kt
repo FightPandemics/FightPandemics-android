@@ -91,7 +91,7 @@ class SignInEmailFragment : Fragment() {
                     displayButton(false, R.string.loggedin)
                     Timber.e("LOGGED IN ${it.email}")
                     if (it.user == null) {
-                        // TODO 7 - Navigate to complete profile screen.
+                        findNavController().navigate(R.id.action_signInEmailFragment_to_completeProfileFragment)
                     } else {
                         // TODO 9 - Fix this hardcoded string
                         val PACKAGE_NAME = "com.fightpandemics"
@@ -140,10 +140,8 @@ class SignInEmailFragment : Fragment() {
     }
 
     private fun displayErrorMsgs(
-        displayEmail: Boolean,
-        displayPass: Boolean,
-        displayEmailError: String?,
-        displayPassError: String?
+        displayEmail: Boolean, displayPass: Boolean,
+        displayEmailError: String?, displayPassError: String?
     ) {
         et_email_layout.isErrorEnabled = displayEmail
         et_email_layout.error = displayEmailError

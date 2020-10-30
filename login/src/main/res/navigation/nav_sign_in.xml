@@ -26,11 +26,24 @@
         tools:layout="@layout/fragment_sign_in_email">
 
         <action
+            android:id="@+id/action_signInEmailFragment_to_completeProfileFragment"
+            app:destination="@id/completeProfileFragment"
+            app:popUpTo="@id/signInEmailFragment"
+            app:popUpToInclusive="false" />
+
+        <action
             android:id="@+id/action_signInEmailFragment_to_signUpFragment"
             app:destination="@id/nav_sign_up"
             app:popUpTo="@id/signInEmailFragment"
             app:popUpToInclusive="false" />
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/completeProfileFragment"
+        android:name="com.fightpandemics.login.ui.CompleteProfileFragment"
+        android:label="fragment_complete_profile"
+        tools:layout="@layout/fragment_complete_profile">
     </fragment>
 
     <include app:graph="@navigation/nav_sign_up" />
