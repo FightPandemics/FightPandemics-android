@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/filter_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorWhite"
+        android:clipChildren="false"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:layout_collapseMode="pin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_close">
+
+        <TextView
+            android:id="@+id/filter"
+            style="@style/AndroidNativeH216Px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:paddingTop="4dp"
+            android:text="Filters" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <ScrollView
+        android:id="@+id/filter_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/clear_filters_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter_toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/filter_scroll_view">
+
+            <View
+                android:id="@+id/starter_line_divider"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#d7d7d7d7"
+                app:layout_constraintBottom_toTopOf="@+id/filter_location_expandable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@id/filter_location_expandable"
+                layout="@layout/filter_location_card"
+                app:layout_constraintBottom_toTopOf="@+id/location_options"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/starter_line_divider" />
+
+            <include
+                android:id="@+id/location_options"
+                layout="@layout/filter_location"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/location_line_divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filter_location_expandable"
+                tools:visibility="gone" />
+
+            <View
+                android:id="@+id/location_line_divider"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#4cd7d7d7"
+                app:layout_constraintBottom_toTopOf="@+id/filter_from_whom_expandable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/location_options" />
+
+            <TextView
+                android:id="@+id/filter_from_whom_expandable"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:text="@string/filter_from_whom"
+                android:textStyle="bold"
+                app:drawableEndCompat="@drawable/ic_plus_sign"
+                app:layout_constraintBottom_toTopOf="@+id/from_whom_options"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/location_options"
+                tools:layout_editor_absoluteX="-32dp" />
+
+            <!--            <include-->
+            <!--                android:id="@id/filter_from_whom_expandable"-->
+            <!--                layout="@layout/filter_from_whom_card"-->
+            <!--                app:layout_constraintBottom_toTopOf="@+id/from_whom_options"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/location_options"/>-->
+
+            <include
+                android:id="@+id/from_whom_options"
+                layout="@layout/filter_from_whom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/from_whom_line_divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filter_from_whom_expandable"
+                tools:layout_editor_absoluteX="34dp"
+                tools:visibility="gone" />
+
+            <View
+                android:id="@+id/from_whom_line_divider"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#4cd7d7d7"
+                app:layout_constraintBottom_toTopOf="@+id/filter_type_expandable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/from_whom_options" />
+
+            <TextView
+                android:id="@+id/filter_type_expandable"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:text="@string/filter_type"
+                android:textStyle="bold"
+                app:drawableEndCompat="@drawable/ic_plus_sign"
+                app:layout_constraintBottom_toTopOf="@+id/type_options"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/from_whom_options"
+                tools:layout_editor_absoluteX="-145dp" />
+
+            <!--            <include-->
+            <!--                layout="@layout/filter_type_card"-->
+            <!--                android:id="@id/filter_type_expandable"-->
+            <!--                app:layout_constraintBottom_toTopOf="@+id/type_options"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/from_whom_options"/>-->
+
+            <include
+                android:id="@+id/type_options"
+                layout="@layout/filter_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/type_line_divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filter_type_expandable"
+                tools:layout_editor_absoluteX="-57dp"
+                tools:visibility="gone" />
+
+            <View
+                android:id="@+id/type_line_divider"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#4cd7d7d7"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/type_options" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/clear_filters_button"
+        style="Widget.MaterialComponents.Button"
+        android:layout_width="156dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="16dp"
+        android:text="@string/button_clear_filters"
+        android:textAllCaps="false"
+        android:textColor="@color/fightPandemicsNeonBlue"
+        app:backgroundTint="@color/colorWhite"
+        app:cornerRadius="24dp"
+        app:strokeColor="@color/fightPandemicsNeonBlue"
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/apply_filters_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_default="spread" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/apply_filters_button"
+        style="Widget.MaterialComponents.Button"
+        android:layout_width="156dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:textSize="14sp"
+        android:backgroundTint="@color/fightPandemicsNeonBlue"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        app:cornerRadius="24dp"
+        android:text="@string/button_apply_filters"
+        app:layout_constraintBottom_toBottomOf="@+id/clear_filters_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/clear_filters_button"
+        app:layout_constraintWidth_default="spread" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,5 +13,6 @@
     <string name="likes">Likes</string>
     <string name="comments">Comments</string>
     <string name="share">Share</string>
+    <string name="dot_normal">Dot Normal</string>
 
 </resources>

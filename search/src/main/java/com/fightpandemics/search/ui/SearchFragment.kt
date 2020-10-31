@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fightpandemics.search.R
 import com.fightpandemics.search.dagger.inject
-import com.fightpandemics.utils.ViewModelFactory
+import com.fightpandemics.core.utils.ViewModelFactory
 import javax.inject.Inject
 
 class SearchFragment : Fragment() {

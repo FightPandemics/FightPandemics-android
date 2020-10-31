@@ -1,47 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    app:cardForegroundColor="@android:color/transparent"
-    app:cardCornerRadius="0dp"
+    android:layout_height="wrap_content"
     android:layout_marginTop="6dp"
-    android:layout_height="wrap_content">
+    app:cardCornerRadius="0dp"
+    app:cardForegroundColor="@android:color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.fightpandemics.home.custom.ProfileImageView
+        <TextView
+            android:id="@+id/objective"
+            style="@style/AndroidNativeP311Px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="?colorPrimary"
+            app:layout_constraintStart_toStartOf="@+id/user_avatar"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/offers" />
+
+        <ImageView
+            android:id="@+id/post_option"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_post_options"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/dot"
+            android:layout_width="2dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_dot"
+            app:layout_constraintBottom_toBottomOf="@+id/objective"
+            app:layout_constraintStart_toEndOf="@+id/objective"
+            app:layout_constraintTop_toTopOf="@+id/objective"
+            app:tint="?colorPrimary" />
+
+        <TextView
+            android:id="@+id/time_posted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/objective"
+            app:layout_constraintStart_toEndOf="@+id/dot"
+            app:layout_constraintTop_toTopOf="@+id/objective"
+            tools:text="Posted 14hrs ago" />
+
+        <com.fightpandemics.core.widgets.ProfileImageView
             android:id="@+id/user_avatar"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             app:aiv_borderColor="?colorPrimary"
             app:aiv_borderWidth="2dp"
             app:aiv_initials="VM"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintTop_toBottomOf="@+id/objective" />
 
         <TextView
             android:id="@+id/user_full_name"
             style="@style/AndroidNativeH314Px"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/user_avatar"
             app:layout_constraintTop_toTopOf="@+id/user_avatar"
             tools:text="Victor Maragioglio" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/dot_normal"
             android:layout_width="8dp"
             android:layout_height="8dp"
+            android:contentDescription="@string/dot_normal"
             android:src="@drawable/ic_dot"
-            app:layout_constraintBottom_toBottomOf="@+id/user_avatar"
+            app:layout_constraintBottom_toBottomOf="@+id/user_location"
             app:layout_constraintStart_toStartOf="@+id/user_full_name"
-            app:layout_constraintTop_toBottomOf="@+id/user_full_name"
+            app:layout_constraintTop_toTopOf="@+id/user_location"
             app:tint="?colorPrimary" />
 
         <TextView
@@ -52,50 +98,39 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/poppins_medium"
             android:textColor="?colorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/imageView5"
+            app:layout_constraintStart_toEndOf="@+id/dot_normal"
+            app:layout_constraintTop_toBottomOf="@+id/user_full_name"
             tools:text="Berlin, Germany" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup"
-            android:layout_width="wrap_content"
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollBar"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/user_avatar"
-            app:layout_constraintTop_toBottomOf="@+id/user_location"
-            app:singleLine="true">
+            app:layout_constraintTop_toBottomOf="@+id/user_location">
 
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/fightPandemicsGhostWhite"
-                android:textColor="@color/colorPrimary"
-                app:chipCornerRadius="4dp"
-                style="@style/AndroidNativeP212Px"
-                tools:text="Medical Supplies" />
+                app:singleLine="true" />
 
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/fightPandemicsGhostWhite"
-                android:textColor="@color/colorPrimary"
-                app:chipCornerRadius="4dp"
-                style="@style/AndroidNativeP212Px"
-                tools:text="Information" />
-
-        </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
 
         <TextView
             android:id="@+id/post_title"
             style="@style/AndroidNativeH122Px"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/user_avatar"
-            app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollBar"
             tools:text="I have 100 face Masks to give away." />
 
         <TextView
@@ -110,17 +145,21 @@
             app:layout_constraintTop_toBottomOf="@+id/post_title"
             tools:text="I have a small store and I would like to give away 100 mask but I don’t know where, please contact me if you need them. I have a small store and I would like to give away 100 mask but I don’t know where, please contact me if you need them. please co ..." />
 
-        <ImageView
+        <com.google.android.material.internal.CheckableImageButton
             android:id="@+id/like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/likes"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/post_content"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/post_content"
-            app:srcCompat="@drawable/ic_like_active" />
+            android:src="@drawable/like_event"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/likes_count"
@@ -165,37 +204,6 @@
             app:layout_constraintStart_toEndOf="@+id/comments_count"
             app:layout_constraintTop_toTopOf="@+id/comments_count"
             app:srcCompat="@drawable/ic_share" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/offers"
-            style="@style/AndroidNativeP311Px"
-            app:layout_constraintStart_toStartOf="@+id/user_avatar"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/dot"
-            android:layout_width="2dp"
-            android:layout_height="2dp"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/ic_dot"
-            app:layout_constraintBottom_toBottomOf="@+id/textView6"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
-            app:layout_constraintTop_toTopOf="@+id/textView6"
-            app:tint="?colorPrimary" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            tools:text="Posted 14hrs ago"
-            app:layout_constraintBottom_toBottomOf="@+id/textView6"
-            app:layout_constraintStart_toEndOf="@+id/dot"
-            app:layout_constraintTop_toTopOf="@+id/textView6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
