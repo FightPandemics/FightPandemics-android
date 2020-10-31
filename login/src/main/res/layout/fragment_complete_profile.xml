@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,15 +16,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/complete_profile_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingTop="18dp"
+        android:paddingBottom="25dp"
+        >
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content_complete_profile"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/signup_screen_bg"
         android:paddingStart="31dp"
-        android:paddingTop="34dp"
+        android:paddingBottom="25dp"
+        android:layout_marginBottom="10dp"
+        android:paddingTop="18dp"
         android:paddingEnd="30dp"
-        android:paddingBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/complete_profile_toolbar"
@@ -39,6 +53,7 @@
             app:errorEnabled="false"
             app:hintEnabled="true"
             app:hintTextAppearance="@style/SignUPTextHint"
+            app:hintAnimationEnabled="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -54,7 +69,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilLastName"
@@ -115,33 +129,18 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/okoko"
+        <include
+            android:id="@+id/offerRequestLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            layout="@layout/complete_profile_offer_request"
+            android:layout_marginTop="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilAddress">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="I am here to offer:"
-                android:textColor="@color/fightPandemicsNeonBlue"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="parent" />
-
-            <TextView
-                style="@style/AndroidNativeP311Px"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Optional"
-                app:layout_constraintEnd_toEndOf="@id/okoko"
-                app:layout_constraintTop_toBottomOf="@id/okoko" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@id/tilAddress"
+            app:layout_constraintBottom_toTopOf="@id/clBtnComplete"
+            android:layout_marginBottom="49dp"
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clBtnComplete"
@@ -175,16 +174,19 @@
             android:id="@+id/tv_sigin_instead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
             android:lineSpacingExtra="20.9sp"
             android:text="@string/have_an_account_sign_in_instead"
             android:textColor="@color/fightPandemicsNeonBlue"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
