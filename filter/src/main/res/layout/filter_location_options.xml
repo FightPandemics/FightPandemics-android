@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="230dp"
+    android:layout_height="@dimen/filter_options_card_height"
     android:paddingHorizontal="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin">
 
@@ -12,9 +12,10 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/fightPandemicsNeonBlue"
         android:clickable="true"
+        android:focusable="true"
         android:drawableStart="@drawable/ic_map_pin"
-        android:drawablePadding="8dp"
-        android:hint="Zip code, neighborhood or city"
+        android:drawablePadding="@dimen/location_search_icon_padding"
+        android:hint="@string/zip_code_neighborhood_or_city"
         android:textAppearance="@style/AndroidNativeP114Px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,13 +28,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:focusable="true"
         android:drawableStart="@drawable/ic_map_pin"
-        android:drawablePadding="8dp"
-        android:text="Share my location"
+        android:drawablePadding="@dimen/location_search_icon_padding"
+        android:layout_marginTop="4dp"
+        android:text="@string/share_my_location"
         android:textAppearance="@style/AndroidNativeP114Px"
+        app:layout_constraintBottom_toTopOf="@id/item_line_divider1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location_search" />
+
+    <View
+        android:id="@+id/item_line_divider1"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/line_width"
+        android:background="#d7d7d7d7"
+        android:layout_marginTop="@dimen/autocomplete_location_vertical_spacing"
+        app:layout_constraintBottom_toTopOf="@+id/auto_complete_locations_recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/share_my_location" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/auto_complete_locations_recycler_view"
@@ -43,6 +58,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/share_my_location" />
+        app:layout_constraintTop_toBottomOf="@id/item_line_divider1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

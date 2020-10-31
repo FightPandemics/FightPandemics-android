@@ -9,6 +9,7 @@ import com.fightpandemics.home.R
 import kotlinx.android.synthetic.main.filter_location_item.view.*
 
 class FilterAdapter : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
+    val MAX_RECYCLER_VIEW_SIZE = 3
 
     var data = listOf<String>()
         set(value) {
@@ -37,6 +38,9 @@ class FilterAdapter : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         // TODO: maybe add variable for this, instead of magic number
+        if (data.size > MAX_RECYCLER_VIEW_SIZE){
+            return MAX_RECYCLER_VIEW_SIZE
+        }
         return data.size
     }
 
