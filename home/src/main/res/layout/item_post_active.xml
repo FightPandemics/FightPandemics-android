@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom">
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_line_75"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/active"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:lineSpacingExtra="6sp"
+        android:textColor="@color/fightPandemicsNero"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line"
+        tools:text="How long should this post be active for?" />
+
+    <Button
+        android:id="@+id/day"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#f2f2f2"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="7sp"
+        android:textAllCaps="false"
+        android:textColor="#333333"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/active"
+        tools:text="A day" />
+
+    <Button
+        android:id="@+id/week"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#f2f2f2"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="7sp"
+        android:textAllCaps="false"
+        android:textColor="#333333"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/day"
+        tools:text="A week" />
+
+    <Button
+        android:id="@+id/month"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/colorPrimary"
+        android:backgroundTint="#f2f2f2"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="7sp"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/week"
+        tools:text="A month" />
+
+    <Button
+        android:id="@+id/forever"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#f2f2f2"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="7sp"
+        android:textAllCaps="false"
+        android:textColor="#333333"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/month"
+        tools:text="Forever" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
