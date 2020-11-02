@@ -22,8 +22,12 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
 
+    # for instrumented tests
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
+    - $ANDROID_TARGET
+    - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
+
   licenses:
     - 'android-sdk-preview-license-52d11cd2'
     - 'android-sdk-license-.+'
