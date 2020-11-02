@@ -21,7 +21,6 @@ android:
     # for instrumented tests
     - $ANDROID_TARGET
     - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
-
 before_install:
   - mkdir -p "$ANDROID_HOME/licenses" || true
   - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
@@ -59,3 +58,5 @@ notifications:
     if: branch = development
     on_success: always
     on_failure: always
+
+dist : trusty
