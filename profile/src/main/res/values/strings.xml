@@ -22,6 +22,7 @@
     <string name="settings_action">Settings</string>
     <string name="select_account">Select Account</string>
 
+
     <!--Password Recovery-->
     <string name="msg_email_not_registered">Email address isn’t registered yet</string>
     <string name="msg_email_invalid">Please enter a valid email address</string>
@@ -32,6 +33,24 @@
     <string name="content_description_back_button">This is back button</string>
     <string name="email_sent_msg">An e-mail has been sent with further instructions. Please check your inbox.</string>
     <string name="back_to_login">Back to Login</string>
+
+
+    <!--My Profile-->
+    <string name="my_profile">My Profile</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="edit_profile_picture">Edit Profile Picture</string>
+    <string name="add_social_media_links">Add social media links</string>
+    <string name="social_media">Facebook, LinkedIn, Twitter, Github</string>
+    <string name="about_me">About me</string>
+    <string name="about_me_subtitle">Write a self-introduction</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="social_media_links">Social Media Links</string>
+    <string name="facebook_url">Facebook URL</string>
+    <string name="linkedIn_url">LinkedIn URL</string>
+    <string name="twitter_url">Twitter URL</string>
+    <string name="github_url">Github URL</string>
+    <string name="personal_website">Personal Website</string>
 
 
 </resources>
