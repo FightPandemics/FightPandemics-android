@@ -29,6 +29,7 @@ before_install:
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+  - yes | sdkmanager --licenses
 
 cache:
   directories:
@@ -59,4 +60,3 @@ notifications:
     on_success: always
     on_failure: always
 
-dist : trusty
