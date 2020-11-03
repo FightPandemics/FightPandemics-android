@@ -2,6 +2,7 @@ package com.fightpandemics.filter.ui
 
 import com.fightpandemics.home.BuildConfig
 import android.Manifest
+import android.animation.LayoutTransition
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -117,10 +118,8 @@ class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         // Get the viewmodel
         filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
-
 
        // recycler view
         val adapter = FilterAdapter()
@@ -130,12 +129,12 @@ class FilterFragment : Fragment() {
             this.adapter = adapter
         }
 
+        // update recycler view list if data observed changes
         filterViewModel.autocomplete_locations.observe(viewLifecycleOwner, Observer{
            it?.let {
               adapter.data = it
            }
         })
-
 
         binding.filterLocationExpandable.locationEmptyCard.setOnClickListener {
             filterViewModel.toggleView(filterViewModel.isLocationOptionsExpanded)
@@ -165,6 +164,7 @@ class FilterFragment : Fragment() {
                     )
 
 //                    // TODO: find a better way of writing this / uncomment this
+                    // logic for hiding the applied text
                     val selectedLocationQuery =
                         binding.locationOptions.root.location_search.text.toString()
                     if (selectedLocationQuery != "") {
@@ -208,7 +208,6 @@ class FilterFragment : Fragment() {
                 //whomSelectedChips?.let { x.plus(it) }
             })
 
-
         filterViewModel.isTypeOptionsExpanded.observe(viewLifecycleOwner, Observer { isExpanded ->
             if (isExpanded) {
                 expandContents(binding.typeOptions.root, binding.filterTypeExpandable.typeEmptyCard)
@@ -228,6 +227,16 @@ class FilterFragment : Fragment() {
                 }
             }
 
+            // Manage visibility for recycler view and line divider
+            filterViewModel.locationQuery.observe(viewLifecycleOwner, Observer {locationQuery ->
+                if (locationQuery.isEmpty()){
+                    binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.GONE
+                    binding.locationOptions.itemLineDivider1.visibility = View.GONE
+                }else{
+                    binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.VISIBLE
+                    binding.locationOptions.itemLineDivider1.visibility = View.VISIBLE
+                }
+            })
 
 //            when (typeSelectedChips) {
 //                0 -> {
@@ -277,13 +286,11 @@ class FilterFragment : Fragment() {
         }
 
 //        // Places API Logic
-//        binding.locationOptions.locationSearch.setOnClickListener {
-//            launchPlacesIntent()
-//        }
-
         binding.locationOptions.locationSearch.doAfterTextChanged { text ->
-            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+            Timber.d("Places: %s", text)
             autocompletePlaces(text.toString())
+            filterViewModel.locationQuery.value = text.toString()
         }
 
         binding.locationOptions.shareMyLocation.setOnClickListener {

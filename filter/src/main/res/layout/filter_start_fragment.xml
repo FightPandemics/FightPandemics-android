@@ -54,7 +54,7 @@
             <View
                 android:id="@+id/starter_line_divider"
                 android:layout_width="fill_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/line_width"
                 android:background="#d7d7d7d7"
                 app:layout_constraintBottom_toTopOf="@+id/filter_location_expandable"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +73,7 @@
                 android:id="@+id/location_options"
                 layout="@layout/filter_location_options"
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
+                android:layout_height="@dimen/filter_options_card_height"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/location_line_divider"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +84,7 @@
             <View
                 android:id="@+id/location_line_divider"
                 android:layout_width="fill_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/line_width"
                 android:background="#4cd7d7d7"
                 app:layout_constraintBottom_toTopOf="@+id/filter_from_whom_expandable"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -111,13 +111,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/filter_from_whom_expandable"
-                tools:layout_editor_absoluteX="34dp"
                 tools:visibility="gone" />
 
             <View
                 android:id="@+id/from_whom_line_divider"
                 android:layout_width="fill_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/line_width"
                 android:background="#4cd7d7d7"
                 app:layout_constraintBottom_toTopOf="@+id/filter_type_expandable"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -144,13 +143,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/filter_type_expandable"
-                tools:layout_editor_absoluteX="-57dp"
                 tools:visibility="gone" />
 
             <View
                 android:id="@+id/type_line_divider"
                 android:layout_width="fill_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/line_width"
                 android:background="#4cd7d7d7"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

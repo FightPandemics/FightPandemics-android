@@ -38,4 +38,8 @@
     <string name="chip_wellbeing_mental">Wellbeing/Mental</string>
     <string name="filters_title">Filters</string>
 
+    <!-- Location Search & Recycler view -->
+    <string name="share_my_location">Share my location</string>
+    <string name="zip_code_neighborhood_or_city">Zip code, neighborhood or city</string>
+
 </resources>

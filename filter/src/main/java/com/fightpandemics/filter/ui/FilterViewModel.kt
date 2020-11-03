@@ -32,7 +32,8 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     var isFromWhomOptionsExpanded = MutableLiveData<Boolean>()
     var isTypeOptionsExpanded = MutableLiveData<Boolean>()
 
-    var locationQuery = MutableLiveData<CharSequence>()
+    // Recycler View variables
+    var locationQuery = MutableLiveData<String>()
     var random_locations = MutableLiveData<List<String>>()
     var autocomplete_locations = MutableLiveData<List<String>>()
 
@@ -40,7 +41,11 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         isLocationOptionsExpanded.value = false
         isFromWhomOptionsExpanded.value = false
         isTypeOptionsExpanded.value = false
-        random_locations.value = listOf("California, USA", "Massachusetts, USA", "Panama, Panama", "New York, USA")
+        locationQuery.value = ""
+        random_locations.value =
+            listOf("California, USA", "Massachusetts, USA", "Panama, Panama", "New York, USA")
+
+//        Places.initialize(applicationContext, PLACES_API_KEY)
     }
 
     fun toggleView(optionsCardState: MutableLiveData<Boolean>) {
