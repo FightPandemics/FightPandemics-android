@@ -2,12 +2,9 @@ package com.fightpandemics.filter.ui
 
 import com.fightpandemics.home.BuildConfig
 import android.Manifest
-import android.animation.LayoutTransition
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,28 +15,21 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
-import com.google.android.libraries.places.api.model.RectangularBounds
 import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.*
-import com.google.android.libraries.places.widget.Autocomplete
-import com.google.android.libraries.places.widget.AutocompleteActivity
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.android.synthetic.main.filter_location_options.view.*
 import kotlinx.android.synthetic.main.filter_start_fragment.view.*
@@ -227,17 +217,6 @@ class FilterFragment : Fragment() {
                 }
             }
 
-            // Manage visibility for recycler view and line divider
-            filterViewModel.locationQuery.observe(viewLifecycleOwner, Observer {locationQuery ->
-                if (locationQuery.isEmpty()){
-                    binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.GONE
-                    binding.locationOptions.itemLineDivider1.visibility = View.GONE
-                }else{
-                    binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.VISIBLE
-                    binding.locationOptions.itemLineDivider1.visibility = View.VISIBLE
-                }
-            })
-
 //            when (typeSelectedChips) {
 //                0 -> {
 //                    binding.applyFiltersButton.isEnabled = false
@@ -256,6 +235,17 @@ class FilterFragment : Fragment() {
 //                }
 //            }
 
+        })
+
+        // Manage visibility for recycler view and line divider
+        filterViewModel.locationQuery.observe(viewLifecycleOwner, {locationQuery ->
+            if (locationQuery.isEmpty()){
+                binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.GONE
+                binding.locationOptions.itemLineDivider1.visibility = View.GONE
+            }else{
+                binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.VISIBLE
+                binding.locationOptions.itemLineDivider1.visibility = View.VISIBLE
+            }
         })
 
 //        Timber.e("ZXCVBNM" + total.toString())
@@ -372,6 +362,13 @@ class FilterFragment : Fragment() {
                 STORAGE_PERMISSION_CODE
             )
         }
+//        else {
+//            requestPermissions(
+//                arrayOf("android.permission.ACCESS_FINE_LOCATION"),
+//                STORAGE_PERMISSION_CODE
+//            )
+//            Toast.makeText(context, "else from getlocation permisson", Toast.LENGTH_SHORT)
+//        }
 
     }
 
@@ -388,6 +385,7 @@ class FilterFragment : Fragment() {
                 } else {
                     Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT)
                         .show()
+                    getCurrentLocation()
                 }
 
             }
@@ -404,10 +402,11 @@ class FilterFragment : Fragment() {
         val token = AutocompleteSessionToken.newInstance()
 
         // Create a RectangularBounds object.
-        val bounds = RectangularBounds.newInstance(
-            LatLng(-33.880490, 151.184363),
-            LatLng(-33.858754, 151.229596)
-        )
+//        val bounds = RectangularBounds.newInstance(
+//            LatLng(-33.880490, 151.184363),
+//            LatLng(-33.858754, 151.229596)
+//        )
+
         // Use the builder to create a FindAutocompletePredictionsRequest.
         val request =
             FindAutocompletePredictionsRequest.builder()
@@ -470,45 +469,6 @@ class FilterFragment : Fragment() {
                     TODO("Handle error with given status code")
                 }
             }
-
-    }
-
-    private fun launchPlacesIntent() {
-        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
-
-        // Set the fields to specify which types of place data to
-        // return after the user has made a selection.
-        val fields = listOf(Place.Field.ID, Place.Field.NAME)
-
-        // Start the autocomplete intent.
-        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
-            .build(requireActivity().applicationContext)
-        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
-            when (resultCode) {
-                Activity.RESULT_OK -> {
-                    data?.let {
-                        val place = Autocomplete.getPlaceFromIntent(data)
-                        Timber.i("Place: ${place.name}, ${place.id}")
-                    }
-                }
-                AutocompleteActivity.RESULT_ERROR -> {
-                    // TODO: Handle the error.
-                    data?.let {
-                        val status = Autocomplete.getStatusFromIntent(data)
-                        Timber.i(status.statusMessage)
-                    }
-                }
-                Activity.RESULT_CANCELED -> {
-                    // The user canceled the operation.
-                }
-            }
-            return
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun expandContents(optionsView: View, clickableTextView: TextView) {
