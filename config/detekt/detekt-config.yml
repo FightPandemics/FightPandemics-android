@@ -8,7 +8,7 @@ build:
   # comments: 1
 
 config:
-  validation: false
+  validation: true
   # when writing own rules with new properties, exclude the property path e.g.: 'my_rule_set,.*>.*>[my_property]'
   excludes: ''
 
@@ -214,7 +214,7 @@ exceptions:
       - RuntimeException
 
 formatting:
-  active: false
+  active: true
   android: false
   autoCorrect: true
   AnnotationOnSeparateLine:
@@ -232,12 +232,12 @@ formatting:
   Filename:
     active: true
   FinalNewline:
-    active: false
+    active: true
     autoCorrect: true
     insertFinalNewLine: true
   ImportOrdering:
     active: false
-    autoCorrect: false
+    autoCorrect: true
   Indentation:
     active: false
     autoCorrect: true
@@ -286,7 +286,7 @@ formatting:
     active: true
     autoCorrect: true
   NoWildcardImports:
-    active: false
+    active: true
   PackageName:
     active: true
     autoCorrect: true
@@ -304,10 +304,10 @@ formatting:
     active: true
     autoCorrect: true
   SpacingAroundDot:
-    active: false
+    active: true
     autoCorrect: true
   SpacingAroundKeyword:
-    active: false
+    active: true
     autoCorrect: true
   SpacingAroundOperators:
     active: true

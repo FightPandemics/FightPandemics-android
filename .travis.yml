@@ -1,28 +1,31 @@
 language: android
-sudo: required
 jdk: oraclejdk8
 
 env:
   global:
-    - ANDROID_API_LEVEL=28
-    - ANDROID_BUILD_TOOLS_VERSION=28.0.3
+    - ANDROID_TARGET=android-22
     - ANDROID_ABI=armeabi-v7a
 
 android:
   components:
     - tools
     - platform-tools
-    - tools
+
+    - build-tools-30.0.2
+    - android-30
+
     - extra-android-m2repository
-  licenses:
-    - 'android-sdk-preview-license-52d11cd2'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
+    - extra-google-google_play_services
+    - extra-google-m2repository
+
+    # for instrumented tests
+    - $ANDROID_TARGET
+    - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 
 before_install:
-  - touch $HOME/.android/repositories.cfg
-  - yes | sdkmanager "platforms;android-28"
-  - yes | sdkmanager "build-tools;28.0.3"
+  - mkdir -p "$ANDROID_HOME/licenses" || true
+  - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
+  - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -35,8 +38,24 @@ cache:
     - $HOME/.android/build-cache
 
 before_script:
+  # Grand permissions
   - chmod +x gradlew
 
+  # for instrumented tests
+  - android list targets
+  - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI -c 100M    #Create AVD for given api
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+
 script:
-  - ./gradlew clean build
-  - ./gradlew test
+  - ./gradlew build
+  - ./gradlew connectedAndroidTest
+
+notifications:
+  slack:
+    rooms:
+      - fightpandemics:AOdNIouF6Ye6DKo1RuaZK7pd
+    if: branch = development
+    on_success: always
+    on_failure: always
