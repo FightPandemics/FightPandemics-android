@@ -13,4 +13,7 @@
     <!--    Filter clickable cards-->
     <dimen name="applied_text_start_margin">16dp</dimen>
 
+    <!-- Dialog Permission -->
+    <dimen name="dialog_permission_padding">22dp</dimen>
+
 </resources>

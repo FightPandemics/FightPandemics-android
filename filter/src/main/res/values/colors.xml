@@ -31,6 +31,7 @@
     <color name="colorWhite_30p">#4DFFFFFF</color>
     <color name="fightPandemicsSnow">#F9F9F9</color>
     <color name="fightPandemicsWhiteSmoke">#F2F2F2</color>
+    <color name="dialog_description_grey">#979797</color>
 
 
     <!-- We use a dark scrim by default since light status is API 23+ -->

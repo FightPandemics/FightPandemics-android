@@ -120,7 +120,7 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
         }
 
         // update recycler view list if data observed changes
-        filterViewModel.autocomplete_locations.observe(viewLifecycleOwner, Observer{
+        filterViewModel.autocomplete_locations.observe(viewLifecycleOwner, {
            it?.let {
               adapter.data = it
            }
@@ -140,7 +140,7 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
 
         filterViewModel.isLocationOptionsExpanded.observe(
             viewLifecycleOwner,
-            Observer { isExpanded ->
+            { isExpanded ->
                 if (isExpanded) {
                     expandContents(
                         binding.locationOptions.root,
@@ -167,7 +167,7 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
 
         filterViewModel.isFromWhomOptionsExpanded.observe(
             viewLifecycleOwner,
-            Observer { isExpanded ->
+            { isExpanded ->
                 if (isExpanded) {
                     expandContents(
                         binding.fromWhomOptions.root,
@@ -198,7 +198,7 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
                 //whomSelectedChips?.let { x.plus(it) }
             })
 
-        filterViewModel.isTypeOptionsExpanded.observe(viewLifecycleOwner, Observer { isExpanded ->
+        filterViewModel.isTypeOptionsExpanded.observe(viewLifecycleOwner, { isExpanded ->
             if (isExpanded) {
                 expandContents(binding.typeOptions.root, binding.filterTypeExpandable.typeEmptyCard)
                 binding.filterTypeExpandable.filtersAppliedText.visibility = View.GONE
@@ -342,25 +342,19 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
     }
 
     private fun getLocationPermission() {
-        // TODO: Add custom alert dialog
         if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            val dialogView = layoutInflater.inflate(R.layout.location_permission_dialog,null)
             AlertDialog.Builder(requireContext())
-                .setTitle("Allow FightPandemics to access your location?")
-                .setMessage("FightPandemics uses location to show hospitals and aid information near you.")
-                .setPositiveButton("ALLOW", DialogInterface.OnClickListener { dialog, which ->
+                .setView(dialogView)
+                .setPositiveButton("ALLOW") { dialog, which ->
                     requestPermissions(
                         arrayOf("android.permission.ACCESS_FINE_LOCATION"),
                         STORAGE_PERMISSION_CODE
                     )
-                })
-                .setNegativeButton("CANCEL", DialogInterface.OnClickListener { dialog, id ->
+                }
+                .setNegativeButton("CANCEL") { dialog, id ->
                     dialog.dismiss()
-                }).create().show()
-        } else {
-            requestPermissions(
-                arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                STORAGE_PERMISSION_CODE
-            )
+                }.create().show()
         }
 //        else {
 //            requestPermissions(
