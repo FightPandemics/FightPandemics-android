@@ -15,6 +15,10 @@
     <string name="button_apply_filter_">Apply %1$d filter</string>
     <string name="button_apply_filters">Apply %1$d filters</string>
 
+    <string name="card_applied_filters">%1$d applied</string>
+    <string name="location_filters_applied">1 applied</string>
+    <string name="filters_applied_placeholder">0 applied</string>
+
     <string name="chip_individuals">Individuals</string>
     <string name="chip_startup">Startup</string>
     <string name="chip_company">Company</string>

@@ -4,16 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<!--    <View-->
-<!--        android:id="@+id/item_line_divider1"-->
-<!--        android:layout_width="fill_parent"-->
-<!--        android:layout_height="@dimen/line_width"-->
-<!--        android:background="#d7d7d7d7"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/filter_location_expandable"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@id/location_item_text" />-->
-
     <TextView
         android:id="@+id/location_item_text"
         style="@style/AndroidNativeP114Px"
@@ -27,7 +17,6 @@
         app:layout_constraintBottom_toTopOf="@id/item_line_divider2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
-<!--        app:layout_constraintTop_toBottomOf="@id/item_line_divider1" />-->
 
     <View
         android:id="@+id/item_line_divider2"

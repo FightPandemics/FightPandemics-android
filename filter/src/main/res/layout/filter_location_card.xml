@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/applied_text_start_margin"
-        android:text="1 applied"
+        android:text="@string/location_filters_applied"
         android:textColor="@color/fightPandemicsSuvaGrey"
         android:visibility="gone"
         app:layout_constraintBaseline_toBaselineOf="@+id/location_text"

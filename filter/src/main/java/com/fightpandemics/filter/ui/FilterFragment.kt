@@ -192,7 +192,7 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
                         binding.filterFromWhomExpandable.filtersAppliedText.visibility =
                             View.VISIBLE
                         binding.filterFromWhomExpandable.filtersAppliedText.text =
-                            "${whomSelectedChips} applied"
+                            requireContext().getString(R.string.card_applied_filters, whomSelectedChips)
                     }
                 }
                 //whomSelectedChips?.let { x.plus(it) }
@@ -213,7 +213,7 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
                 if (!binding.root.type_options.isVisible && typeSelectedChips!! > 0) {
                     binding.filterTypeExpandable.filtersAppliedText.visibility = View.VISIBLE
                     binding.filterTypeExpandable.filtersAppliedText.text =
-                        "${typeSelectedChips} applied"
+                        requireContext().getString(R.string.card_applied_filters, typeSelectedChips)
                 }
             }
 

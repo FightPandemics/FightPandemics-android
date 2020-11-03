@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/applied_text_start_margin"
-        android:text="0 applied"
+        android:text="@string/filters_applied_placeholder"
         android:textColor="@color/fightPandemicsSuvaGrey"
         android:visibility="gone"
         app:layout_constraintBaseline_toBaselineOf="@+id/from_whom_text"

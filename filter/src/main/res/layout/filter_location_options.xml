@@ -43,7 +43,7 @@
         android:id="@+id/item_line_divider1"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/line_width"
-        android:background="#d7d7d7d7"
+        android:background="@color/fightPandemicsLightGrey"
         android:layout_marginTop="@dimen/autocomplete_location_vertical_spacing"
         app:layout_constraintBottom_toTopOf="@+id/auto_complete_locations_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
