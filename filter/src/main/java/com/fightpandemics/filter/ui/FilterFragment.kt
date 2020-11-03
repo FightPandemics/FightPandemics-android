@@ -37,7 +37,7 @@ import timber.log.Timber
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class FilterFragment : Fragment() {
+class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
 
     @Inject
     lateinit var filterViewModelFactory: ViewModelFactory
@@ -111,8 +111,8 @@ class FilterFragment : Fragment() {
         // Get the viewmodel
         filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
 
-       // recycler view
-        val adapter = FilterAdapter()
+       // setup recycler view
+        val adapter = FilterAdapter(this)
         binding.locationOptions.autoCompleteLocationsRecyclerView.apply {
             // RecyclerView behavior
             // set the custom adapter to the RecyclerView
@@ -488,6 +488,13 @@ class FilterFragment : Fragment() {
             0,
             R.drawable.ic_plus_sign,
             0
+        )
+    }
+
+    override fun onClick(locationSelected: String) {
+//        Toast.makeText(requireContext(), "hello from $position", Toast.LENGTH_SHORT).show()
+        binding.locationOptions.locationSearch.setText(
+            locationSelected
         )
     }
 
