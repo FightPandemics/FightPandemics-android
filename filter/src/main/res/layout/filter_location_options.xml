@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:drawableStart="@drawable/ic_map_pin"
+        android:drawableStart="@drawable/ic_cursor_location"
         android:drawablePadding="@dimen/location_search_icon_padding"
         android:layout_marginTop="4dp"
         android:text="@string/share_my_location"
