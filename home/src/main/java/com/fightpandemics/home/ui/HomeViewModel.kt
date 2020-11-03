@@ -10,7 +10,7 @@ import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.home.domain.LoadPostsUseCase
 import com.fightpandemics.home.domain.ObserveUserAuthStateUseCase
-import com.fightpandemics.home.domain.UpdatePostUsecase
+import com.fightpandemics.home.domain.LikePostUsecase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
@@ -21,7 +21,7 @@ import javax.inject.Inject
 @FeatureScope
 class HomeViewModel @Inject constructor(
     private val loadPostsUseCase: LoadPostsUseCase,
-    private val updatePostUsecase: UpdatePostUsecase,
+    private val likePostUsecase: LikePostUsecase,
     private val observeUserAuthStateUseCase: ObserveUserAuthStateUseCase,
     private val dispatcherProvider: CoroutinesDispatcherProvider,
 ) : ViewModel(), HomeEventListener {
@@ -121,8 +121,9 @@ class HomeViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            val data = updatePostUsecase(post)
+            val data = likePostUsecase(post) // PostRequest
             getPosts(null)
+//            getRequests("request")
         }
     }
 }

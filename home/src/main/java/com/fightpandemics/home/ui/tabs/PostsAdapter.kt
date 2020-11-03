@@ -38,13 +38,11 @@ class PostsAdapter(
 
     companion object {
         val POSTS_DIFF_CALLBACK = object : DiffUtil.ItemCallback<Post>() {
-            override fun areItemsTheSame(oldPost: Post, newPost: Post): Boolean {
-                return oldPost.author?.id === newPost.author?.id
-            }
+            override fun areItemsTheSame(oldPost: Post, newPost: Post): Boolean =
+                oldPost._id === newPost._id
 
-            override fun areContentsTheSame(oldPost: Post, newPost: Post): Boolean {
-                return oldPost == newPost
-            }
+            override fun areContentsTheSame(oldPost: Post, newPost: Post): Boolean =
+                oldPost == newPost
         }
     }
 }

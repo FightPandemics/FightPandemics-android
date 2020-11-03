@@ -1,4 +1,4 @@
-package com.fightpandemics.login.ui
+package com.fightpandemics.login.ui.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -22,7 +22,7 @@ dependencies {
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
-    implementation 'com.squareup.retrofit2:converter-moshi:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
     implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
 
@@ -30,7 +30,7 @@ dependencies {
     implementation "com.jakewharton.timber:timber:${versions.timber}"
 
     // Tests
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation 'androidx.test:rules:1.3.1-alpha02'

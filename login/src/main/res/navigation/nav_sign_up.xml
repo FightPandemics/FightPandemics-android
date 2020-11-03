@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.fightpandemics.login.ui.SignUpFragment"
+        android:name="com.fightpandemics.login.ui.signup.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" />
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.fightpandemics.login.ui.SignInFragment"
+        android:name="com.fightpandemics.login.ui.signin.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in">
 
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/signInEmailFragment"
-        android:name="com.fightpandemics.login.ui.SignInEmailFragment"
+        android:name="com.fightpandemics.login.ui.signin.SignInEmailFragment"
         android:label="fragment_sign_in_email"
         tools:layout="@layout/fragment_sign_in_email">
 
@@ -41,7 +41,7 @@
 
     <fragment
         android:id="@+id/completeProfileFragment"
-        android:name="com.fightpandemics.login.ui.CompleteProfileFragment"
+        android:name="com.fightpandemics.login.ui.profile.CompleteProfileFragment"
         android:label="fragment_complete_profile"
         tools:layout="@layout/fragment_complete_profile">
     </fragment>

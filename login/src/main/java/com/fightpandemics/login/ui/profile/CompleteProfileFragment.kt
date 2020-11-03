@@ -1,4 +1,4 @@
-package com.fightpandemics.login.ui
+package com.fightpandemics.login.ui.profile
 
 import android.content.Context
 import android.os.Bundle
@@ -7,14 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
+import com.fightpandemics.login.ui.LoginViewModel
 import com.google.android.material.appbar.MaterialToolbar
-import kotlinx.android.synthetic.main.fragment_complete_profile.*
-import kotlinx.android.synthetic.main.fragment_sign_up_email.tv_sigin_instead
 import javax.inject.Inject
 
 class CompleteProfileFragment : Fragment() {

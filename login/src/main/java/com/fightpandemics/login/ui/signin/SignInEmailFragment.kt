@@ -1,4 +1,4 @@
-package com.fightpandemics.login.ui
+package com.fightpandemics.login.ui.signin
 
 import android.content.Context
 import android.content.Intent
@@ -8,13 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
+import com.fightpandemics.login.ui.LoginViewModel
 import com.fightpandemics.login.util.*
 import com.github.razir.progressbutton.attachTextChangeAnimator
 import com.github.razir.progressbutton.bindProgressButton
@@ -105,7 +105,7 @@ class SignInEmailFragment : Fragment() {
                 !it.emailVerified -> {
                     displayButton(true, R.string.sign_in)
                     Timber.e("ERROR ${it.error}")
-                    // TODO 8 - Display snackbar
+                    // TODO 8 - The user is informed that their credentials are invalid using a Snackbar.
                 }
             }
         })

@@ -6,9 +6,9 @@ import com.fightpandemics.core.data.model.posts.Posts
 import com.fightpandemics.core.data.prefs.PreferenceStorage
 import com.fightpandemics.core.data.remote.posts.PostsRemoteDataSource
 import com.fightpandemics.core.domain.repository.PostsRepository
+import com.fightpandemics.core.result.Result
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import com.fightpandemics.core.result.Result
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -42,11 +42,11 @@ class PostsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updatePost(postRequest: PostRequest) {
-        postsRemoteDataSource.updatePost(postRequest.post._id, postRequest)
+        //postsRemoteDataSource.updatePost(postRequest._id, postRequest)
     }
 
-    override suspend fun updatePost(postId: String) {
+    override suspend fun likePost(post: Post) {
         val userId = preferenceStorage.userId
-        postsRemoteDataSource.updatePost(postId, userId!!)
+        postsRemoteDataSource.likePost(post._id, userId!!, post.liked!!)
     }
 }

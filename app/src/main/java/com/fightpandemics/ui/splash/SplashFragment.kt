@@ -2,6 +2,8 @@ package com.fightpandemics.ui.splash
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,8 +20,6 @@ class SplashFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
     private val splashViewModel by viewModels<SplashViewModel> { viewModelFactory }
 
-    private val mLifecycleScope = this@SplashFragment.lifecycleScope
-
     companion object {
         fun newInstance() = SplashFragment()
     }
@@ -31,17 +31,17 @@ class SplashFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mLifecycleScope.launchWhenCreated {
-            delay(2000)
+        Handler(Looper.getMainLooper()).postDelayed({
             launch()
-        }
+        }, 2500)
     }
 
     private fun launch() {
         splashViewModel.launchDestination.observe(requireActivity(), EventObserver { destination ->
             when (destination) {
                 LaunchDestination.MAIN_ACTIVITY ->
-                    findNavController().navigate(R.id.action_splashFragment_to_mainActivity).apply { requireActivity().finish() }
+                    findNavController().navigate(R.id.action_splashFragment_to_mainActivity)
+                        .apply { requireActivity().finish() }
                 LaunchDestination.ONBOARD ->
                     findNavController().navigate(R.id.action_splashFragment_to_onboardFragment)
             }.checkAllMatched

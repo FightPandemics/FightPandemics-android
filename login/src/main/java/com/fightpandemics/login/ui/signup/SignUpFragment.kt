@@ -1,4 +1,4 @@
-package com.fightpandemics.login.ui
+package com.fightpandemics.login.ui.signup
 
 import android.content.Context
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
 import com.fightpandemics.core.utils.ViewModelFactory
+import com.fightpandemics.login.ui.LoginViewModel
 import com.google.android.material.appbar.MaterialToolbar
 import javax.inject.Inject
 

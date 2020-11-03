@@ -11,12 +11,12 @@ import com.fightpandemics.core.domain.usecase.UseCase
 import javax.inject.Inject
 
 @FeatureScope
-class UpdatePostUsecase @Inject constructor(
+class LikePostUsecase @Inject constructor(
     private val postsRepository: PostsRepository,
     dispatcherProvider: CoroutinesDispatcherProvider,
 ) : SuspendUseCase<Post, Any>(dispatcherProvider.default)  {
 
     override suspend fun execute(parameters: Post): Any {
-        return postsRepository.updatePost(parameters._id)
+        return postsRepository.likePost(parameters)
     }
 }

@@ -1,9 +1,9 @@
 package com.fightpandemics.login.dagger
 
-import com.fightpandemics.login.ui.CompleteProfileFragment
-import com.fightpandemics.login.ui.SignInEmailFragment
-import com.fightpandemics.login.ui.SignInFragment
-import com.fightpandemics.login.ui.SignUpFragment
+import com.fightpandemics.login.ui.profile.CompleteProfileFragment
+import com.fightpandemics.login.ui.signin.SignInEmailFragment
+import com.fightpandemics.login.ui.signin.SignInFragment
+import com.fightpandemics.login.ui.signup.SignUpFragment
 
 fun inject(fragment: SignUpFragment) {
     (fragment.requireActivity().applicationContext as LoginComponentProvider)

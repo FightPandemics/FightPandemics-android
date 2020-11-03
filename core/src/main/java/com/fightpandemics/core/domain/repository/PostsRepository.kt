@@ -14,5 +14,5 @@ interface PostsRepository {
 
     suspend fun updatePost(postRequest: PostRequest)
 
-    suspend fun updatePost(postId: String)
+    suspend fun likePost(post: Post)
 }

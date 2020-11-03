@@ -3,6 +3,7 @@ package com.fightpandemics.home.ui.tabs
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -63,15 +64,12 @@ class PostsViewHolder(
             user_full_name.text = post.author?.name
             post_title.text = post.title
             user_location.text =
-                post.author?.location?.state.plus(", ").plus(post.author?.location?.country)
+                post.author?.location?.city.plus(", ").plus(post.author?.location?.country)
             post_content.text = post.content
 
             like.isChecked = post.liked!!
             like.setOnClickListener {
                 post.liked = !post.liked!!
-                /*it.apply {
-                    isChecked = post
-                }*/
                 homeEventListener.onLikeClicked(post)
             }
             likes_count.text = post.likesCount.toString()
@@ -87,7 +85,7 @@ class PostsViewHolder(
 
             val time_post = 12.toString()
             time_posted.text = "Posted $time_post hrs ago"
-            Timber.e(getPostCreated("2020-10-15T15:44:04.009Z").toString())
+            //Timber.e(getPostCreated("2020-10-15T15:44:04.009Z").toString())
 
             setOnClickListener { onItemClickListener?.invoke(post) }
         }

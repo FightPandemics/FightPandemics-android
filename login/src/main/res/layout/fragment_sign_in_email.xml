@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/signup_screen_bg"
     android:fitsSystemWindows="true"
-    tools:context=".ui.SignInEmailFragment">
+    tools:context=".ui.signin.SignInEmailFragment">
 
     <include
         layout="@layout/sign_in_toolbar"
@@ -43,7 +43,7 @@
             android:paddingStart="2dp"
             android:paddingTop="8dp"
             android:paddingEnd="2dp"
-            android:text="odiaseosai@gmail.com"
+            android:text="odiase.osaigbovo@gmail.com"
             android:textAppearance="@style/SignUPText" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -78,7 +78,7 @@
             android:paddingStart="2dp"
             android:paddingTop="8dp"
             android:paddingEnd="2dp"
-            android:text="FdaniD4sP!GNZ!p"
+            android:text="G!C6e3hDdNZLWWp"
             android:textAppearance="@style/SignUPText"
             app:endIconDrawable="@drawable/ic_eye_toogle" />
 
