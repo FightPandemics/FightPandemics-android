@@ -83,6 +83,8 @@ fastlane/readme.md
 fastlane/report.xml
 fastlane/screenshots
 fastlane/test_output
+fastlane/README.md
+fastlane/.env
 freeline.py
 freeline/
 freeline_project_description.json

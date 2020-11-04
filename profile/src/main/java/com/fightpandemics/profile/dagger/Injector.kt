@@ -3,7 +3,7 @@ package com.fightpandemics.profile.dagger
 import android.app.Activity
 import androidx.fragment.app.Fragment
 import com.fightpandemics.FightPandemicsApp
-import com.fightpandemics.dagger.CoreComponentProvider
+import com.fightpandemics.core.dagger.CoreComponentProvider
 import com.fightpandemics.profile.ui.ProfileFragment
 
 fun inject(fragment: Fragment) {
