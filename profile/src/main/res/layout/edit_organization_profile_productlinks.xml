@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:text="Product Links"
+            android:layout_marginTop="31dp"
+            android:layout_marginBottom="21dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="24dp"
+            android:textStyle="bold"
+            android:textSize="24dp"
+            android:textColor="#282828">
+
+        </androidx.appcompat.widget.AppCompatTextView>
+    </androidx.appcompat.widget.Toolbar>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d7d7d7">
+    </view>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_Facebook_URL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:boxBackgroundColor="#f6f7fb"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="31dp"
+        android:layout_marginRight="35dp"
+        android:textColorHint="#425af2"
+        android:typeface="sans">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Link to Apple Store"
+            android:textSize="20dp"
+            android:typeface="sans"
+            android:text="itunes.apple.com/"
+            android:textColor="#939393">
+
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_LinkedIn_URL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:boxBackgroundColor="#f6f7fb"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="31dp"
+        android:layout_marginRight="35dp"
+        android:textColorHint="#425af2"
+        android:typeface="sans">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Link to Google Play"
+            android:textSize="20dp"
+            android:typeface="sans"
+            android:text="play.google.com/"
+            android:textColor="#939393">
+
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_submit_button"
+        android:layout_marginTop="56dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="25dp"
+        android:text="Save">
+    </Button>
+
+
+</LinearLayout>
