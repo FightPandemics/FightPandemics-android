@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -20,114 +22,532 @@
             layout="@layout/industry_toolbar" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/letter_A_txt"
-        style="@style/AndroidNativeH216Px"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="32dp"
-        android:paddingBottom="11dp"
-        android:background="@drawable/gray_line_bottom"
-        android:maxWidth="300dp"
-        android:text="@string/a"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBar" />
-    <RadioGroup
-        android:id="@+id/rg"
+
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="18dp"
+        android:layout_height="@dimen/industry_scrollView_height"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/letter_A_txt">
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/architecture_radio_bnt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layoutDirection="rtl"
-                    android:paddingRight="240dp"
-                    android:text="@string/architecture"
-                    android:buttonTint="@color/fightPandemicsNeonBlue"
-                    app:layout_constraintStart_toStartOf="parent"
-                     />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/artAndCraft_radio_bnt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:layoutDirection="rtl"
-                    android:paddingRight="239dp"
-                    android:text="@string/arts_and_crafts"
-                    android:buttonTint="@color/fightPandemicsNeonBlue"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/architecture_radio_bnt" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/automotive_radio_bnt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layoutDirection="rtl"
-                    android:paddingRight="247dp"
-                    android:text="@string/automotive"
-                    android:buttonTint="@color/fightPandemicsNeonBlue"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/artAndCraft_radio_bnt" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/automobiles_radio_bnt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layoutDirection="rtl"
-                    android:paddingRight="239dp"
-                    android:text="@string/automobiles"
-                    android:buttonTint="@color/fightPandemicsNeonBlue"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/automotive_radio_bnt" />
-
-    </RadioGroup>
-    <TextView
-        android:id="@+id/letter_B_txt"
-        style="@style/AndroidNativeH216Px"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/gray_line_bottom"
-        android:maxWidth="300dp"
-        android:paddingBottom="11dp"
-        android:text="@string/b"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg" />
+        app:layout_constraintTop_toBottomOf="@+id/appBar">
 
-    <com.google.android.material.radiobutton.MaterialRadioButton
-        android:id="@+id/banking_radio_bnt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layoutDirection="rtl"
-        android:paddingRight="275dp"
-        android:text="@string/banking"
-        android:buttonTint="@color/fightPandemicsNeonBlue"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/letter_B_txt" />
+        <RadioGroup
+            android:id="@+id/rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/letter_A_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/a"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/automotive_radio_bnt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/architecture_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="240dp"
+                android:text="@string/architecture"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/automobiles_radio_bnt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/artAndCraft_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:checked="true"
+                android:layoutDirection="rtl"
+                android:paddingRight="239dp"
+                android:text="@string/arts_and_crafts"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/architecture_radio_bnt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/automotive_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="247dp"
+                android:text="@string/automotive"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/artAndCraft_radio_bnt" />
+
+            <!-- Letter B -->
+            <TextView
+                android:id="@+id/letter_B_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/b"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/automotive_radio_bnt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/banking_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="270dp"
+                android:text="@string/banking"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/letter_B_txt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/biotechnology_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="232dp"
+                android:text="@string/biotechnology"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/banking_radio_bnt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/business_supplies_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="110dp"
+                android:text="@string/business_supplies_and_equipment"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/biotechnology_radio_bnt" />
+            <!-- Letter C -->
+            <TextView
+                android:id="@+id/letter_C_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/c"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rg" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/civic_and_social_organization_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="140dp"
+                android:text="@string/civic_and_social_organization"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/biotechnology_radio_bnt" />
+
+            <!-- letter E -->
+            <TextView
+                android:id="@+id/letter_E_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/e"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rg" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/business_Supplies_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="230dp"
+                android:text="@string/event_services"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/biotechnology_radio_bnt" />
+
+            <!-- letter F-->
+            <TextView
+                android:id="@+id/letter_F_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/f"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rg" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/fund_raising_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="240dp"
+                android:text="@string/fund_raising"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/biotechnology_radio_bnt" />
+
+            <!-- letter G -->
+            <TextView
+                android:id="@+id/letter_G_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/g"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/biotechnology_radio_bnt" />
+
+            <!-- letter H-->
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/government_relations_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="185dp"
+                android:text="@string/government_relations"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/biotechnology_radio_bnt" />
+
+            <TextView
+                android:id="@+id/letter_H_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/h"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/biotechnology_radio_bnt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/health_wellness_and_fitness_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="145dp"
+                android:text="@string/health_wellness_and_fitness"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/letter_H_txt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/hospital_and_healthcare_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="187dp"
+                android:text="@string/hospital_and_healthcare"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/health_wellness_and_fitness_radio_bnt" />
+
+            <!-- letter I-->
+            <TextView
+                android:id="@+id/letter_I_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/i"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/health_wellness_and_fitness_radio_bnt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/industries_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="265dp"
+                android:text="@string/industries"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/letter_I_txt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/information_technology_and_services_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="95dp"
+                android:text="@string/information_technology_and_services"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/industries_radio_bnt" />
+
+            <!-- letter L-->
+            <TextView
+                android:id="@+id/letter_L_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/l"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/health_wellness_and_fitness_radio_bnt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/legal_services_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="240dp"
+                android:text="@string/legal_services"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/letter_L_txt" />
+
+            <!-- letter M-->
+            <TextView
+                android:id="@+id/letter_M_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/m"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/legal_services_radio_bnt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/marketing_and_advertising_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="165dp"
+                android:text="@string/marketing_and_advertising"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/letter_M_txt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/medical_devices_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="227dp"
+                android:text="@string/medical_devices"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/marketing_and_advertising_radio_bnt" />
+
+            <!-- letter N-->
+            <TextView
+                android:id="@+id/letter_N_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/n"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/medical_devices_radio_bnt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/non_profit_organization_management_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="95dp"
+                android:text="@string/non_profit_organization_management"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/letter_N_txt" />
+
+            <!-- letter O-->
+            <TextView
+                android:id="@+id/letter_O_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/o"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/non_profit_organization_management_radio_bnt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/Other_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="295dp"
+                android:text="@string/other"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/letter_O_txt" />
+
+            <!-- letter P -->
+            <TextView
+                android:id="@+id/letter_P_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/p"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Other_radio_bnt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/philanthropy_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="250dp"
+                android:text="@string/philanthropy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/letter_P_txt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/primary_secondary_education_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="142dp"
+                android:text="@string/primary_secondary_education"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/philanthropy_radio_bnt" />
+
+            <!-- letter R -->
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/professional_training_and_coaching_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="108dp"
+                android:text="@string/professional_training_and_coaching"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/primary_secondary_education_radio_bnt" />
+
+            <TextView
+                android:id="@+id/letter_R_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/r"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/professional_training_and_coaching_radio_bnt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/research_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="270dp"
+                android:text="@string/research"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/letter_R_txt" />
+
+            <!-- letter T -->
+            <TextView
+                android:id="@+id/letter_T_txt"
+                style="@style/AndroidNativeH216Px"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/gray_line_bottom"
+                android:maxWidth="300dp"
+                android:text="@string/t"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/professional_training_and_coaching_radio_bnt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/think_tanks_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="250dp"
+                android:text="@string/think_tanks"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/letter_T_txt" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/translation_and_localization_radio_bnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:buttonTint="@color/fightPandemicsNeonBlue"
+                android:layoutDirection="rtl"
+                android:paddingRight="150dp"
+                android:text="@string/translation_and_localization"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/think_tanks_radio_bnt" />
+        </RadioGroup>
+
+    </ScrollView>
 
     <Button
         android:id="@+id/industry_save_btn"
         style="@style/PrimaryButton"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="235dp"
+        android:layout_marginBottom="24dp"
         android:lineSpacingExtra="5.9sp"
         android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/banking_radio_bnt" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
