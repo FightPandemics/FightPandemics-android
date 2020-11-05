@@ -33,7 +33,7 @@ import timber.log.Timber
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
+class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
     @Inject
     lateinit var filterViewModelFactory: ViewModelFactory
@@ -43,6 +43,10 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
     private var whomSelectedChips: Int? = 0
     private var typeSelectedChips: Int? = 0
     private var total: Int = 0
+
+    // Places API variables
+    private val STORAGE_PERMISSION_CODE = 1
+    private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
 
     var x: Int by Delegates.observable(0) { prop, old, new ->
         when (new) {
@@ -63,10 +67,6 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
             }
         }
     }
-
-    // Places API variables
-    private val STORAGE_PERMISSION_CODE = 1
-    private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -102,19 +102,16 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
         // Get the viewmodel
         filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
 
-       // setup recycler view
+        // setup recycler view
         val adapter = FilterAdapter(this)
-        binding.locationOptions.autoCompleteLocationsRecyclerView.apply {
-            // RecyclerView behavior
-            // set the custom adapter to the RecyclerView
-            this.adapter = adapter
-        }
+        // set the custom adapter to the RecyclerView
+        binding.locationOptions.autoCompleteLocationsRecyclerView.adapter = adapter
 
-        // update recycler view list if data observed changes
+        // update recycler view adapter list if data observed changes
         filterViewModel.autocomplete_locations.observe(viewLifecycleOwner, {
-           it?.let {
-              adapter.data = it
-           }
+            it?.let {
+                adapter.data = it
+            }
         })
 
         binding.filterLocationExpandable.locationEmptyCard.setOnClickListener {
@@ -183,7 +180,10 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
                         binding.filterFromWhomExpandable.filtersAppliedText.visibility =
                             View.VISIBLE
                         binding.filterFromWhomExpandable.filtersAppliedText.text =
-                            requireContext().getString(R.string.card_applied_filters, whomSelectedChips)
+                            requireContext().getString(
+                                R.string.card_applied_filters,
+                                whomSelectedChips
+                            )
                     }
                 }
                 //whomSelectedChips?.let { x.plus(it) }
@@ -229,24 +229,23 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
         })
 
         // Manage visibility for recycler view and line divider
-        filterViewModel.locationQuery.observe(viewLifecycleOwner, {locationQuery ->
-            if (locationQuery.isEmpty()){
+        filterViewModel.locationQuery.observe(viewLifecycleOwner, { locationQuery ->
+            if (locationQuery.isEmpty()) {
                 binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.GONE
                 binding.locationOptions.itemLineDivider1.visibility = View.GONE
-            }else{
-//                binding.locationOptions.locationSearch.setText( locationQuery )
+            } else {
                 binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.VISIBLE
                 binding.locationOptions.itemLineDivider1.visibility = View.VISIBLE
             }
         })
 
         // handle selection of location in recycler view and from get current location
-        filterViewModel.onSelectedLocation.observe(viewLifecycleOwner, {onSelectedLocation ->
-            if (onSelectedLocation != null){
-                binding.locationOptions.locationSearch.setText( onSelectedLocation )
+        filterViewModel.onSelectedLocation.observe(viewLifecycleOwner, { onSelectedLocation ->
+            if (onSelectedLocation != null) {
+                binding.locationOptions.locationSearch.setText(onSelectedLocation)
                 binding.locationOptions.locationSearch.isEnabled = false
                 binding.locationOptions.locationSearch.isEnabled = true
-                // maybe make a function in the view model of this
+                // todo maybe make a function in the view model of this
                 filterViewModel.onSelectedLocation.value = null
             }
         })
@@ -285,9 +284,8 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
         placesClient = Places.createClient(requireContext())
 
         binding.locationOptions.locationSearch.doAfterTextChanged { text ->
-//            Timber.d("Places: %s", text)
             filterViewModel.autocompleteLocation(text.toString(), placesClient)
-            Timber.i("Live data: im gonig to update live data with $text")
+//            Timber.i("Live data: im gonig to update live data with $text")
             filterViewModel.locationQuery.value = text.toString()
         }
 
@@ -312,7 +310,7 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
 
     private fun getLocationPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            val dialogView = layoutInflater.inflate(R.layout.location_permission_dialog,null)
+            val dialogView = layoutInflater.inflate(R.layout.location_permission_dialog, null)
             AlertDialog.Builder(requireContext())
                 .setView(dialogView)
                 .setPositiveButton("ALLOW") { dialog, which ->
@@ -366,16 +364,7 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
     }
 
     override fun onClick(locationSelected: String) {
-
-        // TODO change back if doesnt work
-//        filterViewModel.locationQuery.value = locationSelected
         filterViewModel.onSelectedLocation.value = locationSelected
-//        binding.locationOptions.locationSearch.setText(
-//            locationSelected
-//        )
-//        binding.locationOptions.locationSearch.isEnabled = false
-//        binding.locationOptions.locationSearch.isEnabled = true
-
     }
 
 }

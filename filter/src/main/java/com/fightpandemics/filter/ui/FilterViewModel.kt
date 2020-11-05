@@ -46,9 +46,6 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     // handle on selected place event (either from recycler view or from current location button)
     var onSelectedLocation = MutableLiveData<String>()
 
-    // Places API variables
-//    private val PLACES_API_KEY: String = com.fightpandemics.home.BuildConfig.PLACES_API_KEY
-
     init {
         isLocationOptionsExpanded.value = false
         isFromWhomOptionsExpanded.value = false
@@ -73,24 +70,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         placeResponse.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val response = task.result
-
-                // TODO: CHANGETO SOMETHING ELSE
-                /*
-                 1- if i want to keep the liveedata locationquery intact, then i need to create another live data and create an observer in the fragment
-                 2- i make it all with the locationquery live data but then i need to fix the infinite ontextchange bug
-                 3- what about an event?? <- maybe do this
-                 when currentlocation or an autocomplete location is selected -> update onSelectionComplete = true
-                 then have observer:
-                 if true -> set the text of the query (might not even have to update locationQuery), set onSelectionComplete = false, (we could close the recycler view also)
-                 if false -> do nothing
-                */
-
                 onSelectedLocation.value = response.placeLikelihoods[0].place.address ?: "Not found"
-//                locationQuery.value = response.placeLikelihoods[0].place.address ?: "Not found"
-//                binding.locationOptions.locationSearch.setText(
-//                    response.placeLikelihoods[0].place.address ?: "Not found"
-//                )
-
             } else {
                 val exception = task.exception
                 if (exception is ApiException) {
@@ -101,7 +81,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
 
     }
 
-    fun autocompleteLocation(query: String, placesClient: PlacesClient){
+    fun autocompleteLocation(query: String, placesClient: PlacesClient) {
 
         // Create a new token for the autocomplete session. Pass this to FindAutocompletePredictionsRequest,
         // and once again when the user makes a selection (for example when calling fetchPlace()).
@@ -138,7 +118,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
                     // todo do something with the latlng
                     getLatLng(prediction.placeId, placesClient)
                 }
-                // todo this updates the live data
+                // update the live data
                 autocomplete_locations.value = placesList
 
             }.addOnFailureListener { exception: Exception? ->
@@ -150,7 +130,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
 
     }
 
-    private fun getLatLng(placeId: String, placesClient: PlacesClient){
+    private fun getLatLng(placeId: String, placesClient: PlacesClient) {
         // Specify the fields to return.
         val placeFields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG)
 
