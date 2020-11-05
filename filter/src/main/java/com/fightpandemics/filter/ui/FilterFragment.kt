@@ -4,7 +4,6 @@ import com.fightpandemics.home.BuildConfig
 import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,10 +15,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
@@ -27,8 +24,6 @@ import com.fightpandemics.home.databinding.FilterStartFragmentBinding
 import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.model.AutocompleteSessionToken
-import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.*
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.android.synthetic.main.filter_location_options.view.*
@@ -43,6 +38,7 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
     lateinit var filterViewModelFactory: ViewModelFactory
     private lateinit var filterViewModel: FilterViewModel
     private lateinit var binding: FilterStartFragmentBinding
+    private lateinit var placesClient: PlacesClient
     private var whomSelectedChips: Int? = 0
     private var typeSelectedChips: Int? = 0
     private var total: Int = 0
@@ -67,15 +63,9 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
         }
     }
 
-
     // Places API variables
-    private val AUTOCOMPLETE_REQUEST_CODE = 1
     private val STORAGE_PERMISSION_CODE = 1
     private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
-
-    // Recycler View variables
-    private var layoutManager: RecyclerView.LayoutManager? = null
-//    private var adapter: RecyclerView.Adapter<FilterAdapter.ViewHolder>? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -243,6 +233,9 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
                 binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.GONE
                 binding.locationOptions.itemLineDivider1.visibility = View.GONE
             }else{
+
+//                binding.locationOptions.locationSearch.setText( locationQuery )
+
                 binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.VISIBLE
                 binding.locationOptions.itemLineDivider1.visibility = View.VISIBLE
             }
@@ -275,11 +268,15 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
             findNavController().popBackStack()
         }
 
-//        // Places API Logic
+        // Places API Logic
+        // Initialize places sdk
+        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
+        // Create a new PlacesClient instance
+        placesClient = Places.createClient(requireContext())
+
         binding.locationOptions.locationSearch.doAfterTextChanged { text ->
-//            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
             Timber.d("Places: %s", text)
-            autocompletePlaces(text.toString())
+            filterViewModel.autocompleteLocation(text.toString(), placesClient)
             filterViewModel.locationQuery.value = text.toString()
         }
 
@@ -289,9 +286,21 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
     }
 
     private fun getCurrentLocation() {
-        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
-        // Create a new PlacesClient instance
-        val placesClient = Places.createClient(requireContext())
+        // Call findCurrentPlace and handle the response (first check that the user has granted permission).
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+//            filterViewModel.requestCurrentLocation(placesClient)
+            requestCurrentLocation()
+        } else {
+            // A local method to request required permissions;
+            getLocationPermission()
+        }
+    }
+
+    private fun requestCurrentLocation(){
 
         // Use fields to define the data types to return.
         val placeFields: List<Place.Field> = listOf(Place.Field.ADDRESS, Place.Field.LAT_LNG)
@@ -299,22 +308,13 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
         // Use the builder to create a FindCurrentPlaceRequest.
         val request: FindCurrentPlaceRequest = FindCurrentPlaceRequest.newInstance(placeFields)
 
-        // Call findCurrentPlace and handle the response (first check that the user has granted permission).
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-
-//            Toast.makeText(requireContext(), "You already have permissions, great!", Toast.LENGTH_SHORT).show()
-
-            val placeResponse = placesClient.findCurrentPlace(request)
-            placeResponse.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val response = task.result
-                    binding.locationOptions.locationSearch.setText(
-                        response.placeLikelihoods[0].place.address ?: "Not found"
-                    )
+        val placeResponse = placesClient.findCurrentPlace(request)
+        placeResponse.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val response = task.result
+                binding.locationOptions.locationSearch.setText(
+                    response.placeLikelihoods[0].place.address ?: "Not found"
+                )
 //                    for (placeLikelihood: PlaceLikelihood in response?.placeLikelihoods
 //                        ?: emptyList()) {
 //                        binding.locationOptions.locationSearch.setText(placeLikelihood.place.address)
@@ -322,23 +322,19 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
 //                        Timber.i("Place '${placeLikelihood.place.address}', '${placeLikelihood.place.latLng}' has likelihood: ${placeLikelihood.likelihood}")
 //                        Toast.makeText(requireContext(), "Place '${placeLikelihood.place.address}', '${placeLikelihood.place.latLng}' has likelihood: ${placeLikelihood.likelihood}", Toast.LENGTH_SHORT).show()
 //                    }
-                } else {
-                    val exception = task.exception
-                    if (exception is ApiException) {
-                        Timber.e("Place not found: ${exception.statusCode}")
-                        Toast.makeText(
-                            requireContext(),
-                            "Place not found: Exception status code ${exception.statusCode}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+            } else {
+                val exception = task.exception
+                if (exception is ApiException) {
+                    Timber.e("Place not found: ${exception.statusCode}")
+                    Toast.makeText(
+                        requireContext(),
+                        "Place not found: Exception status code ${exception.statusCode}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
-        } else {
-            // A local method to request required permissions;
-            // See https://developer.android.com/training/permissions/requesting
-            getLocationPermission()
         }
+
     }
 
     private fun getLocationPermission() {
@@ -356,14 +352,6 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
                     dialog.dismiss()
                 }.create().show()
         }
-//        else {
-//            requestPermissions(
-//                arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-//                STORAGE_PERMISSION_CODE
-//            )
-//            Toast.makeText(context, "else from getlocation permisson", Toast.LENGTH_SHORT)
-//        }
-
     }
 
     override fun onRequestPermissionsResult(
@@ -371,7 +359,6 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             STORAGE_PERMISSION_CODE -> {
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
@@ -381,88 +368,8 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
                         .show()
                     getCurrentLocation()
                 }
-
             }
         }
-
-    }
-
-    private fun autocompletePlaces(query: String){
-        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
-        // Create a new PlacesClient instance
-        val placesClient = Places.createClient(requireContext())
-        // Create a new token for the autocomplete session. Pass this to FindAutocompletePredictionsRequest,
-        // and once again when the user makes a selection (for example when calling fetchPlace()).
-        val token = AutocompleteSessionToken.newInstance()
-
-        // Create a RectangularBounds object.
-//        val bounds = RectangularBounds.newInstance(
-//            LatLng(-33.880490, 151.184363),
-//            LatLng(-33.858754, 151.229596)
-//        )
-
-        // Use the builder to create a FindAutocompletePredictionsRequest.
-        val request =
-            FindAutocompletePredictionsRequest.builder()
-                // Call either setLocationBias() OR setLocationRestriction().
-//                .setLocationBias(bounds)
-                //.setLocationRestriction(bounds)
-//                .setOrigin(LatLng(-33.8749937, 151.2041382))
-//                .setCountries("AU", "NZ")
-                .setTypeFilter(TypeFilter.ADDRESS)
-                .setSessionToken(token)
-                .setQuery(query)
-                .build()
-
-        val placesList: MutableList<String> = mutableListOf()
-
-        placesClient.findAutocompletePredictions(request)
-            .addOnSuccessListener { response: FindAutocompletePredictionsResponse ->
-                Timber.i("Places: success")
-                for (prediction in response.autocompletePredictions) {
-                    placesList.add(prediction.getPrimaryText(null).toString())
-//                    Timber.i(prediction.placeId)
-//                    Timber.i(prediction.getPrimaryText(null).toString())
-//                    getLatLng(prediction.placeId)
-                }
-                for (place in placesList){
-                    Timber.i("Place" + place)
-                }
-                filterViewModel.autocomplete_locations.value = placesList
-//                for (place in filterViewModel.autocomplete_locations.value){
-//                    Timber.i("Place" + place)
-//                }
-
-            }.addOnFailureListener { exception: Exception? ->
-                Timber.i("Places: failure")
-                if (exception is ApiException) {
-                    Timber.e("Place not found: " + exception.statusCode)
-                }
-            }
-    }
-
-    private fun getLatLng(placeId: String){
-        // Define a Place ID.
-//        val placeId = "INSERT_PLACE_ID_HERE"
-        val placesClient = Places.createClient(requireContext())
-
-        // Specify the fields to return.
-        val placeFields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG)
-
-        // Construct a request object, passing the place ID and fields array.
-        val request = FetchPlaceRequest.newInstance(placeId, placeFields)
-
-        placesClient.fetchPlace(request)
-            .addOnSuccessListener { response: FetchPlaceResponse ->
-                val place = response.place
-                Timber.i("Places found: ${place.name}, ${place.latLng}")
-            }.addOnFailureListener { exception: Exception ->
-                if (exception is ApiException) {
-                    Timber.i("Places not found: ${exception.message}")
-                    val statusCode = exception.statusCode
-                    TODO("Handle error with given status code")
-                }
-            }
     }
 
     private fun expandContents(optionsView: View, clickableTextView: TextView) {
@@ -487,6 +394,9 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
 
     override fun onClick(locationSelected: String) {
 //        Toast.makeText(requireContext(), "hello from $position", Toast.LENGTH_SHORT).show()
+
+//        filterViewModel.locationQuery.value = locationSelected
+        // TODO change back if doesnt work
         binding.locationOptions.locationSearch.setText(
             locationSelected
         )
