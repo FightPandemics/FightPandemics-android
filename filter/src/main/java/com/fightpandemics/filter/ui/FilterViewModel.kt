@@ -43,6 +43,9 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     var locationQuery = MutableLiveData<String>()
     var autocomplete_locations = MutableLiveData<List<String>>()
 
+    // handle on selected place event (either from recycler view or from current location button)
+    var onSelectedLocation = MutableLiveData<String>()
+
     // Places API variables
 //    private val PLACES_API_KEY: String = com.fightpandemics.home.BuildConfig.PLACES_API_KEY
 
@@ -51,6 +54,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         isFromWhomOptionsExpanded.value = false
         isTypeOptionsExpanded.value = false
         locationQuery.value = ""
+        onSelectedLocation.value = null
     }
 
     fun toggleView(optionsCardState: MutableLiveData<Boolean>) {
@@ -71,18 +75,22 @@ class FilterViewModel @Inject constructor() : ViewModel() {
                 val response = task.result
 
                 // TODO: CHANGETO SOMETHING ELSE
+                /*
+                 1- if i want to keep the liveedata locationquery intact, then i need to create another live data and create an observer in the fragment
+                 2- i make it all with the locationquery live data but then i need to fix the infinite ontextchange bug
+                 3- what about an event?? <- maybe do this
+                 when currentlocation or an autocomplete location is selected -> update onSelectionComplete = true
+                 then have observer:
+                 if true -> set the text of the query (might not even have to update locationQuery), set onSelectionComplete = false, (we could close the recycler view also)
+                 if false -> do nothing
+                */
+
+                onSelectedLocation.value = response.placeLikelihoods[0].place.address ?: "Not found"
 //                locationQuery.value = response.placeLikelihoods[0].place.address ?: "Not found"
 //                binding.locationOptions.locationSearch.setText(
 //                    response.placeLikelihoods[0].place.address ?: "Not found"
 //                )
 
-//                    for (placeLikelihood: PlaceLikelihood in response?.placeLikelihoods
-//                        ?: emptyList()) {
-//                        binding.locationOptions.locationSearch.setText(placeLikelihood.place.address)
-//                        break
-//                        Timber.i("Place '${placeLikelihood.place.address}', '${placeLikelihood.place.latLng}' has likelihood: ${placeLikelihood.likelihood}")
-//                        Toast.makeText(requireContext(), "Place '${placeLikelihood.place.address}', '${placeLikelihood.place.latLng}' has likelihood: ${placeLikelihood.likelihood}", Toast.LENGTH_SHORT).show()
-//                    }
             } else {
                 val exception = task.exception
                 if (exception is ApiException) {
@@ -127,8 +135,10 @@ class FilterViewModel @Inject constructor() : ViewModel() {
                     placesList.add(prediction.getPrimaryText(null).toString())
 //                    Timber.i(prediction.placeId)
 //                    Timber.i(prediction.getPrimaryText(null).toString())
+                    // todo do something with the latlng
                     getLatLng(prediction.placeId, placesClient)
                 }
+                // todo this updates the live data
                 autocomplete_locations.value = placesList
 
             }.addOnFailureListener { exception: Exception? ->

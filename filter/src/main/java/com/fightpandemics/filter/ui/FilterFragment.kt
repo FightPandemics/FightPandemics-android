@@ -27,6 +27,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.*
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.android.synthetic.main.filter_location_options.view.*
+import kotlinx.android.synthetic.main.filter_start_fragment.*
 import kotlinx.android.synthetic.main.filter_start_fragment.view.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -233,11 +234,20 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
                 binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.GONE
                 binding.locationOptions.itemLineDivider1.visibility = View.GONE
             }else{
-
 //                binding.locationOptions.locationSearch.setText( locationQuery )
-
                 binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.VISIBLE
                 binding.locationOptions.itemLineDivider1.visibility = View.VISIBLE
+            }
+        })
+
+        // handle selection of location in recycler view and from get current location
+        filterViewModel.onSelectedLocation.observe(viewLifecycleOwner, {onSelectedLocation ->
+            if (onSelectedLocation != null){
+                binding.locationOptions.locationSearch.setText( onSelectedLocation )
+                binding.locationOptions.locationSearch.isEnabled = false
+                binding.locationOptions.locationSearch.isEnabled = true
+                // maybe make a function in the view model of this
+                filterViewModel.onSelectedLocation.value = null
             }
         })
 
@@ -275,8 +285,9 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
         placesClient = Places.createClient(requireContext())
 
         binding.locationOptions.locationSearch.doAfterTextChanged { text ->
-            Timber.d("Places: %s", text)
+//            Timber.d("Places: %s", text)
             filterViewModel.autocompleteLocation(text.toString(), placesClient)
+            Timber.i("Live data: im gonig to update live data with $text")
             filterViewModel.locationQuery.value = text.toString()
         }
 
@@ -292,49 +303,11 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-//            filterViewModel.requestCurrentLocation(placesClient)
-            requestCurrentLocation()
+            filterViewModel.requestCurrentLocation(placesClient)
         } else {
             // A local method to request required permissions;
             getLocationPermission()
         }
-    }
-
-    private fun requestCurrentLocation(){
-
-        // Use fields to define the data types to return.
-        val placeFields: List<Place.Field> = listOf(Place.Field.ADDRESS, Place.Field.LAT_LNG)
-
-        // Use the builder to create a FindCurrentPlaceRequest.
-        val request: FindCurrentPlaceRequest = FindCurrentPlaceRequest.newInstance(placeFields)
-
-        val placeResponse = placesClient.findCurrentPlace(request)
-        placeResponse.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val response = task.result
-                binding.locationOptions.locationSearch.setText(
-                    response.placeLikelihoods[0].place.address ?: "Not found"
-                )
-//                    for (placeLikelihood: PlaceLikelihood in response?.placeLikelihoods
-//                        ?: emptyList()) {
-//                        binding.locationOptions.locationSearch.setText(placeLikelihood.place.address)
-//                        break
-//                        Timber.i("Place '${placeLikelihood.place.address}', '${placeLikelihood.place.latLng}' has likelihood: ${placeLikelihood.likelihood}")
-//                        Toast.makeText(requireContext(), "Place '${placeLikelihood.place.address}', '${placeLikelihood.place.latLng}' has likelihood: ${placeLikelihood.likelihood}", Toast.LENGTH_SHORT).show()
-//                    }
-            } else {
-                val exception = task.exception
-                if (exception is ApiException) {
-                    Timber.e("Place not found: ${exception.statusCode}")
-                    Toast.makeText(
-                        requireContext(),
-                        "Place not found: Exception status code ${exception.statusCode}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
-
     }
 
     private fun getLocationPermission() {
@@ -393,13 +366,16 @@ class FilterFragment : Fragment() , FilterAdapter.OnItemClickListener {
     }
 
     override fun onClick(locationSelected: String) {
-//        Toast.makeText(requireContext(), "hello from $position", Toast.LENGTH_SHORT).show()
 
-//        filterViewModel.locationQuery.value = locationSelected
         // TODO change back if doesnt work
-        binding.locationOptions.locationSearch.setText(
-            locationSelected
-        )
+//        filterViewModel.locationQuery.value = locationSelected
+        filterViewModel.onSelectedLocation.value = locationSelected
+//        binding.locationOptions.locationSearch.setText(
+//            locationSelected
+//        )
+//        binding.locationOptions.locationSearch.isEnabled = false
+//        binding.locationOptions.locationSearch.isEnabled = true
+
     }
 
 }
