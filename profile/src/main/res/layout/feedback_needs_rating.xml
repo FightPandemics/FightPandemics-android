@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
@@ -23,9 +22,9 @@
         android:id="@+id/rating_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/ratio_group_margin"
+        android:layout_marginTop="@dimen/ratio_group_margin"
+        android:layout_marginEnd="@dimen/ratio_group_margin"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +35,7 @@
         <RadioButton
             android:id="@+id/radio0"
             style="@style/RatingRadioButton"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/ratio_button_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/rating1"
@@ -45,7 +44,7 @@
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_2"
             style="@style/RatingRadioButton"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/ratio_button_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/rating2"
@@ -54,7 +53,7 @@
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_3"
             style="@style/RatingRadioButton"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/ratio_button_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/rating3"
@@ -63,7 +62,7 @@
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_4"
             style="@style/RatingRadioButton"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/ratio_button_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/rating4"
@@ -72,7 +71,7 @@
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/rating_5"
             style="@style/RatingRadioButton"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/ratio_button_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/rating5"

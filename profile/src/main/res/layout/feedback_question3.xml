@@ -6,12 +6,12 @@
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     card_view:cardBackgroundColor="@color/colorWhite"
-    card_view:cardCornerRadius="0dp"
-    card_view:cardElevation="0dp">
+    card_view:cardCornerRadius="@dimen/feedback_card_corner_radius"
+    card_view:cardElevation="@dimen/cardview_default_elevation">
 
     <FrameLayout
         android:id="@+id/verticalAccent3"
-        android:layout_width="3dp"
+        android:layout_width="@dimen/vertical_highlight_width"
         android:layout_height="match_parent"
         android:background="@color/fightPandemicsNeonBlue"
         android:visibility="gone"
