@@ -62,4 +62,7 @@ dependencies {
 
     // Dagger
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
+
+    // Lottie
+    implementation "com.airbnb.android:lottie:3.4.4"
 }

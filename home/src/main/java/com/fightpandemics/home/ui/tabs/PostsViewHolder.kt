@@ -1,7 +1,9 @@
 package com.fightpandemics.home.ui.tabs
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -13,8 +15,10 @@ import com.fightpandemics.home.databinding.ItemAllFeedBinding
 import com.fightpandemics.home.databinding.SingleChipLayoutBinding
 import com.fightpandemics.home.ui.HomeEventListener
 import com.fightpandemics.home.utils.userInitials
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import timber.log.Timber
 import java.util.*
+
 
 class PostsViewHolder(
     private val homeEventListener: HomeEventListener,
@@ -49,12 +53,22 @@ class PostsViewHolder(
 
             itemBinding.postContent.text = post.content
 
-            itemBinding.like.isChecked = post.liked!!
-            itemBinding.like.setOnClickListener {
-                post.liked = !post.liked!!
-                homeEventListener.onLikeClicked(post)
+
+
+            itemBinding.like.apply {
+                isChecked = post.liked!!
+                setOnClickListener {
+                    post.liked = !post.liked!!
+                    homeEventListener.onLikeClicked(post)
+                }
             }
-            itemBinding.likesCount.text = post.likesCount.toString()
+
+            itemBinding.likesCount.apply {
+                text = post.likesCount.toString()
+            }
+
+
+
             itemBinding.commentsCount.text = post.commentsCount.toString()
 
 
@@ -74,14 +88,18 @@ class PostsViewHolder(
 
 
 
-            Timber.e(post.author!!.id)
-            if (post.author!!.id == homeEventListener.userId()) {
-                Timber.e("Author ${post.author!!.id}")
-                itemBinding.postOption.isVisible = true
-                itemBinding.postOption.setOnClickListener {
-                    Timber.e(homeEventListener.userId())
-                    Timber.e("Author ${post.author!!.id}")
-                    // TODO - Open BottomSheet to delete / edit post.
+            when (post.author!!.id) {
+                homeEventListener.userId() -> {
+                    itemBinding.postOption.isVisible = true
+                    itemBinding.postOption.setOnClickListener {
+                        val view: View = View.inflate(context, R.layout.edit_delete, null)
+                        val mBottomSheetDialog = BottomSheetDialog(context, R.style.BottomSheetDialogTheme)
+                        mBottomSheetDialog.setContentView(view)
+                        mBottomSheetDialog.show()
+                    }
+                }
+                else -> {
+                    itemBinding.postOption.isVisible = false
                 }
             }
 

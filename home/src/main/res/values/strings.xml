@@ -15,4 +15,13 @@
     <string name="share">Share</string>
     <string name="dot_normal">Dot Normal</string>
 
+    <!--Edit Delete Post-->
+    <string name="edit_post">Edit Post</string>
+    <string name="delete_post">Delete Post</string>
+    <string name="deleted_msg">The post is deleted.</string>
+    <string name="delete_confirm_alert_title">Are you sure you want to delete post?</string>
+    <string name="delete_confirm_alert_msg">Once your post is deleted, it is gone forever and this action cannot be undone.</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+
 </resources>

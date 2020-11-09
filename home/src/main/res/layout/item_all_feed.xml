@@ -167,7 +167,7 @@
         <TextView
             android:id="@+id/likes_count"
             style="@style/AndroidNativeP212Px"
-            android:layout_width="wrap_content"
+            android:layout_width="12dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/like"
@@ -179,7 +179,7 @@
             android:id="@+id/comment"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="16dp"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
             android:contentDescription="@string/comments"

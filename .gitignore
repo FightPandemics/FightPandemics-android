@@ -30,6 +30,7 @@
 .externalNativeBuild
 .gradle
 .gradle/
+.idea/
 .idea/.name
 .idea/assetWizardSettings.xml
 .idea/caches
