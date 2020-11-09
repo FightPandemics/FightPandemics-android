@@ -20,10 +20,6 @@ class SplashFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
     private val splashViewModel by viewModels<SplashViewModel> { viewModelFactory }
 
-    companion object {
-        fun newInstance() = SplashFragment()
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)

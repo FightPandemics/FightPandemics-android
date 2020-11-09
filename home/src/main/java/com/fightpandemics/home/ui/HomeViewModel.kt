@@ -36,11 +36,15 @@ class HomeViewModel @Inject constructor(
     val requestState: LiveData<PostsViewState> get() = _requestState
 
     private val _isSignedIn = MutableLiveData<Boolean>()
+    private val _userId = MutableLiveData<String?>(null)
 
     init {
         viewModelScope.launch {
-            when(val result = observeUserAuthStateUseCase(Any())){
-                is Result.Success -> _isSignedIn.value = result.data
+            when (val result = observeUserAuthStateUseCase(Any())) {
+                is Result.Success -> {
+                    _isSignedIn.value = result.data.signedIn
+                    _userId.value = result.data.userId
+                }
             }
         }
 
@@ -112,19 +116,23 @@ class HomeViewModel @Inject constructor(
     }
 
     override fun onLikeClicked(post: Post) {
-        Timber.e(post._id)
-
+        // If user is not signed in show Profile SignIN
         if (!_isSignedIn.value!!) {
             Timber.e("Showing Profile Sigin after LikeClicked")
             //_navigateToSignInDialogAction.value = Event(Unit)
             return
         }
 
+        // If user is signed in.
         viewModelScope.launch {
             val data = likePostUsecase(post) // PostRequest
             getPosts(null)
-//            getRequests("request")
+            //getRequests("request")
         }
+    }
+
+    override fun userId(): String? {
+        return _userId.value
     }
 }
 
@@ -134,8 +142,9 @@ class HomeViewModel @Inject constructor(
 data class PostsViewState(
     var isLoading: Boolean,
     val error: Result.Error?,
-    val posts: List<Post>?,
+    val posts: List<Post>? = null,
 )
 
 interface HomeEventListener : EventActions {
+    fun userId(): String?
 }

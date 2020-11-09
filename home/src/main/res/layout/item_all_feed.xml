@@ -30,7 +30,10 @@
             android:layout_height="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:contentDescription="TODO"
             android:src="@drawable/ic_post_options"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,6 +42,7 @@
             android:layout_width="2dp"
             android:layout_height="2dp"
             android:layout_marginStart="10dp"
+            android:contentDescription="TODO"
             android:src="@drawable/ic_dot"
             app:layout_constraintBottom_toBottomOf="@+id/objective"
             app:layout_constraintStart_toEndOf="@+id/objective"
@@ -107,9 +111,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:scrollbars="none"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/user_avatar"
             app:layout_constraintTop_toBottomOf="@+id/user_location">
 
@@ -140,6 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
+            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/post_title"
             app:layout_constraintTop_toBottomOf="@+id/post_title"
@@ -147,19 +150,19 @@
 
         <com.google.android.material.internal.CheckableImageButton
             android:id="@+id/like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:layout_marginBottom="16dp"
             android:contentDescription="@string/likes"
+            android:focusable="true"
+            android:src="@drawable/like_event"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_content"
-            android:src="@drawable/like_event"
-            android:focusable="true" />
+            app:layout_constraintTop_toBottomOf="@+id/post_content" />
 
         <TextView
             android:id="@+id/likes_count"
@@ -172,12 +175,15 @@
             app:layout_constraintTop_toTopOf="@+id/like"
             tools:text="12" />
 
-        <ImageView
+        <com.google.android.material.internal.CheckableImageButton
             android:id="@+id/comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="24dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:contentDescription="@string/comments"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="@+id/likes_count"
             app:layout_constraintStart_toEndOf="@+id/likes_count"
             app:layout_constraintTop_toTopOf="@+id/likes_count"
@@ -194,16 +200,20 @@
             app:layout_constraintTop_toTopOf="@+id/comment"
             tools:text="3" />
 
-        <ImageView
+        <com.google.android.material.internal.CheckableImageButton
             android:id="@+id/share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="24dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
             android:contentDescription="@string/share"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="@+id/comments_count"
             app:layout_constraintStart_toEndOf="@+id/comments_count"
             app:layout_constraintTop_toTopOf="@+id/comments_count"
             app:srcCompat="@drawable/ic_share" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.google.android.material.card.MaterialCardView>

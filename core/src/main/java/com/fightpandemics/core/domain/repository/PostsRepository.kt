@@ -12,7 +12,9 @@ interface PostsRepository {
 
     suspend fun getPosts(objective: String?): Flow<Result<List<Post>>>
 
-    suspend fun updatePost(postRequest: PostRequest)
+    suspend fun editPost(postRequest: PostRequest)
+
+    suspend fun deletePost(postRequest: PostRequest)
 
     suspend fun likePost(post: Post)
 }

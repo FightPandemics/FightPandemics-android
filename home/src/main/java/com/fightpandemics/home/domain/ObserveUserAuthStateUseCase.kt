@@ -14,7 +14,17 @@ import javax.inject.Inject
 class ObserveUserAuthStateUseCase @Inject constructor(
     private val preferenceStorage: PreferenceStorage,
     private val dispatcherProvider: CoroutinesDispatcherProvider
-): UseCase<Any, Boolean>(dispatcherProvider.default) {
+) : UseCase<Any, UserInfo>(dispatcherProvider.default) {
 
-    override fun execute(parameters: Any): Boolean = preferenceStorage.token != null
+    override fun execute(parameters: Any): UserInfo {
+        return UserInfo(
+            preferenceStorage.token != null,
+            preferenceStorage.userId
+        )
+    }
 }
+
+data class UserInfo(
+    var signedIn: Boolean,
+    var userId: String?,
+)

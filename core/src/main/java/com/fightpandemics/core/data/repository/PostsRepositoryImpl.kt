@@ -9,7 +9,6 @@ import com.fightpandemics.core.domain.repository.PostsRepository
 import com.fightpandemics.core.result.Result
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -21,8 +20,6 @@ class PostsRepositoryImpl @Inject constructor(
     private val postsRemoteDataSource: PostsRemoteDataSource,
 ) : PostsRepository {
 
-    private val postsChannel = ConflatedBroadcastChannel<Result<List<Post>>>()
-
     override fun getPosts(): Flow<Result<Posts>> {
         return flow {
             val posts = postsRemoteDataSource.fetchPosts()
@@ -31,18 +28,18 @@ class PostsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getPosts(objective: String?): Flow<Result<List<Post>>> {
-        /*val posts = postsRemoteDataSource.fetchPosts(objective)
-        postsChannel.offer(Result.Success(posts))
-        return postsChannel.asFlow()*/
-
         return flow {
             val posts = postsRemoteDataSource.fetchPosts(objective)
             emit(Result.Success(posts))
         }
     }
 
-    override suspend fun updatePost(postRequest: PostRequest) {
+    override suspend fun editPost(postRequest: PostRequest) {
         //postsRemoteDataSource.updatePost(postRequest._id, postRequest)
+    }
+
+    override suspend fun deletePost(postRequest: PostRequest) {
+        TODO("Not yet implemented")
     }
 
     override suspend fun likePost(post: Post) {
