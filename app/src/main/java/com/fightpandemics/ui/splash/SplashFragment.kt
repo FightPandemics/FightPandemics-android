@@ -38,10 +38,12 @@ class SplashFragment : Fragment() {
     }
 
     private fun launch() {
+
         splashViewModel.launchDestination.observe(requireActivity(), EventObserver { destination ->
             when (destination) {
                 LaunchDestination.MAIN_ACTIVITY ->
-                    findNavController().navigate(R.id.action_splashFragment_to_mainActivity).apply { requireActivity().finish() }
+                    //findNavController().navigate(R.id.action_splashFragment_to_mainActivity).apply { requireActivity().finish() } //TODO this is only for test login to always show login screen
+                    findNavController().navigate(R.id.action_splashFragment_to_onboardFragment)
                 LaunchDestination.ONBOARD ->
                     findNavController().navigate(R.id.action_splashFragment_to_onboardFragment)
             }.checkAllMatched

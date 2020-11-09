@@ -17,6 +17,12 @@
             app:popUpTo="@id/signInFragment"
             app:popUpToInclusive="false" />
 
+        <action
+            android:id="@+id/action_signInFragment_to_mainActivity"
+            app:destination="@id/mainActivity"
+            app:launchSingleTop="true"
+            />
+
     </fragment>
 
     <fragment
@@ -32,6 +38,12 @@
             app:popUpToInclusive="false" />
 
     </fragment>
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.fightpandemics.ui.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
 
     <include app:graph="@navigation/nav_sign_up" />
 

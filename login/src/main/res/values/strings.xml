@@ -27,4 +27,6 @@
     <string name="donations">Donations</string>
     <string name="information">Information</string>
     <string name="other_help">Other Help</string>
+    <string name="com_auth0_client_id">J2pJ9iZ0cJzI0lqJ2h3tdLlqVPO2sGMM</string>
+    <string name="com_auth0_domain">fightpandemics.eu.auth0.com</string>
 </resources>
