@@ -1,4 +1,4 @@
-package com.fightpandemics.login.ui
+package com.fightpandemics.login.ui.signin
 
 import android.content.Context
 import android.content.Intent
@@ -7,18 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.auth0.android.Auth0
 import com.auth0.android.provider.WebAuthProvider
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.button.MaterialButton
+import com.fightpandemics.login.databinding.FragmentSignInBinding
+import com.fightpandemics.login.ui.Auth0CallBack
+import com.fightpandemics.login.ui.LoginConnection
+import com.fightpandemics.login.ui.LoginViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -28,11 +28,12 @@ class SignInFragment : Fragment() {
     @Inject
     lateinit var loginViewModelFactory: ViewModelFactory
     private val loginViewModel: LoginViewModel by viewModels { loginViewModelFactory }
-    private lateinit var sign_in_toolbar: MaterialToolbar
+
+    private var fragmentSignInBinding: FragmentSignInBinding? = null
+
     private lateinit var auth0: Auth0
     private val CALLBACK_START_URL = "https://%s/userinfo"
     private val SCOPE = "demo"
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,26 +45,40 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        val rootView = inflater.inflate(R.layout.fragment_sign_in, container, false)
+        val binding = FragmentSignInBinding.inflate(inflater, container, false)
+        fragmentSignInBinding = binding
 
-        sign_in_toolbar = rootView.findViewById(R.id.sign_in_toolbar)
-        sign_in_toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+        fragmentSignInBinding!!.signInToolbar.signInEmailToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
 
-        rootView.findViewById<MaterialButton>(R.id.btn_sign_in_email).setOnClickListener {
+        fragmentSignInBinding!!.btnSignInEmail.setOnClickListener {
             findNavController().navigate(R.id.action_signInFragment_to_signInEmailFragment)
         }
-        rootView.findViewById<ConstraintLayout>(R.id.includeGoogle)?.setOnClickListener {
+
+        fragmentSignInBinding!!.includeGoogle.googleSignin.setOnClickListener {
             login(LoginConnection.GOOGLE, it)
         }
-        rootView.findViewById<ConstraintLayout>(R.id.includeFacebook)?.setOnClickListener {
+
+        fragmentSignInBinding!!.includeFacebook.facebookSignin.setOnClickListener {
             login(LoginConnection.FACEBOOK, it)
         }
-        rootView.findViewById<ConstraintLayout>(R.id.includeLinkedin)?.setOnClickListener {
+
+        fragmentSignInBinding!!.includeLinkedin.linkedInSignin.setOnClickListener {
             login(LoginConnection.LINKEDIN, it)
         }
-        auth0 = Auth0(resources.getString(R.string.com_auth0_client_id), resources.getString(R.string.com_auth0_domain))
+
+        auth0 = Auth0(
+            resources.getString(R.string.com_auth0_client_id),
+            resources.getString(R.string.com_auth0_domain)
+        )
         auth0.isOIDCConformant = true
-        return rootView
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        fragmentSignInBinding = null
+        super.onDestroyView()
     }
 
     private fun login(loginConnection: LoginConnection, view: View) {
@@ -79,7 +94,13 @@ class SignInFragment : Fragment() {
             .start(
                 requireActivity(),
                 Auth0CallBack(
-                    { Toast.makeText(context, "Unexpected error, try again later", Toast.LENGTH_LONG) },
+                    {
+                        Toast.makeText(
+                            context,
+                            "Unexpected error, try again later",
+                            Toast.LENGTH_LONG
+                        )
+                    },
                     {
 
                         //view.findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
@@ -92,12 +113,7 @@ class SignInFragment : Fragment() {
                     }
                 )
             )
-
-
     }
-
-
-
 
 
 }

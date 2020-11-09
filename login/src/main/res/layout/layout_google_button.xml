@@ -1,37 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.google.android.material.button.MaterialButton
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/clGoogleSignIn"
+    style="@style/Widget.MaterialComponents.Button.Icon"
+    android:id="@+id/googleSignin"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="60dp"
     android:background="@drawable/btn_sign_social_background"
-    android:backgroundTint="@color/colorWhite"
-    >
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_google_btn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/ic_google"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        app:layout_constraintStart_toEndOf="@id/iv_google_btn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:fontFamily="@font/poppins_medium"
-        android:lineHeight="23.9sp"
-        android:lineSpacingExtra="5.9sp"
-        android:text="Continue with Google"
-        android:textColor="#757575"
-
-        android:textSize="18sp" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:clickable="true"
+    android:focusable="true"
+    android:fontFamily="@font/poppins_medium"
+    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+    android:letterSpacing="-0.008"
+    android:text="@string/continue_with_google"
+    android:textAllCaps="false"
+    android:textColor="#757575"
+    android:textSize="18sp"
+    app:backgroundTint="@color/color_white"
+    app:elevation="15dp"
+    app:icon="@drawable/ic_google"
+    app:iconGravity="textStart"
+    app:iconPadding="24dp"
+    app:iconSize="28dp"
+    app:iconTint="@null" />

@@ -19,7 +19,7 @@
     </style>
 
     <style name="AndroidNativeP311Px">
-        <item name="android:textSize">11sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:lineSpacingExtra">0dp</item>
         <item name="fontFamily">@font/worksans_regular</item>
         <item name="android:textColor">@color/fightPandemicsMediumGrey</item>

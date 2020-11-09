@@ -20,6 +20,7 @@ class Auth0CallBack (val failureCallBack : () -> Unit, val successCallBack : (Cr
 
     override fun onSuccess(credentials: Credentials) {
         //credentials.getAccessToken() TODO save this somewhere?
+
         Timber.i("login succesfull")
         successCallBack.invoke(credentials)
     }
