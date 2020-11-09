@@ -1,6 +1,7 @@
 package com.fightpandemics.login.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -81,8 +82,13 @@ class SignInFragment : Fragment() {
                     { Toast.makeText(context, "Unexpected error, try again later", Toast.LENGTH_LONG) },
                     {
 
-                        view.findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
-                        requireActivity().finish()
+                        //view.findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
+                        val PACKAGE_NAME = "com.fightpandemics"
+                        val intent = Intent().setClassName(
+                            PACKAGE_NAME,
+                            "$PACKAGE_NAME.ui.MainActivity"
+                        )
+                        startActivity(intent).apply { requireActivity().finish() }
                     }
                 )
             )
