@@ -323,6 +323,13 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                     dialog.dismiss()
                 }.create().show()
         }
+        else {
+            requestPermissions(
+                arrayOf("android.permission.ACCESS_FINE_LOCATION"),
+                STORAGE_PERMISSION_CODE
+            )
+//            Toast.makeText(context, "Permissions were denied", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onRequestPermissionsResult(
