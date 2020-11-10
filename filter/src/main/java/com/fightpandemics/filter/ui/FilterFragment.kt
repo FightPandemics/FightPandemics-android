@@ -25,6 +25,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.*
+import com.google.android.material.chip.Chip
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.android.synthetic.main.filter_location_options.view.*
 import kotlinx.android.synthetic.main.filter_start_fragment.*
@@ -40,9 +41,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     private lateinit var filterViewModel: FilterViewModel
     private lateinit var binding: FilterStartFragmentBinding
     private lateinit var placesClient: PlacesClient
-    private var whomSelectedChips: Int? = 0
-    private var typeSelectedChips: Int? = 0
-    private var total: Int = 0
 
     // Places API variables
     private val STORAGE_PERMISSION_CODE = 1
@@ -141,15 +139,16 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                         binding.filterLocationExpandable.locationEmptyCard
                     )
 
-//                    // TODO: find a better way of writing this / uncomment this
                     // logic for hiding the applied text
-                    val selectedLocationQuery =
-                        binding.locationOptions.root.location_search.text.toString()
-                    if (selectedLocationQuery != "") {
-                        binding.filterLocationExpandable.filtersAppliedText.visibility =
-                            View.VISIBLE
+                    filterViewModel.locationQuery.value?.let {
+                        if (it.isNotBlank()){
+                            binding.filterLocationExpandable.filtersAppliedText.visibility =
+                                View.VISIBLE
+                        }
                     }
 
+                    // update apply filters count
+                    updateApplyFilters()
                 }
             })
 
@@ -168,15 +167,19 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                         binding.filterFromWhomExpandable.fromWhomEmptyCard
                     )
 
-                    // TODO: find a better way of writing this
-                    //Timber.e("QWERTYUIOP" + total.toString())
-                    whomSelectedChips =
-                        binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds.size
+                    // update filters
+                    val whomChips = mutableListOf<String>()
+                    val chipGroup = binding.fromWhomOptions.fromWhomChipGroup
+                    val checkedChipIdsList = chipGroup.checkedChipIds
+                    val whomSelectedChips  = chipGroup.checkedChipIds.size
+                    for (id in checkedChipIdsList){
+                        val chip = chipGroup.findViewById<Chip>(id)
+                        whomChips.add(chip.text.toString())
+                    }
+                    filterViewModel.fromWhomFilters.value = whomChips
 
-                    total += whomSelectedChips!!
-
-                    //Timber.e("ASDFGHJ" + total.toString())
-                    if (whomSelectedChips!! > 0) {
+                    // applied text visibility logic
+                    if (whomSelectedChips > 0) {
                         binding.filterFromWhomExpandable.filtersAppliedText.visibility =
                             View.VISIBLE
                         binding.filterFromWhomExpandable.filtersAppliedText.text =
@@ -185,8 +188,11 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                                 whomSelectedChips
                             )
                     }
+
+                    // update apply filters count
+                    updateApplyFilters()
                 }
-                //whomSelectedChips?.let { x.plus(it) }
+
             })
 
         filterViewModel.isTypeOptionsExpanded.observe(viewLifecycleOwner, { isExpanded ->
@@ -199,32 +205,28 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                     binding.filterTypeExpandable.typeEmptyCard
                 )
 
-                // TODO: find a better way of writing this
-                typeSelectedChips = binding.typeOptions.typeChipGroup.checkedChipIds.size
-                if (!binding.root.type_options.isVisible && typeSelectedChips!! > 0) {
+                // update filters
+                val typeChips = mutableListOf<String>()
+                val chipGroup = binding.typeOptions.typeChipGroup
+                val checkedChipIdsList = chipGroup.checkedChipIds
+                val typeSelectedChips  = chipGroup.checkedChipIds.size
+                for (id in checkedChipIdsList){
+                    val chip = chipGroup.findViewById<Chip>(id)
+                    typeChips.add(chip.text.toString())
+                }
+                filterViewModel.typeFilters.value = typeChips
+
+                // applied text visibility logic
+                if (typeSelectedChips > 0) {
                     binding.filterTypeExpandable.filtersAppliedText.visibility = View.VISIBLE
                     binding.filterTypeExpandable.filtersAppliedText.text =
                         requireContext().getString(R.string.card_applied_filters, typeSelectedChips)
                 }
+
             }
 
-//            when (typeSelectedChips) {
-//                0 -> {
-//                    binding.applyFiltersButton.isEnabled = false
-//                    binding.applyFiltersButton.text =
-//                        getString(R.string.button_apply_filter)
-//                }
-//                1 -> {
-//                    binding.applyFiltersButton.isEnabled = true
-//                    binding.applyFiltersButton.text =
-//                        getString(R.string.button_apply_filter_, typeSelectedChips)
-//                }
-//                else -> {
-//                    binding.applyFiltersButton.isEnabled = true
-//                    binding.applyFiltersButton.text =
-//                        getString(R.string.button_apply_filters, typeSelectedChips)
-//                }
-//            }
+            // update apply filters count
+            updateApplyFilters()
 
         })
 
@@ -249,25 +251,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                 filterViewModel.onSelectedLocation.value = null
             }
         })
-
-//        Timber.e("ZXCVBNM" + total.toString())
-//        when (total) {
-//            0 -> {
-//                binding.applyFiltersButton.isEnabled = false
-//                binding.applyFiltersButton.text =
-//                    getString(R.string.button_apply_filter)
-//            }
-//            1 -> {
-//                binding.applyFiltersButton.isEnabled = true
-//                binding.applyFiltersButton.text =
-//                    getString(R.string.button_apply_filter_, typeSelectedChips)
-//            }
-//            else -> {
-//                binding.applyFiltersButton.isEnabled = true
-//                binding.applyFiltersButton.text =
-//                    getString(R.string.button_apply_filters, typeSelectedChips)
-//            }
-//        }
 
         binding.applyFiltersButton.setOnClickListener {
             findNavController().previousBackStackEntry?.savedStateHandle?.set(
@@ -368,6 +351,15 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
             R.drawable.ic_plus_sign,
             0
         )
+    }
+
+    // update number in text of apply filters button
+    private fun updateApplyFilters(){
+        when(val total = filterViewModel.getFiltersAppliedCount()){
+            0 -> binding.applyFiltersButton.text = requireContext().getString(R.string.button_apply_filter)
+            1 -> binding.applyFiltersButton.text = requireContext().getString(R.string.button_apply_filter_, total)
+            else -> binding.applyFiltersButton.text = requireContext().getString(R.string.button_apply_filters, total)
+        }
     }
 
     override fun onClick(locationSelected: String) {

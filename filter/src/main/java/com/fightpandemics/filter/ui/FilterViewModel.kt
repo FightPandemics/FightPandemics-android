@@ -46,6 +46,11 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     // handle on selected place event (either from recycler view or from current location button)
     var onSelectedLocation = MutableLiveData<String>()
 
+    // Values that will go into home module (besides locationQuery)
+    var fromWhomFilters = MutableLiveData<List<String>>()
+    var typeFilters = MutableLiveData<List<String>>()
+
+
     init {
         isLocationOptionsExpanded.value = false
         isFromWhomOptionsExpanded.value = false
@@ -56,6 +61,16 @@ class FilterViewModel @Inject constructor() : ViewModel() {
 
     fun toggleView(optionsCardState: MutableLiveData<Boolean>) {
         optionsCardState.value = !optionsCardState.value!!
+    }
+
+    fun getFiltersAppliedCount(): Int {
+        val fromWhomCount = fromWhomFilters.value?.size ?: 0
+        val typeCount = typeFilters.value?.size ?: 0
+        var total = fromWhomCount + typeCount
+        if (locationQuery.value?.isNotBlank() == true){
+            total += 1
+        }
+        return total
     }
 
     fun requestCurrentLocation(placesClient: PlacesClient) {
