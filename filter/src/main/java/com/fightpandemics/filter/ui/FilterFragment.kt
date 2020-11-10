@@ -366,32 +366,32 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         }
     }
 
-    private fun updateFromWhomFiltersData(){
-        val whomChips = mutableListOf<String>()
-        val chipGroup = binding.fromWhomOptions.fromWhomChipGroup
-        val checkedChipIdsList = chipGroup.checkedChipIds
-        val whomSelectedChips  = chipGroup.checkedChipIds.size
-        for (id in checkedChipIdsList){
+    // Returns a list with the text of all checked chips
+    private fun getCheckedChipsText(chipGroup: ChipGroup): MutableList<String>{
+        val textsList = mutableListOf<String>()
+        for (id in chipGroup.checkedChipIds){
             val chip = chipGroup.findViewById<Chip>(id)
-            whomChips.add(chip.text.toString())
+            textsList.add(chip.text.toString())
         }
+        return textsList
+    }
+
+    private fun updateFromWhomFiltersData(){
+        // get the names of all selected chips
+        val whomChips = getCheckedChipsText(binding.fromWhomOptions.fromWhomChipGroup)
+        // update live data
         filterViewModel.fromWhomFilters.value = whomChips
-        filterViewModel.fromWhomCount.value = whomSelectedChips
-//        Timber.i("Update FromWhom called: size: $whomSelectedChips")
+        filterViewModel.fromWhomCount.value = whomChips.size
+//        Timber.i("Update FromWhom called: ${filterViewModel.fromWhomFilters.value}")
     }
 
     private fun updateTypeFiltersData(){
-        val typeChips = mutableListOf<String>()
-        val chipGroup = binding.typeOptions.typeChipGroup
-        val checkedChipIdsList = chipGroup.checkedChipIds
-        val typeSelectedChips  = chipGroup.checkedChipIds.size
-        for (id in checkedChipIdsList){
-            val chip = chipGroup.findViewById<Chip>(id)
-            typeChips.add(chip.text.toString())
-        }
+        // get the names of all selected chips
+        val typeChips = getCheckedChipsText(binding.typeOptions.typeChipGroup)
+        // update live data
         filterViewModel.typeFilters.value = typeChips
-        filterViewModel.typeCount.value = typeSelectedChips
-//        Timber.i("Update Type called: size: $typeSelectedChips")
+        filterViewModel.typeCount.value = typeChips.size
+//        Timber.i("Update type called: ${filterViewModel.typeFilters.value}")
     }
 
     private fun checkEnableApplyFilters(){

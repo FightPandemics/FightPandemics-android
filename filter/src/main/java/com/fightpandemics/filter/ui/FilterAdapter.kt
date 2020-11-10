@@ -19,21 +19,18 @@ class FilterAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView
             notifyDataSetChanged()
         }
 
-    class ViewHolder(itemView: View, onItemClickListener: OnItemClickListener, data: List<String>) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var address : TextView
 
         init {
             address = itemView.findViewById((R.id.location_item_text))
-//            itemView.setOnClickListener {
-//                onItemClickListener.onClick(data[adapterPosition])
-//            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.filter_location_item, parent, false)
-        return ViewHolder(v, onItemClickListener, data)
+        return ViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
