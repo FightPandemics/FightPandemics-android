@@ -48,7 +48,9 @@ class FilterViewModel @Inject constructor() : ViewModel() {
 
     // Values that will go into home module (besides locationQuery)
     var fromWhomFilters = MutableLiveData<List<String>>()
+    var fromWhomCount = MutableLiveData<Int>()
     var typeFilters = MutableLiveData<List<String>>()
+    var typeCount = MutableLiveData<Int>()
 
 
     init {
@@ -57,6 +59,8 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         isTypeOptionsExpanded.value = false
         locationQuery.value = ""
         onSelectedLocation.value = null
+        fromWhomCount.value = 0
+        typeCount.value = 0
     }
 
     fun toggleView(optionsCardState: MutableLiveData<Boolean>) {

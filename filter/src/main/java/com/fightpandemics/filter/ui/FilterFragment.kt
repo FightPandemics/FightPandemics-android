@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -124,6 +125,20 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
             filterViewModel.toggleView(filterViewModel.isTypeOptionsExpanded)
         }
 
+        // setonclick listeners for fromWhom chips
+        for (fromWhomChip in binding.fromWhomOptions.fromWhomChipGroup.children){
+            fromWhomChip.setOnClickListener {
+                updateFromWhomFiltersData()
+            }
+        }
+
+        // setonclick listeners for type chips
+        for (typeChip in binding.typeOptions.typeChipGroup.children){
+            typeChip.setOnClickListener {
+                updateTypeFiltersData()
+            }
+        }
+
         filterViewModel.isLocationOptionsExpanded.observe(
             viewLifecycleOwner,
             { isExpanded ->
@@ -167,26 +182,11 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                         binding.filterFromWhomExpandable.fromWhomEmptyCard
                     )
 
-                    // update filters
-                    val whomChips = mutableListOf<String>()
-                    val chipGroup = binding.fromWhomOptions.fromWhomChipGroup
-                    val checkedChipIdsList = chipGroup.checkedChipIds
-                    val whomSelectedChips  = chipGroup.checkedChipIds.size
-                    for (id in checkedChipIdsList){
-                        val chip = chipGroup.findViewById<Chip>(id)
-                        whomChips.add(chip.text.toString())
-                    }
-                    filterViewModel.fromWhomFilters.value = whomChips
-
                     // applied text visibility logic
-                    if (whomSelectedChips > 0) {
-                        binding.filterFromWhomExpandable.filtersAppliedText.visibility =
-                            View.VISIBLE
+                    if (filterViewModel.fromWhomCount.value!! > 0) {
+                        binding.filterFromWhomExpandable.filtersAppliedText.visibility = View.VISIBLE
                         binding.filterFromWhomExpandable.filtersAppliedText.text =
-                            requireContext().getString(
-                                R.string.card_applied_filters,
-                                whomSelectedChips
-                            )
+                            requireContext().getString( R.string.card_applied_filters, filterViewModel.fromWhomCount.value!!)
                     }
 
                     // update apply filters count
@@ -205,24 +205,12 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                     binding.filterTypeExpandable.typeEmptyCard
                 )
 
-                // update filters
-                val typeChips = mutableListOf<String>()
-                val chipGroup = binding.typeOptions.typeChipGroup
-                val checkedChipIdsList = chipGroup.checkedChipIds
-                val typeSelectedChips  = chipGroup.checkedChipIds.size
-                for (id in checkedChipIdsList){
-                    val chip = chipGroup.findViewById<Chip>(id)
-                    typeChips.add(chip.text.toString())
-                }
-                filterViewModel.typeFilters.value = typeChips
-
                 // applied text visibility logic
-                if (typeSelectedChips > 0) {
+                if (filterViewModel.typeCount.value!! > 0) {
                     binding.filterTypeExpandable.filtersAppliedText.visibility = View.VISIBLE
                     binding.filterTypeExpandable.filtersAppliedText.text =
-                        requireContext().getString(R.string.card_applied_filters, typeSelectedChips)
+                        requireContext().getString(R.string.card_applied_filters, filterViewModel.typeCount.value!!)
                 }
-
             }
 
             // update apply filters count
@@ -360,6 +348,34 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
             1 -> binding.applyFiltersButton.text = requireContext().getString(R.string.button_apply_filter_, total)
             else -> binding.applyFiltersButton.text = requireContext().getString(R.string.button_apply_filters, total)
         }
+    }
+
+    private fun updateFromWhomFiltersData(){
+        val whomChips = mutableListOf<String>()
+        val chipGroup = binding.fromWhomOptions.fromWhomChipGroup
+        val checkedChipIdsList = chipGroup.checkedChipIds
+        val whomSelectedChips  = chipGroup.checkedChipIds.size
+        for (id in checkedChipIdsList){
+            val chip = chipGroup.findViewById<Chip>(id)
+            whomChips.add(chip.text.toString())
+        }
+        filterViewModel.fromWhomFilters.value = whomChips
+        filterViewModel.fromWhomCount.value = whomSelectedChips
+//        Timber.i("Update FromWhom called: size: $whomSelectedChips")
+    }
+
+    private fun updateTypeFiltersData(){
+        val typeChips = mutableListOf<String>()
+        val chipGroup = binding.typeOptions.typeChipGroup
+        val checkedChipIdsList = chipGroup.checkedChipIds
+        val typeSelectedChips  = chipGroup.checkedChipIds.size
+        for (id in checkedChipIdsList){
+            val chip = chipGroup.findViewById<Chip>(id)
+            typeChips.add(chip.text.toString())
+        }
+        filterViewModel.typeFilters.value = typeChips
+        filterViewModel.typeCount.value = typeSelectedChips
+//        Timber.i("Update Type called: size: $typeSelectedChips")
     }
 
     override fun onClick(locationSelected: String) {
