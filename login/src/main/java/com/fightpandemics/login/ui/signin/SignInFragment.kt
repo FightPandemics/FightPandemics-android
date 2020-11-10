@@ -102,8 +102,6 @@ class SignInFragment : Fragment() {
                         )
                     },
                     {
-
-                        //view.findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
                         val PACKAGE_NAME = "com.fightpandemics"
                         val intent = Intent().setClassName(
                             PACKAGE_NAME,

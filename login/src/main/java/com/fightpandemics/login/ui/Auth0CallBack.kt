@@ -6,8 +6,10 @@ import com.auth0.android.provider.AuthCallback
 import com.auth0.android.result.Credentials
 import timber.log.Timber
 
-class Auth0CallBack (val failureCallBack : () -> Unit, val successCallBack : (Credentials) -> Unit) :
-    AuthCallback {
+class Auth0CallBack(
+    val failureCallBack: () -> Unit,
+    val successCallBack: (Credentials) -> Unit
+) : AuthCallback {
     override fun onFailure(dialog: Dialog) {
         Timber.e("LoginCallBack.onFailure : Unexpected error")
         failureCallBack.invoke()
@@ -19,9 +21,9 @@ class Auth0CallBack (val failureCallBack : () -> Unit, val successCallBack : (Cr
     }
 
     override fun onSuccess(credentials: Credentials) {
-        //credentials.getAccessToken() TODO save this somewhere?
+        Timber.e("${credentials.accessToken}")
+        Timber.e("${credentials.refreshToken}")
 
-        Timber.i("login succesfull")
         successCallBack.invoke(credentials)
     }
 
