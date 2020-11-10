@@ -112,6 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/user_avatar"
             app:layout_constraintTop_toBottomOf="@+id/user_location">
 

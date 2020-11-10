@@ -85,6 +85,7 @@ class SignInFragment : Fragment() {
         WebAuthProvider.login(auth0)
             .withConnection(loginConnection.provider)
             .withScheme(SCOPE)
+            .withScope("openid offline_access")
             .withAudience(
                 String.format(CALLBACK_START_URL, getString(R.string.com_auth0_domain))
             )
