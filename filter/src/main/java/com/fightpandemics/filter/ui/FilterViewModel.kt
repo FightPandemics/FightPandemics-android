@@ -63,6 +63,15 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         typeCount.value = 0
     }
 
+    fun clearLiveDataFilters(){
+        locationQuery.value = ""
+        fromWhomCount.value = 0
+        typeCount.value = 0
+        fromWhomFilters.value = null
+        typeFilters.value = null
+        Timber.i("Clear: Cleared my data")
+    }
+
     fun toggleView(optionsCardState: MutableLiveData<Boolean>) {
         optionsCardState.value = !optionsCardState.value!!
     }

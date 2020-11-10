@@ -27,6 +27,7 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.*
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.android.synthetic.main.filter_location_options.view.*
 import kotlinx.android.synthetic.main.filter_start_fragment.*
@@ -100,6 +101,11 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
         // Get the viewmodel
         filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
+
+        // set up apply and clear filters buttons
+        binding.clearFiltersButton.setOnClickListener{
+            clearFilters()
+        }
 
         // setup recycler view
         val adapter = FilterAdapter(this)
@@ -223,7 +229,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
             checkEnableApplyFilters()
         })
 
-        filterViewModel.typeCount.observe(viewLifecycleOwner, {fromWhomCount ->
+        filterViewModel.typeCount.observe(viewLifecycleOwner, {typeCount ->
             checkEnableApplyFilters()
         })
 
@@ -389,7 +395,26 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     }
 
     private fun checkEnableApplyFilters(){
+        // button should be enabled if there is text in the exittext or if there are any chips selected in fromWhom or type
         binding.applyFiltersButton.isEnabled = filterViewModel.locationQuery.value!!.isNotBlank() || filterViewModel.fromWhomCount.value!! + filterViewModel.typeCount.value!! > 0
+    }
+
+    private fun uncheckChipGroup(chipGroup: ChipGroup){
+        val checkedChipIdsList = chipGroup.checkedChipIds
+        for (id in checkedChipIdsList){
+            chipGroup.findViewById<Chip>(id).isChecked = false
+        }
+    }
+
+    private fun clearFilters(){
+        // clear fromwhom selections
+        uncheckChipGroup(binding.fromWhomOptions.fromWhomChipGroup)
+        // clear type selections
+        uncheckChipGroup(binding.typeOptions.typeChipGroup)
+        // clear location box
+        binding.locationOptions.locationSearch.text?.clear()
+        // clear the live data
+        filterViewModel.clearLiveDataFilters()
     }
 
     override fun onClick(locationSelected: String) {
