@@ -13,7 +13,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
-import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -22,17 +21,11 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
-import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.*
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.transition.MaterialSharedAxis
-import kotlinx.android.synthetic.main.filter_location_options.view.*
-import kotlinx.android.synthetic.main.filter_start_fragment.*
-import kotlinx.android.synthetic.main.filter_start_fragment.view.*
-import timber.log.Timber
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -45,7 +38,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     private lateinit var placesClient: PlacesClient
 
     // Places API variables
-    private val STORAGE_PERMISSION_CODE = 1
+    private val LOCATION_PERMISSION_CODE = 1
     private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
 
     var x: Int by Delegates.observable(0) { prop, old, new ->
@@ -169,7 +162,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                     }
 
                     // update apply filters count
-                    updateApplyFilters()
+                    updateApplyFiltersText()
                 }
             })
 
@@ -196,7 +189,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                     }
 
                     // update apply filters count
-                    updateApplyFilters()
+                    updateApplyFiltersText()
                 }
 
             })
@@ -220,7 +213,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
             }
 
             // update apply filters count
-            updateApplyFilters()
+            updateApplyFiltersText()
 
         })
 
@@ -303,7 +296,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                 .setPositiveButton("ALLOW") { dialog, which ->
                     requestPermissions(
                         arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                        STORAGE_PERMISSION_CODE
+                        LOCATION_PERMISSION_CODE
                     )
                 }
                 .setNegativeButton("CANCEL") { dialog, id ->
@@ -313,7 +306,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         else {
             requestPermissions(
                 arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                STORAGE_PERMISSION_CODE
+                LOCATION_PERMISSION_CODE
             )
 //            Toast.makeText(context, "Permissions were denied", Toast.LENGTH_LONG).show()
         }
@@ -325,7 +318,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         grantResults: IntArray
     ) {
         when (requestCode) {
-            STORAGE_PERMISSION_CODE -> {
+            LOCATION_PERMISSION_CODE -> {
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
                 } else {
@@ -358,7 +351,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     }
 
     // update number in text of apply filters button
-    private fun updateApplyFilters(){
+    private fun updateApplyFiltersText(){
         when(val total = filterViewModel.getFiltersAppliedCount()){
             0 -> binding.applyFiltersButton.text = requireContext().getString(R.string.button_apply_filter)
             1 -> binding.applyFiltersButton.text = requireContext().getString(R.string.button_apply_filter_, total)
