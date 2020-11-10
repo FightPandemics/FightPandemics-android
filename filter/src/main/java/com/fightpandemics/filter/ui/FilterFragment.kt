@@ -218,6 +218,15 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
         })
 
+        // The next three observers check if apply buttons should be enabled
+        filterViewModel.fromWhomCount.observe(viewLifecycleOwner, {fromWhomCount ->
+            checkEnableApplyFilters()
+        })
+
+        filterViewModel.typeCount.observe(viewLifecycleOwner, {fromWhomCount ->
+            checkEnableApplyFilters()
+        })
+
         // Manage visibility for recycler view and line divider
         filterViewModel.locationQuery.observe(viewLifecycleOwner, { locationQuery ->
             if (locationQuery.isEmpty()) {
@@ -227,6 +236,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                 binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.VISIBLE
                 binding.locationOptions.itemLineDivider1.visibility = View.VISIBLE
             }
+            checkEnableApplyFilters()
         })
 
         // handle selection of location in recycler view and from get current location
@@ -376,6 +386,10 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         filterViewModel.typeFilters.value = typeChips
         filterViewModel.typeCount.value = typeSelectedChips
 //        Timber.i("Update Type called: size: $typeSelectedChips")
+    }
+
+    private fun checkEnableApplyFilters(){
+        binding.applyFiltersButton.isEnabled = filterViewModel.locationQuery.value!!.isNotBlank() || filterViewModel.fromWhomCount.value!! + filterViewModel.typeCount.value!! > 0
     }
 
     override fun onClick(locationSelected: String) {
