@@ -86,10 +86,7 @@ class SignInFragment : Fragment() {
             .withConnection(loginConnection.provider)
             .withScheme(SCOPE)
             .withAudience(
-                String.format(
-                    CALLBACK_START_URL,
-                    getString(R.string.com_auth0_domain)
-                )
+                String.format(CALLBACK_START_URL, getString(R.string.com_auth0_domain))
             )
             .start(
                 requireActivity(),
@@ -112,7 +109,5 @@ class SignInFragment : Fragment() {
                 )
             )
     }
-
-
 }
 
