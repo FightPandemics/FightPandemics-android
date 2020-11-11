@@ -59,6 +59,8 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         isTypeOptionsExpanded.value = false
         locationQuery.value = ""
         onSelectedLocation.value = null
+        fromWhomFilters.value = listOf()
+        typeFilters.value = listOf()
         fromWhomCount.value = 0
         typeCount.value = 0
     }

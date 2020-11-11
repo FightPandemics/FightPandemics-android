@@ -53,10 +53,20 @@ class HomeAllFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<String>>("key")?.observe(
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
             viewLifecycleOwner) { result ->
             // Do something with the result.
-            Timber.e(result.toString())
+            Timber.i("My location filters is: $result")
+        }
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<String>>("fromWhom")?.observe(
+            viewLifecycleOwner) { result ->
+            // Do something with the result.
+            Timber.i("My fromWhom filters are: $result")
+        }
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<String>>("type")?.observe(
+            viewLifecycleOwner) { result ->
+            // Do something with the result.
+            Timber.i("My type filters are: $result")
         }
         super.onViewCreated(view, savedInstanceState)
         getPosts()

@@ -26,6 +26,7 @@ import com.google.android.libraries.places.api.net.*
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.transition.MaterialSharedAxis
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -98,6 +99,23 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         // set up apply and clear filters buttons
         binding.clearFiltersButton.setOnClickListener{
             clearFilters()
+        }
+
+        // send data to home module
+        binding.applyFiltersButton.setOnClickListener {
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                "key",
+                filterViewModel.locationQuery.value
+            )
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                "fromWhom",
+                filterViewModel.fromWhomFilters.value
+            )
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                "type",
+                filterViewModel.typeFilters.value
+            )
+            findNavController().popBackStack()
         }
 
         // setup recycler view
@@ -249,13 +267,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
             }
         })
 
-        binding.applyFiltersButton.setOnClickListener {
-            findNavController().previousBackStackEntry?.savedStateHandle?.set(
-                "key",
-                listOf("1", "2")
-            )
-            findNavController().popBackStack()
-        }
 
         // Places API Logic
         // Initialize places sdk
@@ -265,8 +276,8 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
         binding.locationOptions.locationSearch.doAfterTextChanged { text ->
             filterViewModel.autocompleteLocation(text.toString(), placesClient)
-//            Timber.i("Live data: im gonig to update live data with $text")
             filterViewModel.locationQuery.value = text.toString()
+//            Timber.i("Filters Live data: im gonig to update live data with ${filterViewModel.locationQuery.value}")
         }
 
         binding.locationOptions.shareMyLocation.setOnClickListener {
