@@ -3,5 +3,7 @@
 
     <color name="color_line_color">#4CD7D7D7</color>
     <color name="color_background">#f5f6fb</color>
+    <color name="filled_edittext_color">@color/fightPandemicsNeonBlue</color>
+    <color name="empty_edittext_color">@color/fightPandemicsSuvaGrey</color>
 
 </resources>

@@ -17,4 +17,28 @@
         <item name="android:gravity">bottom|start</item>
     </style>
 
+    <!-- Feedback Styles -->
+    <style name="VerticalRadioButton" parent="AndroidNativeP114Px">
+        <item name="android:buttonTint">@color/fightPandemicsNeonBlue</item>
+    </style>
+
+    <style name="RatingRadioButton" parent="AndroidNativeP114Px">
+        <item name="android:buttonTint">@color/fightPandemicsNeonBlue</item>
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawableBottom">?android:attr/listChoiceIndicatorSingle</item>
+        <item name="android:gravity">center_horizontal|bottom</item>
+    </style>
+
+    <style name="RatingRadioButtonColor" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/fightPandemicsNeonBlue</item>
+        <item name="colorControlActivated">@color/fightPandemicsNeonBlue</item>
+    </style>
+
+    <style name="RadioWithTextOnTop">
+        <item name="android:button">@null</item>
+        <item name="android:drawableBottom">?android:attr/listChoiceIndicatorSingle</item>
+        <item name="android:gravity">center_horizontal|bottom</item>
+    </style>
+
 </resources>
