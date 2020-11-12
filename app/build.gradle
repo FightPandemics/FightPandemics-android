@@ -82,10 +82,16 @@ dependencies {
     implementation "androidx.room:room-runtime:$room"
     kapt "androidx.room:room-compiler:$room"
     implementation "androidx.room:room-ktx:$room"
+    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 //    def detekt_version = "1.9.0"
 //    detekt("io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version")
 //    detekt("io.gitlab.arturbosch.detekt:detekt-cli:$detekt_version")
 
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
+}
+repositories {
+    mavenCentral()
 }

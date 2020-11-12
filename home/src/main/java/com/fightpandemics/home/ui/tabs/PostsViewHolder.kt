@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 import com.fightpandemics.core.data.model.posts.Post
@@ -14,11 +15,12 @@ import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.ItemAllFeedBinding
 import com.fightpandemics.home.databinding.SingleChipLayoutBinding
 import com.fightpandemics.home.ui.HomeEventListener
+import com.fightpandemics.home.ui.HomeOptionsBottomSheetFragment
 import com.fightpandemics.home.utils.userInitials
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.button.MaterialButton
 import timber.log.Timber
 import java.util.*
-
 
 class PostsViewHolder(
     private val homeEventListener: HomeEventListener,
@@ -82,7 +84,6 @@ class PostsViewHolder(
                 )
                 singleChipLayoutBinding.chip.text = type
                 singleChipLayoutBinding.chip.isEnabled = false
-
                 itemBinding.chipGroup.addView(singleChipLayoutBinding.chip)
             }
 
@@ -91,17 +92,41 @@ class PostsViewHolder(
             when (post.author!!.id) {
                 homeEventListener.userId() -> {
                     itemBinding.postOption.isVisible = true
+
+                    val fragmentManager = (context as FragmentActivity).supportFragmentManager
+                    val homeOptionsBottomSheetFragment =
+                        HomeOptionsBottomSheetFragment.newInstance()
+
                     itemBinding.postOption.setOnClickListener {
-                        val view: View = View.inflate(context, R.layout.edit_delete, null)
-                        val mBottomSheetDialog = BottomSheetDialog(context, R.style.BottomSheetDialogTheme)
-                        mBottomSheetDialog.setContentView(view)
-                        mBottomSheetDialog.show()
+                        homeOptionsBottomSheetFragment
+                            .show(fragmentManager, homeOptionsBottomSheetFragment.tag)
+
+                        // execute the commited transaction before trying to access the view
+                        fragmentManager.executePendingTransactions()
+
+                        // accessing button view
+                        homeOptionsBottomSheetFragment
+                            .view?.findViewById<MaterialButton>(R.id.btn_edit_post)
+                            ?.setOnClickListener {
+                                Timber.e("EDIT ${post.author}")
+                                homeOptionsBottomSheetFragment.dismissAllowingStateLoss()
+                            }
+
+                        homeOptionsBottomSheetFragment
+                            .view?.findViewById<MaterialButton>(R.id.btn_delete_post)
+                            ?.setOnClickListener {
+                                Timber.e("DELETE ${post.author}")
+                                homeOptionsBottomSheetFragment.dismissAllowingStateLoss()
+                                //homeOptionsBottomSheetFragment.dismiss()
+                            }
                     }
                 }
                 else -> {
                     itemBinding.postOption.isVisible = false
                 }
             }
+
+
 
             val time_post = 12.toString()
             itemBinding.timePosted.text = "Posted $time_post hrs ago"
@@ -110,7 +135,5 @@ class PostsViewHolder(
             setOnClickListener { onItemClickListener?.invoke(post) }
         }
     }
-
-
 }
 
