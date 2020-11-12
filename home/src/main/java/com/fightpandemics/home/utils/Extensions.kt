@@ -16,7 +16,7 @@ val TAB_TITLES = arrayOf(
 )
 
 fun userInitials(userName: String?): String {
-    val splitName = userName!!.split("\\s".toRegex()).toMutableList()
+    val splitName = userName!!.trim().split("\\s+".toRegex()).toMutableList()
     val firstInitials = splitName[0][0]
 
     return when {
