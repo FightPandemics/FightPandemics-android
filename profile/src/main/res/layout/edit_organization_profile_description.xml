@@ -1,70 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:orientation="vertical"
+    android:background="#f5f6fb">
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffff">
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="275dp"
+        android:background="?colorSurface"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp"
+        app:layout_collapseMode="pin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/back_arrow"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/AndroidNativeH122Px"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description"
-            android:layout_marginTop="31dp"
-            android:layout_marginBottom="21dp"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="24dp"
-            android:textStyle="bold"
-            android:textSize="24dp"
-            android:textColor="#282828">
+            android:text="@string/Description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.appcompat.widget.AppCompatTextView>
-    </androidx.appcompat.widget.Toolbar>
 
-    <view
+    </com.google.android.material.appbar.MaterialToolbar>
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#d7d7d7">
-    </view>
+    </View>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_description"
+<com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/text_input_description"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:errorEnabled="true"
+    app:counterEnabled="true"
+    app:counterMaxLength="160"
+    app:boxBackgroundColor="#f5f6fb"
+    android:layout_marginTop="32dp"
+    android:layout_marginStart="30dp"
+    android:layout_marginEnd="20dp"
+    android:textColorHint="#425af2"
+    android:typeface="sans">
+
+    <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorEnabled="true"
-        app:counterEnabled="true"
-        app:counterMaxLength="160"
-        app:boxBackgroundColor="#f6f7fb"
-        android:layout_marginTop="32dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="20dp"
-        android:textColorHint="#425af2"
-        android:typeface="sans">
+        android:hint="@string/Description"
+        android:textSize="20sp"
+        android:typeface="sans"
+        >
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Description"
-            android:textSize="20dp"
-            android:typeface="sans"
-            >
+    </com.google.android.material.textfield.TextInputEditText>
 
-        </com.google.android.material.textfield.TextInputEditText>
+</com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_submit_button"
-            android:layout_marginTop="156dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="Save">
-        </Button>
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_submit_button"
+    android:layout_marginTop="156dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:text="@string/Save">
+</Button>
 
 
 </LinearLayout>

@@ -22,4 +22,60 @@
     <string name="settings_action">Settings</string>
     <string name="select_account">Select Account</string>
 
+    <!--My Profile-->
+    <string name="my_profile">My Profile</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="edit_profile_picture">Edit Profile Picture</string>
+    <string name="add_social_media_links">Add social media links</string>
+    <string name="social_media">Facebook, LinkedIn, Twitter, Github</string>
+    <string name="about_me">About me</string>
+    <string name="about_me_subtitle">Write a self-introduction</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="social_media_links">Social Media Links</string>
+    <string name="linkedIn_url">LinkedIn URL</string>
+    <string name="github_url">Github URL</string>
+    <string name="personal_website">Personal Website</string>
+    <!--EDIT_ORGANIZATION_PROFILE_LINKS-->
+    <string name="Social_links">Social Media Links</string>
+    <string name="linkedin_link">linkedin.com/in/</string>
+    <string name="linkedin_url">LinkedIn URL</string>
+    <string name="facebook_link">facebook.com/</string>
+    <string name="facebook_url">Facebook URL</string>
+    <string name="twitter_link">twitter.com/</string>
+    <string name="twitter_url">Twitter URL</string>
+
+    <!--EDIT_ORGANIZATION_PROFILE_PRODUCTLINKS-->
+    <string name="Product_links">Product Links</string>
+    <string name="Apple_link">itunes.apple.com/</string>
+    <string name="Apple_url">Link to Apple Store</string>
+    <string name="Google_link">play.google.com/</string>
+    <string name="Google_url">Link to Google Play</string>
+
+    <!--EDIT_ORGANIZATION_PROFILE_NAME-->
+    <string name="Name">Name</string>
+    <string name="Save">Save</string>
+
+    <!--EDIT_ORGANIZATION_PROFILE_DESCRIPTION-->
+    <string name="Description">Description</string>
+
+    <!--EDIT_ORGANIZATION_PROFILE_LANGUAGE-->
+    <string name="Language">Language</string>
+
+    <!--EDIT_ORGANIZATION_WEBSITE-->
+    <string name="Website">Website</string>
+
+    <!--EDIT_ORGANIZATION_PROFILE_ORGANIZATIONPROFILE-->
+    <string name="Organization_Profile">Organization Profile</string>
+    <string name="Organization_Logo">Organization Logo</string>
+    <string name="Description_exp">Add an organization description</string>
+    <string name="Website_exp">Official organization website</string>
+    <string name="Language_exp">Official organization language</string>
+    <string name="Socical_media_links">Add social media links</string>
+    <string name="Social_exp">Facebook,Linkedin, Twitter</string>
+    <string name="Add_product_link">Add product links</string>
+    <string name="Product_exp">Apple Store, Google Play</string>
+    <string name="Edit_profile_pic">Edit Profile Picture</string>
+
+
 </resources>

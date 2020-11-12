@@ -3,66 +3,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#f5f6fb">
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff">
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="275dp"
+        android:background="?colorSurface"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp"
+        app:layout_collapseMode="pin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/back_arrow"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/AndroidNativeH122Px"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Website"
-            android:layout_marginTop="31dp"
-            android:layout_marginBottom="21dp"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="24dp"
-            android:textStyle="bold"
-            android:textSize="24dp"
-            android:textColor="#282828">
+            android:text="@string/Website"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.appcompat.widget.AppCompatTextView>
-    </androidx.appcompat.widget.Toolbar>
 
-    <view
+    </com.google.android.material.appbar.MaterialToolbar>
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#d7d7d7">
-    </view>
+    </View>
+
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_website"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorEnabled="true"
-        app:boxBackgroundColor="#f6f7fb"
+        android:layout_marginStart="31dp"
         android:layout_marginTop="32dp"
-        android:layout_marginLeft="31dp"
-        android:layout_marginRight="35dp"
+        android:layout_marginEnd="35dp"
         android:textColorHint="#425af2"
-        android:typeface="sans">
+        android:typeface="sans"
+        app:boxBackgroundColor="#f5f6fb"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Website"
-            android:textSize="20dp"
+            android:hint="@string/Website"
             android:textColorHint="#425af2"
-            android:typeface="sans"
-            >
+            android:textSize="20sp"
+            android:typeface="sans">
 
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_submit_button"
             android:layout_marginTop="56dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="25dp"
-            android:text="Save">
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="25dp"
+            android:text="@string/Save">
         </Button>
 
 </LinearLayout>
