@@ -2,7 +2,9 @@ package com.fightpandemics.home.ui.tabs
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
+import android.view.Gravity
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
@@ -87,7 +89,7 @@ class PostsViewHolder(
             }
 
 
-
+            // Options for User to Edit or Delete his post.
             when (post.author!!.id) {
                 homeEventListener.userId() -> {
                     itemBinding.postOption.isVisible = true
@@ -121,6 +123,18 @@ class PostsViewHolder(
                                     .setNegativeButton("Cancel", null)
                                     .setPositiveButton("Delete") { dialog, which ->
                                         Timber.e("DELETE ${post.author}")
+
+                                        val layoutInflater = LayoutInflater.from(context)
+                                        val customLayout = layoutInflater.inflate(
+                                            R.layout.delete_post_feedback,
+                                            findViewById(R.id.delete_post_feedback)
+                                        )
+                                        with(Toast(this.context.applicationContext)){
+                                            duration = Toast.LENGTH_SHORT
+                                            setGravity(Gravity.CENTER_VERTICAL, 0, 0)
+                                            view = customLayout
+                                            show()
+                                        }
                                     }
                                     .show()
 

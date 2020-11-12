@@ -62,8 +62,6 @@ dependencies {
 
     // Dagger
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
-    implementation "androidx.core:core-ktx:+"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()
