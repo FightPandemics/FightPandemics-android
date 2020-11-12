@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Password Recovery-->
+    <style name="textInputLabel" parent="TextAppearance.AppCompat">
+        <item name="android:textColorHint">@color/colorPrimary</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
+        <item name="android:background">@color/color_background</item>
+        <item name="colorError">@color/colorRed</item>
+        <item name="android:lineSpacingExtra">7.3sp</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="android:paddingStart">-12dp</item>
+        <item name="android:gravity">bottom|start</item>
+    </style>
+
+</resources>
