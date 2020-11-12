@@ -54,7 +54,14 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="textViewClickable">
+    <style name="PostMaterialDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">240dp</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/AndroidNativeH216Px</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/AndroidNativeP114Px</item>
+    </style>
+
+    <style name="textViewClickable" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">center</item>

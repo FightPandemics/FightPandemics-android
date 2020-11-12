@@ -1,9 +1,8 @@
 package com.fightpandemics.home.ui.tabs
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.ColorDrawable
+import android.content.DialogInterface
 import android.view.LayoutInflater
-import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
@@ -17,8 +16,8 @@ import com.fightpandemics.home.databinding.SingleChipLayoutBinding
 import com.fightpandemics.home.ui.HomeEventListener
 import com.fightpandemics.home.ui.HomeOptionsBottomSheetFragment
 import com.fightpandemics.home.utils.userInitials
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import timber.log.Timber
 import java.util.*
 
@@ -115,7 +114,16 @@ class PostsViewHolder(
                         homeOptionsBottomSheetFragment
                             .view?.findViewById<MaterialButton>(R.id.btn_delete_post)
                             ?.setOnClickListener {
-                                Timber.e("DELETE ${post.author}")
+
+                                MaterialAlertDialogBuilder(this.context, R.style.PostMaterialDialog)
+                                    .setTitle(R.string.delete_confirm_alert_title)
+                                    .setMessage(R.string.delete_confirm_alert_msg)
+                                    .setNegativeButton("Cancel", null)
+                                    .setPositiveButton("Delete") { dialog, which ->
+                                        Timber.e("DELETE ${post.author}")
+                                    }
+                                    .show()
+
                                 homeOptionsBottomSheetFragment.dismissAllowingStateLoss()
                                 //homeOptionsBottomSheetFragment.dismiss()
                             }
@@ -125,7 +133,6 @@ class PostsViewHolder(
                     itemBinding.postOption.isVisible = false
                 }
             }
-
 
 
             val time_post = 12.toString()
