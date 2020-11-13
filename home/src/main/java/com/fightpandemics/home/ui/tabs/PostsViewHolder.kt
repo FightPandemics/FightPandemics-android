@@ -1,13 +1,13 @@
 package com.fightpandemics.home.ui.tabs
 
 import android.annotation.SuppressLint
-import android.content.DialogInterface
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 import com.fightpandemics.core.data.model.posts.Post
@@ -109,8 +109,8 @@ class PostsViewHolder(
                         homeOptionsBottomSheetFragment
                             .view?.findViewById<MaterialButton>(R.id.btn_edit_post)
                             ?.setOnClickListener {
-                                Timber.e("EDIT ${post.author}")
-                                // TODO - Launch Create Post Screen filled with elements from this post.
+                                // TODO - Launch Create Post Screen filled with elements from this post. Add Post bundle
+                                findNavController().navigate(com.fightpandemics.R.id.action_homeFragment_to_createPostFragment)
                                 homeOptionsBottomSheetFragment.dismissAllowingStateLoss()
                             }
 
