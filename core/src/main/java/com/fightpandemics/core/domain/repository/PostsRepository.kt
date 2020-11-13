@@ -14,7 +14,7 @@ interface PostsRepository {
 
     suspend fun editPost(postRequest: PostRequest)
 
-    suspend fun deletePost(postRequest: PostRequest)
+    suspend fun deletePost(post: Post)
 
     suspend fun likePost(post: Post)
 }

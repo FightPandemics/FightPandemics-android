@@ -14,12 +14,14 @@ interface FightPandemicsAPI {
     @GET("api/posts")
     suspend fun getPosts(): Posts
 
+    // Get Post
     @GET("api/posts")
     suspend fun getPosts(
         @Query("objective") objective: String?,
         @Query("limit") limit: Int
     ): List<Post>
 
+    // Login
     @Headers("No-Authentication: true") // no need to add authentication
     @POST("api/auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<*>
@@ -31,22 +33,25 @@ interface FightPandemicsAPI {
     suspend fun changePassword(@Body email: String): Response<ChangePasswordResponse>
 
 
+    // Edit a Post
     @PATCH("api/posts/{postId}")
     suspend fun updatePost(
         @Path("postId") postId: String,
         @Body postRequest: PostRequest
     ): Response<Void>
 
+    // Delete a Post
     @DELETE("api/posts/{postId}")
     suspend fun deletePost(@Path("postId") postId: String): Response<Void>
 
-
+    // Like a Post
     @PUT("api/posts/{postId}/likes/{userId}")
     suspend fun likePost(
         @Path("postId") postId: String,
         @Path("userId") userId: String
     ): Response<Void>
 
+    // Unlike a Post
     @DELETE("api/posts/{postId}/likes/{userId}")
     suspend fun unlikePost(
         @Path("postId") postId: String,

@@ -40,6 +40,7 @@ android {
 dependencies {
     implementation project(":app")
     implementation project(':core')
+    implementation project(':createpost')
     implementation project(':filter')
     implementation project(':login')
 

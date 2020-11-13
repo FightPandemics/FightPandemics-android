@@ -64,8 +64,6 @@ dependencies {
 
     // Loading Progree Button
     implementation 'com.github.razir.progressbutton:progressbutton:2.1.0'
-    implementation "androidx.core:core-ktx:+"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()

@@ -8,6 +8,7 @@ import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.result.Result
+import com.fightpandemics.home.domain.DeletePostUsecase
 import com.fightpandemics.home.domain.LoadPostsUseCase
 import com.fightpandemics.home.domain.ObserveUserAuthStateUseCase
 import com.fightpandemics.home.domain.LikePostUsecase
@@ -22,6 +23,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val loadPostsUseCase: LoadPostsUseCase,
     private val likePostUsecase: LikePostUsecase,
+    private val deletePostUsecase: DeletePostUsecase,
     private val observeUserAuthStateUseCase: ObserveUserAuthStateUseCase,
     private val dispatcherProvider: CoroutinesDispatcherProvider,
 ) : ViewModel(), HomeEventListener {
@@ -129,6 +131,14 @@ class HomeViewModel @Inject constructor(
             getPosts(null)
             //getRequests("request")
         }
+    }
+
+    override fun onEditClicked(post: Post) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDeleteClicked(post: Post) {
+        TODO("Not yet implemented")
     }
 
     override fun userId(): String? {

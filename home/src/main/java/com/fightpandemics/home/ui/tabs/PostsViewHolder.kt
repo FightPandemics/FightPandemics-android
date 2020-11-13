@@ -110,6 +110,7 @@ class PostsViewHolder(
                             .view?.findViewById<MaterialButton>(R.id.btn_edit_post)
                             ?.setOnClickListener {
                                 Timber.e("EDIT ${post.author}")
+                                // TODO - Launch Create Post Screen filled with elements from this post.
                                 homeOptionsBottomSheetFragment.dismissAllowingStateLoss()
                             }
 
@@ -124,6 +125,11 @@ class PostsViewHolder(
                                     .setPositiveButton("Delete") { dialog, which ->
                                         Timber.e("DELETE ${post.author}")
 
+                                        homeEventListener.onDeleteClicked(post).apply {
+
+                                        }
+
+                                        // TODO - This Toast in the return of the delete
                                         val layoutInflater = LayoutInflater.from(context)
                                         val customLayout = layoutInflater.inflate(
                                             R.layout.delete_post_feedback,
@@ -139,7 +145,6 @@ class PostsViewHolder(
                                     .show()
 
                                 homeOptionsBottomSheetFragment.dismissAllowingStateLoss()
-                                //homeOptionsBottomSheetFragment.dismiss()
                             }
                     }
                 }

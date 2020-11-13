@@ -14,5 +14,7 @@ interface PostsRemoteDataSource {
 
     suspend fun updatePost(postId: String, postRequest: PostRequest)
 
+    suspend fun deletePost(postId: String)
+
     suspend fun likePost(postId: String, userId: String, like: Boolean)
 }

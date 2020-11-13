@@ -38,8 +38,8 @@ class PostsRepositoryImpl @Inject constructor(
         //postsRemoteDataSource.updatePost(postRequest._id, postRequest)
     }
 
-    override suspend fun deletePost(postRequest: PostRequest) {
-        TODO("Not yet implemented")
+    override suspend fun deletePost(post: Post) {
+        postsRemoteDataSource.deletePost(post._id)
     }
 
     override suspend fun likePost(post: Post) {

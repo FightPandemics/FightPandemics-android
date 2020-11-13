@@ -22,6 +22,10 @@ class PostsRemoteDataSourceImpl @Inject constructor(
         Timber.e(d.isSuccessful.toString())
     }
 
+    override suspend fun deletePost(postId: String) {
+        val e = fightPandemicsAPI.deletePost(postId)
+    }
+
     override suspend fun likePost(postId: String, userId: String, like: Boolean) {
         when {
             like -> fightPandemicsAPI.likePost(postId, userId)
