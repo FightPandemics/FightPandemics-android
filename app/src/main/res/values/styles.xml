@@ -1,15 +1,31 @@
 <resources>
 
-    <style name="Widget.FightPandemics.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
-        <item name="fontFamily">@font/worksans_regular</item>
-        <item name="android:textColor">@color/fightPandemicsSuvaGrey</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:lineSpacingExtra">4sp</item>
-        <item name="android:topLeftRadius">40dp</item>
-        <item name="android:topRightRadius">40dp</item>
-        <item name="labelVisibilityMode">labeled</item>
-        <item name="statusBarScrim">@color/material_on_surface_stroke</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorOnError</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetOverlay</item>
+
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
     <style name="AndroidNativeH122Px">
         <item name="android:textSize">22sp</item>
@@ -74,19 +90,6 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="FilterChip" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="chipBackgroundColor">@drawable/chip_selected_effect</item>
-        <item name="android:textColor">@drawable/chip_text_color_selected_effect</item>
-        <item name="chipEndPadding">20dp</item>
-        <item name="chipStartPadding">20dp</item>
-        <item name="chipMinTouchTargetSize">32dp</item>
-        <item name="chipCornerRadius">6dp</item>
-        <item name="android:textSize">12sp</item>
-        <item name="fontFamily">@font/font_family_worksans</item>
-        <item name="chipSpacingVertical">4sp</item>
-        <item name="android:layout_marginBottom">4sp</item>
-    </style>
-
     <style name="FlatButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
@@ -124,6 +127,21 @@
         <item name="android:paddingBottom">15dp</item>
         <item name="cornerRadius">50dp</item>
         <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/worksans_regular</item>
+        <item name="android:textColor">@color/fightPandemicsSuvaGrey</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:topLeftRadius">40dp</item>
+        <item name="android:topRightRadius">40dp</item>
+        <item name="statusBarScrim">@color/material_on_surface_stroke</item>
+    </style>
+
+    <style name="SplashScreenTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
     <style name="BottomSheetOverlay" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">

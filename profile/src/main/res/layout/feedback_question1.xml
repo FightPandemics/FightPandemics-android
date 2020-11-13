@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    card_view:cardBackgroundColor="@color/colorWhite"
+    card_view:cardCornerRadius="@dimen/feedback_card_corner_radius"
+    card_view:cardElevation="@dimen/feedback_card_elevation">
+
+    <FrameLayout
+        android:id="@+id/verticalAccent1"
+        android:layout_width="@dimen/vertical_highlight_width"
+        android:layout_height="match_parent"
+        android:background="@color/fightPandemicsNeonBlue"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/feedback_horizontal_margin"
+        android:paddingVertical="@dimen/feedback_vertical_padding">
+
+        <TextView
+            android:id="@+id/questionTextView"
+            style="@style/AndroidNativeP114Px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/change_one_thing_about_fightpandemics" />
+
+        <EditText
+            android:id="@+id/yourAnswerEditText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/your_answer"
+            android:inputType="textMultiLine"
+            android:textAppearance="@style/AndroidNativeP114Px" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

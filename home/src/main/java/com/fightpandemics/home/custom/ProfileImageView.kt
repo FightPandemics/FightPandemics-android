@@ -38,7 +38,6 @@ class ProfileImageView @JvmOverloads constructor(
 
     @Px
     private var borderWidth = context.dpToPx(DEFAULT_BORDER_WIDHT)
-
     @ColorInt
     private var borderColor = Color.WHITE
     private var initials = "??"
@@ -56,13 +55,8 @@ class ProfileImageView @JvmOverloads constructor(
     init {
         if (attrs != null) {
             val ta = context.obtainStyledAttributes(attrs, R.styleable.ProfileImageView)
-            borderWidth =
-                ta.getDimension(
-                    R.styleable.ProfileImageView_aiv_borderWidth,
-                    context.dpToPx(DEFAULT_BORDER_WIDHT)
-                )
-            borderColor =
-                ta.getColor(R.styleable.ProfileImageView_aiv_borderColor, DEFAULT_BORDER_COLOR)
+            borderWidth = ta.getDimension(R.styleable.ProfileImageView_aiv_borderWidth, context.dpToPx(DEFAULT_BORDER_WIDHT))
+            borderColor = ta.getColor(R.styleable.ProfileImageView_aiv_borderColor, DEFAULT_BORDER_COLOR)
             initials = ta.getString(R.styleable.ProfileImageView_aiv_initials) ?: "??"
             ta.recycle()
         }
@@ -110,7 +104,7 @@ class ProfileImageView @JvmOverloads constructor(
     }
 
     override fun onRestoreInstanceState(state: Parcelable) {
-        if (state is SavedState) {
+        if(state is SavedState){
             super.onRestoreInstanceState(state)
             isAvatarMode = state.isAvatarMode
             borderWidth = state.borderWidth
@@ -118,7 +112,7 @@ class ProfileImageView @JvmOverloads constructor(
 
             borderPaint.apply {
                 color = borderColor
-                strokeWidth = borderWidth
+                strokeWidth =borderWidth
             }
         } else {
             super.onRestoreInstanceState(state)
@@ -211,12 +205,7 @@ class ProfileImageView @JvmOverloads constructor(
             textSize = height * 0.33f
         }
         val offsetY = (initialsPaint.descent() + initialsPaint.ascent()) / 2
-        canvas.drawText(
-            initials,
-            viewRect.exactCenterX(),
-            viewRect.exactCenterY() - offsetY,
-            initialsPaint
-        )
+        canvas.drawText(initials, viewRect.exactCenterX(), viewRect.exactCenterY() - offsetY, initialsPaint)
     }
 
     private fun initialsToColor(letters: String): Int {

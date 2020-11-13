@@ -1,8 +1,8 @@
 package com.fightpandemics.inbox.dagger
 
-import com.fightpandemics.core.dagger.CoreComponent
-import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.dagger.AppComponent
+import com.fightpandemics.dagger.CoreComponent
+import com.fightpandemics.dagger.scope.FeatureScope
 import com.fightpandemics.inbox.ui.InboxFragment
 import dagger.Component
 

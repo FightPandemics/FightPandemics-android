@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<!-- The android:opacity=”opaque” line — this is critical in preventing a flash of black-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:opacity="opaque">
 
-    <item android:drawable="@color/fightPandemics" />
+    <!-- The background color, preferably the same as the normal theme -->
+    <item android:drawable="@color/fightPandemicsSplashScreenBg" />
 
+    <!--Product logo - 144dp color version of the app icon -->
     <item>
         <bitmap
             android:gravity="center"

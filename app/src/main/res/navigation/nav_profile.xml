@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_profile"
@@ -8,17 +9,8 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.fightpandemics.profile.ui.ProfileFragment"
-        android:label="Profile"
         app:moduleName="Fight_Pandemics.profile"
-        tools:layout="@layout/profile_fragment">
-
-        <action
-            android:id="@+id/action_profileFragment_to_createPostFragment"
-            app:destination="@id/nav_create_post"
-            app:launchSingleTop="true" />
-
-    </fragment>
-
-    <include app:graph="@navigation/nav_create_post" />
+        android:label="Profile"
+        tools:layout="@layout/profile_fragment" />
 
 </navigation>

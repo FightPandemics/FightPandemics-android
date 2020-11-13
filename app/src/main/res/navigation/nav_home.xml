@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_home"
@@ -11,19 +12,6 @@
         android:label="Home"
         app:moduleName="Fight_Pandemics.home"
         tools:layout="@layout/home_fragment">
-
-        <action
-            android:id="@+id/action_homeFragment_to_filterFragment"
-            app:destination="@id/nav_filter"
-            app:launchSingleTop="true" />
-
-        <action
-            android:id="@+id/action_homeFragment_to_createPostFragment"
-            app:destination="@id/nav_create_post"
-            app:launchSingleTop="true" />
-
     </fragment>
 
-    <include app:graph="@navigation/nav_filter" />
-    <include app:graph="@navigation/nav_create_post" />
 </navigation>

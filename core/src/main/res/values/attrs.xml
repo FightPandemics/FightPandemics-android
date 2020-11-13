@@ -4,10 +4,4 @@
         <attr name="imageUrl" format="string" />
         <attr name="userInitials" format="string" />
     </declare-styleable>
-
-    <declare-styleable name="ProfileImageView">
-        <attr name="aiv_borderColor" format="color"/>
-        <attr name="aiv_borderWidth" format="dimension"/>
-        <attr name="aiv_initials" format="string"/>
-    </declare-styleable>
 </resources>

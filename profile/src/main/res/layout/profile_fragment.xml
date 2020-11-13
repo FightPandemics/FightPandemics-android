@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.fightpandemics.widget.InsetDispatchingCoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
     tools:context="ui.ProfileFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -16,6 +16,8 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
             <include
@@ -28,4 +30,4 @@
 
     <include layout="@layout/profile_fragment_content" />
 
-</com.fightpandemics.widget.InsetDispatchingCoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

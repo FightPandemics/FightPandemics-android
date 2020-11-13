@@ -2,12 +2,7 @@ package com.fightpandemics.dagger
 
 import android.app.Application
 import android.content.Context
-import com.fightpandemics.core.dagger.CoreComponent
-import com.fightpandemics.core.dagger.scope.AppScope
-import com.fightpandemics.createpost.dagger.CreatePostComponent
-import com.fightpandemics.filter.dagger.FilterComponent
-import com.fightpandemics.login.dagger.LoginComponent
-import com.fightpandemics.ui.splash.SplashComponent
+import com.fightpandemics.dagger.scope.AppScope
 import dagger.BindsInstance
 import dagger.Component
 
@@ -25,10 +20,8 @@ interface AppComponent {
         fun create(@BindsInstance context: Context, coreComponent: CoreComponent): AppComponent
     }
 
-    fun splashComponent(): SplashComponent.Factory
-    fun loginComponent(): LoginComponent.Factory
-    fun filterComponent(): FilterComponent.Factory
-    fun createPostComponent(): CreatePostComponent.Factory
+    // fun homeComponent(): HomeComponent.Factory
 
     fun inject(application: Application)
+    // fun inject(loginActivity: LoginActivity)
 }

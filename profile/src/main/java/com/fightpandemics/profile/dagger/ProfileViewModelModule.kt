@@ -2,7 +2,7 @@ package com.fightpandemics.profile.dagger
 
 import androidx.lifecycle.ViewModel
 import com.fightpandemics.profile.ui.ProfileViewModel
-import com.fightpandemics.core.utils.ViewModelKey
+import com.fightpandemics.utils.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

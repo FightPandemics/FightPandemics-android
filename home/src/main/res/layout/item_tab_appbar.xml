@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         app:tabIndicatorColor="?colorPrimary"
-        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorFullWidth="false"
         app:tabIndicatorHeight="2dp"
         app:tabSelectedTextColor="?colorPrimary"
         app:tabTextAppearance="@style/TabText" />

@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
             android:background="?colorSurface">
 
             <com.fightpandemics.profile.custom.ProfileImageView
@@ -70,9 +64,9 @@
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/request_help"
                 app:layout_constraintStart_toStartOf="@+id/user_avatar"
-                app:layout_constraintTop_toBottomOf="@+id/user_avatar" />
+                app:layout_constraintTop_toBottomOf="@+id/user_avatar"
+                android:text="@string/request_help" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button2"
@@ -178,23 +172,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/bio"
                 app:layout_constraintStart_toStartOf="@+id/facebook"
                 app:layout_constraintTop_toBottomOf="@+id/facebook" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/requests_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/profile_activities"
-            android:textColor="?colorPrimary"
-            android:textSize="14sp" />
-
-        <include layout="@layout/user_posts_content" />
-
-    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

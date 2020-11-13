@@ -8,7 +8,6 @@
     <color name="colorRed">#FF5656</color>
     <color name="colorGreen">#22D9A2</color>
     <color name="fightPandemicsNero">#282828</color>
-    <color name="fightPandemicsMediumGrey">#646464</color>
     <color name="fightPandemicsSuvaGrey">#939393</color>
     <color name="fightPandemicsSilver">#C5C5C5</color>
     <color name="fightPandemicsLightGrey">#D7D7D7</color>
@@ -17,5 +16,4 @@
     <color name="colorWhite_30p">#4DFFFFFF</color>
     <color name="fightPandemicsSnow">#F9F9F9</color>
     <color name="fightPandemicsWhiteSmoke">#F2F2F2</color>
-    <color name="colorPrimaryText">#282828</color>
 </resources>

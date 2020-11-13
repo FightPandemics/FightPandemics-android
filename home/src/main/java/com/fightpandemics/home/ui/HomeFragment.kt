@@ -2,35 +2,40 @@ package com.fightpandemics.home.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
-import com.fightpandemics.core.utils.ViewModelFactory
+import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager.widget.ViewPager
 import com.fightpandemics.home.R
-import com.fightpandemics.home.R.integer
-import com.fightpandemics.home.R.layout
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.ui.tabs.HomePagerAdapter
-import com.fightpandemics.home.utils.TAB_TITLES
-import com.fightpandemics.ui.MainActivity
-import com.google.android.material.button.MaterialButton
+import com.fightpandemics.home.ui.tabs.OnTabSelected
+import com.fightpandemics.home.utils.applyStyle
+import com.fightpandemics.utils.ViewModelFactory
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
-import com.google.android.material.transition.MaterialSharedAxis
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homePager: ViewPager2
+    private lateinit var homePager: ViewPager
     private lateinit var homeTabs: TabLayout
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }
+    private lateinit var viewModel: HomeViewModel
+
+    companion object {
+        fun newInstance() = HomeFragment()
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -40,10 +45,10 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        val rootView = inflater.inflate(layout.home_fragment, container, false)
+        val rootView = inflater.inflate(R.layout.home_fragment, container, false)
 
         homePager = rootView.findViewById(R.id.homePager)
         homeTabs = rootView.findViewById(R.id.homeTabs)
@@ -53,8 +58,12 @@ class HomeFragment : Fragment() {
         setHasOptionsMenu(true)
 
         setupUi()
-        createPost()
         return rootView
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -63,40 +72,24 @@ class HomeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.filter -> {
-                exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-                    duration = resources.getInteger(integer.reply_motion_duration_large).toLong()
-                }
-                reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-                    duration = resources.getInteger(integer.reply_motion_duration_large).toLong()
-                }
-                findNavController().navigate(com.fightpandemics.R.id.action_homeFragment_to_filterFragment)
-            }
+            R.id.filter -> Toast.makeText(context, "Filter Clicked", Toast.LENGTH_LONG).show()
         }
         return true
     }
 
     private fun setupUi() {
-        val homePagerAdapter =
-            HomePagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
+        val homePagerAdapter = HomePagerAdapter(requireActivity(), childFragmentManager)
 
         homePager.adapter = homePagerAdapter
+        homeTabs.setupWithViewPager(homePager)
+        homeTabs.addOnTabSelectedListener(OnTabSelected())
 
-        TabLayoutMediator(homeTabs, homePager) { tab, position ->
-            tab.text = this.resources.getString(TAB_TITLES[position])
-            //homeTabs.addOnTabSelectedListener(OnTabSelected())
-        }.attach()
-    }
-
-    private fun createPost() {
-        (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsOrg)
-            .setOnClickListener {
-                findNavController().navigate(com.fightpandemics.R.id.action_homeFragment_to_createPostFragment)
-            }
-
-        (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsIndiv)
-            .setOnClickListener {
-                findNavController().navigate(com.fightpandemics.R.id.action_homeFragment_to_createPostFragment)
-            }
+        for (i in 0 until homeTabs.tabCount) {
+            val title = homeTabs.getTabAt(i)?.text
+            homeTabs.getTabAt(i)?.setCustomView(R.layout.item_tab_title)
+            val tabTitle = homeTabs.getTabAt(i)?.customView?.findViewById<TextView>(R.id.tv_title)
+            tabTitle?.text = title
+            tabTitle?.applyStyle(tabTitle.isSelected)
+        }
     }
 }

@@ -3,50 +3,17 @@ package com.fightpandemics.home.dagger
 import android.app.Activity
 import androidx.fragment.app.Fragment
 import com.fightpandemics.FightPandemicsApp
-import com.fightpandemics.core.dagger.CoreComponentProvider
+import com.fightpandemics.dagger.CoreComponentProvider
 import com.fightpandemics.home.ui.HomeFragment
-import com.fightpandemics.home.ui.tabs.all.HomeAllFragment
-import com.fightpandemics.home.ui.tabs.offers.HomeOfferFragment
-import com.fightpandemics.home.ui.tabs.requests.HomeRequestFragment
 
-fun inject(homeFragment: HomeFragment) {
+fun inject(fragment: Fragment) {
     val appComponent =
-        (homeFragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
+        (fragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
 
     DaggerHomeComponent
         .factory()
-        .create(appComponent, homeFragment.coreComponent())
-        .inject(homeFragment)
-}
-
-fun inject(homeAllFragment: HomeAllFragment) {
-    val appComponent =
-        (homeAllFragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
-
-    DaggerHomeComponent
-        .factory()
-        .create(appComponent, homeAllFragment.coreComponent())
-        .inject(homeAllFragment)
-}
-
-fun inject(homeOfferFragment: HomeOfferFragment) {
-    val appComponent =
-        (homeOfferFragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
-
-    DaggerHomeComponent
-        .factory()
-        .create(appComponent, homeOfferFragment.coreComponent())
-        .inject(homeOfferFragment)
-}
-
-fun inject(homeRequestFragment: HomeRequestFragment) {
-    val appComponent =
-        (homeRequestFragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
-
-    DaggerHomeComponent
-        .factory()
-        .create(appComponent, homeRequestFragment.coreComponent())
-        .inject(homeRequestFragment)
+        .create(appComponent, fragment.coreComponent())
+        .inject(fragment as HomeFragment)
 }
 
 fun Fragment.coreComponent() = requireActivity().coreComponent()
