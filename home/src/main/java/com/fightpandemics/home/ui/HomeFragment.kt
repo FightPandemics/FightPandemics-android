@@ -9,16 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.fightpandemics.core.utils.ViewModelFactory
+import com.fightpandemics.home.R
+import com.fightpandemics.home.R.integer
+import com.fightpandemics.home.R.layout
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.ui.tabs.HomePagerAdapter
 import com.fightpandemics.home.utils.TAB_TITLES
-import com.fightpandemics.core.utils.ViewModelFactory
-import com.fightpandemics.home.R
-import com.fightpandemics.home.R.*
+import com.fightpandemics.ui.MainActivity
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialSharedAxis
-import timber.log.Timber
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
@@ -51,6 +53,7 @@ class HomeFragment : Fragment() {
         setHasOptionsMenu(true)
 
         setupUi()
+        createPost()
         return rootView
     }
 
@@ -83,5 +86,17 @@ class HomeFragment : Fragment() {
             tab.text = this.resources.getString(TAB_TITLES[position])
             //homeTabs.addOnTabSelectedListener(OnTabSelected())
         }.attach()
+    }
+
+    private fun createPost() {
+        (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsOrg)
+            .setOnClickListener {
+                findNavController().navigate(com.fightpandemics.R.id.action_homeFragment_to_createPostFragment)
+            }
+
+        (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsIndiv)
+            .setOnClickListener {
+                findNavController().navigate(com.fightpandemics.R.id.action_homeFragment_to_createPostFragment)
+            }
     }
 }

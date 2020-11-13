@@ -17,6 +17,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.fightpandemics.R
 import com.fightpandemics.utils.setupWithNavController
@@ -107,7 +110,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 dot.visibility = View.VISIBLE
                 fab.show()
             }
-            R.id.filterFragment -> hideBottomBar()
+            R.id.filterFragment, R.id.createPostFragment -> hideBottomBar()
         }
     }
 
