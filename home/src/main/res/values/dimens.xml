@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Edit/Delete Post -->
+    <dimen name="dialogue_width_280dp">280dp</dimen>
+    <dimen name="dialogue_height_192dp">192dp</dimen>
+    <dimen name="bottom_sheet_height_154dp">154dp</dimen>
+    <dimen name="dialogue_width_245dp">245dp</dimen>
+    <dimen name="dialogue_height_45dp">45dp</dimen>
+    <dimen name="button_width_320dp">320dp</dimen>
+    <dimen name="button_height_45dp">45dp</dimen>
+    <dimen name="button_width_50dp">50dp</dimen>
+    <dimen name="button_height_3.2dp">3.2dp</dimen>
+    <dimen name="text_width_236dp">236dp</dimen>
+    
+</resources>

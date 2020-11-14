@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/dialogue_width_245dp"
+    android:layout_height="@dimen/dialogue_height_45dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="149dp"
+    android:background="@drawable/dialogue_text_background">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_feedback_msg"
+        style="@style/AndroidNativeH314Px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="@string/deleted_msg"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

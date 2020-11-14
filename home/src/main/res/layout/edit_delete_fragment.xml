@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_sheet_height_154dp"
+    android:background="@drawable/bottom_nav_background">
+
+    <View
+        android:id="@+id/iv_pin_sheet"
+        android:layout_width="@dimen/button_width_50dp"
+        android:layout_height="@dimen/button_height_3.2dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/button_offering_background"
+        android:gravity="center_horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_edit_post"
+        style="@style/buttonEdit"
+        android:layout_width="@dimen/button_width_320dp"
+        android:layout_height="@dimen/button_height_45dp"
+        android:layout_marginTop="20.8dp"
+        android:text="@string/edit_post"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_pin_sheet" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_delete_post"
+        style="@style/buttonDelete"
+        android:layout_width="@dimen/button_width_320dp"
+        android:layout_height="@dimen/button_height_45dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/delete_post"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_edit_post" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

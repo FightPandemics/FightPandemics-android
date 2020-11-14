@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dialogue_background_transparent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/dialogue_width_280dp"
+        android:layout_height="@dimen/dialogue_height_192dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="175dp"
+        android:background="@drawable/dialogue_background">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/delete_msg_title"
+            style="@style/AndroidNativeH216Px"
+            android:layout_width="@dimen/text_width_236dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:lineSpacingExtra="0dp"
+            android:text="@string/delete_confirm_alert_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/delete_msg_content"
+            style="@style/AndroidNativeP114Px"
+            android:layout_width="@dimen/text_width_236dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:text="@string/delete_confirm_alert_msg"
+            android:textColor="@color/fightPandemicsSuvaGrey"
+            app:layout_constraintEnd_toEndOf="@+id/delete_msg_title"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/delete_msg_title"
+            app:layout_constraintTop_toBottomOf="@+id/delete_msg_title" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/btn_cancel"
+            style="@style/textViewClickable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="119.5dp"
+            android:layout_marginTop="8dp"
+            android:paddingStart="4.5dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="3.5dp"
+            android:paddingBottom="9dp"
+            android:text="@string/cancel"
+            android:textColor="@color/textColorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/delete_msg_content" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/btn_delete"
+            style="@style/textViewClickable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16.5dp"
+            android:paddingStart="8.5dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="8.5dp"
+            android:paddingBottom="9dp"
+            android:text="@string/delete"
+            android:textColor="@color/colorRed"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_cancel"
+            app:layout_constraintTop_toTopOf="@+id/btn_cancel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
