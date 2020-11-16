@@ -2,17 +2,31 @@ package com.fightpandemics.login.ui
 
 import android.content.Intent
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.auth0.android.Auth0
+import com.auth0.android.authentication.AuthenticationAPIClient
+import com.auth0.android.authentication.AuthenticationException
+import com.auth0.android.authentication.storage.SecureCredentialsManager
+import com.auth0.android.authentication.storage.SharedPreferencesStorage
+import com.auth0.android.callback.BaseCallback
+import com.auth0.android.management.UsersAPIClient
 import com.auth0.android.provider.WebAuthProvider
+import com.auth0.android.result.UserProfile
 import com.fightpandemics.login.R
+import com.fightpandemics.login.ui.profile.CompleteProfileFragment
 
-open class Auth0BaseFragment : Fragment(){
+
+open class Auth0BaseFragment : Fragment() {
     lateinit var auth0: Auth0
     val CALLBACK_START_URL = "https://%s/userinfo"
-    val SCOPE = "demo"
+    val CALLBACK_PROFILE_URL = "https://%s/api/v2/"
+    val SCHEME = "demo"
+    var credentialsManager: SecureCredentialsManager? = null
 
-    fun init(){
+
+    fun init() {
         auth0 = Auth0(
             resources.getString(R.string.com_auth0_client_id),
             resources.getString(R.string.com_auth0_domain)
@@ -23,13 +37,13 @@ open class Auth0BaseFragment : Fragment(){
     fun doSocialLogin(loginConnection: LoginConnection) {
         WebAuthProvider.login(auth0)
             .withConnection(loginConnection.provider)
-            .withScheme(SCOPE)
-            .withScope("openid offline_access")
+            .withScheme(SCHEME)
+            .withScope("openid profile email offline_access read:current_user update:current_user_metadata")
             .withAudience(
                 String.format(CALLBACK_START_URL, getString(R.string.com_auth0_domain))
             )
             .start(
-                requireActivity(),5
+                requireActivity(),
                 Auth0CallBack(
                     {
                         Toast.makeText(
@@ -39,14 +53,45 @@ open class Auth0BaseFragment : Fragment(){
                         )
                     },
                     {
-                        val PACKAGE_NAME = "com.fightpandemics"
-                        val intent = Intent().setClassName(
-                            PACKAGE_NAME,
-                            "$PACKAGE_NAME.ui.MainActivity"
+                        auth0 = Auth0(requireContext())
+                        auth0.isOIDCConformant = true
+                        credentialsManager = SecureCredentialsManager(
+                            requireContext(),
+                            AuthenticationAPIClient(auth0),
+                            SharedPreferencesStorage(requireContext())
                         )
-                        startActivity(intent).apply { requireActivity().finish() }
+
+                        credentialsManager?.saveCredentials(it)
+
+                        val accessToken = it.accessToken
+                        if (accessToken != null && loginConnection.isSignUP) {
+                            getProfile(accessToken)
+
+                        } else {
+                            val PACKAGE_NAME = "com.fightpandemics"
+                            val intent = Intent().setClassName(
+                                PACKAGE_NAME,
+                                "$PACKAGE_NAME.ui.MainActivity"
+                            )
+                            startActivity(intent).apply { requireActivity().finish() }
+                        }
                     }
                 )
             )
+    }
+
+    fun getProfile(accessToken: String) {
+        var authenticationAPIClient = AuthenticationAPIClient(auth0)
+        authenticationAPIClient.userInfo(accessToken)
+            .start( object : BaseCallback<UserProfile, AuthenticationException> {
+                override fun onFailure(error: AuthenticationException) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onSuccess(userProfile: UserProfile?) {
+                    val bundle = bundleOf(CompleteProfileFragment.USER_PROFILE to userProfile)
+                    findNavController().navigate(R.id.action_signUpEmailFragment_to_completeProfileFragment, bundle)
+                }
+            })
     }
 }

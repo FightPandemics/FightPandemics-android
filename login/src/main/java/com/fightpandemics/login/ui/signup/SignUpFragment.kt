@@ -46,15 +46,15 @@ class SignUpFragment : Auth0BaseFragment(){
         layout_btn_linkedin
 
         rootView.layout_btn_google?.setOnClickListener {
-            doSocialLogin(LoginConnection.GOOGLE)
+            doSocialLogin(LoginConnection.GOOGLE_SIGNUP)
         }
 
         rootView.layout_btn_facebook.setOnClickListener {
-            doSocialLogin(LoginConnection.FACEBOOK)
+            doSocialLogin(LoginConnection.FACEBOOK_SIGNUP)
         }
 
         rootView.layout_btn_linkedin?.setOnClickListener {
-            doSocialLogin(LoginConnection.LINKEDIN)
+            doSocialLogin(LoginConnection.LINKEDIN_SIGNUP)
         }
 
         return rootView

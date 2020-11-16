@@ -23,6 +23,10 @@ class CompleteProfileFragment : Fragment() {
     private val loginViewModel: LoginViewModel by viewModels { loginViewModelFactory }
     private lateinit var complete_profile_toolbar: MaterialToolbar
 
+    companion object{
+        const val USER_PROFILE = "userProfile"
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -43,6 +47,7 @@ class CompleteProfileFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        arguments?.getString(USER_PROFILE)
         /*
         etFirstName.validate("Please enter a valid name", tilFirstName) { s -> s.isNotEmpty() }
 

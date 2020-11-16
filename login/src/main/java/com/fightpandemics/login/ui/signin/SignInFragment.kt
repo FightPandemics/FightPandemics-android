@@ -50,15 +50,15 @@ class SignInFragment : Auth0BaseFragment() {
         }
 
         fragmentSignInBinding!!.includeGoogle.googleSignin.setOnClickListener {
-            doSocialLogin(LoginConnection.GOOGLE)
+            doSocialLogin(LoginConnection.GOOGLE_SIGNIN)
         }
 
         fragmentSignInBinding!!.includeFacebook.facebookSignin.setOnClickListener {
-            doSocialLogin(LoginConnection.FACEBOOK)
+            doSocialLogin(LoginConnection.FACEBOOK_SIGNIN)
         }
 
         fragmentSignInBinding!!.includeLinkedin.linkedInSignin.setOnClickListener {
-            doSocialLogin(LoginConnection.LINKEDIN)
+            doSocialLogin(LoginConnection.LINKEDIN_SIGNIN)
         }
         return binding.root
     }
