@@ -20,7 +20,11 @@
         <action
             android:id="@+id/action_homeFragment_to_createPostFragment"
             app:destination="@id/nav_create_post"
-            app:launchSingleTop="true" />
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
 
     </fragment>
 

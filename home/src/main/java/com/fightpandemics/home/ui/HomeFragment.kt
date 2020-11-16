@@ -64,12 +64,13 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.filter -> {
-                exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+                // TODO - 10. Add anim to Navigation graph
+                /*exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
                     duration = resources.getInteger(integer.reply_motion_duration_large).toLong()
                 }
                 reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
                     duration = resources.getInteger(integer.reply_motion_duration_large).toLong()
-                }
+                }*/
                 findNavController().navigate(com.fightpandemics.R.id.action_homeFragment_to_filterFragment)
             }
         }

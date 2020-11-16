@@ -11,12 +11,14 @@
         android:label="Profile"
         app:moduleName="Fight_Pandemics.profile"
         tools:layout="@layout/profile_fragment">
-
         <action
             android:id="@+id/action_profileFragment_to_createPostFragment"
             app:destination="@id/nav_create_post"
-            app:launchSingleTop="true" />
-
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
     </fragment>
 
     <include app:graph="@navigation/nav_create_post" />
