@@ -26,7 +26,39 @@
             app:popEnterAnim="@anim/stationary"
             app:popExitAnim="@anim/slide_down" />
 
+        <action
+            android:id="@+id/action_homeFragment_to_homeOptionsBottomSheetFragment"
+            app:destination="@id/homeOptionsBottomSheetFragment" />
     </fragment>
+
+    <dialog
+        android:id="@+id/homeOptionsBottomSheetFragment"
+        android:name="com.fightpandemics.home.ui.HomeOptionsBottomSheetFragment"
+        android:label="HomeOptionsBottomSheetFragment">
+
+        <action
+            android:id="@+id/action_homeOptionsBottomSheetFragment_to_createPostFragment"
+            app:destination="@id/nav_create_post"
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/stationary"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down">
+
+            <argument
+                android:name="post"
+                android:defaultValue="@null"
+                app:argType="com.fightpandemics.core.data.model.posts.Post"
+                app:nullable="true" />
+
+        </action>
+
+        <argument
+            android:name="post"
+            android:defaultValue="@null"
+            app:argType="com.fightpandemics.core.data.model.posts.Post"
+            app:nullable="true" />
+    </dialog>
 
     <include app:graph="@navigation/nav_filter" />
     <include app:graph="@navigation/nav_create_post" />

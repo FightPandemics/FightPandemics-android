@@ -65,7 +65,7 @@ class HomeViewModel @Inject constructor(
             deferredPosts.await().collect {
                 when (it) {
                     is Result.Success -> _postsState.value =
-                        PostsViewState(isLoading = false, error = null, posts = it.data)
+                        PostsViewState(isLoading = false, error = null, posts = it.data as List<Post>?)
                     is Result.Error -> _postsState.value =
                         PostsViewState(isLoading = false, error = it, posts = emptyList())
                 }
@@ -86,7 +86,7 @@ class HomeViewModel @Inject constructor(
                 when (it) {
                     is Result.Success -> {
                         _offerState.value =
-                            PostsViewState(isLoading = false, error = null, posts = it.data)
+                            PostsViewState(isLoading = false, error = null, posts = it.data as List<Post>?)
                     }
                     is Result.Error -> _offerState.value =
                         PostsViewState(isLoading = false, error = it, posts = emptyList())
@@ -108,7 +108,7 @@ class HomeViewModel @Inject constructor(
                 when (it) {
                     is Result.Success -> {
                         _requestState.value =
-                            PostsViewState(isLoading = false, error = null, posts = it.data)
+                            PostsViewState(isLoading = false, error = null, posts = it.data as List<Post>?)
                     }
                     is Result.Error -> _requestState.value =
                         PostsViewState(isLoading = false, error = it, posts = emptyList())

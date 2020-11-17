@@ -15,9 +15,9 @@ import javax.inject.Inject
 class LoadPostsUseCase @Inject constructor(
     private val postsRepository: PostsRepository,
     dispatcherProvider: CoroutinesDispatcherProvider,
-) : FlowUseCase<String, List<Post>>(dispatcherProvider.default) {
+) : FlowUseCase<String, Any?>(dispatcherProvider.default) {
 
-    override suspend fun execute(parameters: String?): Flow<Result<List<Post>>> {
+    override suspend fun execute(parameters: String?): Flow<Result<Any?>> {
         return postsRepository.getPosts(parameters).map { results ->
             when (results) {
                 is Result.Success -> results

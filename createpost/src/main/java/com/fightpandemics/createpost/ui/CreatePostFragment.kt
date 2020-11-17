@@ -12,6 +12,7 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.createpost.R
 import com.fightpandemics.createpost.dagger.inject
 import com.fightpandemics.createpost.databinding.FragmentCreatePostBinding
+import timber.log.Timber
 import javax.inject.Inject
 
 class CreatePostFragment : Fragment() {
@@ -39,6 +40,13 @@ class CreatePostFragment : Fragment() {
             .inflate(inflater, container, false)
         fragmentCreatePostBinding = binding
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val post = arguments?.let { CreatePostFragmentArgs.fromBundle(it).post }
+        Timber.e("${post?.author?.name}")
+        fragmentCreatePostBinding!!.name.text = post?.author?.name
     }
 
     override fun onDestroyView() {

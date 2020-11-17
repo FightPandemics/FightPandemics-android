@@ -23,7 +23,8 @@ class HomeAllFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     // Obtain the ViewModel - use the ParentFragment as the Lifecycle owner
-    private val homeViewModel: HomeViewModel by viewModels({ requireParentFragment() }) { viewModelFactory }
+    private val homeViewModel: HomeViewModel
+            by viewModels({ requireParentFragment() }) { viewModelFactory }
 
     private var homeAllFragmentBinding: HomeAllFragmentBinding? = null
     private lateinit var postsAdapter: PostsAdapter
@@ -86,7 +87,7 @@ class HomeAllFragment : Fragment() {
                     postsAdapter.submitList(it.posts)
                     postsAdapter.onItemClickListener = { post ->
                         Timber.e("${post.author?.name}")
-                        //findNavController().navigate(PokeListFragmentDirections.actionPokeListFragmentToPokeDetailFragment(post._id))
+                        //findNavController().navigate(PokeListFragmentDirections.actionPokeListFragmentToPokeDetailFragment(post))
                     }
                 }
                 it.error != null -> {

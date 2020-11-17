@@ -1,10 +1,12 @@
 package com.fightpandemics.home.dagger
 
+import android.content.Context
 import com.fightpandemics.core.dagger.CoreComponent
 import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.dagger.AppComponent
 import com.fightpandemics.home.domain.LoadPostsUseCase
 import com.fightpandemics.home.ui.HomeFragment
+import com.fightpandemics.home.ui.HomeOptionsBottomSheetFragment
 import com.fightpandemics.home.ui.tabs.all.HomeAllFragment
 import com.fightpandemics.home.ui.tabs.offers.HomeOfferFragment
 import com.fightpandemics.home.ui.tabs.requests.HomeRequestFragment
@@ -34,4 +36,5 @@ interface HomeComponent {
     fun inject(homeAllFragment: HomeAllFragment)
     fun inject(homeOfferFragment: HomeOfferFragment)
     fun inject(homeRequestFragment: HomeRequestFragment)
+    fun inject(homeOptionsBottomSheetFragment: HomeOptionsBottomSheetFragment)
 }

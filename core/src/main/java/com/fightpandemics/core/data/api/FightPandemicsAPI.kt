@@ -1,11 +1,12 @@
 package com.fightpandemics.core.data.api
 
-import com.fightpandemics.core.data.model.login.*
+import com.fightpandemics.core.data.model.login.ChangePasswordResponse
+import com.fightpandemics.core.data.model.login.LoginRequest
+import com.fightpandemics.core.data.model.login.SignUpRequest
+import com.fightpandemics.core.data.model.login.SignUpResponse
 import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
-import kotlinx.coroutines.Deferred
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -14,12 +15,13 @@ interface FightPandemicsAPI {
     @GET("api/posts")
     suspend fun getPosts(): Posts
 
+    // TODO - Use Either<,> to get error
     // Get Post
     @GET("api/posts")
     suspend fun getPosts(
         @Query("objective") objective: String?,
         @Query("limit") limit: Int
-    ): List<Post>
+    ): Response<List<Post>>
 
     // Login
     @Headers("No-Authentication: true") // no need to add authentication
