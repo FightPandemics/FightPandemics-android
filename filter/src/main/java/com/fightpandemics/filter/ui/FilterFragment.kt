@@ -26,6 +26,7 @@ import com.google.android.libraries.places.api.net.*
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.transition.MaterialSharedAxis
+import timber.log.Timber
 import javax.inject.Inject
 
 class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
@@ -96,6 +97,10 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
         // Get the viewmodel
         filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
+        // Places API Logic - Initialize places sdk
+        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
+        // Create a new PlacesClient instance
+        placesClient = Places.createClient(requireContext())
 
         // set up apply and clear filters buttons
         binding.clearFiltersButton.setOnClickListener{
@@ -237,21 +242,14 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
         })
 
-        // The next three observers check if apply buttons should be enabled
+        // The next three observers check if apply filter button should be enabled
         filterViewModel.fromWhomCount.observe(viewLifecycleOwner, {fromWhomCount ->
             handleApplyFilterEnableState()
         })
-
         filterViewModel.typeCount.observe(viewLifecycleOwner, {typeCount ->
             handleApplyFilterEnableState()
         })
-
-        // Manage visibility for recycler view and line divider
-        // Observe the location query that will be send to home filter
         filterViewModel.locationQuery.observe(viewLifecycleOwner, { locationQuery ->
-            locationQuery?.let {
-                handleAutocompleteVisibility(it)
-            }
             handleApplyFilterEnableState()
         })
 
@@ -259,36 +257,38 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         filterViewModel.onSelectedLocation.observe(viewLifecycleOwner, { onSelectedLocation ->
             if (onSelectedLocation != null) {
                 binding.locationOptions.locationSearch.setText(onSelectedLocation)
+                filterViewModel.locationQuery.value = onSelectedLocation
                 // todo maybe find a better way of doing this
                 // Take away focus from edit text once an option has been selected
                 binding.locationOptions.locationSearch.isEnabled = false
                 binding.locationOptions.locationSearch.isEnabled = true
                 // todo maybe make a function in the view model of this
+                // reset onSelectedLocation event to null because we finished selecting
                 filterViewModel.onSelectedLocation.value = null
             }
         })
 
-
-        // Places API Logic - Initialize places sdk
-        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
-        // Create a new PlacesClient instance
-        placesClient = Places.createClient(requireContext())
-
-        binding.locationOptions.locationSearch.doAfterTextChanged { text ->
-
+        // do not start autocomplete until 3 chars in and delete location input that is not selected
+        binding.locationOptions.locationSearch.doAfterTextChanged { inputLocation ->
+            // if statement to recognize a change to selectedlocation
+            // todo -> delete live data
             // do not search autocomplete suggestions until 3 chars in
-            if (text.toString().length >= LENGTH_TO_SHOW_SUGGESTIONS){
-                filterViewModel.autocompleteLocation(text.toString(), placesClient)
+            inputLocation?.let {
+                handleAutocompleteVisibility(it.toString())
+                if (it.length >= LENGTH_TO_SHOW_SUGGESTIONS){
+                    filterViewModel.autocompleteLocation(it.toString(), placesClient)
+                }
             }
-
+            filterViewModel.locationQuery.value = ""
             // todo if location is not selected, then delete it and dont update live data
-            filterViewModel.locationQuery.value = text.toString()
+            // todo if text is edited then delete our current locationQuery livedata
 //            Timber.i("Filters Live data: im gonig to update live data with ${filterViewModel.locationQuery.value}")
         }
 
         binding.locationOptions.shareMyLocation.setOnClickListener {
             getCurrentLocation()
         }
+
     }
 
     private fun getCurrentLocation() {

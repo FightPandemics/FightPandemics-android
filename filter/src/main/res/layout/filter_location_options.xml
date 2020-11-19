@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:animateLayoutChanges="true"
     android:layout_height="@dimen/filter_options_card_height"
+    android:animateLayoutChanges="true"
     android:paddingHorizontal="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin">
 
@@ -13,9 +14,9 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/fightPandemicsNeonBlue"
         android:clickable="true"
-        android:focusable="true"
         android:drawableStart="@drawable/ic_map_pin"
         android:drawablePadding="@dimen/location_search_icon_padding"
+        android:focusable="true"
         android:hint="@string/zip_code_neighborhood_or_city"
         android:textAppearance="@style/AndroidNativeP114Px"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,11 +29,11 @@
         android:id="@+id/share_my_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:clickable="true"
-        android:focusable="true"
         android:drawableStart="@drawable/ic_cursor_location"
         android:drawablePadding="@dimen/location_search_icon_padding"
-        android:layout_marginTop="4dp"
+        android:focusable="true"
         android:text="@string/share_my_location"
         android:textAppearance="@style/AndroidNativeP114Px"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,22 +44,26 @@
         android:id="@+id/item_line_divider1"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/line_width"
-        android:background="@color/fightPandemicsLightGrey"
         android:layout_marginTop="@dimen/autocomplete_location_vertical_spacing"
+        android:background="@color/fightPandemicsLightGrey"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/auto_complete_locations_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/share_my_location" />
+        app:layout_constraintTop_toBottomOf="@id/share_my_location"
+        tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/auto_complete_locations_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:nestedScrollingEnabled="false"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_line_divider1" />
+        app:layout_constraintTop_toBottomOf="@id/item_line_divider1"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
