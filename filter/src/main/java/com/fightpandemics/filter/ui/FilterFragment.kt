@@ -26,9 +26,7 @@ import com.google.android.libraries.places.api.net.*
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.transition.MaterialSharedAxis
-import timber.log.Timber
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
 class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
@@ -42,25 +40,25 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     private val LOCATION_PERMISSION_CODE = 1
     private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
 
-    var x: Int by Delegates.observable(0) { prop, old, new ->
-        when (new) {
-            0 -> {
-                binding.applyFiltersButton.isEnabled = false
-                binding.applyFiltersButton.text =
-                    getString(R.string.button_apply_filter)
-            }
-            1 -> {
-                binding.applyFiltersButton.isEnabled = true
-                binding.applyFiltersButton.text =
-                    getString(R.string.button_apply_filter_, new)
-            }
-            else -> {
-                binding.applyFiltersButton.isEnabled = true
-                binding.applyFiltersButton.text =
-                    getString(R.string.button_apply_filters, new)
-            }
-        }
-    }
+//    var x: Int by Delegates.observable(0) { prop, old, new ->
+//        when (new) {
+//            0 -> {
+//                binding.applyFiltersButton.isEnabled = false
+//                binding.applyFiltersButton.text =
+//                    getString(R.string.button_apply_filter)
+//            }
+//            1 -> {
+//                binding.applyFiltersButton.isEnabled = true
+//                binding.applyFiltersButton.text =
+//                    getString(R.string.button_apply_filter_, new)
+//            }
+//            else -> {
+//                binding.applyFiltersButton.isEnabled = true
+//                binding.applyFiltersButton.text =
+//                    getString(R.string.button_apply_filters, new)
+//            }
+//        }
+//    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -103,18 +101,19 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
         // send data to home module
         binding.applyFiltersButton.setOnClickListener {
+
+//            // todo try to make this call wait for response before continuing
+//            if (filterViewModel.locationQuery.value?.isNotBlank() == true){
+//                filterViewModel.autocompleteLocationLatLng(placesClient)
+//                Timber.i("LAT: after get call: ${filterViewModel.latLgn.value}")
+//            }
+
+            // send info to home module
             findNavController().previousBackStackEntry?.savedStateHandle?.set(
-                "key",
-                filterViewModel.locationQuery.value
+                "filters",
+                filterViewModel.createFilterRequest()
             )
-            findNavController().previousBackStackEntry?.savedStateHandle?.set(
-                "fromWhom",
-                filterViewModel.fromWhomFilters.value
-            )
-            findNavController().previousBackStackEntry?.savedStateHandle?.set(
-                "type",
-                filterViewModel.typeFilters.value
-            )
+
             findNavController().popBackStack()
         }
 

@@ -1,20 +1,10 @@
 package com.fightpandemics.filter.ui
 
-import com.fightpandemics.home.BuildConfig
-import android.Manifest
-import android.app.AlertDialog
-import android.app.Application
-import android.content.DialogInterface
-import android.content.pm.PackageManager
 import android.util.Pair
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.google.android.gms.common.api.ApiException
-import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.TypeFilter
@@ -26,27 +16,19 @@ import javax.inject.Inject
 //class FilterViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
 class FilterViewModel @Inject constructor() : ViewModel() {
 
-    // Data class for making a filter request
-    data class filterRequest(
-        val location: String,
-        val latLgn: Pair<Float, Float>,
-        val fromWhomFilters: List<String>,
-        val typeFilters: List<String>
-    )
-
     // Handle visibility properties
     var isLocationOptionsExpanded = MutableLiveData<Boolean>()
     var isFromWhomOptionsExpanded = MutableLiveData<Boolean>()
     var isTypeOptionsExpanded = MutableLiveData<Boolean>()
 
     // Recycler View variables
-    var locationQuery = MutableLiveData<String>()
     var autocomplete_locations = MutableLiveData<List<String>>()
 
     // handle on selected place event (either from recycler view or from current location button)
     var onSelectedLocation = MutableLiveData<String>()
 
     // Values that will go into home module (besides locationQuery)
+    var locationQuery = MutableLiveData<String>()
     var fromWhomFilters = MutableLiveData<List<String>>()
     var fromWhomCount = MutableLiveData<Int>()
     var typeFilters = MutableLiveData<List<String>>()
@@ -178,6 +160,10 @@ class FilterViewModel @Inject constructor() : ViewModel() {
                     TODO("Handle error with given status code")
                 }
             }
+    }
+
+    fun createFilterRequest (): FilterRequest{
+        return FilterRequest(locationQuery.value, null, null, fromWhomFilters.value, typeFilters.value)
     }
 
 }
