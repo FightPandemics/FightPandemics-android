@@ -37,8 +37,8 @@ class PostsRepositoryImpl @Inject constructor(
             val posts = postsRemoteDataSource.fetchPosts(objective).body()!!
                 //.onEach { save(it) } //save to database, fetch from database and emit(dao.fetch)
             emit(Result.Success(posts))
-            delay(5000)
-            getPosts(objective)
+//            delay(5000)
+//            getPosts(objective)
         }.catch{ cause ->
             val error = postsRemoteDataSource.fetchPosts(objective).errorBody().toString()
             emit(Result.Error(Exception(error)))

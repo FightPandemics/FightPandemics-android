@@ -5,24 +5,31 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.fightpandemics.core.result.EventObserver
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.home.R
-import com.fightpandemics.home.R.integer
 import com.fightpandemics.home.R.layout
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.ui.tabs.HomePagerAdapter
 import com.fightpandemics.home.utils.TAB_TITLES
 import com.fightpandemics.ui.MainActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.android.material.transition.MaterialSharedAxis
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import timber.log.Timber
 import javax.inject.Inject
 
+
+@ExperimentalCoroutinesApi
 class HomeFragment : Fragment() {
 
     private lateinit var homePager: ViewPager2
@@ -54,6 +61,19 @@ class HomeFragment : Fragment() {
 
         setupUi()
         createPost()
+
+        val fab: FloatingActionButton = activity?.findViewById(com.fightpandemics.R.id.fab)!!
+
+        homeViewModel.isDeleted.observe(requireActivity(), EventObserver {
+
+            if (it.isNotBlank()) {
+                Timber.e(/*it*/"ghjkjhnm,s")
+
+                Snackbar.make(fab, "Snackbar over BottomAppBar", Snackbar.LENGTH_SHORT)
+                    .apply { anchorView = fab }.show()
+            }
+        })
+
         return rootView
     }
 
@@ -64,14 +84,8 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.filter -> {
-                // TODO - 10. Add anim to Navigation graph
-                /*exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-                    duration = resources.getInteger(integer.reply_motion_duration_large).toLong()
-                }
-                reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-                    duration = resources.getInteger(integer.reply_motion_duration_large).toLong()
-                }*/
-                findNavController().navigate(com.fightpandemics.R.id.action_homeFragment_to_filterFragment)
+                findNavController()
+                    .navigate(com.fightpandemics.R.id.action_homeFragment_to_filterFragment)
             }
         }
         return true

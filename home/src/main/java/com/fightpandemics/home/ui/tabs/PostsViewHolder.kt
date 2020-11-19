@@ -2,6 +2,7 @@ package com.fightpandemics.home.ui.tabs
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
@@ -14,6 +15,7 @@ import com.fightpandemics.home.databinding.ItemAllFeedBinding
 import com.fightpandemics.home.databinding.SingleChipLayoutBinding
 import com.fightpandemics.home.ui.HomeEventListener
 import com.fightpandemics.home.ui.HomeFragmentDirections
+import com.fightpandemics.home.utils.sharePost
 import com.fightpandemics.home.utils.userInitials
 import java.util.*
 
@@ -70,6 +72,11 @@ class PostsViewHolder(
             // Display Post comment counts.
             itemBinding.commentsCount.text = post.commentsCount.toString()
 
+            // Share a Post
+            itemBinding.share.setOnClickListener {
+                context.startActivity(sharePost(post.title, post._id))
+            }
+
             // Display Post tags/types.
             itemBinding.chipGroup.removeAllViews()
             for (type: String in post.types!!) {
@@ -106,4 +113,3 @@ class PostsViewHolder(
         }
     }
 }
-

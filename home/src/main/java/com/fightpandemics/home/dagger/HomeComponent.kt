@@ -5,6 +5,7 @@ import com.fightpandemics.core.dagger.CoreComponent
 import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.dagger.AppComponent
 import com.fightpandemics.home.domain.LoadPostsUseCase
+import com.fightpandemics.home.ui.DeleteDialogFragment
 import com.fightpandemics.home.ui.HomeFragment
 import com.fightpandemics.home.ui.HomeOptionsBottomSheetFragment
 import com.fightpandemics.home.ui.tabs.all.HomeAllFragment
@@ -37,4 +38,5 @@ interface HomeComponent {
     fun inject(homeOfferFragment: HomeOfferFragment)
     fun inject(homeRequestFragment: HomeRequestFragment)
     fun inject(homeOptionsBottomSheetFragment: HomeOptionsBottomSheetFragment)
+    fun inject(deleteDialogFragment: DeleteDialogFragment)
 }

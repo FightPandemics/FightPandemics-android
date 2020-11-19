@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.fragment.app.Fragment
 import com.fightpandemics.FightPandemicsApp
 import com.fightpandemics.core.dagger.CoreComponentProvider
+import com.fightpandemics.home.ui.DeleteDialogFragment
 import com.fightpandemics.home.ui.HomeFragment
 import com.fightpandemics.home.ui.HomeOptionsBottomSheetFragment
 import com.fightpandemics.home.ui.tabs.all.HomeAllFragment
@@ -59,6 +60,17 @@ fun inject(homeOptionsBottomSheetFragment: HomeOptionsBottomSheetFragment) {
         .factory()
         .create(appComponent, homeOptionsBottomSheetFragment.coreComponent())
         .inject(homeOptionsBottomSheetFragment)
+}
+
+fun inject(deleteDialogFragment: DeleteDialogFragment) {
+    val appComponent =
+        (deleteDialogFragment.requireActivity().applicationContext as FightPandemicsApp)
+            .appComponent
+
+    DaggerHomeComponent
+        .factory()
+        .create(appComponent, deleteDialogFragment.coreComponent())
+        .inject(deleteDialogFragment)
 }
 
 fun Fragment.coreComponent() = requireActivity().coreComponent()

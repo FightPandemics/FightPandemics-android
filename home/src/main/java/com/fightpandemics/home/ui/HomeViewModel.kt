@@ -1,24 +1,22 @@
 package com.fightpandemics.home.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
 import com.fightpandemics.core.data.model.posts.Post
+import com.fightpandemics.core.result.Event
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.home.domain.DeletePostUsecase
 import com.fightpandemics.home.domain.LoadPostsUseCase
 import com.fightpandemics.home.domain.ObserveUserAuthStateUseCase
 import com.fightpandemics.home.domain.LikePostUsecase
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @FeatureScope
 class HomeViewModel @Inject constructor(
     private val loadPostsUseCase: LoadPostsUseCase,
@@ -40,6 +38,9 @@ class HomeViewModel @Inject constructor(
     private val _isSignedIn = MutableLiveData<Boolean>()
     private val _userId = MutableLiveData<String?>(null)
 
+    private val _isDeleted = MutableLiveData<Event<String>>(Event("AURGH"))
+    val isDeleted: LiveData<Event<String>> get() = _isDeleted
+
     init {
         viewModelScope.launch {
             when (val result = observeUserAuthStateUseCase(Any())) {
@@ -59,13 +60,16 @@ class HomeViewModel @Inject constructor(
         // Set a default loading state
         _postsState.value?.isLoading = true
         return viewModelScope.launch {
-            val deferredPosts = async {
+            async {
                 loadPostsUseCase(objective)
-            }
-            deferredPosts.await().collect {
+            }.await().collect {
                 when (it) {
                     is Result.Success -> _postsState.value =
-                        PostsViewState(isLoading = false, error = null, posts = it.data as List<Post>?)
+                        PostsViewState(
+                            isLoading = false,
+                            error = null,
+                            posts = it.data as List<Post>?
+                        )
                     is Result.Error -> _postsState.value =
                         PostsViewState(isLoading = false, error = it, posts = emptyList())
                 }
@@ -86,7 +90,11 @@ class HomeViewModel @Inject constructor(
                 when (it) {
                     is Result.Success -> {
                         _offerState.value =
-                            PostsViewState(isLoading = false, error = null, posts = it.data as List<Post>?)
+                            PostsViewState(
+                                isLoading = false,
+                                error = null,
+                                posts = it.data as List<Post>?
+                            )
                     }
                     is Result.Error -> _offerState.value =
                         PostsViewState(isLoading = false, error = it, posts = emptyList())
@@ -108,7 +116,11 @@ class HomeViewModel @Inject constructor(
                 when (it) {
                     is Result.Success -> {
                         _requestState.value =
-                            PostsViewState(isLoading = false, error = null, posts = it.data as List<Post>?)
+                            PostsViewState(
+                                isLoading = false,
+                                error = null,
+                                posts = it.data as List<Post>?
+                            )
                     }
                     is Result.Error -> _requestState.value =
                         PostsViewState(isLoading = false, error = it, posts = emptyList())
@@ -137,8 +149,11 @@ class HomeViewModel @Inject constructor(
         //TODO("Not yet implemented")
     }
 
-    override fun onDeleteClicked(post: Post) {
-        //TODO("Not yet implemented")
+    override /*suspend*/ fun onDeleteClicked(post: Post) {
+        _isDeleted.value = Event("${post.title} Deleted Successfully")
+        viewModelScope.launch {
+            _isDeleted.value = Event("Post Deleted Successfully")
+        }
     }
 
     override fun userId(): String? {

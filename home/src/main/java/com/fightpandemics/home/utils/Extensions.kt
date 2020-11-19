@@ -1,8 +1,10 @@
 package com.fightpandemics.home.utils
 
+import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.fightpandemics.core.utils.Constants
+import com.fightpandemics.home.R
 import org.threeten.bp.*
 import org.threeten.bp.format.DateTimeFormatter
 import timber.log.Timber
@@ -27,6 +29,17 @@ fun userInitials(userName: String?): String {
         }
         else -> "$firstInitials".toUpperCase(Locale.ROOT)
     }
+}
+
+fun sharePost(postTitle: String?, postId: String): Intent {
+    val postURL = Constants.FIGHTPANDEMICS_POST_URL.plus(postId)
+    val sendIntent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_SUBJECT, R.string.share)
+        putExtra(Intent.EXTRA_TITLE, postTitle)
+        putExtra(Intent.EXTRA_TEXT, postURL)
+    }
+    return Intent.createChooser(sendIntent, "Share link to")
 }
 
 // TODO 4 - Convert raw time to 2020-10-14T 22:57:54.009Z  - "yyyy-MM-dd'T'HH:mm:ss.SSSZ"	2001-07-04T12:08:56.235-0700

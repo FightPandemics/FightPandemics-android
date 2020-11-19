@@ -44,7 +44,7 @@ interface FightPandemicsAPI {
 
     // Delete a Post
     @DELETE("api/posts/{postId}")
-    suspend fun deletePost(@Path("postId") postId: String): Response<Void>
+    suspend fun deletePost(@Path("postId") postId: String): Response<*>
 
     // Like a Post
     @PUT("api/posts/{postId}/likes/{userId}")
