@@ -268,8 +268,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         })
 
 
-        // Places API Logic
-        // Initialize places sdk
+        // Places API Logic - Initialize places sdk
         Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
         // Create a new PlacesClient instance
         placesClient = Places.createClient(requireContext())
@@ -419,6 +418,10 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         binding.locationOptions.locationSearch.text?.clear()
         // clear the live data
         filterViewModel.clearLiveDataFilters()
+        // change visibility of any applied texts left
+        binding.filterLocationExpandable.filtersAppliedText.visibility = View.GONE
+        binding.filterFromWhomExpandable.filtersAppliedText.visibility = View.GONE
+        binding.filterTypeExpandable.filtersAppliedText.visibility = View.GONE
     }
 
     override fun onClick(locationSelected: String) {
