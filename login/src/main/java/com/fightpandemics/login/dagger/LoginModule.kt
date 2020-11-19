@@ -3,6 +3,7 @@ package com.fightpandemics.login.dagger
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
 import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.login.domain.LoginUseCase
+import com.fightpandemics.login.domain.SignUPUseCase
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -19,4 +20,11 @@ class LoginModule {
         loginRepository: LoginRepository,
         dispatcherProvider: CoroutinesDispatcherProvider
     ): LoginUseCase = LoginUseCase(loginRepository, dispatcherProvider)
+
+    @ExperimentalCoroutinesApi
+    @Provides
+    fun provideSignUpUseCase(
+        loginRepository: LoginRepository,
+        dispatcherProvider: CoroutinesDispatcherProvider
+    ): SignUPUseCase = SignUPUseCase(loginRepository, dispatcherProvider)
 }

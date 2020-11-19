@@ -8,22 +8,29 @@ import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.core.data.model.login.LoginRequest
 import com.fightpandemics.core.data.model.login.LoginResponse
+import com.fightpandemics.core.data.model.login.SignUpRequest
+import com.fightpandemics.core.data.model.login.SignUpResponse
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.login.domain.LoginUseCase
+import com.fightpandemics.login.domain.SignUPUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ActivityScope
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val signUpUseCase: SignUPUseCase
 ) : ViewModel() {
     private val _login = MutableLiveData<LoginViewState>()
+    private val _signup = MutableLiveData<SignUPViewState>()
     val login: LiveData<LoginViewState> = _login
+    val signup: LiveData<SignUPViewState> = _signup
 
     @ExperimentalCoroutinesApi
     fun doLogin(email: String, password: String) {
@@ -35,7 +42,7 @@ class LoginViewModel @Inject constructor(
             }
             deferredLogin.await().catch {
 
-            } .collect {
+            }.collect {
                 when (it) {
                     is Result.Success -> {
                         val loginResponse = it.data as LoginResponse
@@ -62,6 +69,42 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
+
+    @ExperimentalCoroutinesApi
+    fun doSignUP(email: String, password: String, confirmPassword: String) {
+        signup.value?.isLoading = true
+
+        viewModelScope.launch {
+            val request = SignUpRequest(email, password, confirmPassword) // PostRequest
+            val couroutineResponse = async {
+                signUpUseCase.invoke(request)
+            }
+            couroutineResponse.await().collect {
+                when (it) {
+                    is Result.Success -> {
+                        val signUpResponse = it.data as SignUpResponse
+                        _signup.value = SignUPViewState(
+                            false,
+                            signUpResponse.emailVerified!!,
+                            signUpResponse.token,
+                            null
+                        )
+                        _continue here noew we have the signup response
+                        //TODO
+                    }
+                    is Result.Error -> {
+                        _signup.value = SignUPViewState(
+                            isLoading = false,
+                            emailVerified = false,
+                            token = null,
+                            error = it.exception.message.toString()
+                        )
+                    }
+                }
+            }
+        }
+
+    }
 }
 
 /**
@@ -73,6 +116,13 @@ data class LoginViewState(
     val emailVerified: Boolean,
     val token: String?,
     val user: User?,
+    val error: String?
+)
+
+data class SignUPViewState(
+    var isLoading: Boolean,
+    val emailVerified: Boolean,
+    val token: String?,
     val error: String?
 )
 

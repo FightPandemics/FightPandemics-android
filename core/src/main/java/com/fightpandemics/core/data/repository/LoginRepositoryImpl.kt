@@ -7,14 +7,12 @@ import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.core.utils.parseErrorJsonResponse
 import com.fightpandemics.core.utils.parseJsonResponse
-import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import retrofit2.Response
-import timber.log.Timber
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -44,8 +42,24 @@ class LoginRepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun signUp(signUpRequest: SignUpRequest): Response<SignUpResponse> {
-        return loginRemoteDataSource.signUp(signUpRequest)
+    override suspend fun signUp(signUpRequest: SignUpRequest): Flow<Result<*>>? {
+        return channelFlow {
+            val response = signUpRequest?.let { loginRemoteDataSource.signUp(it) }
+            when {
+
+                response!!.isSuccessful && response.code() == 200 -> {
+                    val signUpResponse = response.body()
+                    authTokenLocalDataSource.setToken(signUpResponse?.token)
+                    //authTokenLocalDataSource.setUserId(loginResponse?.)
+                    channel.offer(Result.Success(signUpResponse))
+                }
+                response.code() == 401 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+            }
+            awaitClose { }
+        }
     }
 
     override suspend fun changePassword(email: String): Response<ChangePasswordResponse> {

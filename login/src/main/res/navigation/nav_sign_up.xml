@@ -13,8 +13,14 @@
         tools:layout="@layout/fragment_sign_up" >
 
         <action
-            android:id="@+id/action_signUpEmailFragment_to_completeProfileFragment"
+            android:id="@+id/action_signUpFragment_to_completeProfileFragment"
             app:destination="@id/completeProfileFragment"
+            app:popUpTo="@id/signInEmailFragment"
+            app:popUpToInclusive="false" />
+
+        <action
+            android:id="@+id/action_signupFragment_to_signUpEmailFragment"
+            app:destination="@id/signUpEmailFragment"
             app:popUpTo="@id/signInEmailFragment"
             app:popUpToInclusive="false" />
 
@@ -29,6 +35,20 @@
             android:name="userEmail"
             app:argType="string"
             />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpEmailFragment"
+        android:name="com.fightpandemics.login.ui.signup.SignUpEmailFragment"
+        android:label="fragment_signup_email"
+        tools:layout="@layout/fragment_sign_up_email">
+
+<!--        <action-->
+<!--            android:id="@+id/action_signUpEmailFragment_to_completeProfileFragment"-->
+<!--            app:destination="@id/completeProfileFragment"-->
+<!--            app:popUpTo="@id/signInEmailFragment"-->
+<!--            app:popUpToInclusive="false" />-->
+
     </fragment>
 
 </navigation>

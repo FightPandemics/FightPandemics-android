@@ -2,7 +2,6 @@ package com.fightpandemics.login.ui
 
 import android.content.Intent
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.auth0.android.Auth0
@@ -11,11 +10,9 @@ import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.authentication.storage.SecureCredentialsManager
 import com.auth0.android.authentication.storage.SharedPreferencesStorage
 import com.auth0.android.callback.BaseCallback
-import com.auth0.android.management.UsersAPIClient
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.UserProfile
 import com.fightpandemics.login.R
-import com.fightpandemics.login.ui.profile.CompleteProfileFragment
 
 
 open class Auth0BaseFragment : Fragment() {
@@ -64,33 +61,48 @@ open class Auth0BaseFragment : Fragment() {
                         credentialsManager?.saveCredentials(it)
 
                         val accessToken = it.accessToken
-                        if (accessToken != null && loginConnection.isSignUP) {
-                            getProfile(accessToken)
-
+                        if (accessToken != null) {
+                            getProfile(accessToken) {
+                                when (loginConnection) {
+                                    LoginConnection.LINKEDIN_SIGNUP, LoginConnection.FACEBOOK_SIGNUP, LoginConnection.GOOGLE_SIGNUP -> {
+                                        findNavController().navigate(R.id.action_signUpFragment_to_completeProfileFragment)
+                                    }
+                                    LoginConnection.LINKEDIN_SIGNIN, LoginConnection.FACEBOOK_SIGNIN, LoginConnection.GOOGLE_SIGNIN -> {
+                                        goMain()
+                                    }
+                                }
+                            }
                         } else {
-                            val PACKAGE_NAME = "com.fightpandemics"
-                            val intent = Intent().setClassName(
-                                PACKAGE_NAME,
-                                "$PACKAGE_NAME.ui.MainActivity"
-                            )
-                            startActivity(intent).apply { requireActivity().finish() }
+                            goMain()
                         }
                     }
                 )
             )
     }
 
-    fun getProfile(accessToken: String) {
+    private fun goMain() {
+        val PACKAGE_NAME = "com.fightpandemics"
+        val intent = Intent().setClassName(
+            PACKAGE_NAME,
+            "$PACKAGE_NAME.ui.MainActivity"
+        )
+        startActivity(intent).apply { requireActivity().finish() }
+    }
+
+    fun getProfile(
+        accessToken: String,
+        loginConnection: (user: UserProfile?) -> Unit
+    ) {
         var authenticationAPIClient = AuthenticationAPIClient(auth0)
         authenticationAPIClient.userInfo(accessToken)
-            .start( object : BaseCallback<UserProfile, AuthenticationException> {
+            .start(object : BaseCallback<UserProfile, AuthenticationException> {
                 override fun onFailure(error: AuthenticationException) {
-                    TODO("Not yet implemented")
+                    loginConnection.invoke(null)
                 }
 
                 override fun onSuccess(userProfile: UserProfile?) {
-                    val bundle = bundleOf(CompleteProfileFragment.USER_PROFILE to userProfile)
-                    findNavController().navigate(R.id.action_signUpEmailFragment_to_completeProfileFragment, bundle)
+                    //TODO what to do with userProfile
+                    loginConnection.invoke(userProfile)
                 }
             })
     }

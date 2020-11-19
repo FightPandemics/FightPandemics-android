@@ -57,6 +57,10 @@ class SignUpFragment : Auth0BaseFragment(){
             doSocialLogin(LoginConnection.LINKEDIN_SIGNUP)
         }
 
+        rootView.cl_signup_email.setOnClickListener{
+            findNavController().navigate(R.id.action_signupFragment_to_signUpEmailFragment)
+        }
+
         return rootView
     }
 }
