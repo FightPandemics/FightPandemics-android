@@ -187,7 +187,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                     }
 
                     // update apply filters count
-                    updateApplyFiltersText()
+//                    updateApplyFiltersText()
                 }
             })
 
@@ -214,7 +214,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                     }
 
                     // update apply filters count
-                    updateApplyFiltersText()
+//                    updateApplyFiltersText()
                 }
 
             })
@@ -238,19 +238,22 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
             }
 
             // update apply filters count
-            updateApplyFiltersText()
+//            updateApplyFiltersText()
 
         })
 
         // The next three observers check if apply filter button should be enabled
         filterViewModel.fromWhomCount.observe(viewLifecycleOwner, {fromWhomCount ->
             handleApplyFilterEnableState()
+            updateApplyFiltersText()
         })
         filterViewModel.typeCount.observe(viewLifecycleOwner, {typeCount ->
             handleApplyFilterEnableState()
+            updateApplyFiltersText()
         })
         filterViewModel.locationQuery.observe(viewLifecycleOwner, { locationQuery ->
             handleApplyFilterEnableState()
+            updateApplyFiltersText()
         })
 
         // handle selection of location in recycler view and from get current location
@@ -262,6 +265,9 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                 // Take away focus from edit text once an option has been selected
                 binding.locationOptions.locationSearch.isEnabled = false
                 binding.locationOptions.locationSearch.isEnabled = true
+                // hide recycler view autocomplete location suggestions
+                binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.GONE
+                binding.locationOptions.itemLineDivider1.visibility = View.GONE
                 // todo maybe make a function in the view model of this
                 // reset onSelectedLocation event to null because we finished selecting
                 filterViewModel.onSelectedLocation.value = null
@@ -270,8 +276,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
         // do not start autocomplete until 3 chars in and delete location input that is not selected
         binding.locationOptions.locationSearch.doAfterTextChanged { inputLocation ->
-            // if statement to recognize a change to selectedlocation
-            // todo -> delete live data
+            // todo if statement to recognize a change to selectedlocation
             // do not search autocomplete suggestions until 3 chars in
             inputLocation?.let {
                 handleAutocompleteVisibility(it.toString())
@@ -279,10 +284,8 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                     filterViewModel.autocompleteLocation(it.toString(), placesClient)
                 }
             }
+            // if location in the editText is edited, delete live data
             filterViewModel.locationQuery.value = ""
-            // todo if location is not selected, then delete it and dont update live data
-            // todo if text is edited then delete our current locationQuery livedata
-//            Timber.i("Filters Live data: im gonig to update live data with ${filterViewModel.locationQuery.value}")
         }
 
         binding.locationOptions.shareMyLocation.setOnClickListener {
@@ -435,6 +438,8 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         binding.locationOptions.locationSearch.text?.clear()
         // clear the live data
         filterViewModel.clearLiveDataFilters()
+        // update text in apply filters button
+        updateApplyFiltersText()
         // change visibility of any applied texts left
         binding.filterLocationExpandable.filtersAppliedText.visibility = View.GONE
         binding.filterFromWhomExpandable.filtersAppliedText.visibility = View.GONE
