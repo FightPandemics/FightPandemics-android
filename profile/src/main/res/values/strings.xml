@@ -104,4 +104,15 @@
     <string name="l">L</string>
     <string name="t">T</string>
 
+    <!--Password Recovery-->
+    <string name="msg_email_not_registered">Email address isn’t registered yet</string>
+    <string name="msg_email_invalid">Please enter a valid email address</string>
+    <string name="e_mail">E-mail</string>
+    <string name="resend">Resend</string>
+    <string name="reset_msg">We’ll send you an email with a recovery link</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="content_description_back_button">This is back button</string>
+    <string name="email_sent_msg">An e-mail has been sent with further instructions. Please check your inbox.</string>
+    <string name="back_to_login">Back to Login</string>
+
 </resources>
