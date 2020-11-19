@@ -5,10 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import com.fightpandemics.home.R
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.filter_location_item.view.*
 
 class FilterAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
     val MAX_RECYCLER_VIEW_SIZE = 3
@@ -36,7 +33,7 @@ class FilterAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.address.setText(data[position])
         holder.itemView.setOnClickListener {
-            onItemClickListener.onClick(data[position])
+            onItemClickListener.onAutocompleteLocationClick(data[position])
         }
 
     }
@@ -49,7 +46,7 @@ class FilterAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView
     }
 
     interface OnItemClickListener {
-        fun onClick(locationSelected: String)
+        fun onAutocompleteLocationClick(locationSelected: String)
     }
 
 }

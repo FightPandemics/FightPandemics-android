@@ -40,6 +40,9 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     private val LOCATION_PERMISSION_CODE = 1
     private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
 
+    // constant for showing autocomplete suggestions
+    private val LENGTH_TO_SHOW_SUGGESTIONS = 3
+
 //    var x: Int by Delegates.observable(0) { prop, old, new ->
 //        when (new) {
 //            0 -> {
@@ -236,29 +239,28 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
         // The next three observers check if apply buttons should be enabled
         filterViewModel.fromWhomCount.observe(viewLifecycleOwner, {fromWhomCount ->
-            checkEnableApplyFilters()
+            handleApplyFilterEnableState()
         })
 
         filterViewModel.typeCount.observe(viewLifecycleOwner, {typeCount ->
-            checkEnableApplyFilters()
+            handleApplyFilterEnableState()
         })
 
         // Manage visibility for recycler view and line divider
+        // Observe the location query that will be send to home filter
         filterViewModel.locationQuery.observe(viewLifecycleOwner, { locationQuery ->
-            if (locationQuery.isEmpty()) {
-                binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.GONE
-                binding.locationOptions.itemLineDivider1.visibility = View.GONE
-            } else {
-                binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.VISIBLE
-                binding.locationOptions.itemLineDivider1.visibility = View.VISIBLE
+            locationQuery?.let {
+                handleAutocompleteVisibility(it)
             }
-            checkEnableApplyFilters()
+            handleApplyFilterEnableState()
         })
 
         // handle selection of location in recycler view and from get current location
         filterViewModel.onSelectedLocation.observe(viewLifecycleOwner, { onSelectedLocation ->
             if (onSelectedLocation != null) {
                 binding.locationOptions.locationSearch.setText(onSelectedLocation)
+                // todo maybe find a better way of doing this
+                // Take away focus from edit text once an option has been selected
                 binding.locationOptions.locationSearch.isEnabled = false
                 binding.locationOptions.locationSearch.isEnabled = true
                 // todo maybe make a function in the view model of this
@@ -273,7 +275,13 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         placesClient = Places.createClient(requireContext())
 
         binding.locationOptions.locationSearch.doAfterTextChanged { text ->
-            filterViewModel.autocompleteLocation(text.toString(), placesClient)
+
+            // do not search autocomplete suggestions until 3 chars in
+            if (text.toString().length >= LENGTH_TO_SHOW_SUGGESTIONS){
+                filterViewModel.autocompleteLocation(text.toString(), placesClient)
+            }
+
+            // todo if location is not selected, then delete it and dont update live data
             filterViewModel.locationQuery.value = text.toString()
 //            Timber.i("Filters Live data: im gonig to update live data with ${filterViewModel.locationQuery.value}")
         }
@@ -396,9 +404,19 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 //        Timber.i("Update type called: ${filterViewModel.typeFilters.value}")
     }
 
-    private fun checkEnableApplyFilters(){
+    private fun handleApplyFilterEnableState(){
         // button should be enabled if there is text in the exittext or if there are any chips selected in fromWhom or type
         binding.applyFiltersButton.isEnabled = filterViewModel.locationQuery.value!!.isNotBlank() || filterViewModel.fromWhomCount.value!! + filterViewModel.typeCount.value!! > 0
+    }
+
+    private fun handleAutocompleteVisibility(locationQuery: String){
+        if (locationQuery.isBlank() || locationQuery.length < LENGTH_TO_SHOW_SUGGESTIONS) {
+            binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.GONE
+            binding.locationOptions.itemLineDivider1.visibility = View.GONE
+        } else {
+            binding.locationOptions.autoCompleteLocationsRecyclerView.visibility = View.VISIBLE
+            binding.locationOptions.itemLineDivider1.visibility = View.VISIBLE
+        }
     }
 
     private fun uncheckChipGroup(chipGroup: ChipGroup){
@@ -423,7 +441,8 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         binding.filterTypeExpandable.filtersAppliedText.visibility = View.GONE
     }
 
-    override fun onClick(locationSelected: String) {
+    // on click function for recycler view (autocomplete)
+    override fun onAutocompleteLocationClick(locationSelected: String) {
         filterViewModel.onSelectedLocation.value = locationSelected
     }
 

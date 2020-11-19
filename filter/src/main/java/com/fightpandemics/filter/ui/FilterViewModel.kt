@@ -21,7 +21,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     var isFromWhomOptionsExpanded = MutableLiveData<Boolean>()
     var isTypeOptionsExpanded = MutableLiveData<Boolean>()
 
-    // Recycler View variables
+    // Recycler View autocomplete location variable
     var autocomplete_locations = MutableLiveData<List<String>>()
 
     // handle on selected place event (either from recycler view or from current location button)
@@ -163,6 +163,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     }
 
     fun createFilterRequest (): FilterRequest{
+        // TODO: complete latitutde and longitude
         return FilterRequest(locationQuery.value, null, null, fromWhomFilters.value, typeFilters.value)
     }
 
