@@ -1,18 +1,23 @@
 package com.fightpandemics.home.ui
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.result.Event
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.home.domain.DeletePostUsecase
+import com.fightpandemics.home.domain.LikePostUsecase
 import com.fightpandemics.home.domain.LoadPostsUseCase
 import com.fightpandemics.home.domain.ObserveUserAuthStateUseCase
-import com.fightpandemics.home.domain.LikePostUsecase
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -38,7 +43,7 @@ class HomeViewModel @Inject constructor(
     private val _isSignedIn = MutableLiveData<Boolean>()
     private val _userId = MutableLiveData<String?>(null)
 
-    private val _isDeleted = MutableLiveData<Event<String>>(Event("AURGH"))
+    private val _isDeleted = MutableLiveData(Event(""))
     val isDeleted: LiveData<Event<String>> get() = _isDeleted
 
     init {
@@ -150,6 +155,7 @@ class HomeViewModel @Inject constructor(
     }
 
     override /*suspend*/ fun onDeleteClicked(post: Post) {
+        Timber.e("${post.title} Deleted Successfully")
         _isDeleted.value = Event("${post.title} Deleted Successfully")
         viewModelScope.launch {
             _isDeleted.value = Event("Post Deleted Successfully")

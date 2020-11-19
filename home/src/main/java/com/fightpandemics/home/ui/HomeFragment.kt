@@ -67,7 +67,7 @@ class HomeFragment : Fragment() {
         homeViewModel.isDeleted.observe(requireActivity(), EventObserver {
 
             if (it.isNotBlank()) {
-                Timber.e(/*it*/"ghjkjhnm,s")
+                Timber.e(it)
 
                 Snackbar.make(fab, "Snackbar over BottomAppBar", Snackbar.LENGTH_SHORT)
                     .apply { anchorView = fab }.show()
