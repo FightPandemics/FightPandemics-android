@@ -1,4 +1,30 @@
 <resources>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="medical_supplies">Medical Supplies</string>
+    <string name="university">University</string>
+    <string name="r_amp_d"><![CDATA[R&D]]></string>
+    <string name="business">Business</string>
+    <string name="legal">Legal</string>
+    <string name="information">Information</string>
+    <string name="funding">Funding</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="groceries_food">Groceries/Food</string>
+    <string name="wellbeing_mental">Wellbeing/Mental</string>
+    <string name="tech">Tech</string>
+    <string name="others">Others</string>
+    <string name="close">Close</string>
+    <string name="how_long_should_this_post_be_active_for">How long should this post be active for?</string>
+    <string name="confirm">Confirm</string>
+    <string name="a_day">A day</string>
+    <string name="a_week">A week</string>
+    <string name="a_month">A month</string>
+    <string name="forever">Forever</string>
+    <string name="my_organisation">My organisation</string>
+    <string name="add_an_organisation_account">Add an organisation account</string>
+    <string name="who_can_see_this_post">Who can see this post?</string>
+    <string name="my_neighbourhood">My neighbourhood</string>
+    <string name="my_city">My city</string>
+    <string name="my_country">My country</string>
+    <string name="anyone">Anyone</string>
 </resources>

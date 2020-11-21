@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="bottom">
+    android:paddingBottom="20dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top">
 
     <ImageView
         android:id="@+id/line"
@@ -25,13 +26,13 @@
         android:fontFamily="@font/poppins_bold"
         android:gravity="center"
         android:lineSpacingExtra="6sp"
-        android:textColor="@color/fightPandemicsNero"
+        android:text="@string/who_can_see_this_post"
+        android:textColor="@color/textColorPrimary"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line"
-        tools:text="Who can see this post?" />
+        app:layout_constraintTop_toBottomOf="@+id/line"/>
 
     <Button
         android:id="@+id/neighbourhood"
@@ -42,14 +43,14 @@
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="7sp"
+        android:text="@string/my_neighbourhood"
         android:textAllCaps="false"
-        android:textColor="#333333"
+        android:textColor="@color/textColorPrimary"
         android:textSize="15sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/see"
-        tools:text="My neighbourhood" />
+        app:layout_constraintTop_toBottomOf="@+id/see"/>
 
     <Button
         android:id="@+id/city"
@@ -58,17 +59,16 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/colorPrimary"
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="7sp"
         android:textAllCaps="false"
-        android:textColor="#ffffff"
+        android:text="@string/my_city"
+        android:textColor="@color/textColorPrimary"
         android:textSize="15sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/neighbourhood"
-        tools:text="My city" />
+        app:layout_constraintTop_toBottomOf="@+id/neighbourhood"/>
 
     <Button
         android:id="@+id/country"
@@ -80,13 +80,13 @@
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="7sp"
         android:textAllCaps="false"
-        android:textColor="#333333"
+        android:text="@string/my_country"
+        android:textColor="@color/textColorPrimary"
         android:textSize="15sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city"
-        tools:text="My country" />
+        app:layout_constraintTop_toBottomOf="@+id/city"/>
 
     <Button
         android:id="@+id/anyone"
@@ -98,12 +98,12 @@
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="7sp"
         android:textAllCaps="false"
-        android:textColor="#333333"
+        android:text="@string/anyone"
+        android:textColor="@color/textColorPrimary"
         android:textSize="15sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country"
-        tools:text="Anyone" />
+        app:layout_constraintTop_toBottomOf="@+id/country"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
