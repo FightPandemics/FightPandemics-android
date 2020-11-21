@@ -1,15 +1,15 @@
 package com.fightpandemics.createpost.custom
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapShader
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.graphics.Paint
 import android.graphics.Rect
-import android.graphics.Canvas
-import android.graphics.BitmapShader
-import android.graphics.Bitmap
 import android.graphics.RectF
 import android.graphics.Shader
-import android.graphics.drawable.Drawable
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
