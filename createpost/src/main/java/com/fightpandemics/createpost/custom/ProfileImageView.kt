@@ -1,7 +1,14 @@
 package com.fightpandemics.createpost.custom
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
+import android.graphics.Canvas
+import android.graphics.BitmapShader
+import android.graphics.Bitmap
+import android.graphics.RectF
+import android.graphics.Shader
 import android.graphics.drawable.Drawable
 import android.os.Parcel
 import android.os.Parcelable
@@ -30,7 +37,7 @@ class ProfileImageView @JvmOverloads constructor(
         private const val DEFAULT_BORDER_COLOR = Color.WHITE
         private const val DEFAULT_SIZE = 40
 
-        //Not basically using an array of background colors in this project
+        // Not basically using an array of background colors in this project
         val bgColors = arrayOf(
             Color.parseColor("#FFFFFF")
         )
