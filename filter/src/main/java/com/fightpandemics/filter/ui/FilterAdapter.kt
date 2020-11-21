@@ -18,7 +18,6 @@ class FilterAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView
     var placesIds = listOf<String>()
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         var address : TextView
 
         init {

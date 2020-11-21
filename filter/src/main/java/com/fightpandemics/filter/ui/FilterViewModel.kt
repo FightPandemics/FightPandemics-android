@@ -25,7 +25,6 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     var isTypeOptionsExpanded = MutableLiveData<Boolean>()
 
     // Recycler View autocomplete location variable
-//    var autocomplete_locations = MutableLiveData<List<String>>()
     var autocomplete_locations = MutableLiveData<HashMap<String, MutableList<String>>>()
 
     // handle on selected place event (either from recycler view or from current location button)
@@ -82,7 +81,6 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     }
 
     fun requestCurrentLocation(placesClient: PlacesClient) {
-
         // Use fields to define the data types to return.
         val placeFields: List<Place.Field> = listOf(Place.Field.ADDRESS, Place.Field.LAT_LNG)
 
@@ -107,7 +105,6 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     }
 
     fun autocompleteLocation(query: String, placesClient: PlacesClient) {
-
         // Create a new token for the autocomplete session. Pass this to FindAutocompletePredictionsRequest,
         // and once again when the user makes a selection (for example when calling fetchPlace()).
         val token = AutocompleteSessionToken.newInstance()
@@ -120,8 +117,8 @@ class FilterViewModel @Inject constructor() : ViewModel() {
                 .setQuery(query)
                 .build()
 
-        val placesMap = HashMap<String, MutableList<String>>()
         // initialize map
+        val placesMap = HashMap<String, MutableList<String>>()
         placesMap["names"] = mutableListOf()
         placesMap["ids"] = mutableListOf()
 
@@ -142,7 +139,6 @@ class FilterViewModel @Inject constructor() : ViewModel() {
                     Timber.e("Place not found: " + exception.statusCode)
                 }
             }
-
     }
 
     fun getLatLng(placeId: String, placesClient: PlacesClient) {

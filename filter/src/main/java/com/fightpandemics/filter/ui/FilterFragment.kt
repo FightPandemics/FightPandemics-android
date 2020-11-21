@@ -108,19 +108,11 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
         // send data to home module
         binding.applyFiltersButton.setOnClickListener {
-
-//            // todo try to make this call wait for response before continuing
-//            if (filterViewModel.locationQuery.value?.isNotBlank() == true){
-//                filterViewModel.autocompleteLocationLatLng(placesClient)
-//                Timber.i("LAT: after get call: ${filterViewModel.latLgn.value}")
-//            }
-
             // send info to home module
             findNavController().previousBackStackEntry?.savedStateHandle?.set(
                 "filters",
                 filterViewModel.createFilterRequest()
             )
-
             findNavController().popBackStack()
         }
 
@@ -131,14 +123,8 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
         // update recycler view adapter list if data observed changes
         filterViewModel.autocomplete_locations.observe(viewLifecycleOwner, {
-            // TODO: is this correct?
-            // If list is null, set to empty list
             adapter.placesNames = it["names"]!!
             adapter.placesIds = it["ids"]!!
-//            it?.let {
-//                adapter.placesNames = it.get("names")
-//                adapter.placesIds = it.get("ids")
-//            }
         })
 
         // Set toggle functionality to clickable filter cards
@@ -186,7 +172,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                                 View.VISIBLE
                         }
                     }
-
                     // update apply filters count
 //                    updateApplyFiltersText()
                 }
@@ -213,11 +198,9 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                         binding.filterFromWhomExpandable.filtersAppliedText.text =
                             requireContext().getString( R.string.card_applied_filters, filterViewModel.fromWhomCount.value!!)
                     }
-
                     // update apply filters count
 //                    updateApplyFiltersText()
                 }
-
             })
 
         filterViewModel.isTypeOptionsExpanded.observe(viewLifecycleOwner, { isExpanded ->
@@ -237,10 +220,8 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                         requireContext().getString(R.string.card_applied_filters, filterViewModel.typeCount.value!!)
                 }
             }
-
             // update apply filters count
 //            updateApplyFiltersText()
-
         })
 
         // The next three observers check if apply filter button should be enabled
