@@ -9,8 +9,11 @@ import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.*
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.HashMap
 
 @ActivityScope
 //class FilterViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
@@ -22,27 +25,36 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     var isTypeOptionsExpanded = MutableLiveData<Boolean>()
 
     // Recycler View autocomplete location variable
-    var autocomplete_locations = MutableLiveData<List<String>>()
+//    var autocomplete_locations = MutableLiveData<List<String>>()
+    var autocomplete_locations = MutableLiveData<HashMap<String, MutableList<String>>>()
 
     // handle on selected place event (either from recycler view or from current location button)
     var onSelectedLocation = MutableLiveData<String>()
 
-    // Values that will go into home module (besides locationQuery)
+    // Values that will go into home module
     var locationQuery = MutableLiveData<String>()
     var fromWhomFilters = MutableLiveData<List<String>>()
-    var fromWhomCount = MutableLiveData<Int>()
     var typeFilters = MutableLiveData<List<String>>()
+    var latitude = MutableLiveData<Double>()
+    var longitude = MutableLiveData<Double>()
+
+    // Keep track of selected chip counts - Used for checking when to enable apply filter button
+    var fromWhomCount = MutableLiveData<Int>()
     var typeCount = MutableLiveData<Int>()
 
-
     init {
+        // cards should not be expanded at start
         isLocationOptionsExpanded.value = false
         isFromWhomOptionsExpanded.value = false
         isTypeOptionsExpanded.value = false
+        // initialize data that will be sent as a FilterRequest
         locationQuery.value = ""
-        onSelectedLocation.value = null
         fromWhomFilters.value = listOf()
         typeFilters.value = listOf()
+        latitude.value = null
+        longitude.value = null
+        // initialize helper data
+        onSelectedLocation.value = null
         fromWhomCount.value = 0
         typeCount.value = 0
     }
@@ -53,7 +65,6 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         typeCount.value = 0
         fromWhomFilters.value = null
         typeFilters.value = null
-        Timber.i("Clear: Cleared my data")
     }
 
     fun toggleView(optionsCardState: MutableLiveData<Boolean>) {
@@ -82,7 +93,9 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         placeResponse.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val response = task.result
-                onSelectedLocation.value = response.placeLikelihoods[0].place.address ?: "Not found"
+                onSelectedLocation.value = response.placeLikelihoods[0].place.address
+                latitude.value = response.placeLikelihoods[0].place.latLng?.latitude
+                longitude.value = response.placeLikelihoods[0].place.latLng?.longitude
             } else {
                 val exception = task.exception
                 if (exception is ApiException) {
@@ -99,40 +112,30 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         // and once again when the user makes a selection (for example when calling fetchPlace()).
         val token = AutocompleteSessionToken.newInstance()
 
-        // Create a RectangularBounds object.
-//        val bounds = RectangularBounds.newInstance(
-//            LatLng(-33.880490, 151.184363),
-//            LatLng(-33.858754, 151.229596)
-//        )
-
         // Use the builder to create a FindAutocompletePredictionsRequest.
         val request =
             FindAutocompletePredictionsRequest.builder()
-                // Call either setLocationBias() OR setLocationRestriction().
-//                .setLocationBias(bounds)
-                //.setLocationRestriction(bounds)
-//                .setOrigin(LatLng(-33.8749937, 151.2041382))
-//                .setCountries("AU", "NZ")
                 .setTypeFilter(TypeFilter.ADDRESS)
                 .setSessionToken(token)
                 .setQuery(query)
                 .build()
 
-        val placesList: MutableList<String> = mutableListOf()
+        val placesMap = HashMap<String, MutableList<String>>()
+        // initialize map
+        placesMap["names"] = mutableListOf()
+        placesMap["ids"] = mutableListOf()
 
         placesClient.findAutocompletePredictions(request)
             .addOnSuccessListener { response: FindAutocompletePredictionsResponse ->
                 Timber.i("Places: success")
                 for (prediction in response.autocompletePredictions) {
-                    placesList.add(prediction.getPrimaryText(null).toString())
-//                    Timber.i(prediction.placeId)
-//                    Timber.i(prediction.getPrimaryText(null).toString())
-                    // todo do something with the latlng
-                    getLatLng(prediction.placeId, placesClient)
+                    val placeName = prediction.getPrimaryText(null).toString()
+                    val placeId = prediction.placeId
+                    placesMap["names"]!!.add(placeName)
+                    placesMap["ids"]!!.add(placeId)
                 }
                 // update the live data
-                autocomplete_locations.value = placesList
-
+                autocomplete_locations.value = placesMap
             }.addOnFailureListener { exception: Exception? ->
                 Timber.i("Places: failure")
                 if (exception is ApiException) {
@@ -142,17 +145,21 @@ class FilterViewModel @Inject constructor() : ViewModel() {
 
     }
 
-    private fun getLatLng(placeId: String, placesClient: PlacesClient) {
+    fun getLatLng(placeId: String, placesClient: PlacesClient) {
         // Specify the fields to return.
         val placeFields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG)
 
         // Construct a request object, passing the place ID and fields array.
         val request = FetchPlaceRequest.newInstance(placeId, placeFields)
 
+        // TODO: TEST OUT THAT THIS IS GETTING THE CORRECT LAT & LNG CORRECTLY
         placesClient.fetchPlace(request)
             .addOnSuccessListener { response: FetchPlaceResponse ->
                 val place = response.place
-                Timber.i("Places found: ${place.name}, ${place.latLng}")
+//                Timber.i("my filters : Places found: ${place.name}, ${place.latLng}")
+//                Timber.i("my filters : Do placeId match? input: $placeId, fetched: ${place.id.toString()} : ${placeId == place.id.toString()}")
+                latitude.value = place.latLng?.latitude
+                longitude.value = place.latLng?.longitude
             }.addOnFailureListener { exception: Exception ->
                 if (exception is ApiException) {
                     Timber.i("Places not found: ${exception.message}")
@@ -163,8 +170,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     }
 
     fun createFilterRequest (): FilterRequest{
-        // TODO: complete latitutde and longitude
-        return FilterRequest(locationQuery.value, null, null, fromWhomFilters.value, typeFilters.value)
+        return FilterRequest(locationQuery.value, latitude.value, longitude.value, fromWhomFilters.value, typeFilters.value)
     }
 
 }

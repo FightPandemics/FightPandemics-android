@@ -26,7 +26,6 @@ import com.google.android.libraries.places.api.net.*
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.transition.MaterialSharedAxis
-import timber.log.Timber
 import javax.inject.Inject
 
 class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
@@ -132,31 +131,33 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
         // update recycler view adapter list if data observed changes
         filterViewModel.autocomplete_locations.observe(viewLifecycleOwner, {
-            it?.let {
-                adapter.data = it
-            }
+            // TODO: is this correct?
+            // If list is null, set to empty list
+            adapter.placesNames = it["names"]!!
+            adapter.placesIds = it["ids"]!!
+//            it?.let {
+//                adapter.placesNames = it.get("names")
+//                adapter.placesIds = it.get("ids")
+//            }
         })
 
+        // Set toggle functionality to clickable filter cards
         binding.filterLocationExpandable.locationEmptyCard.setOnClickListener {
             filterViewModel.toggleView(filterViewModel.isLocationOptionsExpanded)
         }
-
         binding.filterFromWhomExpandable.fromWhomEmptyCard.setOnClickListener {
             filterViewModel.toggleView(filterViewModel.isFromWhomOptionsExpanded)
         }
-
         binding.filterTypeExpandable.typeEmptyCard.setOnClickListener {
             filterViewModel.toggleView(filterViewModel.isTypeOptionsExpanded)
         }
 
-        // setonclick listeners for fromWhom chips
+        // setonclick listeners for fromWhom and Type chips
         for (fromWhomChip in binding.fromWhomOptions.fromWhomChipGroup.children){
             fromWhomChip.setOnClickListener {
                 updateFromWhomFiltersData()
             }
         }
-
-        // setonclick listeners for type chips
         for (typeChip in binding.typeOptions.typeChipGroup.children){
             typeChip.setOnClickListener {
                 updateTypeFiltersData()
@@ -284,8 +285,10 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                     filterViewModel.autocompleteLocation(it.toString(), placesClient)
                 }
             }
-            // if location in the editText is edited, delete live data
+            // if location in the editText is edited, delete location, lat, lgn live data
             filterViewModel.locationQuery.value = ""
+            filterViewModel.latitude.value = null
+            filterViewModel.longitude.value = null
         }
 
         binding.locationOptions.shareMyLocation.setOnClickListener {
@@ -395,7 +398,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         // update live data
         filterViewModel.fromWhomFilters.value = whomChips
         filterViewModel.fromWhomCount.value = whomChips.size
-//        Timber.i("Update FromWhom called: ${filterViewModel.fromWhomFilters.value}")
     }
 
     private fun updateTypeFiltersData(){
@@ -404,7 +406,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         // update live data
         filterViewModel.typeFilters.value = typeChips
         filterViewModel.typeCount.value = typeChips.size
-//        Timber.i("Update type called: ${filterViewModel.typeFilters.value}")
     }
 
     private fun handleApplyFilterEnableState(){
@@ -447,8 +448,10 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     }
 
     // on click function for recycler view (autocomplete)
-    override fun onAutocompleteLocationClick(locationSelected: String) {
+    override fun onAutocompleteLocationClick(locationSelected: String, placeId: String) {
+        // update onSelectedLocation, latitude and longitude live data in view model
         filterViewModel.onSelectedLocation.value = locationSelected
+        filterViewModel.getLatLng(placeId, placesClient)
     }
 
 }

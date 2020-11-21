@@ -10,11 +10,12 @@ import com.fightpandemics.home.R
 class FilterAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
     val MAX_RECYCLER_VIEW_SIZE = 3
 
-    var data = listOf<String>()
+    var placesNames = listOf<String>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
+    var placesIds = listOf<String>()
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -31,22 +32,22 @@ class FilterAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.address.setText(data[position])
+        holder.address.setText(placesNames[position])
         holder.itemView.setOnClickListener {
-            onItemClickListener.onAutocompleteLocationClick(data[position])
+            onItemClickListener.onAutocompleteLocationClick(placesNames[position], placesIds[position])
         }
 
     }
 
     override fun getItemCount(): Int {
-        if (data.size > MAX_RECYCLER_VIEW_SIZE){
+        if (placesNames.size > MAX_RECYCLER_VIEW_SIZE){
             return MAX_RECYCLER_VIEW_SIZE
         }
-        return data.size
+        return placesNames.size
     }
 
     interface OnItemClickListener {
-        fun onAutocompleteLocationClick(locationSelected: String)
+        fun onAutocompleteLocationClick(locationSelected: String, placeId: String)
     }
 
 }
