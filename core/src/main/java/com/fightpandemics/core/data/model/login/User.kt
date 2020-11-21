@@ -1,4 +1,4 @@
-package DataClasses
+package com.fightpandemics.core.data.model.login
 
 import com.squareup.moshi.Json
 

@@ -1,13 +1,10 @@
 package com.fightpandemics.login.ui
 
-import DataClasses.User
-import androidx.fragment.app.Fragment
+import com.fightpandemics.core.data.model.login.User
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.core.data.model.login.LoginRequest
 import com.fightpandemics.core.data.model.login.LoginResponse

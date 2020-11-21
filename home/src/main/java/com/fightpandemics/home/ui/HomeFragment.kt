@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,7 +17,6 @@ import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.ui.tabs.HomePagerAdapter
 import com.fightpandemics.home.utils.TAB_TITLES
 import com.fightpandemics.ui.MainActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -26,6 +24,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 
@@ -61,6 +60,9 @@ class HomeFragment : Fragment() {
 
         setupUi()
         createPost()
+
+        // val uuid = UUID.randomUUID()
+        // Timber.e(uuid.toString())
 
         val fab: FloatingActionButton = activity?.findViewById(com.fightpandemics.R.id.fab)!!
 

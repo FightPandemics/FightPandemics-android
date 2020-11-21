@@ -1,0 +1,5 @@
+
+
+// TODO 20 - Search for user from lat & lng
+// https://staging.fightpandemics.work/api/geo/location-reverse-geocode?lat=6.4418557165399895&lng=3.5519045751994236
+// Endpoint for getting current location - PARAMS: latitude and longitude
