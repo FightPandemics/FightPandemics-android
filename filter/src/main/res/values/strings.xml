@@ -15,6 +15,10 @@
     <string name="button_apply_filter_">Apply %1$d filter</string>
     <string name="button_apply_filters">Apply %1$d filters</string>
 
+    <string name="card_applied_filters">%1$d applied</string>
+    <string name="location_filters_applied">1 applied</string>
+    <string name="filters_applied_placeholder">0 applied</string>
+
     <string name="chip_individuals">Individuals</string>
     <string name="chip_startup">Startup</string>
     <string name="chip_company">Company</string>
@@ -37,5 +41,14 @@
     <string name="chip_groceries_food">Groceries/Food</string>
     <string name="chip_wellbeing_mental">Wellbeing/Mental</string>
     <string name="filters_title">Filters</string>
+
+    <!-- Location Search & Recycler view -->
+    <string name="share_my_location">Share my location</string>
+    <string name="zip_code_neighborhood_or_city">Zip code, neighborhood or city</string>
+
+    <!-- Dialog Permission Request -->
+    <string name="dialog_location_request_description">FightPandemics uses location to show hospitals and aid information near you.</string>
+    <string name="dialog_location_request_title">Allow FightPandemics to access your location?</string>
+    <string name="placeholder_autocomplete_location">Neukoln, Berlin</string>
 
 </resources>
