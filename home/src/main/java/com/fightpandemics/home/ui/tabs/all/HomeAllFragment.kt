@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.fightpandemics.core.result.EventObserver
 import com.fightpandemics.core.utils.ViewModelFactory
+import com.fightpandemics.filter.ui.FilterRequest
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.databinding.HomeAllFragmentBinding
 import com.fightpandemics.home.ui.HomeViewModel
@@ -20,6 +18,9 @@ import com.fightpandemics.home.ui.tabs.PostsAdapter
 import timber.log.Timber
 import javax.inject.Inject
 
+/*
+* created by Osaigbovo Odiase
+* */
 class HomeAllFragment : Fragment() {
 
     @Inject
@@ -47,7 +48,8 @@ class HomeAllFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        val binding = HomeAllFragmentBinding.inflate(inflater, container, false)
+        val binding = HomeAllFragmentBinding
+            .inflate(inflater, container, false)
         homeAllFragmentBinding = binding
         homeAllFragmentBinding!!.postList.itemAnimator = null
         postsAdapter = PostsAdapter(homeViewModel)
@@ -57,13 +59,12 @@ class HomeAllFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<String>>("key")
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<FilterRequest>("filters")
             ?.observe(
                 viewLifecycleOwner
             ) { result ->
-                // Do something with the result.
-
-                Timber.e(result.toString())
+                // TODO: remove timber Do something with the result.
+                Timber.i("My filters are: $result")
             }
         // If you’d only like to handle a result only once, you must call remove() on the
         // SavedStateHandle to clear the result. If you do not remove the result, the LiveData

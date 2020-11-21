@@ -38,7 +38,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
     // Places API variables
     private val LOCATION_PERMISSION_CODE = 1
-    private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
+    //private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
 
     // constant for showing autocomplete suggestions
     private val LENGTH_TO_SHOW_SUGGESTIONS = 3
@@ -97,9 +97,9 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         // Get the viewmodel
         filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
         // Places API Logic - Initialize places sdk
-        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
+        //Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
         // Create a new PlacesClient instance
-        placesClient = Places.createClient(requireContext())
+        //placesClient = Places.createClient(requireContext())
 
         // set up apply and clear filters buttons
         binding.clearFiltersButton.setOnClickListener{

@@ -5,6 +5,9 @@ import com.fightpandemics.core.domain.repository.LocationRepository
 import com.squareup.moshi.Moshi
 import javax.inject.Inject
 
+/*
+* created by Osaigbovo Odiase
+* */
 class LocationRepositoryImpl @Inject constructor(
     val moshi: Moshi,
     private val locationRemoteDataSource: LocationRemoteDataSource

@@ -23,7 +23,7 @@ android {
         }
     }
     buildTypes.each{
-        it.buildConfigField 'String', "PLACES_API_KEY", PLACES_API_KEY
+        //it.buildConfigField 'String', "PLACES_API_KEY", PLACES_API_KEY
     }
 
     buildFeatures{
