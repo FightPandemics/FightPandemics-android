@@ -16,7 +16,6 @@ class LoginRemoteDataSourceImpl @Inject constructor(
         return fightPandemicsAPI.login(loginRequest)
     }
 
-
     override suspend fun signUp(signUpRequest: SignUpRequest): Response<SignUpResponse> =
         fightPandemicsAPI.signUp(signUpRequest)
 

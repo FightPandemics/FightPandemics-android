@@ -7,6 +7,9 @@ import com.fightpandemics.core.data.model.login.SignUpResponse
 import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
+import com.fightpandemics.core.data.model.userlocation.LocationResponse
+import com.fightpandemics.core.data.model.userlocationdetails.LocationDetails
+import com.fightpandemics.core.data.model.userlocationpredictions.LocationPrediction
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -15,7 +18,6 @@ interface FightPandemicsAPI {
     @GET("api/posts")
     suspend fun getPosts(): Posts
 
-    // TODO - Use Either<,> to get error
     // Get Post
     @GET("api/posts")
     suspend fun getPosts(
@@ -60,6 +62,26 @@ interface FightPandemicsAPI {
         @Path("userId") userId: String
     ): Response<Void>
 
+    // Get User Location
+    @GET("api/geo/location-reverse-geocode")
+    suspend fun getUserLocation(
+        @Query("lat") lat: String,
+        @Query("lng") lng: String
+    ): Response<LocationResponse>
+
+    // Get User Searching For Location.
+    @GET("api/geo/address-predictions")
+    suspend fun getLocationPredictions(
+        @Query("input") input: String,
+        @Query("sessiontoken") sessiontoken: String
+    ): Response<LocationPrediction>
+
+    // Get More Details Of A Place.
+    @GET("api/geo/location-details")
+    suspend fun getLocationDetails(
+        @Query("placeId") placeId: String,
+        @Query("sessiontoken") sessiontoken: String?
+    ): Response<LocationDetails>
 
     companion object {
         // Staging API for Development

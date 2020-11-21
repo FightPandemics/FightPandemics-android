@@ -45,5 +45,4 @@ interface CoreComponent {
     fun providePostsRepository(): PostsRepository
     fun provideLoginRepository(): LoginRepository
     fun provideFightPandemicsAPI(): FightPandemicsAPI
-
 }
