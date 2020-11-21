@@ -27,4 +27,14 @@
     <string name="my_city">My city</string>
     <string name="my_country">My country</string>
     <string name="anyone">Anyone</string>
+    <string name="create_a_post">Create a post</string>
+    <string name="offer">Offer</string>
+    <string name="request">Request</string>
+    <string name="it_exceeds_60_characters">It exceeds 60 characters.</string>
+    <string name="title_hint">Title</string>
+    <string name="description_of_your_post">Description of your post</string>
+    <string name="who_can_see_this_post_and_for_how_long">Who can see this post and for how long?</string>
+    <string name="add_tags_to_help_boost_your_visibility">Add tags to help boost your visibility</string>
+    <string name="add_tags">Add Tags</string>
+    <string name="post">Post</string>
 </resources>
