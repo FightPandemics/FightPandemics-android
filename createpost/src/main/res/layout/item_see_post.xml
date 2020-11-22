@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:paddingBottom="20dp"
+    android:background="@drawable/bottom_nav_background"
     android:layout_height="wrap_content"
     android:layout_gravity="top">
 
