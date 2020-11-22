@@ -5,6 +5,9 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -26,6 +30,8 @@ import com.google.android.libraries.places.api.net.*
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.transition.MaterialSharedAxis
+import kotlinx.coroutines.flow.callbackFlow
+import timber.log.Timber
 import javax.inject.Inject
 
 class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
@@ -35,6 +41,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     private lateinit var filterViewModel: FilterViewModel
     private lateinit var binding: FilterStartFragmentBinding
     private lateinit var placesClient: PlacesClient
+    private lateinit var locationManager: LocationManager
 
     // Places API variables
     private val LOCATION_PERMISSION_CODE = 1
@@ -100,6 +107,9 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
         // Create a new PlacesClient instance
         placesClient = Places.createClient(requireContext())
+        // Create a new Location Manager
+        locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+//        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         // set up apply and clear filters buttons
         binding.clearFiltersButton.setOnClickListener{
@@ -285,7 +295,32 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            filterViewModel.requestCurrentLocation(placesClient)
+            // get location using Places API
+//            filterViewModel.requestCurrentLocation(placesClient)
+            val locationListener: LocationListener = object : LocationListener {
+                override fun onLocationChanged(location: Location) {
+                    Timber.i("My filters : locationManager ${location.latitude}, ${location.longitude}")
+                    locationManager.removeUpdates(this)
+                    // update live data
+                    filterViewModel.updateCurrentLocation(location)
+                }
+
+                override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+
+                override fun onProviderEnabled(provider: String) {}
+
+                override fun onProviderDisabled(provider: String) {
+                    Timber.i("My filters : locationManager GPS OFF")
+                    Toast.makeText(requireContext(), "GPS Disabled", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1f, locationListener)
+            }else{
+                Toast.makeText(requireContext(), "Please enable GPS", Toast.LENGTH_SHORT).show()
+            }
+
         } else {
             // A local method to request required permissions;
             getLocationPermission()

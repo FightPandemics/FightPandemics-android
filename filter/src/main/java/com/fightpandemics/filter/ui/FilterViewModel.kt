@@ -1,5 +1,7 @@
 package com.fightpandemics.filter.ui
 
+import android.location.Location
+import android.location.LocationManager
 import android.util.Pair
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -94,6 +96,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
                 onSelectedLocation.value = response.placeLikelihoods[0].place.address
                 latitude.value = response.placeLikelihoods[0].place.latLng?.latitude
                 longitude.value = response.placeLikelihoods[0].place.latLng?.longitude
+                Timber.i("My filters : places ${latitude.value}, ${longitude.value}")
             } else {
                 val exception = task.exception
                 if (exception is ApiException) {
@@ -101,7 +104,13 @@ class FilterViewModel @Inject constructor() : ViewModel() {
                 }
             }
         }
+    }
 
+    fun updateCurrentLocation(location: Location){
+        onSelectedLocation.value = "Todo: get place name from API"
+        latitude.value = location.latitude
+        longitude.value = location.longitude
+        Timber.i("My filters : Location Manager View Model ${latitude.value}, ${longitude.value}")
     }
 
     fun autocompleteLocation(query: String, placesClient: PlacesClient) {
