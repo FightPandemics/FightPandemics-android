@@ -8,6 +8,6 @@ data class Prediction(
     @field:Json(name = "place_id") val place_id: String,
     @field:Json(name = "reference") val reference: String,
     @field:Json(name = "structured_formatting") val structured_formatting: StructuredFormatting,
-    @field:Json(name = "terms") val terms: List<Term>,
-    @field:Json(name = "types") val types: List<String>
+    @field:Json(name = "terms") @Transient val terms: List<Term>,
+    @field:Json(name = "types") @Transient val types: List<String>
 )

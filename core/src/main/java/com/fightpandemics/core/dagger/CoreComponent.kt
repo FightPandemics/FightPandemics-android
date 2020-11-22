@@ -4,12 +4,16 @@ import android.content.Context
 import com.fightpandemics.core.dagger.module.*
 import com.fightpandemics.core.data.api.FightPandemicsAPI
 import com.fightpandemics.core.data.prefs.PreferenceStorage
+import com.fightpandemics.core.domain.repository.LocationRepository
 import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.core.domain.repository.PostsRepository
 import dagger.Component
 import javax.inject.Singleton
 
 /*
+*
+* created by Osaigbovo Odiase
+*
 * @Singleton ensures the same copy of all the dependencies is injected to anything that needs it.
 * @Component makes Dagger create a graph of dependencies.
 * The "modules" attribute tells Dagger what Modules to include when building the graph
@@ -41,8 +45,8 @@ interface CoreComponent {
     //fun provideContext(): Context
     fun providesPreferenceStorage(): PreferenceStorage
 
-
     fun providePostsRepository(): PostsRepository
     fun provideLoginRepository(): LoginRepository
+    fun provideLocationRepository(): LocationRepository
     fun provideFightPandemicsAPI(): FightPandemicsAPI
 }

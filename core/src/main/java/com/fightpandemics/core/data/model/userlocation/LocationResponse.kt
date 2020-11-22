@@ -4,5 +4,5 @@ import com.squareup.moshi.Json
 
 data class LocationResponse(
     @field:Json(name = "location") val location: Location,
-    @field:Json(name = "original") val original: Original
+    @field:Json(name = "original") @Transient val original: Original
 )

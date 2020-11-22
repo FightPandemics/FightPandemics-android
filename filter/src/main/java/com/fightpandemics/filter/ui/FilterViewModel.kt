@@ -1,23 +1,23 @@
 package com.fightpandemics.filter.ui
 
-import android.util.Pair
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fightpandemics.core.dagger.scope.ActivityScope
+import com.fightpandemics.filter.domain.LocationDetailsUseCase
+import com.fightpandemics.filter.domain.LocationPredictionsUseCase
+import com.fightpandemics.filter.domain.UserLocationUseCase
 import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.*
-import kotlinx.coroutines.runBlocking
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.HashMap
 
 @ActivityScope
-//class FilterViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
-class FilterViewModel @Inject constructor() : ViewModel() {
+class FilterViewModel @Inject constructor(
+
+) : ViewModel() {
 
     // Handle visibility properties
     var isLocationOptionsExpanded = MutableLiveData<Boolean>()
@@ -58,7 +58,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         typeCount.value = 0
     }
 
-    fun clearLiveDataFilters(){
+    fun clearLiveDataFilters() {
         locationQuery.value = ""
         fromWhomCount.value = 0
         typeCount.value = 0
@@ -74,7 +74,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         val fromWhomCount = fromWhomFilters.value?.size ?: 0
         val typeCount = typeFilters.value?.size ?: 0
         var total = fromWhomCount + typeCount
-        if (locationQuery.value?.isNotBlank() == true){
+        if (locationQuery.value?.isNotBlank() == true) {
             total += 1
         }
         return total
@@ -87,7 +87,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         // Use the builder to create a FindCurrentPlaceRequest.
         val request: FindCurrentPlaceRequest = FindCurrentPlaceRequest.newInstance(placeFields)
 
-        val placeResponse = placesClient.findCurrentPlace(request)
+        /*val placeResponse = placesClient.findCurrentPlace(request)
         placeResponse.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val response = task.result
@@ -100,7 +100,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
                     Timber.e("Place not found: ${exception.statusCode}")
                 }
             }
-        }
+        }*/
 
     }
 
@@ -165,8 +165,15 @@ class FilterViewModel @Inject constructor() : ViewModel() {
             }
     }
 
-    fun createFilterRequest (): FilterRequest{
-        return FilterRequest(locationQuery.value, latitude.value, longitude.value, fromWhomFilters.value, typeFilters.value)
+    fun createFilterRequest(): FilterRequest {
+        return FilterRequest(
+            locationQuery.value,
+            latitude.value,
+            longitude.value,
+            fromWhomFilters.value,
+            typeFilters.value
+        )
     }
+
 
 }

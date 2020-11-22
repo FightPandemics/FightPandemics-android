@@ -8,6 +8,8 @@ import dagger.Module
 import dagger.Provides
 
 /**
+ * created by Osaigbovo Odiase
+ *
  * Dagger module providing stuff for [:Home].
  */
 @Module

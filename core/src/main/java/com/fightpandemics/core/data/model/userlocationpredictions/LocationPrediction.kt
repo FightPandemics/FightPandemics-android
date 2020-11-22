@@ -4,5 +4,5 @@ import com.squareup.moshi.Json
 
 data class LocationPrediction(
     @field:Json(name = "predictions") val predictions: List<Prediction>,
-    @field:Json(name = "status") val status: String
+    @field:Json(name = "status") @Transient val status: String
 )

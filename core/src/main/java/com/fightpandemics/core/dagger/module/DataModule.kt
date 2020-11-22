@@ -4,10 +4,13 @@ import com.fightpandemics.core.data.local.AuthTokenLocalDataSource
 import com.fightpandemics.core.data.local.AuthTokenLocalDataSourceImpl
 import com.fightpandemics.core.data.prefs.FightPandemicsPreferenceDataStore
 import com.fightpandemics.core.data.prefs.PreferenceStorage
+import com.fightpandemics.core.data.remote.location.LocationRemoteDataSource
 import com.fightpandemics.core.data.remote.login.LoginRemoteDataSource
 import com.fightpandemics.core.data.remote.posts.PostsRemoteDataSource
+import com.fightpandemics.core.data.repository.LocationRepositoryImpl
 import com.fightpandemics.core.data.repository.LoginRepositoryImpl
 import com.fightpandemics.core.data.repository.PostsRepositoryImpl
+import com.fightpandemics.core.domain.repository.LocationRepository
 import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.core.domain.repository.PostsRepository
 import com.squareup.moshi.Moshi
@@ -18,6 +21,8 @@ import kotlinx.coroutines.FlowPreview
 import javax.inject.Singleton
 
 /**
+ * created by Osaigbovo Odiase
+ *
  * Dagger module to provide data functionalities.
  */
 @FlowPreview
@@ -41,6 +46,15 @@ class DataModule {
         authTokenLocalDataSource: AuthTokenLocalDataSource
     ): LoginRepository =
         LoginRepositoryImpl(moshi, loginRemoteDataSource, authTokenLocalDataSource)
+
+    @Singleton
+    @Provides
+    fun provideLocationRepository(
+        moshi: Moshi,
+        locationRemoteDataSource: LocationRemoteDataSource,
+        preferenceStorage: PreferenceStorage
+    ): LocationRepository =
+        LocationRepositoryImpl(moshi, locationRemoteDataSource, preferenceStorage)
 
     @Singleton
     @Provides

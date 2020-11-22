@@ -5,6 +5,8 @@ import com.fightpandemics.filter.ui.FilterFragment
 import dagger.Subcomponent
 
 /**
+ * created by Osaigbovo Odiase
+ *
  * Component binding injections for the [:filter] module.
  */
 @ActivityScope

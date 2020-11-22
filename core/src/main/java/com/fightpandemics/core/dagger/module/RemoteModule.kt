@@ -1,6 +1,7 @@
 package com.fightpandemics.core.dagger.module
 
 import com.fightpandemics.core.data.api.FightPandemicsAPI
+import com.fightpandemics.core.data.prefs.PreferenceStorage
 import com.fightpandemics.core.data.remote.location.LocationRemoteDataSource
 import com.fightpandemics.core.data.remote.location.LocationRemoteDataSourceImpl
 import com.fightpandemics.core.data.remote.login.LoginRemoteDataSource
@@ -29,6 +30,7 @@ class RemoteModule {
 
     @Singleton
     @Provides
-    fun provideLocationRemoteDataSource(fightPandemicsAPI: FightPandemicsAPI): LocationRemoteDataSource =
-        LocationRemoteDataSourceImpl(fightPandemicsAPI)
+    fun provideLocationRemoteDataSource(
+        fightPandemicsAPI: FightPandemicsAPI
+    ): LocationRemoteDataSource = LocationRemoteDataSourceImpl(fightPandemicsAPI)
 }

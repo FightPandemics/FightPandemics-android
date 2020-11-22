@@ -48,6 +48,5 @@ class FilterAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView
     interface OnItemClickListener {
         fun onAutocompleteLocationClick(locationSelected: String, placeId: String)
     }
-
 }
 

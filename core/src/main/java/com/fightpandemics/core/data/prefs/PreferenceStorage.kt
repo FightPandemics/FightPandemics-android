@@ -8,11 +8,16 @@ import javax.inject.Inject
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
+/*
+* created by Osaigbovo Odiase
+* */
+
 // Storage for app and user preferences.
 interface PreferenceStorage {
     var onboardingCompleted: Boolean
     var token: String?
     var userId: String?
+    var uuid: String?
 }
 
 // [PreferenceStorage] impl backed by [android.content.SharedPreferences].
@@ -25,6 +30,7 @@ class FightPandemicsPreferenceDataStore @Inject constructor(
         const val PREF_ONBOARDING = "pref_onboarding"
         const val PREF_AUTH_TOKEN = "pref_auth_token"
         const val PREF_USER_ID = "pref_user_id"
+        const val PREF_UUID = "pref_uuid"
     }
 
     private val sharedPreferences: Lazy<SharedPreferences> =
@@ -47,6 +53,12 @@ class FightPandemicsPreferenceDataStore @Inject constructor(
     override var userId: String? by StringPreference(
         sharedPreferences,
         PREF_USER_ID,
+        null
+    )
+
+    override var uuid: String? by StringPreference(
+        sharedPreferences,
+        PREF_UUID,
         null
     )
 }
