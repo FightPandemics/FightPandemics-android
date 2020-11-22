@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/line"
         tools:text="Posting As" />
 
-    <com.fightpandemics.home.custom.ProfileImageView
+    <com.fightpandemics.core.widgets.ProfileImageView
         android:id="@+id/user_avatar"
         android:layout_width="54dp"
         android:layout_height="54dp"

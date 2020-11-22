@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.CreatePostFragment">
 
     <ImageView
         android:id="@+id/ic_cancel"
@@ -29,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Create a post" />
 
-    <com.fightpandemics.createpost.custom.ProfileImageView
+    <com.fightpandemics.core.widgets.ProfileImageView
         android:id="@+id/user_avatar"
         android:layout_width="54dp"
         android:layout_height="54dp"
@@ -95,7 +96,7 @@
         android:id="@+id/line"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/offer"
@@ -108,7 +109,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
         android:includeFontPadding="false"
         android:fontFamily="@font/poppins_bold"
@@ -196,7 +197,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/fightPandemicsGhostWhite"
         android:drawableEnd="@drawable/ic_arrow_down"
         android:fontFamily="@font/worksans_regular"
@@ -215,7 +216,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="20dp"
         android:includeFontPadding="false"
         android:lineSpacingExtra="0dp"
@@ -231,7 +232,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="#f2f2f2"
         android:drawableLeft="@drawable/ic_tag"
         android:fontFamily="@font/worksans_regular"
