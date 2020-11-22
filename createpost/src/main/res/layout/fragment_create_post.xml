@@ -22,7 +22,7 @@
         android:layout_width="54dp"
         android:layout_height="54dp"
         android:layout_marginTop="14dp"
-        android:background="@color/fightPandemicsGhostWhite"
+        android:background="@color/colorWhite"
         app:aiv_borderColor="?colorPrimary"
         app:aiv_borderWidth="2dp"
         app:aiv_initials="VM"
