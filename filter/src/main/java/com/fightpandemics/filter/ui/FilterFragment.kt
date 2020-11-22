@@ -2,6 +2,7 @@ package com.fightpandemics.filter.ui
 
 import com.fightpandemics.home.BuildConfig
 import android.Manifest
+import android.animation.LayoutTransition
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
@@ -42,6 +43,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     private lateinit var binding: FilterStartFragmentBinding
     private lateinit var placesClient: PlacesClient
     private lateinit var locationManager: LocationManager
+    private lateinit var defaultTransition: LayoutTransition
 
     // Places API variables
     private val LOCATION_PERMISSION_CODE = 1
@@ -109,7 +111,8 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         placesClient = Places.createClient(requireContext())
         // Create a new Location Manager
         locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-//        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        // Get default transition
+        defaultTransition = binding.constraintLayoutOptions.layoutTransition
 
         // set up apply and clear filters buttons
         binding.clearFiltersButton.setOnClickListener{
@@ -164,6 +167,13 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
             viewLifecycleOwner,
             { isExpanded ->
                 if (isExpanded) {
+                    // close other two options cards, and stop transitions when closing to prevent glitchy look
+                    binding.constraintLayoutOptions.layoutTransition = null
+                    filterViewModel.isFromWhomOptionsExpanded.value = false
+                    filterViewModel.isTypeOptionsExpanded.value = false
+
+                    // re-enable transitions and open card
+                    binding.constraintLayoutOptions.layoutTransition = defaultTransition
                     expandContents(
                         binding.locationOptions.root,
                         binding.filterLocationExpandable.locationEmptyCard
@@ -191,6 +201,13 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
             viewLifecycleOwner,
             { isExpanded ->
                 if (isExpanded) {
+                    // close other two options cards, and stop transitions when closing to prevent glitchy look
+                    binding.constraintLayoutOptions.layoutTransition = null
+                    filterViewModel.isLocationOptionsExpanded.value = false
+                    filterViewModel.isTypeOptionsExpanded.value = false
+
+                    // re-enable transitions and open card
+                    binding.constraintLayoutOptions.layoutTransition = defaultTransition
                     expandContents(
                         binding.fromWhomOptions.root,
                         binding.filterFromWhomExpandable.fromWhomEmptyCard
@@ -215,6 +232,13 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
         filterViewModel.isTypeOptionsExpanded.observe(viewLifecycleOwner, { isExpanded ->
             if (isExpanded) {
+                // close other two options cards, and stop transitions when closing to prevent glitchy look
+                binding.constraintLayoutOptions.layoutTransition = null
+                filterViewModel.isLocationOptionsExpanded.value = false
+                filterViewModel.isFromWhomOptionsExpanded.value = false
+
+                // re-enable transitions and open card
+                binding.constraintLayoutOptions.layoutTransition = defaultTransition
                 expandContents(binding.typeOptions.root, binding.filterTypeExpandable.typeEmptyCard)
                 binding.filterTypeExpandable.filtersAppliedText.visibility = View.GONE
             } else {
@@ -447,6 +471,8 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     }
 
     private fun clearFilters(){
+        // close all option cards
+        filterViewModel.closeOptionCards()
         // clear fromwhom selections
         uncheckChipGroup(binding.fromWhomOptions.fromWhomChipGroup)
         // clear type selections

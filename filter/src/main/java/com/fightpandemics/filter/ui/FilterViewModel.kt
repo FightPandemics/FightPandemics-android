@@ -72,6 +72,12 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         optionsCardState.value = !optionsCardState.value!!
     }
 
+    fun closeOptionCards(){
+        isLocationOptionsExpanded.value = false
+        isFromWhomOptionsExpanded.value = false
+        isTypeOptionsExpanded.value = false
+    }
+
     fun getFiltersAppliedCount(): Int {
         val fromWhomCount = fromWhomFilters.value?.size ?: 0
         val typeCount = typeFilters.value?.size ?: 0
