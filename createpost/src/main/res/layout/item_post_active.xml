@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="bottom">
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp"
+    android:layout_gravity="top">
 
     <ImageView
         android:id="@+id/line"
@@ -19,21 +20,21 @@
 
     <TextView
         android:id="@+id/active"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins_bold"
         android:gravity="center"
+        android:text="@string/how_long_should_this_post_be_active_for"
         android:lineSpacingExtra="6sp"
-        android:textColor="@color/fightPandemicsNero"
+        android:textColor="@color/textColorPrimary"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line"
-        tools:text="How long should this post be active for?" />
+        app:layout_constraintTop_toBottomOf="@+id/line"/>
 
     <Button
         android:id="@+id/day"
@@ -45,13 +46,13 @@
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="7sp"
         android:textAllCaps="false"
-        android:textColor="#333333"
+        android:text="@string/a_day"
+        android:textColor="@color/textColorPrimary"
         android:textSize="15sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/active"
-        tools:text="A day" />
+        app:layout_constraintTop_toBottomOf="@+id/active"/>
 
     <Button
         android:id="@+id/week"
@@ -63,13 +64,13 @@
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="7sp"
         android:textAllCaps="false"
-        android:textColor="#333333"
+        android:textColor="@color/textColorPrimary"
         android:textSize="15sp"
+        android:text="@string/a_week"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day"
-        tools:text="A week" />
+        app:layout_constraintTop_toBottomOf="@+id/day"/>
 
     <Button
         android:id="@+id/month"
@@ -78,17 +79,16 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/colorPrimary"
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="7sp"
         android:textAllCaps="false"
-        android:textColor="#ffffff"
+        android:textColor="@color/textColorPrimary"
         android:textSize="15sp"
+        android:text="@string/a_month"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/week"
-        tools:text="A month" />
+        app:layout_constraintTop_toBottomOf="@+id/week"/>
 
     <Button
         android:id="@+id/forever"
@@ -100,12 +100,12 @@
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="7sp"
         android:textAllCaps="false"
-        android:textColor="#333333"
+        android:textColor="@color/textColorPrimary"
         android:textSize="15sp"
+        android:text="@string/forever"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/month"
-        tools:text="Forever" />
+        app:layout_constraintTop_toBottomOf="@+id/month"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

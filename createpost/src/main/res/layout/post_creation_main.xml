@@ -2,46 +2,58 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.CreatePostFragment">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/ic_cancel"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp"
+    <include
+        android:id="@+id/create_post_toolbar"
+        layout="@layout/create_post_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_cancel" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/create_post"
-        style="@style/AndroidNativeH122Px"
-        android:layout_width="152dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="148dp"
-        android:textSize="22sp"
-        android:fontFamily="@font/poppins_bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Create a post" />
+<!--    <ImageView-->
+<!--        android:id="@+id/ic_cancel"-->
+<!--        android:layout_width="24dp"-->
+<!--        android:layout_height="24dp"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginTop="28dp"-->
+<!--        android:visibility="invisible"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/ic_cancel" />-->
 
-    <com.fightpandemics.core.widgets.ProfileImageView
+<!--    <TextView-->
+<!--        android:id="@+id/create_post"-->
+<!--        style="@style/AndroidNativeH122Px"-->
+<!--        android:layout_width="152dp"-->
+<!--        android:layout_height="28dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:layout_marginEnd="148dp"-->
+<!--        android:textSize="22sp"-->
+<!--        android:visibility="invisible"-->
+<!--        android:fontFamily="@font/poppins_bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:text="Create a post" />-->
+
+    <com.fightpandemics.createpost.custom.ProfileImageView
         android:id="@+id/user_avatar"
         android:layout_width="54dp"
         android:layout_height="54dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="14dp"
-        android:background="#f3f4fe"
+        android:background="@color/fightPandemicsGhostWhite"
         app:aiv_borderColor="?colorPrimary"
         app:aiv_borderWidth="2dp"
         app:aiv_initials="VM"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ic_cancel" />
+        app:layout_constraintTop_toBottomOf="@+id/create_post_toolbar" />
 
     <Button
         android:id="@+id/name"
@@ -56,11 +68,11 @@
         android:lineSpacingExtra="3sp"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_post"
+        app:layout_constraintTop_toBottomOf="@+id/create_post_toolbar"
         tools:text="Victor Maragiaglio" />
 
     <Button
@@ -71,7 +83,7 @@
         android:layout_marginStart="85dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/button_shadow_left"
-        android:text="Offer"
+        android:text="@string/offer"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
         android:textStyle="normal"
@@ -85,108 +97,153 @@
         android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/button_shadow_right"
-        android:text="Request"
+        android:text="@string/request"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
         android:textStyle="normal"
         app:layout_constraintStart_toEndOf="@+id/offer"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
-    <ImageView
-        android:id="@+id/line"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/offer"
-        app:srcCompat="@drawable/ic_line_73"
-        tools:ignore="MissingConstraints" />
+    <view
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:backgroundTint="@color/fightPandemicsLightGrey"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/offer"/>
 
-    <TextView
-        android:id="@+id/title"
-        style="@style/AndroidNativeH122Px"
-        android:layout_width="0dp"
+<!--    <ImageView-->
+<!--        android:id="@+id/line"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:visibility="invisible"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/offer"-->
+<!--        app:srcCompat="@drawable/ic_line_73"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+    <EditText
+        android:id="@+id/et_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:includeFontPadding="false"
+        style="AndroidNativeH122Px"
+        android:textColor="@color/textColorPrimary"
         android:fontFamily="@font/poppins_bold"
-        android:lineSpacingExtra="0dp"
-        android:text="I have 100 face Masks to give away."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/line"
-        tools:ignore="MissingConstraints" />
+        android:hint="@string/title_hint"
+        android:lines="3"
+        android:background="@android:color/transparent"
+        android:textColorHint="@color/fightPandemicsSuvaGrey"
+        app:layout_constraintTop_toBottomOf="@id/view1"/>
 
     <TextView
         android:id="@+id/error"
         style="@style/AndroidNativeP311Px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="It exceeds 60 characters."
-        android:textColor="#ff5656"
-        android:visibility="visible"
+        android:text="@string/it_exceeds_60_characters"
+        android:textColor="@color/error_text_color"
+        android:fontFamily="@font/worksans_regular"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/et_title"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/description"
-        style="@style/AndroidNativeP114Px"
-        android:layout_width="0dp"
+    <EditText
+        android:id="@+id/et_description"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:text="I have a small store and I would like to give away 100 mask but I don’t know where, please contact me if you need t. I have a small store and I would like to give away 100 mask but I don’t know where, please contact"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/error"
-        tools:ignore="MissingConstraints" />
+        android:layout_marginTop="12dp"
+        style="AndroidNativeH114Px"
+        android:textColor="@color/textColorPrimary"
+        android:fontFamily="@font/worksans_regular"
+        android:lines="5"
+        android:hint="@string/description_of_your_post"
+        android:background="@android:color/transparent"
+        android:textColorHint="@color/fightPandemicsSuvaGrey"
+        app:layout_constraintTop_toBottomOf="@id/error"/>
 
-    <ImageView
-        android:id="@+id/line1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description"
-        app:srcCompat="@drawable/ic_line_73"
-        tools:ignore="MissingConstraints" />
+<!--    <TextView-->
+<!--        android:id="@+id/title"-->
+<!--        style="@style/AndroidNativeH122Px"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:includeFontPadding="false"-->
+<!--        android:fontFamily="@font/poppins_bold"-->
+<!--        android:lineSpacingExtra="0dp"-->
+<!--        android:visibility="invisible"-->
+<!--        android:text="I have 100 face Masks to give away."-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/line"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/description"-->
+<!--        style="@style/AndroidNativeP114Px"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:visibility="invisible"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:text="I have a small store and I would like to give away 100 mask but I don’t know where, please contact me if you need t. I have a small store and I would like to give away 100 mask but I don’t know where, please contact"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/error"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+    <view
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:backgroundTint="@color/fightPandemicsLightGrey"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/et_description"/>
+
+<!--    <ImageView-->
+<!--        android:id="@+id/line1"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:visibility="invisible"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/description"-->
+<!--        app:srcCompat="@drawable/ic_line_73"-->
+<!--        tools:ignore="MissingConstraints" />-->
 
     <TextView
         android:id="@+id/postView"
         style="@style/AndroidNativeH216Px"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="20dp"
         android:includeFontPadding="false"
         android:lineSpacingExtra="0dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="Who can see this post and for how long?"
+        android:text="@string/who_can_see_this_post_and_for_how_long"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/line1"
+        app:layout_constraintTop_toBottomOf="@id/view2"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/people"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:backgroundTint="@color/fightPandemicsGhostWhite"
         android:drawableEnd="@drawable/ic_arrow_down"
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="3sp"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:textStyle="normal"
         app:layout_constraintBaseline_toBaselineOf="@+id/month"
         app:layout_constraintStart_toStartOf="parent"
@@ -197,14 +254,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/fightPandemicsGhostWhite"
         android:drawableEnd="@drawable/ic_arrow_down"
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="3sp"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:textStyle="normal"
         app:layout_constraintStart_toEndOf="@id/people"
         app:layout_constraintTop_toBottomOf="@+id/postView"
@@ -215,13 +272,11 @@
         style="@style/AndroidNativeH216Px"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="24dp"
         android:includeFontPadding="false"
         android:lineSpacingExtra="0dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="Add tags to help boost your visibility"
+        android:text="@string/add_tags_to_help_boost_your_visibility"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/people"
@@ -231,36 +286,35 @@
         android:id="@+id/tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#f2f2f2"
-        android:drawableLeft="@drawable/ic_tag"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/fightPandemicsWhiteSmoke"
+        android:drawableStart="@drawable/ic_tag"
         android:fontFamily="@font/worksans_regular"
+        android:text="@string/add_tags"
         android:lineSpacingExtra="3sp"
         android:textAllCaps="false"
-        android:textColor="#333333"
-        android:textSize="11sp"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="12sp"
         android:textStyle="normal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postTag"
-        tools:text="Add Tag" />
+        app:layout_constraintTop_toBottomOf="@+id/postTag"/>
 
     <Button
         android:id="@+id/post"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/button_post"
-        android:backgroundTint="#425af2"
+        android:backgroundTint="@color/fightPandemicsPerano"
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="3sp"
         android:textAllCaps="false"
-        android:textColor="#ffffff"
+        android:text="@string/post"
+        android:textColor="@color/colorWhite"
         android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tag"
-        tools:text="Post" />
+        app:layout_constraintTop_toBottomOf="@+id/tag"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
