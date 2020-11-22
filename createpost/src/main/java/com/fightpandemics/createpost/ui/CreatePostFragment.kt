@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.fightpandemics.core.utils.ViewModelFactory
-import com.fightpandemics.createpost.R
 import com.fightpandemics.createpost.dagger.inject
 import com.fightpandemics.createpost.databinding.FragmentCreatePostBinding
 import javax.inject.Inject
