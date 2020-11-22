@@ -89,8 +89,6 @@ class LoginViewModel @Inject constructor(
                             signUpResponse.token,
                             null
                         )
-                        _continue here noew we have the signup response
-                        //TODO
                     }
                     is Result.Error -> {
                         _signup.value = SignUPViewState(

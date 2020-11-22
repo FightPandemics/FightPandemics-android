@@ -7,10 +7,6 @@ import android.os.Looper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.auth0.android.Auth0
-import com.auth0.android.authentication.AuthenticationAPIClient
-import com.auth0.android.authentication.storage.SecureCredentialsManager
-import com.auth0.android.authentication.storage.SharedPreferencesStorage
 import com.fightpandemics.R
 import com.fightpandemics.core.result.EventObserver
 import com.fightpandemics.core.utils.ViewModelFactory
@@ -47,21 +43,6 @@ class SplashFragment : Fragment() {
             }.checkAllMatched
         })
 
-        this the solution using Credentials Manager how we will use code above?
-//        val credentialsManager : SecureCredentialsManager
-//        var auth0 = Auth0(requireContext())
-//        auth0.isOIDCConformant = true
-//        credentialsManager = SecureCredentialsManager(
-//            requireContext(),
-//            AuthenticationAPIClient(auth0),
-//            SharedPreferencesStorage(requireContext())
-//        )
-//        if (credentialsManager.hasValidCredentials()) {
-//            // Obtain the existing credentials and move to the next activity
-//            findNavController().navigate(R.id.action_splashFragment_to_mainActivity).apply { requireActivity().finish() }
-//        }else{
-//            findNavController().navigate(R.id.action_splashFragment_to_onboardFragment)
-//        }
     }
 }
 
