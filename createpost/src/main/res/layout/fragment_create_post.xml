@@ -17,25 +17,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <com.fightpandemics.createpost.custom.ProfileImageView-->
-<!--        android:id="@+id/user_avatar"-->
-<!--        android:layout_width="54dp"-->
-<!--        android:layout_height="54dp"-->
-<!--        android:layout_marginStart="20dp"-->
-<!--        android:layout_marginTop="14dp"-->
-<!--        android:background="@color/fightPandemicsGhostWhite"-->
-<!--        app:aiv_borderColor="?colorPrimary"-->
-<!--        app:aiv_borderWidth="2dp"-->
-<!--        app:aiv_initials="VM"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/create_post_toolbar" />-->
+    <com.fightpandemics.createpost.custom.ProfileImageView
+        android:id="@+id/user_avatar"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/fightPandemicsGhostWhite"
+        app:aiv_borderColor="?colorPrimary"
+        app:aiv_borderWidth="2dp"
+        app:aiv_initials="VM"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_post_toolbar" />
 
     <Button
         android:id="@+id/name"
         android:layout_width="185dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="120dp"
         android:backgroundTint="@color/fightPandemicsGhostWhite"
         android:drawableEnd="@drawable/ic_arrow_down"

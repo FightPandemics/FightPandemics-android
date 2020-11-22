@@ -38,291 +38,87 @@
             android:id="@+id/chip_medical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChip"
+            style="@style/TagChip"
             android:text="@string/medical_supplies"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_university"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChip"
+            style="@style/TagChip"
             android:text="@string/university"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_r_and_d"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChip"
+            style="@style/TagChip"
             android:text="@string/r_amp_d"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_business"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChip"
+            style="@style/TagChip"
             android:text="@string/business"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_legal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChip"
+            style="@style/TagChip"
             android:text="@string/legal"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChip"
+            style="@style/TagChip"
             android:text="@string/information"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_funding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChip"
+            style="@style/TagChip"
             android:text="@string/funding"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_entertainment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChip"
+            style="@style/TagChip"
             android:text="@string/entertainment"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_groceries"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChip"
+            style="@style/TagChip"
             android:text="@string/groceries_food"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_well_being"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChip"
+            style="@style/TagChip"
             android:text="@string/wellbeing_mental"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_tech"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChip"
+            style="@style/TagChip"
             android:text="@string/tech"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_others"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/FilterChip"
+            style="@style/TagChip"
             android:text="@string/others"/>
 
     </com.google.android.material.chip.ChipGroup>
-
-<!--    <Button-->
-<!--        android:id="@+id/medical"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="@color/fightPandemicsGhostWhite"-->
-<!--        android:fontFamily="@font/worksans_regular"-->
-<!--        android:lineSpacingExtra="3sp"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="@color/colorPrimary"-->
-<!--        android:textSize="11sp"-->
-<!--        android:textStyle="normal"-->
-<!--        app:layout_constraintBaseline_toBaselineOf="@+id/university"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        tools:text="Medical Supplies" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/university"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:backgroundTint="#f2f2f2"-->
-<!--        android:fontFamily="@font/worksans_regular"-->
-<!--        android:lineSpacingExtra="3sp"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="#333333"-->
-<!--        android:textSize="11sp"-->
-<!--        android:textStyle="normal"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/medical"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/choose_tag"-->
-<!--        tools:text="University" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/rd"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:backgroundTint="#f2f2f2"-->
-<!--        android:fontFamily="@font/worksans_regular"-->
-<!--        android:lineSpacingExtra="3sp"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="#333333"-->
-<!--        android:textSize="11sp"-->
-<!--        android:textStyle="normal"-->
-<!--        app:layout_constraintBaseline_toBaselineOf="@+id/university"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/university"-->
-<!--        tools:text="R&amp;D" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/business"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="#f2f2f2"-->
-<!--        android:fontFamily="@font/worksans_regular"-->
-<!--        android:lineSpacingExtra="3sp"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="#333333"-->
-<!--        android:textSize="11sp"-->
-<!--        android:textStyle="normal"-->
-<!--        app:layout_constraintBaseline_toBaselineOf="@+id/education"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        tools:text="Business" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/education"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:backgroundTint="#f2f2f2"-->
-<!--        android:fontFamily="@font/worksans_regular"-->
-<!--        android:lineSpacingExtra="3sp"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="#333333"-->
-<!--        android:textSize="11sp"-->
-<!--        android:textStyle="normal"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/business"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/medical"-->
-<!--        tools:text="Education" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/legal"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:backgroundTint="@color/fightPandemicsGhostWhite"-->
-<!--        android:fontFamily="@font/worksans_regular"-->
-<!--        android:lineSpacingExtra="3sp"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="@color/colorPrimary"-->
-<!--        android:textSize="11sp"-->
-<!--        android:textStyle="normal"-->
-<!--        app:layout_constraintBaseline_toBaselineOf="@+id/education"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/education"-->
-<!--        tools:text="Legal" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/info"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="@color/fightPandemicsGhostWhite"-->
-<!--        android:fontFamily="@font/worksans_regular"-->
-<!--        android:lineSpacingExtra="3sp"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="@color/colorPrimary"-->
-<!--        android:textSize="11sp"-->
-<!--        android:textStyle="normal"-->
-<!--        app:layout_constraintBaseline_toBaselineOf="@+id/funding"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        tools:text="Information" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/funding"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:backgroundTint="#f2f2f2"-->
-<!--        android:fontFamily="@font/worksans_regular"-->
-<!--        android:lineSpacingExtra="3sp"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="#333333"-->
-<!--        android:textSize="11sp"-->
-<!--        android:textStyle="normal"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/info"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/legal"-->
-<!--        tools:text="Funding" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/entertainment"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:backgroundTint="#f2f2f2"-->
-<!--        android:fontFamily="@font/worksans_regular"-->
-<!--        android:lineSpacingExtra="3sp"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="#333333"-->
-<!--        android:textSize="11sp"-->
-<!--        android:textStyle="normal"-->
-<!--        app:layout_constraintBaseline_toBaselineOf="@+id/funding"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/funding"-->
-<!--        tools:text="Entertainment" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/groceries"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="#f2f2f2"-->
-<!--        android:fontFamily="@font/worksans_regular"-->
-<!--        android:lineSpacingExtra="3sp"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="#333333"-->
-<!--        android:textSize="11sp"-->
-<!--        android:textStyle="normal"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/info"-->
-<!--        tools:text="Groceries/Food" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/mental"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:backgroundTint="#f2f2f2"-->
-<!--        android:fontFamily="@font/worksans_regular"-->
-<!--        android:lineSpacingExtra="3sp"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="#333333"-->
-<!--        android:textSize="11sp"-->
-<!--        android:textStyle="normal"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/groceries"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/info"-->
-<!--        tools:text="Wellbeing/Mental" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/tech"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="#f2f2f2"-->
-<!--        android:fontFamily="@font/worksans_regular"-->
-<!--        android:lineSpacingExtra="3sp"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="#333333"-->
-<!--        android:textSize="11sp"-->
-<!--        android:textStyle="normal"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/groceries"-->
-<!--        tools:text="Tech" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/others"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:backgroundTint="#f2f2f2"-->
-<!--        android:fontFamily="@font/worksans_regular"-->
-<!--        android:lineSpacingExtra="3sp"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="#333333"-->
-<!--        android:textSize="11sp"-->
-<!--        android:textStyle="normal"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/tech"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/groceries"-->
-<!--        tools:text="Others" />-->
 
     <Button
         android:id="@+id/close"
