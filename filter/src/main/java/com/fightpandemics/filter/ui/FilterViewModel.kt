@@ -1,17 +1,25 @@
 package com.fightpandemics.filter.ui
 
+import android.location.Location
+import android.location.LocationManager
+import android.util.Pair
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.*
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.HashMap
 
-class FilterViewModel @Inject constructor(
-) : ViewModel() {
+@ActivityScope
+//class FilterViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
+class FilterViewModel @Inject constructor() : ViewModel() {
 
     // Handle visibility properties
     var isLocationOptionsExpanded = MutableLiveData<Boolean>()
@@ -52,7 +60,7 @@ class FilterViewModel @Inject constructor(
         typeCount.value = 0
     }
 
-    fun clearLiveDataFilters() {
+    fun clearLiveDataFilters(){
         locationQuery.value = ""
         fromWhomCount.value = 0
         typeCount.value = 0
@@ -64,11 +72,17 @@ class FilterViewModel @Inject constructor(
         optionsCardState.value = !optionsCardState.value!!
     }
 
+    fun closeOptionCards(){
+        isLocationOptionsExpanded.value = false
+        isFromWhomOptionsExpanded.value = false
+        isTypeOptionsExpanded.value = false
+    }
+
     fun getFiltersAppliedCount(): Int {
         val fromWhomCount = fromWhomFilters.value?.size ?: 0
         val typeCount = typeFilters.value?.size ?: 0
         var total = fromWhomCount + typeCount
-        if (locationQuery.value?.isNotBlank() == true) {
+        if (locationQuery.value?.isNotBlank() == true){
             total += 1
         }
         return total
@@ -81,21 +95,28 @@ class FilterViewModel @Inject constructor(
         // Use the builder to create a FindCurrentPlaceRequest.
         val request: FindCurrentPlaceRequest = FindCurrentPlaceRequest.newInstance(placeFields)
 
-        /*val placeResponse = placesClient.findCurrentPlace(request)
+        val placeResponse = placesClient.findCurrentPlace(request)
         placeResponse.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val response = task.result
                 onSelectedLocation.value = response.placeLikelihoods[0].place.address
                 latitude.value = response.placeLikelihoods[0].place.latLng?.latitude
                 longitude.value = response.placeLikelihoods[0].place.latLng?.longitude
+                Timber.i("My filters : places ${latitude.value}, ${longitude.value}")
             } else {
                 val exception = task.exception
                 if (exception is ApiException) {
                     Timber.e("Place not found: ${exception.statusCode}")
                 }
             }
-        }*/
+        }
+    }
 
+    fun updateCurrentLocation(location: Location){
+        onSelectedLocation.value = "Todo: get place name from API"
+        latitude.value = location.latitude
+        longitude.value = location.longitude
+        Timber.i("My filters : Location Manager View Model ${latitude.value}, ${longitude.value}")
     }
 
     fun autocompleteLocation(query: String, placesClient: PlacesClient) {
@@ -159,15 +180,8 @@ class FilterViewModel @Inject constructor(
             }
     }
 
-    fun createFilterRequest(): FilterRequest {
-        return FilterRequest(
-            locationQuery.value,
-            latitude.value,
-            longitude.value,
-            fromWhomFilters.value,
-            typeFilters.value
-        )
+    fun createFilterRequest (): FilterRequest{
+        return FilterRequest(locationQuery.value, latitude.value, longitude.value, fromWhomFilters.value, typeFilters.value)
     }
-
 
 }

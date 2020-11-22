@@ -1,9 +1,14 @@
 package com.fightpandemics.filter.ui
 
+import com.fightpandemics.home.BuildConfig
 import android.Manifest
+import android.animation.LayoutTransition
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,32 +16,38 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
-import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.net.*
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.transition.MaterialSharedAxis
+import kotlinx.coroutines.flow.callbackFlow
+import timber.log.Timber
 import javax.inject.Inject
 
 class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
     @Inject
     lateinit var filterViewModelFactory: ViewModelFactory
-    private val filterViewModel: FilterViewModel by viewModels { filterViewModelFactory }
+    private lateinit var filterViewModel: FilterViewModel
     private lateinit var binding: FilterStartFragmentBinding
     private lateinit var placesClient: PlacesClient
+    private lateinit var locationManager: LocationManager
+    private lateinit var defaultTransition: LayoutTransition
 
     // Places API variables
     private val LOCATION_PERMISSION_CODE = 1
-    //private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
+    private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
 
     // constant for showing autocomplete suggestions
     private val LENGTH_TO_SHOW_SUGGESTIONS = 3
@@ -92,10 +103,16 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Get the viewmodel
+        filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
         // Places API Logic - Initialize places sdk
-        //Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
+        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
         // Create a new PlacesClient instance
-        //placesClient = Places.createClient(requireContext())
+        placesClient = Places.createClient(requireContext())
+        // Create a new Location Manager
+        locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        // Get default transition
+        defaultTransition = binding.constraintLayoutOptions.layoutTransition
 
         // set up apply and clear filters buttons
         binding.clearFiltersButton.setOnClickListener{
@@ -150,6 +167,13 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
             viewLifecycleOwner,
             { isExpanded ->
                 if (isExpanded) {
+                    // close other two options cards, and stop transitions when closing to prevent glitchy look
+                    binding.constraintLayoutOptions.layoutTransition = null
+                    filterViewModel.isFromWhomOptionsExpanded.value = false
+                    filterViewModel.isTypeOptionsExpanded.value = false
+
+                    // re-enable transitions and open card
+                    binding.constraintLayoutOptions.layoutTransition = defaultTransition
                     expandContents(
                         binding.locationOptions.root,
                         binding.filterLocationExpandable.locationEmptyCard
@@ -177,6 +201,13 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
             viewLifecycleOwner,
             { isExpanded ->
                 if (isExpanded) {
+                    // close other two options cards, and stop transitions when closing to prevent glitchy look
+                    binding.constraintLayoutOptions.layoutTransition = null
+                    filterViewModel.isLocationOptionsExpanded.value = false
+                    filterViewModel.isTypeOptionsExpanded.value = false
+
+                    // re-enable transitions and open card
+                    binding.constraintLayoutOptions.layoutTransition = defaultTransition
                     expandContents(
                         binding.fromWhomOptions.root,
                         binding.filterFromWhomExpandable.fromWhomEmptyCard
@@ -201,6 +232,13 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
         filterViewModel.isTypeOptionsExpanded.observe(viewLifecycleOwner, { isExpanded ->
             if (isExpanded) {
+                // close other two options cards, and stop transitions when closing to prevent glitchy look
+                binding.constraintLayoutOptions.layoutTransition = null
+                filterViewModel.isLocationOptionsExpanded.value = false
+                filterViewModel.isFromWhomOptionsExpanded.value = false
+
+                // re-enable transitions and open card
+                binding.constraintLayoutOptions.layoutTransition = defaultTransition
                 expandContents(binding.typeOptions.root, binding.filterTypeExpandable.typeEmptyCard)
                 binding.filterTypeExpandable.filtersAppliedText.visibility = View.GONE
             } else {
@@ -281,7 +319,32 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            filterViewModel.requestCurrentLocation(placesClient)
+            // get location using Places API
+//            filterViewModel.requestCurrentLocation(placesClient)
+            val locationListener: LocationListener = object : LocationListener {
+                override fun onLocationChanged(location: Location) {
+                    Timber.i("My filters : locationManager ${location.latitude}, ${location.longitude}")
+                    locationManager.removeUpdates(this)
+                    // update live data
+                    filterViewModel.updateCurrentLocation(location)
+                }
+
+                override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+
+                override fun onProviderEnabled(provider: String) {}
+
+                override fun onProviderDisabled(provider: String) {
+                    Timber.i("My filters : locationManager GPS OFF")
+                    Toast.makeText(requireContext(), "GPS Disabled", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1f, locationListener)
+            }else{
+                Toast.makeText(requireContext(), "Please enable GPS", Toast.LENGTH_SHORT).show()
+            }
+
         } else {
             // A local method to request required permissions;
             getLocationPermission()
@@ -408,6 +471,8 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     }
 
     private fun clearFilters(){
+        // close all option cards
+        filterViewModel.closeOptionCards()
         // clear fromwhom selections
         uncheckChipGroup(binding.fromWhomOptions.fromWhomChipGroup)
         // clear type selections
