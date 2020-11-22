@@ -63,9 +63,6 @@ class HomeFragment : Fragment() {
         setupUi()
         createPost()
 
-        // val uuid = UUID.randomUUID()
-        // Timber.e(uuid.toString())
-
         val fab: FloatingActionButton = activity?.findViewById(com.fightpandemics.R.id.fab)!!
 
         homeViewModel.isDeleted.observe(requireActivity(), EventObserver {

@@ -2,10 +2,6 @@ package com.fightpandemics.filter.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.fightpandemics.core.dagger.scope.ActivityScope
-import com.fightpandemics.filter.domain.LocationDetailsUseCase
-import com.fightpandemics.filter.domain.LocationPredictionsUseCase
-import com.fightpandemics.filter.domain.UserLocationUseCase
 import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.model.Place
@@ -14,9 +10,7 @@ import com.google.android.libraries.places.api.net.*
 import timber.log.Timber
 import javax.inject.Inject
 
-@ActivityScope
 class FilterViewModel @Inject constructor(
-
 ) : ViewModel() {
 
     // Handle visibility properties

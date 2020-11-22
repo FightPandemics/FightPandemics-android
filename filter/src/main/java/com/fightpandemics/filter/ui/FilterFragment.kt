@@ -1,6 +1,5 @@
 package com.fightpandemics.filter.ui
 
-import com.fightpandemics.home.BuildConfig
 import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
@@ -15,14 +14,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.net.*
+import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.transition.MaterialSharedAxis
@@ -32,7 +30,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
     @Inject
     lateinit var filterViewModelFactory: ViewModelFactory
-    private lateinit var filterViewModel: FilterViewModel
+    private val filterViewModel: FilterViewModel by viewModels { filterViewModelFactory }
     private lateinit var binding: FilterStartFragmentBinding
     private lateinit var placesClient: PlacesClient
 
@@ -94,8 +92,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Get the viewmodel
-        filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
         // Places API Logic - Initialize places sdk
         //Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
         // Create a new PlacesClient instance
