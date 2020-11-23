@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
@@ -39,7 +40,9 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
     @Inject
     lateinit var filterViewModelFactory: ViewModelFactory
-    private lateinit var filterViewModel: FilterViewModel
+
+    private val filterViewModel: FilterViewModel by viewModels { filterViewModelFactory }
+
     private lateinit var binding: FilterStartFragmentBinding
     private lateinit var placesClient: PlacesClient
     private lateinit var locationManager: LocationManager
@@ -47,7 +50,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
     // Places API variables
     private val LOCATION_PERMISSION_CODE = 1
-    private val PLACES_API_KEY: String = BuildConfig.PLACES_API_KEY
+    private val PLACES_API_KEY: String? = ""/*BuildConfig.PLACES_API_KEY*/
 
     // constant for showing autocomplete suggestions
     private val LENGTH_TO_SHOW_SUGGESTIONS = 3
@@ -77,17 +80,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
         inject(this)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
-        }
-        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -103,10 +95,8 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Get the viewmodel
-        filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
         // Places API Logic - Initialize places sdk
-        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
+        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY!!)
         // Create a new PlacesClient instance
         placesClient = Places.createClient(requireContext())
         // Create a new Location Manager

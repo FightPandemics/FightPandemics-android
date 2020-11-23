@@ -6,6 +6,9 @@ import android.util.Pair
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fightpandemics.core.dagger.scope.ActivityScope
+import com.fightpandemics.filter.domain.LocationDetailsUseCase
+import com.fightpandemics.filter.domain.LocationPredictionsUseCase
+import com.fightpandemics.filter.domain.UserLocationUseCase
 import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.model.Place
@@ -19,7 +22,11 @@ import kotlin.collections.HashMap
 
 @ActivityScope
 //class FilterViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
-class FilterViewModel @Inject constructor() : ViewModel() {
+class FilterViewModel @Inject constructor(
+    private val userLocationUseCase: UserLocationUseCase,
+    private val locationPredictionsUseCase: LocationPredictionsUseCase,
+    private val locationDetailsUseCase: LocationDetailsUseCase
+) : ViewModel() {
 
     // Handle visibility properties
     var isLocationOptionsExpanded = MutableLiveData<Boolean>()
