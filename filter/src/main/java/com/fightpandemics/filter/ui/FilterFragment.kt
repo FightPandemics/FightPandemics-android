@@ -1,6 +1,5 @@
 package com.fightpandemics.filter.ui
 
-import com.fightpandemics.home.BuildConfig
 import android.Manifest
 import android.animation.LayoutTransition
 import android.app.AlertDialog
@@ -16,7 +15,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -28,7 +26,6 @@ import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.google.android.material.transition.MaterialSharedAxis
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -47,40 +44,9 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     // constant for showing autocomplete suggestions
     private val LENGTH_TO_SHOW_SUGGESTIONS = 3
 
-//    var x: Int by Delegates.observable(0) { prop, old, new ->
-//        when (new) {
-//            0 -> {
-//                binding.applyFiltersButton.isEnabled = false
-//                binding.applyFiltersButton.text =
-//                    getString(R.string.button_apply_filter)
-//            }
-//            1 -> {
-//                binding.applyFiltersButton.isEnabled = true
-//                binding.applyFiltersButton.text =
-//                    getString(R.string.button_apply_filter_, new)
-//            }
-//            else -> {
-//                binding.applyFiltersButton.isEnabled = true
-//                binding.applyFiltersButton.text =
-//                    getString(R.string.button_apply_filters, new)
-//            }
-//        }
-//    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
-        }
-        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
-        }
     }
 
     override fun onCreateView(
@@ -183,8 +149,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                                 View.VISIBLE
                         }
                     }
-                    // update apply filters count
-//                    updateApplyFiltersText()
                 }
             })
 
@@ -216,8 +180,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                         binding.filterFromWhomExpandable.filtersAppliedText.text =
                             requireContext().getString( R.string.card_applied_filters, filterViewModel.fromWhomCount.value!!)
                     }
-                    // update apply filters count
-//                    updateApplyFiltersText()
                 }
             })
 
@@ -245,8 +207,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                         requireContext().getString(R.string.card_applied_filters, filterViewModel.typeCount.value!!)
                 }
             }
-            // update apply filters count
-//            updateApplyFiltersText()
         })
 
         // The next three observers check if apply filter button should be enabled
@@ -310,9 +270,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            // get location using Places API
-//            filterViewModel.requestCurrentLocation(placesClient)
-
             // Create location listener for LocationManager
             val locationListener: LocationListener = object : LocationListener {
                 override fun onLocationChanged(location: Location) {
