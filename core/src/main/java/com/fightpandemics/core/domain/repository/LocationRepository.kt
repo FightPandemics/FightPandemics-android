@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.Flow
 interface LocationRepository {
 
     suspend fun getUserLocation(
-        lat: String,
-        lng: String
+        lat: Double,
+        lng: Double
     ): Flow<Result<*>>?
 
     suspend fun getLocationPredictions(

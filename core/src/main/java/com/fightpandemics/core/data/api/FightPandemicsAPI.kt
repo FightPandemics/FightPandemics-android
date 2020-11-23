@@ -63,10 +63,11 @@ interface FightPandemicsAPI {
     ): Response<Void>
 
     // Get User Location
+    @Headers("No-Authentication: true")
     @GET("api/geo/location-reverse-geocode")
     suspend fun getUserLocation(
-        @Query("lat") lat: String,
-        @Query("lng") lng: String
+        @Query("lat") lat: Double,
+        @Query("lng") lng: Double
     ): Response<LocationResponse>
 
     // Get User Searching For Location.

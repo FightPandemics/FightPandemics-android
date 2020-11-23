@@ -8,8 +8,8 @@ import retrofit2.Response
 interface LocationRemoteDataSource {
 
     suspend fun getUserLocation(
-        lat: String,
-        lng: String
+        lat: Double,
+        lng: Double
     ): Response<LocationResponse>
 
     suspend fun getLocationPredictions(

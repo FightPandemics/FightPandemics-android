@@ -1,15 +1,21 @@
 package com.fightpandemics.filter.ui
 
-import android.location.Location
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.ActivityScope
+import com.fightpandemics.core.data.model.userlocation.LocationRequest
+import com.fightpandemics.core.result.Result
 import com.fightpandemics.filter.domain.LocationDetailsUseCase
 import com.fightpandemics.filter.domain.LocationPredictionsUseCase
 import com.fightpandemics.filter.domain.UserLocationUseCase
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
-import kotlin.collections.HashMap
+import android.location.Location as Location1
+import com.fightpandemics.core.data.model.userlocation.Location as Location2
 
 /*
 * created by Osaigbovo Odiase & Jose Li
@@ -20,6 +26,8 @@ class FilterViewModel @Inject constructor(
     private val locationPredictionsUseCase: LocationPredictionsUseCase,
     private val locationDetailsUseCase: LocationDetailsUseCase
 ) : ViewModel() {
+
+    private var locationJob: Job? = null
 
     // Handle visibility properties
     var isLocationOptionsExpanded = MutableLiveData<Boolean>()
@@ -60,7 +68,7 @@ class FilterViewModel @Inject constructor(
         typeCount.value = 0
     }
 
-    fun clearLiveDataFilters(){
+    fun clearLiveDataFilters() {
         locationQuery.value = ""
         fromWhomCount.value = 0
         typeCount.value = 0
@@ -72,7 +80,7 @@ class FilterViewModel @Inject constructor(
         optionsCardState.value = !optionsCardState.value!!
     }
 
-    fun closeOptionCards(){
+    fun closeOptionCards() {
         isLocationOptionsExpanded.value = false
         isFromWhomOptionsExpanded.value = false
         isTypeOptionsExpanded.value = false
@@ -82,23 +90,49 @@ class FilterViewModel @Inject constructor(
         val fromWhomCount = fromWhomFilters.value?.size ?: 0
         val typeCount = typeFilters.value?.size ?: 0
         var total = fromWhomCount + typeCount
-        if (locationQuery.value?.isNotBlank() == true){
+        if (locationQuery.value?.isNotBlank() == true) {
             total += 1
         }
         return total
     }
 
     // TODO: Do API here for getting place name from lat & lng
-    fun updateCurrentLocation(location: Location){
+    fun updateCurrentLocation(location: Location1) {
         onSelectedLocation.value = "Todo: get place name from API"
         latitude.value = location.latitude
         longitude.value = location.longitude
-        Timber.i("My filters : Location Manager View Model ${latitude.value}, ${longitude.value}")
+        Timber.e("My filters : Location Manager View Model ${latitude.value}, ${longitude.value}")
+
+        locationJob?.cancel()
+        locationJob = viewModelScope.launch {
+            userLocationUseCase(
+                LocationRequest(
+                    location.latitude,
+                    location.longitude
+                )
+            )
+                .collect {
+                    when (it) {
+                        is Result.Success -> {
+                            val l = it.data as Location2
+                            Timber.e(l.toString())
+                        }
+                        is Result.Error -> {
+                            Timber.e("${it.exception}")
+                        }
+                    }
+                }
+        }
     }
 
     // TODO: Do API here for autocomplete suggestions - address predictions
     fun autocompleteLocation(query: String) {
 
+        locationJob?.cancel()
+        if (query.isEmpty()) return
+        locationJob = viewModelScope.launch {
+
+        }
     }
 
     // TODO: Do API here for getting lat lng from placeId - /api/geo/location-details
@@ -106,7 +140,7 @@ class FilterViewModel @Inject constructor(
 
     }
 
-    fun createFilterRequest (): FilterRequest{
+    fun createFilterRequest(): FilterRequest {
         return FilterRequest(
             locationQuery.value,
             latitude.value,

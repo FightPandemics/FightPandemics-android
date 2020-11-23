@@ -12,8 +12,8 @@ class LocationRemoteDataSourceImpl @Inject constructor(
 ) : LocationRemoteDataSource {
 
     override suspend fun getUserLocation(
-        lat: String,
-        lng: String
+        lat: Double,
+        lng: Double
     ): Response<LocationResponse> {
         return fightPandemicsAPI.getUserLocation(lat, lng)
     }

@@ -2,6 +2,8 @@ package com.fightpandemics.core.data.repository
 
 import com.fightpandemics.core.data.model.login.ErrorResponse
 import com.fightpandemics.core.data.model.login.LoginResponse
+import com.fightpandemics.core.data.model.userlocation.Location
+import com.fightpandemics.core.data.model.userlocation.LocationResponse
 import com.fightpandemics.core.data.model.userlocationdetails.LocationDetails
 import com.fightpandemics.core.data.model.userlocationpredictions.LocationPrediction
 import com.fightpandemics.core.data.prefs.PreferenceStorage
@@ -15,6 +17,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -28,14 +31,14 @@ class LocationRepositoryImpl @Inject constructor(
     private val preferenceStorage: PreferenceStorage
 ) : LocationRepository {
 
-    override suspend fun getUserLocation(lat: String, lng: String): Flow<Result<*>>? {
+    override suspend fun getUserLocation(lat: Double, lng: Double): Flow<Result<*>>? {
         return channelFlow {
             val userLocationResponse = locationRemoteDataSource.getUserLocation(lat, lng)
             when {
                 userLocationResponse.isSuccessful && userLocationResponse.code() == 200 -> {
-                    val userCurrentLocation = userLocationResponse.body()!!.location
-                    //val userLocationResponse
-                    // = userLocationResponse.parseJsonResponse<LoginResponse>(moshi)
+                    //val userLocation: LocationResponse? = userLocationResponse.parseJsonResponse<LocationResponse>(moshi)
+                    val userCurrentLocation: Location = userLocationResponse.body()!!.location
+                    Timber.e(userCurrentLocation.address)
                     channel.offer(Result.Success(userCurrentLocation))
                 }
                 userLocationResponse.code() == 401 -> {
