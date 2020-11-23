@@ -4,13 +4,22 @@ import android.location.Location
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fightpandemics.core.dagger.scope.ActivityScope
+import com.fightpandemics.filter.domain.LocationDetailsUseCase
+import com.fightpandemics.filter.domain.LocationPredictionsUseCase
+import com.fightpandemics.filter.domain.UserLocationUseCase
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.collections.HashMap
 
+/*
+* created by Osaigbovo Odiase & Jose Li
+* */
 @ActivityScope
-//class FilterViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
-class FilterViewModel @Inject constructor() : ViewModel() {
+class FilterViewModel @Inject constructor(
+    private val userLocationUseCase: UserLocationUseCase,
+    private val locationPredictionsUseCase: LocationPredictionsUseCase,
+    private val locationDetailsUseCase: LocationDetailsUseCase
+) : ViewModel() {
 
     // Handle visibility properties
     var isLocationOptionsExpanded = MutableLiveData<Boolean>()
@@ -87,14 +96,23 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         Timber.i("My filters : Location Manager View Model ${latitude.value}, ${longitude.value}")
     }
 
-    // TODO: Do API here for autocomplete suggestions -
-    fun autocompleteLocation(query: String) {}
+    // TODO: Do API here for autocomplete suggestions - address predictions
+    fun autocompleteLocation(query: String) {
 
-    // TODO: Do API here for getting lat lng from placeId - /api/geo/location-details
-    fun getLatLng(placeId: String) {}
-
-    fun createFilterRequest (): FilterRequest{
-        return FilterRequest(locationQuery.value, latitude.value, longitude.value, fromWhomFilters.value, typeFilters.value)
     }
 
+    // TODO: Do API here for getting lat lng from placeId - /api/geo/location-details
+    fun getLatLng(placeId: String) {
+
+    }
+
+    fun createFilterRequest (): FilterRequest{
+        return FilterRequest(
+            locationQuery.value,
+            latitude.value,
+            longitude.value,
+            fromWhomFilters.value,
+            typeFilters.value
+        )
+    }
 }

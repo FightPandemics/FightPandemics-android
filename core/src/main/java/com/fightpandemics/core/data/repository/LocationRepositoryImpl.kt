@@ -55,7 +55,6 @@ class LocationRepositoryImpl @Inject constructor(
         return channelFlow {
             val userLocationPredictions =
                 locationRemoteDataSource.getLocationPredictions(input, sessiontoken!!)
-
             when {
                 userLocationPredictions.isSuccessful && userLocationPredictions.code() == 200 -> {
                     val locationPrediction =

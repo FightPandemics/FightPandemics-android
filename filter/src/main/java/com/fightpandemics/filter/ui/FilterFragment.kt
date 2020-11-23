@@ -29,6 +29,9 @@ import com.google.android.material.chip.ChipGroup
 import timber.log.Timber
 import javax.inject.Inject
 
+/*
+* created by Osaigbovo Odiase & Jose Li
+* */
 class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
     @Inject
