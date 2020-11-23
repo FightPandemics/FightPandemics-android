@@ -1,32 +1,16 @@
 package com.fightpandemics.filter.ui
 
 import android.location.Location
-import android.location.LocationManager
-import android.util.Pair
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fightpandemics.core.dagger.scope.ActivityScope
-import com.fightpandemics.filter.domain.LocationDetailsUseCase
-import com.fightpandemics.filter.domain.LocationPredictionsUseCase
-import com.fightpandemics.filter.domain.UserLocationUseCase
-import com.google.android.gms.common.api.ApiException
-import com.google.android.libraries.places.api.model.AutocompleteSessionToken
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.model.TypeFilter
-import com.google.android.libraries.places.api.net.*
-import kotlinx.coroutines.runBlocking
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 import kotlin.collections.HashMap
 
 @ActivityScope
 //class FilterViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
-class FilterViewModel @Inject constructor(
-    private val userLocationUseCase: UserLocationUseCase,
-    private val locationPredictionsUseCase: LocationPredictionsUseCase,
-    private val locationDetailsUseCase: LocationDetailsUseCase
-) : ViewModel() {
+class FilterViewModel @Inject constructor() : ViewModel() {
 
     // Handle visibility properties
     var isLocationOptionsExpanded = MutableLiveData<Boolean>()
@@ -95,30 +79,7 @@ class FilterViewModel @Inject constructor(
         return total
     }
 
-    fun requestCurrentLocation(placesClient: PlacesClient) {
-        // Use fields to define the data types to return.
-        val placeFields: List<Place.Field> = listOf(Place.Field.ADDRESS, Place.Field.LAT_LNG)
-
-        // Use the builder to create a FindCurrentPlaceRequest.
-        val request: FindCurrentPlaceRequest = FindCurrentPlaceRequest.newInstance(placeFields)
-
-        val placeResponse = placesClient.findCurrentPlace(request)
-        placeResponse.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val response = task.result
-                onSelectedLocation.value = response.placeLikelihoods[0].place.address
-                latitude.value = response.placeLikelihoods[0].place.latLng?.latitude
-                longitude.value = response.placeLikelihoods[0].place.latLng?.longitude
-                Timber.i("My filters : places ${latitude.value}, ${longitude.value}")
-            } else {
-                val exception = task.exception
-                if (exception is ApiException) {
-                    Timber.e("Place not found: ${exception.statusCode}")
-                }
-            }
-        }
-    }
-
+    // TODO: Do API here for getting place name from lat & lng
     fun updateCurrentLocation(location: Location){
         onSelectedLocation.value = "Todo: get place name from API"
         latitude.value = location.latitude
@@ -126,66 +87,11 @@ class FilterViewModel @Inject constructor(
         Timber.i("My filters : Location Manager View Model ${latitude.value}, ${longitude.value}")
     }
 
-    fun autocompleteLocation(query: String, placesClient: PlacesClient) {
-        // Create a new token for the autocomplete session. Pass this to FindAutocompletePredictionsRequest,
-        // and once again when the user makes a selection (for example when calling fetchPlace()).
-        val token = AutocompleteSessionToken.newInstance()
+    // TODO: Do API here for autocomplete suggestions -
+    fun autocompleteLocation(query: String) {}
 
-        // Use the builder to create a FindAutocompletePredictionsRequest.
-        val request =
-            FindAutocompletePredictionsRequest.builder()
-                .setTypeFilter(TypeFilter.ADDRESS)
-                .setSessionToken(token)
-                .setQuery(query)
-                .build()
-
-        // initialize map
-        val placesMap = HashMap<String, MutableList<String>>()
-        placesMap["names"] = mutableListOf()
-        placesMap["ids"] = mutableListOf()
-
-        placesClient.findAutocompletePredictions(request)
-            .addOnSuccessListener { response: FindAutocompletePredictionsResponse ->
-                Timber.i("Places: success")
-                for (prediction in response.autocompletePredictions) {
-                    val placeName = prediction.getPrimaryText(null).toString()
-                    val placeId = prediction.placeId
-                    placesMap["names"]!!.add(placeName)
-                    placesMap["ids"]!!.add(placeId)
-                }
-                // update the live data
-                autocomplete_locations.value = placesMap
-            }.addOnFailureListener { exception: Exception? ->
-                Timber.i("Places: failure")
-                if (exception is ApiException) {
-                    Timber.e("Place not found: " + exception.statusCode)
-                }
-            }
-    }
-
-    fun getLatLng(placeId: String, placesClient: PlacesClient) {
-        // Specify the fields to return.
-        val placeFields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG)
-
-        // Construct a request object, passing the place ID and fields array.
-        val request = FetchPlaceRequest.newInstance(placeId, placeFields)
-
-        // TODO: TEST OUT THAT THIS IS GETTING THE CORRECT LAT & LNG CORRECTLY
-        placesClient.fetchPlace(request)
-            .addOnSuccessListener { response: FetchPlaceResponse ->
-                val place = response.place
-//                Timber.i("my filters : Places found: ${place.name}, ${place.latLng}")
-//                Timber.i("my filters : Do placeId match? input: $placeId, fetched: ${place.id.toString()} : ${placeId == place.id.toString()}")
-                latitude.value = place.latLng?.latitude
-                longitude.value = place.latLng?.longitude
-            }.addOnFailureListener { exception: Exception ->
-                if (exception is ApiException) {
-                    Timber.i("Places not found: ${exception.message}")
-                    val statusCode = exception.statusCode
-                    TODO("Handle error with given status code")
-                }
-            }
-    }
+    // TODO: Do API here for getting lat lng from placeId - /api/geo/location-details
+    fun getLatLng(placeId: String) {}
 
     fun createFilterRequest (): FilterRequest{
         return FilterRequest(locationQuery.value, latitude.value, longitude.value, fromWhomFilters.value, typeFilters.value)

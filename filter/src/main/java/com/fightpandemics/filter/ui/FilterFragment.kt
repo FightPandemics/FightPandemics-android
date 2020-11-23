@@ -1,6 +1,5 @@
 package com.fightpandemics.filter.ui
 
-import com.fightpandemics.home.BuildConfig
 import android.Manifest
 import android.animation.LayoutTransition
 import android.app.AlertDialog
@@ -16,23 +15,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.net.*
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.google.android.material.transition.MaterialSharedAxis
-import kotlinx.coroutines.flow.callbackFlow
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -40,40 +33,16 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
     @Inject
     lateinit var filterViewModelFactory: ViewModelFactory
-
-    private val filterViewModel: FilterViewModel by viewModels { filterViewModelFactory }
-
+    private lateinit var filterViewModel: FilterViewModel
     private lateinit var binding: FilterStartFragmentBinding
-    private lateinit var placesClient: PlacesClient
     private lateinit var locationManager: LocationManager
     private lateinit var defaultTransition: LayoutTransition
 
     // Places API variables
     private val LOCATION_PERMISSION_CODE = 1
-    private val PLACES_API_KEY: String? = ""/*BuildConfig.PLACES_API_KEY*/
 
     // constant for showing autocomplete suggestions
     private val LENGTH_TO_SHOW_SUGGESTIONS = 3
-
-//    var x: Int by Delegates.observable(0) { prop, old, new ->
-//        when (new) {
-//            0 -> {
-//                binding.applyFiltersButton.isEnabled = false
-//                binding.applyFiltersButton.text =
-//                    getString(R.string.button_apply_filter)
-//            }
-//            1 -> {
-//                binding.applyFiltersButton.isEnabled = true
-//                binding.applyFiltersButton.text =
-//                    getString(R.string.button_apply_filter_, new)
-//            }
-//            else -> {
-//                binding.applyFiltersButton.isEnabled = true
-//                binding.applyFiltersButton.text =
-//                    getString(R.string.button_apply_filters, new)
-//            }
-//        }
-//    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -95,10 +64,8 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Places API Logic - Initialize places sdk
-        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY!!)
-        // Create a new PlacesClient instance
-        placesClient = Places.createClient(requireContext())
+        // Get the viewmodel
+        filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
         // Create a new Location Manager
         locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         // Get default transition
@@ -182,8 +149,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                                 View.VISIBLE
                         }
                     }
-                    // update apply filters count
-//                    updateApplyFiltersText()
                 }
             })
 
@@ -215,8 +180,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                         binding.filterFromWhomExpandable.filtersAppliedText.text =
                             requireContext().getString( R.string.card_applied_filters, filterViewModel.fromWhomCount.value!!)
                     }
-                    // update apply filters count
-//                    updateApplyFiltersText()
                 }
             })
 
@@ -244,8 +207,6 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                         requireContext().getString(R.string.card_applied_filters, filterViewModel.typeCount.value!!)
                 }
             }
-            // update apply filters count
-//            updateApplyFiltersText()
         })
 
         // The next three observers check if apply filter button should be enabled
@@ -282,12 +243,12 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
         // do not start autocomplete until 3 chars in and delete location input that is not selected
         binding.locationOptions.locationSearch.doAfterTextChanged { inputLocation ->
-            // todo if statement to recognize a change to selectedlocation
             // do not search autocomplete suggestions until 3 chars in
             inputLocation?.let {
                 handleAutocompleteVisibility(it.toString())
                 if (it.length >= LENGTH_TO_SHOW_SUGGESTIONS){
-                    filterViewModel.autocompleteLocation(it.toString(), placesClient)
+                    // TODO: Do API autocomplete call here
+                    filterViewModel.autocompleteLocation(it.toString())
                 }
             }
             // if location in the editText is edited, delete location, lat, lgn live data
@@ -309,8 +270,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            // get location using Places API
-//            filterViewModel.requestCurrentLocation(placesClient)
+            // Create location listener for LocationManager
             val locationListener: LocationListener = object : LocationListener {
                 override fun onLocationChanged(location: Location) {
                     Timber.i("My filters : locationManager ${location.latitude}, ${location.longitude}")
@@ -483,7 +443,8 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     override fun onAutocompleteLocationClick(locationSelected: String, placeId: String) {
         // update onSelectedLocation, latitude and longitude live data in view model
         filterViewModel.onSelectedLocation.value = locationSelected
-        filterViewModel.getLatLng(placeId, placesClient)
+        // TODO: Get Lat and Lng here for autocomplete selection from API
+        filterViewModel.getLatLng(placeId)
     }
 
 }

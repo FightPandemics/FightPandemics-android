@@ -22,9 +22,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    buildTypes.each{
-        //it.buildConfigField 'String', "PLACES_API_KEY", PLACES_API_KEY
-    }
 
     buildFeatures{
         viewBinding true
@@ -53,12 +50,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
     implementation "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
 
-    // Google's Places API
-    implementation 'com.google.android.libraries.places:places:2.4.0'
-
     // Dagger
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
-}
-repositories {
-    mavenCentral()
+
 }
