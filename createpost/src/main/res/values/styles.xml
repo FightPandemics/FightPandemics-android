@@ -16,9 +16,18 @@
         <item name="chipCornerRadius">4dp</item>
     </style>
 
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
 
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/color_white</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
 
-
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_nav_background</item>
+    </style>
 
     <style name="PostMaterialDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="android:layout_height">wrap_content</item>
@@ -109,6 +118,14 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TagChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@drawable/chip_selected_effect</item>
+        <item name="android:textColor">@drawable/chip_text_color_selected_effect</item>
+        <item name="chipMinTouchTargetSize">32dp</item>
+        <item name="chipCornerRadius">6dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
+    </style>
 
     <style name="FlatButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:insetTop">0dp</item>

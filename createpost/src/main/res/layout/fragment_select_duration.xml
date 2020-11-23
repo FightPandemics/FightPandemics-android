@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingBottom="20dp"
     android:layout_height="wrap_content"
+    android:background="@drawable/bottom_nav_background"
+    android:paddingBottom="20dp"
     android:layout_gravity="top">
 
     <ImageView
@@ -19,14 +20,16 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/see"
+        android:id="@+id/active"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins_bold"
         android:gravity="center"
+        android:text="@string/how_long_should_this_post_be_active_for"
         android:lineSpacingExtra="6sp"
-        android:text="@string/who_can_see_this_post"
         android:textColor="@color/textColorPrimary"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -34,8 +37,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line"/>
 
-    <Button
-        android:id="@+id/neighbourhood"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/day"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -43,17 +46,17 @@
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="7sp"
-        android:text="@string/my_neighbourhood"
         android:textAllCaps="false"
+        android:text="@string/a_day"
         android:textColor="@color/textColorPrimary"
         android:textSize="15sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/see"/>
+        app:layout_constraintTop_toBottomOf="@+id/active"/>
 
-    <Button
-        android:id="@+id/city"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/week"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -62,16 +65,16 @@
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="7sp"
         android:textAllCaps="false"
-        android:text="@string/my_city"
         android:textColor="@color/textColorPrimary"
         android:textSize="15sp"
+        android:text="@string/a_week"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/neighbourhood"/>
+        app:layout_constraintTop_toBottomOf="@+id/day"/>
 
-    <Button
-        android:id="@+id/country"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/month"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -80,16 +83,16 @@
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="7sp"
         android:textAllCaps="false"
-        android:text="@string/my_country"
         android:textColor="@color/textColorPrimary"
         android:textSize="15sp"
+        android:text="@string/a_month"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city"/>
+        app:layout_constraintTop_toBottomOf="@+id/week"/>
 
-    <Button
-        android:id="@+id/anyone"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/forever"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -98,12 +101,12 @@
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="7sp"
         android:textAllCaps="false"
-        android:text="@string/anyone"
         android:textColor="@color/textColorPrimary"
         android:textSize="15sp"
+        android:text="@string/forever"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country"/>
+        app:layout_constraintTop_toBottomOf="@+id/month"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
