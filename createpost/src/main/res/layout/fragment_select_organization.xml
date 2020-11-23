@@ -29,6 +29,7 @@
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins_bold"
         android:gravity="center"
+        android:text="@string/posting_as"
         android:lineSpacingExtra="6sp"
         android:textColor="@color/fightPandemicsNero"
         android:textSize="16sp"
@@ -55,6 +56,7 @@
         style="@style/AndroidNativeH314Px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Victor Maragioglio"
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/user_avatar"
         app:layout_constraintStart_toEndOf="@+id/user_avatar"
@@ -108,7 +110,7 @@
         android:background="@color/color_view"
         app:layout_constraintTop_toBottomOf="@+id/rv_organization" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add"
         style="@style/AndroidNativeH314Px"
         android:layout_width="match_parent"
@@ -117,6 +119,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:textSize="14sp"
+        android:gravity="center"
         android:backgroundTint="@color/fightPandemicsGhostWhite"
         android:drawableStart="@drawable/ic_plus_sign"
         android:text="@string/add_an_organisation_account"

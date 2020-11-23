@@ -36,4 +36,6 @@
     <string name="add_tags_to_help_boost_your_visibility">Add tags to help boost your visibility</string>
     <string name="add_tags">Add Tags</string>
     <string name="post">Post</string>
+    <string name="choose_tags">Choose Tags</string>
+    <string name="posting_as">Posting As</string>
 </resources>

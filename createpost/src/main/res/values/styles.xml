@@ -121,14 +121,10 @@
     <style name="TagChip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@drawable/chip_selected_effect</item>
         <item name="android:textColor">@drawable/chip_text_color_selected_effect</item>
-        <item name="chipEndPadding">20dp</item>
-        <item name="chipStartPadding">20dp</item>
         <item name="chipMinTouchTargetSize">32dp</item>
         <item name="chipCornerRadius">6dp</item>
         <item name="android:textSize">12sp</item>
         <item name="fontFamily">@font/worksans_regular</item>
-        <item name="chipSpacingVertical">4sp</item>
-        <item name="android:layout_marginBottom">4sp</item>
     </style>
 
     <style name="FlatButton" parent="Widget.MaterialComponents.Button.TextButton">

@@ -1,5 +1,6 @@
 package com.fightpandemics.createpost.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
+import com.fightpandemics.createpost.R
 import com.fightpandemics.createpost.dagger.inject
 import com.fightpandemics.createpost.databinding.FragmentCreatePostBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
 class CreatePostFragment : Fragment() {
@@ -54,16 +58,34 @@ class CreatePostFragment : Fragment() {
     }
 
     private fun setupViews() {
-        fragmentCreatePostBinding!!.name.setOnClickListener { showToast(it) }
-        fragmentCreatePostBinding!!.offer.setOnClickListener { showToast(it) }
-        fragmentCreatePostBinding!!.request.setOnClickListener { showToast(it) }
-        fragmentCreatePostBinding!!.people.setOnClickListener { showToast(it) }
-        fragmentCreatePostBinding!!.month.setOnClickListener { showToast(it) }
-        fragmentCreatePostBinding!!.tag.setOnClickListener { showToast(it) }
-        fragmentCreatePostBinding!!.post.setOnClickListener { showToast(it) }
+        fragmentCreatePostBinding!!.name.setOnClickListener { displayOrganizationBottomDialog() }
+        fragmentCreatePostBinding!!.offer.setOnClickListener { }
+        fragmentCreatePostBinding!!.request.setOnClickListener { }
+        fragmentCreatePostBinding!!.people.setOnClickListener { displayVisibilityBottomDialog() }
+        fragmentCreatePostBinding!!.month.setOnClickListener { displayDurationBottomDialog() }
+        fragmentCreatePostBinding!!.tag.setOnClickListener { displayTagBottomDialog() }
+        fragmentCreatePostBinding!!.post.setOnClickListener { }
     }
 
-    private fun showToast(view: View) {
-        Toast.makeText(requireContext(), view.toString() + "was clicked", Toast.LENGTH_SHORT).show()
+    private fun displayOrganizationBottomDialog() {
+        val fragment = SelectOrganizationFragment()
+        fragment.show(requireActivity().supportFragmentManager, fragment.tag)
     }
+
+    private fun displayVisibilityBottomDialog() {
+        val fragment = SelectVisibilityFragment()
+        fragment.show(requireActivity().supportFragmentManager, fragment.tag)
+    }
+
+    private fun displayDurationBottomDialog() {
+        val fragment = SelectDurationFragment()
+        fragment.show(requireActivity().supportFragmentManager, fragment.tag)
+    }
+
+    private fun displayTagBottomDialog() {
+        val fragment = SelectTagFragment()
+        fragment.show(requireActivity().supportFragmentManager, fragment.tag)
+    }
+
+    private fun postContent() {}
 }
