@@ -34,7 +34,7 @@ import javax.inject.Inject
 * */
 class FilterFragment : /*Fragment(),*/ BaseLocationFragment(), FilterAdapter.OnItemClickListener {
 
-    // Places API variables
+    // Location variable for permissions
     private val LOCATION_PERMISSION_CODE = 1
 
     // constant for showing autocomplete suggestions
@@ -44,9 +44,10 @@ class FilterFragment : /*Fragment(),*/ BaseLocationFragment(), FilterAdapter.OnI
     lateinit var filterViewModelFactory: ViewModelFactory
     private val filterViewModel: FilterViewModel by viewModels { filterViewModelFactory }
     private var filterStartFragmentBinding: FilterStartFragmentBinding? = null
-//    private var mFusedLocationClient: FusedLocationProviderClient? = null
-    private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private lateinit var defaultTransition: LayoutTransition
+
+    // Fused location client variables
+    private lateinit var mFusedLocationClient: FusedLocationProviderClient
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -330,7 +331,7 @@ class FilterFragment : /*Fragment(),*/ BaseLocationFragment(), FilterAdapter.OnI
                 override fun onLocationResult(locationResult: LocationResult) {
                     Timber.i("My filters: callback ${locationResult.lastLocation}")
                     getCurrentLocation()
-//                    filterViewModel.updateCurrentLocation(locationResult.lastLocation)
+                    mFusedLocationClient!!.removeLocationUpdates(this)
                 }
             }
 
@@ -341,7 +342,6 @@ class FilterFragment : /*Fragment(),*/ BaseLocationFragment(), FilterAdapter.OnI
                 } else{
                     Timber.i("My filters: Location was null")
                     mFusedLocationClient!!.requestLocationUpdates(locationRequest, locationCallback, null)
-                    mFusedLocationClient!!.removeLocationUpdates(locationCallback)
                 }
             }
 
