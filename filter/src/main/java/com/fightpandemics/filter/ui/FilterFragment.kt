@@ -32,7 +32,7 @@ import javax.inject.Inject
 /*
 * created by Osaigbovo Odiase & Jose Li
 * */
-class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
+class FilterFragment : /*Fragment(),*/ BaseLocationFragment(), FilterAdapter.OnItemClickListener {
 
     // Places API variables
     private val LOCATION_PERMISSION_CODE = 1
