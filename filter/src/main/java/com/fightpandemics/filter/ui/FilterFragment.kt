@@ -21,7 +21,9 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
+import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+import com.google.android.gms.tasks.RuntimeExecutionException
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import timber.log.Timber
@@ -42,7 +44,8 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     lateinit var filterViewModelFactory: ViewModelFactory
     private val filterViewModel: FilterViewModel by viewModels { filterViewModelFactory }
     private var filterStartFragmentBinding: FilterStartFragmentBinding? = null
-    private var mFusedLocationClient: FusedLocationProviderClient? = null
+//    private var mFusedLocationClient: FusedLocationProviderClient? = null
+    private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private lateinit var defaultTransition: LayoutTransition
 
     override fun onAttach(context: Context) {
@@ -285,7 +288,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
     override fun onDestroyView() {
         filterStartFragmentBinding = null
-        mFusedLocationClient = null
+//        mFusedLocationClient = null
         super.onDestroyView()
     }
 
@@ -304,11 +307,30 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                 .setInterval(10 * 1000) // 10 seconds
                 .setFastestInterval(5*1000) // 5 seconds
 
+            val REQUEST_CHECK_STATE = 12300 // any suitable ID
+            val builder = LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest)
+
+            val client = LocationServices.getSettingsClient(requireContext())
+            client.checkLocationSettings(builder.build()).addOnCompleteListener { task ->
+                try {
+                    task.result!!.locationSettingsStates
+                    Timber.i("My filters : gps is on")
+                } catch (e: RuntimeExecutionException) {
+                    Timber.i("My filters : runtime execution exception")
+                    if (e.cause is ResolvableApiException)
+                        (e.cause as ResolvableApiException).startResolutionForResult(
+                            requireActivity(),
+                            REQUEST_CHECK_STATE
+                        )
+                }
+            }
+
             val locationCallback = object : LocationCallback(){
                 override fun onLocationResult(locationResult: LocationResult) {
                     Timber.i("My filters: callback ${locationResult.lastLocation}")
-                    filterViewModel.updateCurrentLocation(locationResult.lastLocation)
-                    mFusedLocationClient!!.removeLocationUpdates(this)
+                    getCurrentLocation()
+//                    filterViewModel.updateCurrentLocation(locationResult.lastLocation)
                 }
             }
 
@@ -317,9 +339,12 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                     Timber.i("My filters: last location: $location")
                     filterViewModel.updateCurrentLocation(location)
                 } else{
+                    Timber.i("My filters: Location was null")
                     mFusedLocationClient!!.requestLocationUpdates(locationRequest, locationCallback, null)
+                    mFusedLocationClient!!.removeLocationUpdates(locationCallback)
                 }
             }
+
         } else {
             // A local method to request required permissions;
             getLocationPermission()
