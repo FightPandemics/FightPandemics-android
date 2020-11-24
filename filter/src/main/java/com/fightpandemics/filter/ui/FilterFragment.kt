@@ -5,9 +5,6 @@ import android.animation.LayoutTransition
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +21,7 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
+import com.google.android.gms.location.*
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import timber.log.Timber
@@ -44,7 +42,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
     lateinit var filterViewModelFactory: ViewModelFactory
     private val filterViewModel: FilterViewModel by viewModels { filterViewModelFactory }
     private var filterStartFragmentBinding: FilterStartFragmentBinding? = null
-    private var locationManager: LocationManager? = null
+    private var mFusedLocationClient: FusedLocationProviderClient? = null
     private lateinit var defaultTransition: LayoutTransition
 
     override fun onAttach(context: Context) {
@@ -67,9 +65,9 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Create a new Location Manager
-        locationManager =
-            requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        // Create a FusedLocation Client
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
         // Get default transition
         defaultTransition = filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition
 
@@ -287,7 +285,7 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
 
     override fun onDestroyView() {
         filterStartFragmentBinding = null
-        locationManager = null
+        mFusedLocationClient = null
         super.onDestroyView()
     }
 
@@ -298,36 +296,30 @@ class FilterFragment : Fragment(), FilterAdapter.OnItemClickListener {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            // Create location listener for LocationManager
-            val locationListener: LocationListener = object : LocationListener {
-                override fun onLocationChanged(location: Location) {
-                    Timber.i("My filters : locationManager ${location.latitude}, ${location.longitude}")
-                    locationManager!!.removeUpdates(this)
-                    // update live data
+
+            Timber.i("My filters: Starting fetching for location")
+
+            val locationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10 * 1000) // 10 seconds
+                .setFastestInterval(5*1000) // 5 seconds
+
+            val locationCallback = object : LocationCallback(){
+                override fun onLocationResult(locationResult: LocationResult) {
+                    Timber.i("My filters: callback ${locationResult.lastLocation}")
+                    filterViewModel.updateCurrentLocation(locationResult.lastLocation)
+                    mFusedLocationClient!!.removeLocationUpdates(this)
+                }
+            }
+
+            mFusedLocationClient!!.lastLocation.addOnSuccessListener { location ->
+                if (location != null){
+                    Timber.i("My filters: last location: $location")
                     filterViewModel.updateCurrentLocation(location)
-                }
-
-                override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
-
-                override fun onProviderEnabled(provider: String) {}
-
-                override fun onProviderDisabled(provider: String) {
-                    Timber.i("My filters : locationManager GPS OFF")
-                    Toast.makeText(requireContext(), "GPS Disabled", Toast.LENGTH_SHORT).show()
+                } else{
+                    mFusedLocationClient!!.requestLocationUpdates(locationRequest, locationCallback, null)
                 }
             }
-
-            if (locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                locationManager!!.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    1000,
-                    1f,
-                    locationListener
-                )
-            } else {
-                Toast.makeText(requireContext(), "Please enable GPS", Toast.LENGTH_SHORT).show()
-            }
-
         } else {
             // A local method to request required permissions;
             getLocationPermission()
