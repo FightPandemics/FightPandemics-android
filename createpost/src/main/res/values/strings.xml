@@ -38,4 +38,10 @@
     <string name="post">Post</string>
     <string name="choose_tags">Choose Tags</string>
     <string name="posting_as">Posting As</string>
+    <string name="for_1_day">For 1 Day</string>
+    <string name="for_1_week">For 1 Week</string>
+    <string name="for_1_month">For 1 Month</string>
+    <string name="people_in_my_city">People in my City</string>
+    <string name="people_in_my_country">People in my Country</string>
+    <string name="people_in_my_neighbourhood">People in my Neighbourhood</string>
 </resources>
