@@ -58,6 +58,9 @@ dependencies {
     // Dagger
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
 
+    // Location
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
+
 }
 repositories {
     mavenCentral()

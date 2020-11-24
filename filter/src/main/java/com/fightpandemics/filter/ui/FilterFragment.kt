@@ -1,29 +1,20 @@
 package com.fightpandemics.filter.ui
 
-import android.Manifest
 import android.animation.LayoutTransition
-import android.app.AlertDialog
 import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
-import com.google.android.gms.tasks.RuntimeExecutionException
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import timber.log.Timber
@@ -32,10 +23,7 @@ import javax.inject.Inject
 /*
 * created by Osaigbovo Odiase & Jose Li
 * */
-class FilterFragment : /*Fragment(),*/ BaseLocationFragment(), FilterAdapter.OnItemClickListener {
-
-    // Location variable for permissions
-    private val LOCATION_PERMISSION_CODE = 1
+class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener {
 
     // constant for showing autocomplete suggestions
     private val LENGTH_TO_SHOW_SUGGESTIONS = 3
@@ -45,9 +33,6 @@ class FilterFragment : /*Fragment(),*/ BaseLocationFragment(), FilterAdapter.OnI
     private val filterViewModel: FilterViewModel by viewModels { filterViewModelFactory }
     private var filterStartFragmentBinding: FilterStartFragmentBinding? = null
     private lateinit var defaultTransition: LayoutTransition
-
-    // Fused location client variables
-    private lateinit var mFusedLocationClient: FusedLocationProviderClient
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -69,8 +54,6 @@ class FilterFragment : /*Fragment(),*/ BaseLocationFragment(), FilterAdapter.OnI
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Create a FusedLocation Client
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         // Get default transition
         defaultTransition = filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition
@@ -283,113 +266,18 @@ class FilterFragment : /*Fragment(),*/ BaseLocationFragment(), FilterAdapter.OnI
         }
 
         filterStartFragmentBinding!!.locationOptions.shareMyLocation.setOnClickListener {
-            getCurrentLocation()
+            /*if (currentLocation == null){
+                getCurrentLocation()
+                //filterViewModel.updateCurrentLocation(currentLocation!!)
+            }*/
+            super.getCurrentLocation()
+            currentLocation?.let { it1 -> filterViewModel.updateCurrentLocation(it1) }
         }
     }
 
     override fun onDestroyView() {
         filterStartFragmentBinding = null
-//        mFusedLocationClient = null
         super.onDestroyView()
-    }
-
-    private fun getCurrentLocation() {
-        // Call findCurrentPlace and handle the response (first check that the user has granted permission).
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-
-            Timber.i("My filters: Starting fetching for location")
-
-            val locationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(10 * 1000) // 10 seconds
-                .setFastestInterval(5*1000) // 5 seconds
-
-            val REQUEST_CHECK_STATE = 12300 // any suitable ID
-            val builder = LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest)
-
-            val client = LocationServices.getSettingsClient(requireContext())
-            client.checkLocationSettings(builder.build()).addOnCompleteListener { task ->
-                try {
-                    task.result!!.locationSettingsStates
-                    Timber.i("My filters : gps is on")
-                } catch (e: RuntimeExecutionException) {
-                    Timber.i("My filters : runtime execution exception")
-                    if (e.cause is ResolvableApiException)
-                        (e.cause as ResolvableApiException).startResolutionForResult(
-                            requireActivity(),
-                            REQUEST_CHECK_STATE
-                        )
-                }
-            }
-
-            val locationCallback = object : LocationCallback(){
-                override fun onLocationResult(locationResult: LocationResult) {
-                    Timber.i("My filters: callback ${locationResult.lastLocation}")
-                    getCurrentLocation()
-                    mFusedLocationClient!!.removeLocationUpdates(this)
-                }
-            }
-
-            mFusedLocationClient!!.lastLocation.addOnSuccessListener { location ->
-                if (location != null){
-                    Timber.i("My filters: last location: $location")
-                    filterViewModel.updateCurrentLocation(location)
-                } else{
-                    Timber.i("My filters: Location was null")
-                    mFusedLocationClient!!.requestLocationUpdates(locationRequest, locationCallback, null)
-                }
-            }
-
-        } else {
-            // A local method to request required permissions;
-            getLocationPermission()
-        }
-    }
-
-    private fun getLocationPermission() {
-        if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            val dialogView = layoutInflater.inflate(R.layout.location_permission_dialog, null)
-            AlertDialog.Builder(requireContext())
-                .setView(dialogView)
-                .setPositiveButton("ALLOW") { dialog, which ->
-                    requestPermissions(
-                        arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                        LOCATION_PERMISSION_CODE
-                    )
-                }
-                .setNegativeButton("CANCEL") { dialog, id ->
-                    dialog.dismiss()
-                }.create().show()
-        } else {
-            requestPermissions(
-                arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                LOCATION_PERMISSION_CODE
-            )
-//            Toast.makeText(context, "Permissions were denied", Toast.LENGTH_LONG).show()
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            LOCATION_PERMISSION_CODE -> {
-                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT)
-                        .show()
-                    getCurrentLocation()
-                }
-            }
-        }
     }
 
     private fun expandContents(optionsView: View, clickableTextView: TextView) {

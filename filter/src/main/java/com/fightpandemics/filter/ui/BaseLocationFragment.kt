@@ -3,8 +3,10 @@ package com.fightpandemics.filter.ui
 import android.Manifest
 import android.app.AlertDialog
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.fightpandemics.home.R
@@ -16,35 +18,29 @@ import timber.log.Timber
 /*
 * created by Osaigbovo Odiase & Jose Li
 * */
-open class BaseLocationFragment: Fragment() {
+open class BaseLocationFragment : Fragment() {
 
     // Places API variables
     private val LOCATION_PERMISSION_CODE = 1
 
-    //    private var mFusedLocationClient: FusedLocationProviderClient? = null
-    private lateinit var mFusedLocationClient: FusedLocationProviderClient
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    var mFusedLocationClient: FusedLocationProviderClient? = null
+    //lateinit var mFusedLocationClient: FusedLocationProviderClient
+    var currentLocation: Location? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // Create a FusedLocation Client
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-    }
 
-    override fun onResume() {
-        super.onResume()
+        //getCurrentLocation()
     }
 
     override fun onDestroyView() {
-        //mFusedLocationClient = null
+        mFusedLocationClient = null
         super.onDestroyView()
     }
 
-    private fun getCurrentLocation() {
+    fun getCurrentLocation() {
         // Call findCurrentPlace and handle the response (first check that the user has granted permission).
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -57,7 +53,7 @@ open class BaseLocationFragment: Fragment() {
             val locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000) // 10 seconds
-                .setFastestInterval(5*1000) // 5 seconds
+                .setFastestInterval(5 * 1000) // 5 seconds
 
             val REQUEST_CHECK_STATE = 12300 // any suitable ID
             val builder = LocationSettingsRequest.Builder()
@@ -78,22 +74,27 @@ open class BaseLocationFragment: Fragment() {
                 }
             }
 
-            val locationCallback = object : LocationCallback(){
+            val locationCallback = object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult) {
                     Timber.i("My filters: callback ${locationResult.lastLocation}")
                     getCurrentLocation()
-//                    filterViewModel.updateCurrentLocation(locationResult.lastLocation)
+                    mFusedLocationClient!!.removeLocationUpdates(this)
                 }
             }
 
-            mFusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                if (location != null){
+            mFusedLocationClient!!.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
                     Timber.i("My filters: last location: $location")
+                    Timber.e(location.toString())
+                    currentLocation(location)
                     //filterViewModel.updateCurrentLocation(location)
-                } else{
+                } else {
                     Timber.i("My filters: Location was null")
-                    mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
-                    mFusedLocationClient.removeLocationUpdates(locationCallback)
+                    mFusedLocationClient!!.requestLocationUpdates(
+                        locationRequest,
+                        locationCallback,
+                        null
+                    )
                 }
             }
 
@@ -103,7 +104,11 @@ open class BaseLocationFragment: Fragment() {
         }
     }
 
-    private fun getLocationPermission() {
+    fun currentLocation(location: Location){
+        this.currentLocation = location
+    }
+
+    fun getLocationPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
             val dialogView = layoutInflater.inflate(R.layout.location_permission_dialog, null)
             AlertDialog.Builder(requireContext())
@@ -122,7 +127,24 @@ open class BaseLocationFragment: Fragment() {
                 arrayOf("android.permission.ACCESS_FINE_LOCATION"),
                 LOCATION_PERMISSION_CODE
             )
-//            Toast.makeText(context, "Permissions were denied", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            LOCATION_PERMISSION_CODE -> {
+                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT)
+                        .show()
+                    getCurrentLocation()
+                }
+            }
         }
     }
 }
