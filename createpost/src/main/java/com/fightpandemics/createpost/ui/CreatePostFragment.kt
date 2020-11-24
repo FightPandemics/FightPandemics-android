@@ -84,8 +84,7 @@ class CreatePostFragment : Fragment() {
     private fun observeDurationBottomDialog() {
         val navBackStackEntry = findNavController().getBackStackEntry(R.id.createPostFragment)
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME
-                && navBackStackEntry.savedStateHandle.contains("duration")) {
+            if (event == Lifecycle.Event.ON_RESUME && navBackStackEntry.savedStateHandle.contains("duration")) {
                 when (navBackStackEntry.savedStateHandle.get<String>("duration")) {
                     "A day" -> {
                         fragmentCreatePostBinding!!.month.text = getString(R.string.for_1_day)
@@ -113,8 +112,7 @@ class CreatePostFragment : Fragment() {
     private fun observeVisibilityBottomDialog() {
         val navBackStackEntry = findNavController().getBackStackEntry(R.id.createPostFragment)
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME
-                && navBackStackEntry.savedStateHandle.contains("visibility")) {
+            if (event == Lifecycle.Event.ON_RESUME && navBackStackEntry.savedStateHandle.contains("visibility")) {
                 when (navBackStackEntry.savedStateHandle.get<String>("visibility")) {
                     "My neighbourhood" -> {
                         fragmentCreatePostBinding!!.people.text = getString(R.string.people_in_my_neighbourhood)

@@ -50,8 +50,6 @@ class SelectVisibilityFragment : BottomSheetDialogFragment() {
                 setTextColor(resources.getColor(R.color.textColorPrimary))
             }
         }
-
-
         fragmentSelectVisibilityBinding!!.city.setOnClickListener {
             val visibilityText = fragmentSelectVisibilityBinding!!.city.text.toString()
             findNavController().previousBackStackEntry?.savedStateHandle?.set("visibility", visibilityText)
@@ -72,8 +70,6 @@ class SelectVisibilityFragment : BottomSheetDialogFragment() {
                 setTextColor(resources.getColor(R.color.textColorPrimary))
             }
         }
-
-
         fragmentSelectVisibilityBinding!!.country.setOnClickListener {
             val visibilityText = fragmentSelectVisibilityBinding!!.country.text.toString()
             findNavController().previousBackStackEntry?.savedStateHandle?.set("visibility", visibilityText)
@@ -94,8 +90,6 @@ class SelectVisibilityFragment : BottomSheetDialogFragment() {
                 setTextColor(resources.getColor(R.color.textColorPrimary))
             }
         }
-
-
         fragmentSelectVisibilityBinding!!.anyone.setOnClickListener {
             val visibilityText = fragmentSelectVisibilityBinding!!.anyone.text.toString()
             findNavController().previousBackStackEntry?.savedStateHandle?.set("visibility", visibilityText)

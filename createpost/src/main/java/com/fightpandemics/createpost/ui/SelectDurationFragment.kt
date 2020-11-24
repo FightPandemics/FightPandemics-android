@@ -50,8 +50,6 @@ class SelectDurationFragment : BottomSheetDialogFragment() {
                 setTextColor(resources.getColor(R.color.textColorPrimary))
             }
         }
-
-
         fragmentSelectDurationBinding!!.week.setOnClickListener {
             val durationText = fragmentSelectDurationBinding!!.week.text.toString()
             findNavController().previousBackStackEntry?.savedStateHandle?.set("duration", durationText)
@@ -72,8 +70,6 @@ class SelectDurationFragment : BottomSheetDialogFragment() {
                 setTextColor(resources.getColor(R.color.textColorPrimary))
             }
         }
-
-
         fragmentSelectDurationBinding!!.month.setOnClickListener {
             val durationText = fragmentSelectDurationBinding!!.month.text.toString()
             findNavController().previousBackStackEntry?.savedStateHandle?.set("duration", durationText)
@@ -94,8 +90,6 @@ class SelectDurationFragment : BottomSheetDialogFragment() {
                 setTextColor(resources.getColor(R.color.textColorPrimary))
             }
         }
-
-
         fragmentSelectDurationBinding!!.forever.setOnClickListener {
             val durationText = fragmentSelectDurationBinding!!.forever.text.toString()
             findNavController().previousBackStackEntry?.savedStateHandle?.set("duration", durationText)
