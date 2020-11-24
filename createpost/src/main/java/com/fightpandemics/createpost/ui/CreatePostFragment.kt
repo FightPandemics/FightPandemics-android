@@ -1,21 +1,19 @@
 package com.fightpandemics.createpost.ui
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.createpost.R
 import com.fightpandemics.createpost.dagger.inject
 import com.fightpandemics.createpost.databinding.FragmentCreatePostBinding
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
 class CreatePostFragment : Fragment() {
@@ -46,6 +44,7 @@ class CreatePostFragment : Fragment() {
 
         setupToolBar()
         setupViews()
+        observeDurationBottomDialog()
     }
 
     override fun onDestroyView() {
@@ -62,7 +61,7 @@ class CreatePostFragment : Fragment() {
         fragmentCreatePostBinding!!.offer.setOnClickListener { }
         fragmentCreatePostBinding!!.request.setOnClickListener { }
         fragmentCreatePostBinding!!.people.setOnClickListener { displayVisibilityBottomDialog() }
-        fragmentCreatePostBinding!!.month.setOnClickListener { displayDurationBottomDialog() }
+        fragmentCreatePostBinding!!.month.setOnClickListener { findNavController().navigate(R.id.action_createPostFragment_to_selectDurationFragment) }
         fragmentCreatePostBinding!!.tag.setOnClickListener { displayTagBottomDialog() }
         fragmentCreatePostBinding!!.post.setOnClickListener { }
     }
@@ -77,14 +76,38 @@ class CreatePostFragment : Fragment() {
         fragment.show(requireActivity().supportFragmentManager, fragment.tag)
     }
 
-    private fun displayDurationBottomDialog() {
-        val fragment = SelectDurationFragment()
-        fragment.show(requireActivity().supportFragmentManager, fragment.tag)
-    }
-
     private fun displayTagBottomDialog() {
         val fragment = SelectTagFragment()
         fragment.show(requireActivity().supportFragmentManager, fragment.tag)
+    }
+
+    private fun observeDurationBottomDialog() {
+        val navBackStackEntry = findNavController().getBackStackEntry(R.id.createPostFragment)
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME
+                && navBackStackEntry.savedStateHandle.contains("duration")) {
+                when (navBackStackEntry.savedStateHandle.get<String>("duration")) {
+                    "A day" -> {
+                        fragmentCreatePostBinding!!.month.text = getString(R.string.for_1_day)
+                    }
+                    "A week" -> {
+                        fragmentCreatePostBinding!!.month.text = getString(R.string.for_1_week)
+                    }
+                    "A month" -> {
+                        fragmentCreatePostBinding!!.month.text = getString(R.string.for_1_month)
+                    }
+                    else -> {
+                        fragmentCreatePostBinding!!.month.text = getString(R.string.forever)
+                    }
+                }
+            }
+        }
+        navBackStackEntry.lifecycle.addObserver(observer)
+        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_DESTROY) {
+                navBackStackEntry.lifecycle.removeObserver(observer)
+            }
+        })
     }
 
     private fun postContent() {}
