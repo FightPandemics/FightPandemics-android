@@ -15,9 +15,8 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
-import timber.log.Timber
+import com.fightpandemics.filter.utils.uncheckChipGroup
+import com.fightpandemics.filter.utils.getCheckedChipsText
 import javax.inject.Inject
 
 /*
@@ -182,6 +181,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         filterViewModel.isTypeOptionsExpanded.observe(viewLifecycleOwner, { isExpanded ->
             if (isExpanded) {
                 // close other two options cards, and stop transitions when closing to prevent glitchy look
+                // TODO: maybe make function that take list of card views to be closed in View Model
                 filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition = null
                 filterViewModel.isLocationOptionsExpanded.value = false
                 filterViewModel.isFromWhomOptionsExpanded.value = false
@@ -270,8 +270,8 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
                 getCurrentLocation()
                 //filterViewModel.updateCurrentLocation(currentLocation!!)
             }*/
-            super.getCurrentLocation()
-            currentLocation?.let { it1 -> filterViewModel.updateCurrentLocation(it1) }
+            super.getCurrentLocation(filterViewModel)
+//            currentLocation?.let { it1 -> filterViewModel.updateCurrentLocation(it1) }
         }
     }
 
@@ -312,16 +312,6 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         }
     }
 
-    // Returns a list with the text of all checked chips
-    private fun getCheckedChipsText(chipGroup: ChipGroup): MutableList<String> {
-        val textsList = mutableListOf<String>()
-        for (id in chipGroup.checkedChipIds) {
-            val chip = chipGroup.findViewById<Chip>(id)
-            textsList.add(chip.text.toString())
-        }
-        return textsList
-    }
-
     private fun updateFromWhomFiltersData() {
         // get the names of all selected chips
         val whomChips =
@@ -357,16 +347,9 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         }
     }
 
-    private fun uncheckChipGroup(chipGroup: ChipGroup) {
-        val checkedChipIdsList = chipGroup.checkedChipIds
-        for (id in checkedChipIdsList) {
-            chipGroup.findViewById<Chip>(id).isChecked = false
-        }
-    }
-
     private fun clearFilters() {
         // close all option cards
-        filterViewModel.closeOptionCards()
+        filterViewModel.closeAllOptionCards()
         // clear fromwhom selections
         uncheckChipGroup(filterStartFragmentBinding!!.fromWhomOptions.fromWhomChipGroup)
         // clear type selections

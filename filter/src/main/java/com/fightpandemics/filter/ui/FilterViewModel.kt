@@ -80,7 +80,7 @@ class FilterViewModel @Inject constructor(
         optionsCardState.value = !optionsCardState.value!!
     }
 
-    fun closeOptionCards() {
+    fun closeAllOptionCards() {
         isLocationOptionsExpanded.value = false
         isFromWhomOptionsExpanded.value = false
         isTypeOptionsExpanded.value = false
