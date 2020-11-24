@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -23,6 +24,7 @@ class CreatePostFragment : Fragment() {
     private val createPostViewModel: CreatePostViewModel by viewModels { createPostViewModelFactory }
 
     private var fragmentCreatePostBinding: FragmentCreatePostBinding? = null
+    private val chipTexts: ArrayList<String> = ArrayList()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -46,6 +48,7 @@ class CreatePostFragment : Fragment() {
         setupViews()
         observeDurationBottomDialog()
         observeVisibilityBottomDialog()
+        observeTagBottomDialog()
     }
 
     override fun onDestroyView() {
@@ -67,17 +70,14 @@ class CreatePostFragment : Fragment() {
         fragmentCreatePostBinding!!.month.setOnClickListener {
             findNavController().navigate(R.id.action_createPostFragment_to_selectDurationFragment)
         }
-        fragmentCreatePostBinding!!.tag.setOnClickListener { displayTagBottomDialog() }
+        fragmentCreatePostBinding!!.tag.setOnClickListener {
+            findNavController().navigate(R.id.action_createPostFragment_to_selectTagFragment)
+        }
         fragmentCreatePostBinding!!.post.setOnClickListener { }
     }
 
     private fun displayOrganizationBottomDialog() {
         val fragment = SelectOrganizationFragment()
-        fragment.show(requireActivity().supportFragmentManager, fragment.tag)
-    }
-
-    private fun displayTagBottomDialog() {
-        val fragment = SelectTagFragment()
         fragment.show(requireActivity().supportFragmentManager, fragment.tag)
     }
 
@@ -128,6 +128,24 @@ class CreatePostFragment : Fragment() {
                     }
                 }
             }
+        }
+        navBackStackEntry.lifecycle.addObserver(observer)
+        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_DESTROY) {
+                navBackStackEntry.lifecycle.removeObserver(observer)
+            }
+        })
+    }
+
+    private fun observeTagBottomDialog() {
+        val navBackStackEntry = findNavController().getBackStackEntry(R.id.createPostFragment)
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME && navBackStackEntry.savedStateHandle.contains("tag1")) {
+                chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag1")!!)
+                chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag2")!!)
+                chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag3")!!)
+            }
+            Toast.makeText(requireContext(), chipTexts.toString(), Toast.LENGTH_SHORT).show()
         }
         navBackStackEntry.lifecycle.addObserver(observer)
         viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
