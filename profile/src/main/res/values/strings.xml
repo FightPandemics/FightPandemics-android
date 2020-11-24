@@ -54,5 +54,7 @@
     <string name="community">Community</string>
     <string name="email">Email</string>
     <string name="automobiles">Automobiles</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

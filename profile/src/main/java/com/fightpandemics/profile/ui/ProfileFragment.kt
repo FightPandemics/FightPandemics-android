@@ -38,6 +38,7 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         val rootView = inflater.inflate(R.layout.profile_fragment, container, false)
         createPost()
         return rootView
@@ -54,7 +55,9 @@ class ProfileFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
-                    Timber.d("Settings")
+                    Timber.e("Settings")
+                    findNavController()
+                        .navigate(com.fightpandemics.R.id.action_profileFragment_to_settingFragment)
                     true
                 }
                 else -> {

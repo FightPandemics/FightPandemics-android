@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 dot.visibility = View.VISIBLE
                 fab.show()
             }
-            R.id.filterFragment, R.id.createPostFragment -> hideBottomBar()
+            R.id.filterFragment, R.id.createPostFragment, R.id.settingFragment -> hideBottomBar()
         }
     }
 
