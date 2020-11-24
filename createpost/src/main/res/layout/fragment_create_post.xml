@@ -162,13 +162,13 @@
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="3sp"
         android:textAllCaps="false"
-        android:text="People in the city"
+        android:text="@string/people_in_my_city"
         android:textColor="@color/colorPrimary"
         android:textSize="12sp"
         android:textStyle="normal"
         app:layout_constraintBaseline_toBaselineOf="@+id/month"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="People in the city" />
+        tools:text="People in my city" />
 
     <Button
         android:id="@+id/month"
@@ -180,7 +180,7 @@
         android:drawableEnd="@drawable/ic_arrow_down"
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="3sp"
-        android:text="For 1 Month"
+        android:text="@string/for_1_month"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
         android:textSize="12sp"

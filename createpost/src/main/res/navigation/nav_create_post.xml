@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_createPostFragment_to_selectDurationFragment"
             app:destination="@id/selectDurationFragment" />
+        <action
+            android:id="@+id/action_createPostFragment_to_selectVisibilityFragment"
+            app:destination="@id/selectVisibilityFragment" />
     </fragment>
 
     <dialog
@@ -22,4 +25,10 @@
         android:name="com.fightpandemics.createpost.ui.SelectDurationFragment"
         android:label=""
         tools:layout="@layout/fragment_select_duration"/>
+
+    <dialog
+        android:id="@+id/selectVisibilityFragment"
+        android:name="com.fightpandemics.createpost.ui.SelectVisibilityFragment"
+        android:label=""
+        tools:layout="@layout/fragment_select_visibility"/>
 </navigation>
