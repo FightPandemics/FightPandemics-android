@@ -401,8 +401,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
 
     // on click function for recycler view (autocomplete)
     override fun onAutocompleteLocationClick(locationSelected: String) {
-        // update onSelectedLocation, latitude and longitude live data in view model
-        filterViewModel.onSelectedLocation.value = locationSelected
+        displayLocation(locationSelected)
     }
 }
 
