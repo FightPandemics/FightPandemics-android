@@ -2,6 +2,7 @@ package com.fightpandemics.filter.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.core.data.model.userlocation.LocationRequest
@@ -10,6 +11,8 @@ import com.fightpandemics.filter.domain.LocationDetailsUseCase
 import com.fightpandemics.filter.domain.LocationPredictionsUseCase
 import com.fightpandemics.filter.domain.UserLocationUseCase
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -28,6 +31,9 @@ class FilterViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var locationJob: Job? = null
+
+    private val _currentLocationState = MutableStateFlow("")
+    val currentLocationState = _currentLocationState.asStateFlow()
 
     // Handle visibility properties
     var isLocationOptionsExpanded = MutableLiveData<Boolean>()
@@ -105,17 +111,11 @@ class FilterViewModel @Inject constructor(
 
         locationJob?.cancel()
         locationJob = viewModelScope.launch {
-            userLocationUseCase(
-                LocationRequest(
-                    location.latitude,
-                    location.longitude
-                )
-            )
+            userLocationUseCase(LocationRequest(location.latitude, location.longitude))
                 .collect {
                     when (it) {
                         is Result.Success -> {
-                            val l = it.data as Location2
-                            Timber.e(l.toString())
+                            currentLocation(it.data as Location2)
                         }
                         is Result.Error -> {
                             Timber.e("${it.exception}")
@@ -125,13 +125,16 @@ class FilterViewModel @Inject constructor(
         }
     }
 
+    private fun currentLocation(currentLocation: Location2) {
+        _currentLocationState.value = "${currentLocation.address}"
+    }
+
     // TODO: Do API here for autocomplete suggestions - address predictions
     fun autocompleteLocation(query: String) {
-
         locationJob?.cancel()
         if (query.isEmpty()) return
         locationJob = viewModelScope.launch {
-
+            
         }
     }
 
