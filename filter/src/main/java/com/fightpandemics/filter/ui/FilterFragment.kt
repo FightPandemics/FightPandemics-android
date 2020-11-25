@@ -12,6 +12,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
+import com.fightpandemics.core.widgets.BaseLocationFragment
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
@@ -270,9 +271,13 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
                 getCurrentLocation()
                 //filterViewModel.updateCurrentLocation(currentLocation!!)
             }*/
-            super.getCurrentLocation(filterViewModel)
+            super.getCurrentLocation()
 //            currentLocation?.let { it1 -> filterViewModel.updateCurrentLocation(it1) }
         }
+    }
+
+    override fun updateLocation() {
+        super.updateLocation()
     }
 
     override fun onDestroyView() {

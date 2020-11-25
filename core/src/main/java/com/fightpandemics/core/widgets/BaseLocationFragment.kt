@@ -1,18 +1,15 @@
-package com.fightpandemics.filter.ui
+package com.fightpandemics.core.widgets
 
 import android.Manifest
 import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.fightpandemics.home.R
+import com.fightpandemics.core.R
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.RuntimeExecutionException
@@ -29,6 +26,8 @@ open class BaseLocationFragment : Fragment() {
     var mFusedLocationClient: FusedLocationProviderClient? = null
     //lateinit var mFusedLocationClient: FusedLocationProviderClient
     var currentLocation: Location? = null
+    var latitude: Double? = null
+    var longitude: Double? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,7 +40,7 @@ open class BaseLocationFragment : Fragment() {
         super.onDestroyView()
     }
 
-    fun getCurrentLocation(filterViewModel: FilterViewModel) {
+    fun getCurrentLocation() {
         // Call findCurrentPlace and handle the response (first check that the user has granted permission).
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -78,7 +77,7 @@ open class BaseLocationFragment : Fragment() {
             val locationCallback = object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult) {
                     Timber.i("My filters: callback ${locationResult.lastLocation}")
-                    getCurrentLocation(filterViewModel)
+                    getCurrentLocation()
                     mFusedLocationClient!!.removeLocationUpdates(this)
                 }
             }
@@ -87,8 +86,11 @@ open class BaseLocationFragment : Fragment() {
                 if (location != null) {
                     Timber.i("My filters: last location: $location")
                     Timber.e(location.toString())
-                    currentLocation(location)
-                    filterViewModel.updateCurrentLocation(location)
+                    latitude = location.latitude
+                    longitude = location.longitude
+                    updateLocation()
+//                    currentLocation(location)
+//                    filterViewModel.updateCurrentLocation(location)
                 } else {
                     Timber.i("My filters: Location was null")
                     mFusedLocationClient!!.requestLocationUpdates(
@@ -107,6 +109,9 @@ open class BaseLocationFragment : Fragment() {
 
     fun currentLocation(location: Location){
         this.currentLocation = location
+    }
+    open fun updateLocation(){
+        Timber.i("My filters: Updating Location from base")
     }
 
     fun getLocationPermission() {

@@ -46,9 +46,4 @@
     <string name="share_my_location">Share my location</string>
     <string name="zip_code_neighborhood_or_city">Zip code, neighborhood or city</string>
 
-    <!-- Dialog Permission Request -->
-    <string name="dialog_location_request_description">FightPandemics uses location to show hospitals and aid information near you.</string>
-    <string name="dialog_location_request_title">Allow FightPandemics to access your location?</string>
-    <string name="placeholder_autocomplete_location">Neukoln, Berlin</string>
-
 </resources>
