@@ -98,7 +98,8 @@ class FilterViewModel @Inject constructor(
 
     // TODO: Do API here for getting place name from lat & lng
     fun updateCurrentLocation(location: Location1) {
-        onSelectedLocation.value = "Todo: get place name from API"
+        // TODO; Replace the value below with address of the lat and lng
+        onSelectedLocation.value = "${location.latitude}, ${location.longitude}"
         latitude.value = location.latitude
         longitude.value = location.longitude
         Timber.e("My filters : Location Manager View Model ${latitude.value}, ${longitude.value}")

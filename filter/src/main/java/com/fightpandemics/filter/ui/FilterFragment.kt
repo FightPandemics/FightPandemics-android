@@ -2,6 +2,7 @@ package com.fightpandemics.filter.ui
 
 import android.animation.LayoutTransition
 import android.content.Context
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
 import com.fightpandemics.filter.utils.uncheckChipGroup
 import com.fightpandemics.filter.utils.getCheckedChipsText
+import timber.log.Timber
 import javax.inject.Inject
 
 /*
@@ -267,17 +269,14 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         }
 
         filterStartFragmentBinding!!.locationOptions.shareMyLocation.setOnClickListener {
-            /*if (currentLocation == null){
-                getCurrentLocation()
-                //filterViewModel.updateCurrentLocation(currentLocation!!)
-            }*/
-            super.getCurrentLocation()
-//            currentLocation?.let { it1 -> filterViewModel.updateCurrentLocation(it1) }
+            getCurrentLocation()
         }
     }
 
-    override fun updateLocation() {
-        super.updateLocation()
+    // this function gets called inside getCurrentLocation from BaseLocationFragment
+    override fun updateLocation(location: Location) {
+        Timber.i("My filters from filter $location")
+        filterViewModel.updateCurrentLocation(location)
     }
 
     override fun onDestroyView() {

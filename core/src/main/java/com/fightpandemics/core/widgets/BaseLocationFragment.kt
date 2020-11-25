@@ -24,10 +24,6 @@ open class BaseLocationFragment : Fragment() {
     private val LOCATION_PERMISSION_CODE = 1
 
     var mFusedLocationClient: FusedLocationProviderClient? = null
-    //lateinit var mFusedLocationClient: FusedLocationProviderClient
-    var currentLocation: Location? = null
-    var latitude: Double? = null
-    var longitude: Double? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,12 +81,7 @@ open class BaseLocationFragment : Fragment() {
             mFusedLocationClient!!.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
                     Timber.i("My filters: last location: $location")
-                    Timber.e(location.toString())
-                    latitude = location.latitude
-                    longitude = location.longitude
-                    updateLocation()
-//                    currentLocation(location)
-//                    filterViewModel.updateCurrentLocation(location)
+                    updateLocation(location)
                 } else {
                     Timber.i("My filters: Location was null")
                     mFusedLocationClient!!.requestLocationUpdates(
@@ -107,11 +98,8 @@ open class BaseLocationFragment : Fragment() {
         }
     }
 
-    fun currentLocation(location: Location){
-        this.currentLocation = location
-    }
-    open fun updateLocation(){
-        Timber.i("My filters: Updating Location from base")
+    open fun updateLocation(location: Location){
+        Timber.i("My filters: Updating Location from base $location")
     }
 
     fun getLocationPermission() {
@@ -148,8 +136,7 @@ open class BaseLocationFragment : Fragment() {
                 } else {
                     Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT)
                         .show()
-                    // TODO put back
-//                    getCurrentLocation()
+                    getCurrentLocation()
                 }
             }
         }
