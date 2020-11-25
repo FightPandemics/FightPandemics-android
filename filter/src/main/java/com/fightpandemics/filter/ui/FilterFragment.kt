@@ -83,8 +83,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
 
         // update recycler view adapter list if data observed changes
         filterViewModel.autocomplete_locations.observe(viewLifecycleOwner, {
-            adapter.placesNames = it["names"]!!
-            adapter.placesIds = it["ids"]!!
+            adapter.placesNames = it!!
         })
 
         // Set toggle functionality to clickable filter cards
@@ -264,8 +263,6 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
             }
             // if location in the editText is edited, delete location, lat, lgn live data
             filterViewModel.locationQuery.value = ""
-            filterViewModel.latitude.value = null
-            filterViewModel.longitude.value = null
         }
 
         filterStartFragmentBinding!!.locationOptions.shareMyLocation.setOnClickListener {
@@ -373,11 +370,9 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
     }
 
     // on click function for recycler view (autocomplete)
-    override fun onAutocompleteLocationClick(locationSelected: String, placeId: String) {
+    override fun onAutocompleteLocationClick(locationSelected: String) {
         // update onSelectedLocation, latitude and longitude live data in view model
         filterViewModel.onSelectedLocation.value = locationSelected
-        // TODO: Get Lat and Lng here for autocomplete selection from API
-        filterViewModel.getLatLng(placeId)
     }
 }
 

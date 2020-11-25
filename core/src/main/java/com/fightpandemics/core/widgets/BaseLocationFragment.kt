@@ -19,9 +19,13 @@ import timber.log.Timber
 * created by Osaigbovo Odiase & Jose Li
 * */
 open class BaseLocationFragment : Fragment() {
-
-    // Places API variables
+    // Variable for location permission
     private val LOCATION_PERMISSION_CODE = 1
+
+    private val locationRequest = LocationRequest.create()
+        .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+        .setInterval(10 * 1000) // 10 seconds
+        .setFastestInterval(5 * 1000) // 5 seconds
 
     var mFusedLocationClient: FusedLocationProviderClient? = null
 
@@ -45,11 +49,6 @@ open class BaseLocationFragment : Fragment() {
         ) {
 
             Timber.i("My filters: Starting fetching for location")
-
-            val locationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(10 * 1000) // 10 seconds
-                .setFastestInterval(5 * 1000) // 5 seconds
 
             val REQUEST_CHECK_STATE = 12300 // any suitable ID
             val builder = LocationSettingsRequest.Builder()
@@ -102,7 +101,7 @@ open class BaseLocationFragment : Fragment() {
         Timber.i("My filters: Updating Location from base $location")
     }
 
-    fun getLocationPermission() {
+    private fun getLocationPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
             val dialogView = layoutInflater.inflate(R.layout.location_permission_dialog, null)
             AlertDialog.Builder(requireContext())

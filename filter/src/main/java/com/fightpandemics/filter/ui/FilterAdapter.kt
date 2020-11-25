@@ -15,7 +15,6 @@ class FilterAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView
             field = value
             notifyDataSetChanged()
         }
-    var placesIds = listOf<String>()
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var address : TextView
@@ -33,7 +32,7 @@ class FilterAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.address.setText(placesNames[position])
         holder.itemView.setOnClickListener {
-            onItemClickListener.onAutocompleteLocationClick(placesNames[position], placesIds[position])
+            onItemClickListener.onAutocompleteLocationClick(placesNames[position])
         }
 
     }
@@ -46,7 +45,7 @@ class FilterAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView
     }
 
     interface OnItemClickListener {
-        fun onAutocompleteLocationClick(locationSelected: String, placeId: String)
+        fun onAutocompleteLocationClick(locationSelected: String)
     }
 }
 
