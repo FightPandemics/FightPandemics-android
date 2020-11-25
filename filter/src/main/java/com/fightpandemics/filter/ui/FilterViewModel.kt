@@ -66,7 +66,6 @@ class FilterViewModel @Inject constructor(
         fromWhomFilters.value = listOf()
         typeFilters.value = listOf()
         // initialize helper data
-        onSelectedLocation.value = null
         fromWhomCount.value = 0
         typeCount.value = 0
 
@@ -103,8 +102,6 @@ class FilterViewModel @Inject constructor(
 
     // Get user location from API using lat & lng
     fun updateCurrentLocation(location: Location1) {
-        onSelectedLocation.value = "${location.latitude}, ${location.longitude}"
-
         locationJob?.cancel()
         locationJob = viewModelScope.launch {
             userLocationUseCase(LocationRequest(location.latitude, location.longitude))
