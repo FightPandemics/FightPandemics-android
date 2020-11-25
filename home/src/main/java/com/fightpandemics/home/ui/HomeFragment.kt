@@ -105,6 +105,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun createPost() {
+        // TODO - remove fabCreateAsOrg and fabCreateAsIndiv
         (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsOrg)
             .setOnClickListener {
                 findNavController().navigate(com.fightpandemics.R.id.action_homeFragment_to_createPostFragment)

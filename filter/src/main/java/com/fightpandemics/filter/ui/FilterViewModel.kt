@@ -1,19 +1,16 @@
 package com.fightpandemics.filter.ui
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.core.data.model.userlocation.LocationRequest
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.filter.domain.LocationDetailsUseCase
 import com.fightpandemics.filter.domain.LocationPredictionsUseCase
 import com.fightpandemics.filter.domain.UserLocationUseCase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -23,6 +20,8 @@ import com.fightpandemics.core.data.model.userlocation.Location as Location2
 /*
 * created by Osaigbovo Odiase & Jose Li
 * */
+@ExperimentalCoroutinesApi
+@FlowPreview
 @ActivityScope
 class FilterViewModel @Inject constructor(
     private val userLocationUseCase: UserLocationUseCase,
@@ -32,16 +31,18 @@ class FilterViewModel @Inject constructor(
 
     private var locationJob: Job? = null
 
-    private val _currentLocationState = MutableStateFlow("")
+    private val _currentLocationState = MutableStateFlow(UserLocationViewState(isLoading = true))
     val currentLocationState = _currentLocationState.asStateFlow()
+
+    private val _searchLocationState = MutableStateFlow(mutableListOf(""))
+    val searchLocationState = _searchLocationState.asStateFlow()
+
+    val searchQuery = MutableStateFlow("")
 
     // Handle visibility properties
     var isLocationOptionsExpanded = MutableLiveData<Boolean>()
     var isFromWhomOptionsExpanded = MutableLiveData<Boolean>()
     var isTypeOptionsExpanded = MutableLiveData<Boolean>()
-
-    // Recycler View autocomplete location variable
-    var autocomplete_locations = MutableLiveData<MutableList<String>>()
 
     // handle on selected place event (either from recycler view or from current location button)
     var onSelectedLocation = MutableLiveData<String>()
@@ -68,6 +69,8 @@ class FilterViewModel @Inject constructor(
         onSelectedLocation.value = null
         fromWhomCount.value = 0
         typeCount.value = 0
+
+        searchLocation()
     }
 
     fun clearLiveDataFilters() {
@@ -98,42 +101,57 @@ class FilterViewModel @Inject constructor(
         return total
     }
 
-    // TODO: Do API here for getting place name from lat & lng
+    // Get user location from API using lat & lng
     fun updateCurrentLocation(location: Location1) {
-        // TODO; Replace the value below with address of the lat and lng
         onSelectedLocation.value = "${location.latitude}, ${location.longitude}"
-        Timber.e("My filters : Location Manager View Model ${location.latitude}, ${location.longitude}")
 
         locationJob?.cancel()
         locationJob = viewModelScope.launch {
             userLocationUseCase(LocationRequest(location.latitude, location.longitude))
                 .collect {
                     when (it) {
+                        is Result.Loading -> currentLocation(true, null, null)
+                        is Result.Success -> currentLocation(false, null, it.data as Location2)
+                        is Result.Error -> currentLocation(true, it, null)
+                    }
+                }
+        }
+    }
+
+    // Search for location from API using user input
+    @ExperimentalCoroutinesApi
+    @FlowPreview
+    fun searchLocation() {
+        locationJob?.cancel()
+        locationJob = viewModelScope.launch {
+            searchQuery
+                .debounce(300)
+                .filter { return@filter !it.isEmpty() && it.length >= 3 }
+                .distinctUntilChanged()
+                .map { it.trim() }
+                .flatMapLatest { locationPredictionsUseCase(it) }
+                .conflate()
+                .collect {
+                    when (it) {
                         is Result.Success -> {
-                            currentLocation(it.data as Location2)
+                            _searchLocationState.value = it.data as MutableList<String>
+                            Timber.e("${it.toString()}")
                         }
                         is Result.Error -> {
-                            Timber.e("${it.exception}")
+                            Timber.e(it.toString())
                         }
                     }
                 }
         }
     }
 
-    private fun currentLocation(currentLocation: Location2) {
-        _currentLocationState.value = "${currentLocation.address}"
-    }
-
-    // TODO: Do API here for autocomplete suggestions - address predictions
-    fun autocompleteLocation(query: String) {
-        locationJob?.cancel()
-        if (query.isEmpty()) return
-        locationJob = viewModelScope.launch {
-            
-        }
-
-        // TODO: set autocomplete livedata to the list of suggested locations
-        autocomplete_locations.value = mutableListOf("test 1", "test 2", "test 3")
+    private fun currentLocation(
+        loading: Boolean,
+        error: Result.Error?,
+        currentLocation: Location2?
+    ) {
+        _currentLocationState.value =
+            UserLocationViewState(loading, error, "${currentLocation?.address}")
     }
 
     fun createFilterRequest(): FilterRequest {
@@ -144,3 +162,9 @@ class FilterViewModel @Inject constructor(
         )
     }
 }
+
+data class UserLocationViewState(
+    var isLoading: Boolean,
+    val error: Result.Error? = null,
+    val userLocation: String? = null,
+)

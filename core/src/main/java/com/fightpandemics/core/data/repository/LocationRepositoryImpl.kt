@@ -31,14 +31,13 @@ class LocationRepositoryImpl @Inject constructor(
     private val preferenceStorage: PreferenceStorage
 ) : LocationRepository {
 
-    override suspend fun getUserLocation(lat: Double, lng: Double): Flow<Result<*>>? {
+    override suspend fun getUserLocation(lat: Double, lng: Double): Flow<Result<*>> {
         return channelFlow {
+            channel.offer(Result.Loading)
             val userLocationResponse = locationRemoteDataSource.getUserLocation(lat, lng)
             when {
                 userLocationResponse.isSuccessful && userLocationResponse.code() == 200 -> {
-                    //val userLocation: LocationResponse? = userLocationResponse.parseJsonResponse<LocationResponse>(moshi)
                     val userCurrentLocation: Location = userLocationResponse.body()!!.location
-                    Timber.e(userCurrentLocation.address)
                     channel.offer(Result.Success(userCurrentLocation))
                 }
                 userLocationResponse.code() == 401 -> {
@@ -56,6 +55,7 @@ class LocationRepositoryImpl @Inject constructor(
     ): Flow<Result<*>>? {
         val sessiontoken = getUUID()
         return channelFlow {
+            channel.offer(Result.Loading)
             val userLocationPredictions =
                 locationRemoteDataSource.getLocationPredictions(input, sessiontoken!!)
             when {

@@ -41,6 +41,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location_search" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/share_my_location"
+        app:layout_constraintEnd_toEndOf="@+id/share_my_location"
+        app:layout_constraintTop_toTopOf="@+id/share_my_location" />
+
     <View
         android:id="@+id/item_line_divider1"
         android:layout_width="fill_parent"

@@ -11,16 +11,21 @@ import android.widget.TextView
 import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.core.widgets.BaseLocationFragment
 import com.fightpandemics.filter.dagger.inject
+import com.fightpandemics.filter.utils.getCheckedChipsText
+import com.fightpandemics.filter.utils.uncheckChipGroup
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
-import com.fightpandemics.filter.utils.uncheckChipGroup
-import com.fightpandemics.filter.utils.getCheckedChipsText
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 import javax.inject.Inject
+
 
 /*
 * created by Osaigbovo Odiase & Jose Li
@@ -29,6 +34,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
 
     // constant for showing autocomplete suggestions
     private val LENGTH_TO_SHOW_SUGGESTIONS = 3
+    private val adapter = FilterAdapter(this)
 
     @Inject
     lateinit var filterViewModelFactory: ViewModelFactory
@@ -42,9 +48,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         val binding = FilterStartFragmentBinding.inflate(inflater)
         filterStartFragmentBinding = binding
@@ -54,20 +58,19 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         return binding.root
     }
 
+    @FlowPreview
+    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // Get default transition
         defaultTransition = filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition
 
-        // set up apply and clear filters buttons
+        // set up clear filter button
         filterStartFragmentBinding!!.clearFiltersButton.setOnClickListener {
             clearFilters()
         }
-
         // send data to home module
         filterStartFragmentBinding!!.applyFiltersButton.setOnClickListener {
-            // send info to home module
             findNavController().previousBackStackEntry?.savedStateHandle?.set(
                 "filters",
                 filterViewModel.createFilterRequest()
@@ -75,16 +78,9 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
             findNavController().popBackStack()
         }
 
-        // setup recycler view
-        val adapter = FilterAdapter(this)
         // set the custom adapter to the RecyclerView
         filterStartFragmentBinding!!.locationOptions.autoCompleteLocationsRecyclerView.adapter =
             adapter
-
-        // update recycler view adapter list if data observed changes
-        filterViewModel.autocomplete_locations.observe(viewLifecycleOwner, {
-            adapter.placesNames = it!!
-        })
 
         // Set toggle functionality to clickable filter cards
         filterStartFragmentBinding!!.filterLocationExpandable.locationEmptyCard.setOnClickListener {
@@ -230,44 +226,8 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
             updateApplyFiltersText()
         })
 
-        // handle selection of location in recycler view and from get current location
-        filterViewModel.onSelectedLocation.observe(viewLifecycleOwner, { onSelectedLocation ->
-            if (onSelectedLocation != null) {
-                filterStartFragmentBinding!!.locationOptions.locationSearch.setText(
-                    onSelectedLocation
-                )
-                filterViewModel.locationQuery.value = onSelectedLocation
-                // todo maybe find a better way of doing this
-                // Take away focus from edit text once an option has been selected
-                filterStartFragmentBinding!!.locationOptions.locationSearch.isEnabled = false
-                filterStartFragmentBinding!!.locationOptions.locationSearch.isEnabled = true
-                // hide recycler view autocomplete location suggestions
-                filterStartFragmentBinding!!.locationOptions.autoCompleteLocationsRecyclerView.visibility =
-                    View.GONE
-                filterStartFragmentBinding!!.locationOptions.itemLineDivider1.visibility = View.GONE
-                // todo maybe make a function in the view model of this
-                // reset onSelectedLocation event to null because we finished selecting
-                filterViewModel.onSelectedLocation.value = null
-            }
-        })
-
-        // do not start autocomplete until 3 chars in and delete location input that is not selected
-        filterStartFragmentBinding!!.locationOptions.locationSearch.doAfterTextChanged { inputLocation ->
-            // do not search autocomplete suggestions until 3 chars in
-            inputLocation?.let {
-                handleAutocompleteVisibility(it.toString())
-                if (it.length >= LENGTH_TO_SHOW_SUGGESTIONS) {
-                    // TODO: Do API autocomplete call here
-                    filterViewModel.autocompleteLocation(it.toString())
-                }
-            }
-            // if location in the editText is edited, delete location, lat, lgn live data
-            filterViewModel.locationQuery.value = ""
-        }
-
-        filterStartFragmentBinding!!.locationOptions.shareMyLocation.setOnClickListener {
-            getCurrentLocation()
-        }
+        searchLocation()
+        shareLocation() // get user location and display it
     }
 
     // this function gets called inside getCurrentLocation from BaseLocationFragment
@@ -301,6 +261,74 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         )
     }
 
+    private fun shareLocation() {
+        filterStartFragmentBinding!!.locationOptions.shareMyLocation.setOnClickListener {
+            filterStartFragmentBinding!!.locationOptions.locationSearch.setText("")
+            getCurrentLocation()
+            lifecycleScope.launchWhenStarted {
+                filterViewModel.currentLocationState.collect {
+                    when {
+                        it.isLoading -> bindLoading(it.isLoading)
+                        it.userLocation!!.isNotEmpty() -> {
+                            bindLoading(it.isLoading)
+                            displayLocation(it.userLocation)
+                        }
+                        it.error != null -> {
+                            bindLoading(it.isLoading)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @FlowPreview
+    @ExperimentalCoroutinesApi
+    private fun searchLocation() {
+        // do not start autocomplete until 3 chars in and delete location input that is not selected
+        filterStartFragmentBinding!!.locationOptions.locationSearch.doAfterTextChanged { inputLocation ->
+
+            lifecycleScope.launchWhenStarted {
+                // do not search autocomplete suggestions until 3 chars in
+                inputLocation?.let {
+                    handleAutocompleteVisibility(it.toString())
+                    Timber.e(it.toString())
+                    filterViewModel.searchQuery.value = it.toString()
+                    filterViewModel.searchLocationState.collect {
+                        adapter.placesNames = it
+                    }
+                }
+            }
+
+            // if location in the editText is edited, delete location, lat, lgn live data
+            filterViewModel.locationQuery.value = ""
+        }
+    }
+
+    private fun bindLoading(isLoading: Boolean) {
+        filterStartFragmentBinding!!.locationOptions.progressBar.visibility =
+            if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun displayLocation(address: String) {
+        filterStartFragmentBinding!!.locationOptions
+            .locationSearch
+            .setText(address)
+
+        filterViewModel.locationQuery.value = address
+        // todo maybe find a better way of doing this -
+        //  Take away focus from edit text once an option has been selected
+        filterStartFragmentBinding!!.locationOptions.locationSearch.isEnabled = false
+        filterStartFragmentBinding!!.locationOptions.locationSearch.isEnabled = true
+        // hide recycler view autocomplete location suggestions
+        filterStartFragmentBinding!!.locationOptions.autoCompleteLocationsRecyclerView.visibility =
+            View.GONE
+        filterStartFragmentBinding!!.locationOptions.itemLineDivider1.visibility = View.GONE
+        // // todo maybe make a function in the view model of this -
+        //  reset onSelectedLocation event to null because we finished selecting
+        filterViewModel.onSelectedLocation.value = null
+    }
+
     // update number in text of apply filters button
     private fun updateApplyFiltersText() {
         when (val total = filterViewModel.getFiltersAppliedCount()) {
@@ -331,9 +359,11 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
     }
 
     private fun handleApplyFilterEnableState() {
-        // button should be enabled if there is text in the exittext or if there are any chips selected in fromWhom or type
+        // button should be enabled if there is text in the exittext or
+        // if there are any chips selected in fromWhom or type
         filterStartFragmentBinding!!.applyFiltersButton.isEnabled =
-            filterViewModel.locationQuery.value!!.isNotBlank() || filterViewModel.fromWhomCount.value!! + filterViewModel.typeCount.value!! > 0
+            filterViewModel.locationQuery.value!!.isNotBlank() ||
+                    filterViewModel.fromWhomCount.value!! + filterViewModel.typeCount.value!! > 0
     }
 
     private fun handleAutocompleteVisibility(locationQuery: String) {

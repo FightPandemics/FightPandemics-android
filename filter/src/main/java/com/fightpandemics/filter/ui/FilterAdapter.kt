@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.fightpandemics.home.R
 
-class FilterAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
-    val MAX_RECYCLER_VIEW_SIZE = 3
+class FilterAdapter(val onItemClickListener: OnItemClickListener)
+    : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
+    val MAX_RECYCLER_VIEW_SIZE = 5
 
     var placesNames = listOf<String>()
         set(value) {
@@ -17,15 +18,12 @@ class FilterAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView
         }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var address : TextView
-
-        init {
-            address = itemView.findViewById((R.id.location_item_text))
-        }
+        var address: TextView = itemView.findViewById((R.id.location_item_text))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterAdapter.ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.filter_location_item, parent, false)
+        val v = LayoutInflater.from(parent.context)
+            .inflate(R.layout.filter_location_item, parent, false)
         return ViewHolder(v)
     }
 
@@ -34,11 +32,10 @@ class FilterAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView
         holder.itemView.setOnClickListener {
             onItemClickListener.onAutocompleteLocationClick(placesNames[position])
         }
-
     }
 
     override fun getItemCount(): Int {
-        if (placesNames.size > MAX_RECYCLER_VIEW_SIZE){
+        if (placesNames.size > MAX_RECYCLER_VIEW_SIZE) {
             return MAX_RECYCLER_VIEW_SIZE
         }
         return placesNames.size

@@ -1,5 +1,6 @@
 package com.fightpandemics.filter.utils
 
+import android.widget.EditText
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -19,3 +20,4 @@ fun getCheckedChipsText(chipGroup: ChipGroup): MutableList<String> {
     }
     return textsList
 }
+

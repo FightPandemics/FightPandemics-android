@@ -19,8 +19,6 @@ import timber.log.Timber
 * created by Osaigbovo Odiase & Jose Li
 * */
 open class BaseLocationFragment : Fragment() {
-    // Variable for location permission
-    private val LOCATION_PERMISSION_CODE = 1
 
     private val locationRequest = LocationRequest.create()
         .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -28,6 +26,7 @@ open class BaseLocationFragment : Fragment() {
         .setFastestInterval(5 * 1000) // 5 seconds
 
     var mFusedLocationClient: FusedLocationProviderClient? = null
+    var locationCallback: LocationCallback? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,20 +35,23 @@ open class BaseLocationFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        if (locationCallback != null) {
+            mFusedLocationClient!!.removeLocationUpdates(locationCallback!!)
+            locationCallback = null
+            //locationRequest
+        }
         mFusedLocationClient = null
+
         super.onDestroyView()
     }
 
     fun getCurrentLocation() {
         // Call findCurrentPlace and handle the response (first check that the user has granted permission).
         if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+                requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
         ) {
-
-            Timber.i("My filters: Starting fetching for location")
-
             val REQUEST_CHECK_STATE = 12300 // any suitable ID
             val builder = LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest)
@@ -69,7 +71,7 @@ open class BaseLocationFragment : Fragment() {
                 }
             }
 
-            val locationCallback = object : LocationCallback() {
+            locationCallback = object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult) {
                     Timber.i("My filters: callback ${locationResult.lastLocation}")
                     getCurrentLocation()
@@ -97,7 +99,7 @@ open class BaseLocationFragment : Fragment() {
         }
     }
 
-    open fun updateLocation(location: Location){
+    open fun updateLocation(location: Location) {
         Timber.i("My filters: Updating Location from base $location")
     }
 
@@ -109,7 +111,7 @@ open class BaseLocationFragment : Fragment() {
                 .setPositiveButton("ALLOW") { dialog, which ->
                     requestPermissions(
                         arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                        LOCATION_PERMISSION_CODE
+                        Companion.LOCATION_PERMISSION_CODE
                     )
                 }
                 .setNegativeButton("CANCEL") { dialog, id ->
@@ -118,7 +120,7 @@ open class BaseLocationFragment : Fragment() {
         } else {
             requestPermissions(
                 arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                LOCATION_PERMISSION_CODE
+                Companion.LOCATION_PERMISSION_CODE
             )
         }
     }
@@ -129,7 +131,7 @@ open class BaseLocationFragment : Fragment() {
         grantResults: IntArray
     ) {
         when (requestCode) {
-            LOCATION_PERMISSION_CODE -> {
+            Companion.LOCATION_PERMISSION_CODE -> {
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
                 } else {
@@ -139,5 +141,10 @@ open class BaseLocationFragment : Fragment() {
                 }
             }
         }
+    }
+
+    companion object {
+        // variable for location permission
+        private val LOCATION_PERMISSION_CODE = 1
     }
 }

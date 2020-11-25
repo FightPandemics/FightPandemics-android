@@ -1,5 +1,6 @@
 package com.fightpandemics.home.ui.tabs.all
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -46,7 +47,7 @@ class HomeAllFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val binding = HomeAllFragmentBinding
             .inflate(inflater, container, false)
@@ -64,7 +65,7 @@ class HomeAllFragment : Fragment() {
                 viewLifecycleOwner
             ) { result ->
                 // TODO: remove timber Do something with the result.
-                Timber.i("My filters are: $result")
+                Timber.e("My filters are: ${result.location}, ${result.fromWhomFilters.toString()}, ${result.typeFilters.toString()}")
             }
         // If you’d only like to handle a result only once, you must call remove() on the
         // SavedStateHandle to clear the result. If you do not remove the result, the LiveData

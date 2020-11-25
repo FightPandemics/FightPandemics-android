@@ -22,6 +22,7 @@ class UserLocationUseCase @Inject constructor(
     override suspend fun execute(parameters: LocationRequest?): Flow<Result<Any?>> {
         return locationRepository.getUserLocation(parameters!!.lat, parameters.lng)!!.map {
             when (it) {
+                is Result.Loading -> it
                 is Result.Success -> it
                 is Result.Error -> it
                 else -> Result.Error(IllegalStateException("Result must be Success or Error"))
