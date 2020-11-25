@@ -41,7 +41,7 @@ class FilterViewModel @Inject constructor(
     var isTypeOptionsExpanded = MutableLiveData<Boolean>()
 
     // Recycler View autocomplete location variable
-    var autocomplete_locations = MutableLiveData<HashMap<String, MutableList<String>>>()
+    var autocomplete_locations = MutableLiveData<MutableList<String>>()
 
     // handle on selected place event (either from recycler view or from current location button)
     var onSelectedLocation = MutableLiveData<String>()
@@ -50,8 +50,6 @@ class FilterViewModel @Inject constructor(
     var locationQuery = MutableLiveData<String>()
     var fromWhomFilters = MutableLiveData<List<String>>()
     var typeFilters = MutableLiveData<List<String>>()
-    var latitude = MutableLiveData<Double>()
-    var longitude = MutableLiveData<Double>()
 
     // Keep track of selected chip counts - Used for checking when to enable apply filter button
     var fromWhomCount = MutableLiveData<Int>()
@@ -66,8 +64,6 @@ class FilterViewModel @Inject constructor(
         locationQuery.value = ""
         fromWhomFilters.value = listOf()
         typeFilters.value = listOf()
-        latitude.value = null
-        longitude.value = null
         // initialize helper data
         onSelectedLocation.value = null
         fromWhomCount.value = 0
@@ -86,7 +82,7 @@ class FilterViewModel @Inject constructor(
         optionsCardState.value = !optionsCardState.value!!
     }
 
-    fun closeOptionCards() {
+    fun closeAllOptionCards() {
         isLocationOptionsExpanded.value = false
         isFromWhomOptionsExpanded.value = false
         isTypeOptionsExpanded.value = false
@@ -104,10 +100,9 @@ class FilterViewModel @Inject constructor(
 
     // TODO: Do API here for getting place name from lat & lng
     fun updateCurrentLocation(location: Location1) {
-        onSelectedLocation.value = "Todo: get place name from API"
-        latitude.value = location.latitude
-        longitude.value = location.longitude
-        Timber.e("My filters : Location Manager View Model ${latitude.value}, ${longitude.value}")
+        // TODO; Replace the value below with address of the lat and lng
+        onSelectedLocation.value = "${location.latitude}, ${location.longitude}"
+        Timber.e("My filters : Location Manager View Model ${location.latitude}, ${location.longitude}")
 
         locationJob?.cancel()
         locationJob = viewModelScope.launch {
@@ -136,18 +131,14 @@ class FilterViewModel @Inject constructor(
         locationJob = viewModelScope.launch {
             
         }
-    }
 
-    // TODO: Do API here for getting lat lng from placeId - /api/geo/location-details
-    fun getLatLng(placeId: String) {
-
+        // TODO: set autocomplete livedata to the list of suggested locations
+        autocomplete_locations.value = mutableListOf("test 1", "test 2", "test 3")
     }
 
     fun createFilterRequest(): FilterRequest {
         return FilterRequest(
             locationQuery.value,
-            latitude.value,
-            longitude.value,
             fromWhomFilters.value,
             typeFilters.value
         )

@@ -1,4 +1,4 @@
-package com.fightpandemics.filter.ui
+package com.fightpandemics.core.widgets
 
 import android.Manifest
 import android.app.AlertDialog
@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.fightpandemics.home.R
+import com.fightpandemics.core.R
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.RuntimeExecutionException
@@ -19,20 +19,20 @@ import timber.log.Timber
 * created by Osaigbovo Odiase & Jose Li
 * */
 open class BaseLocationFragment : Fragment() {
-
-    // Places API variables
+    // Variable for location permission
     private val LOCATION_PERMISSION_CODE = 1
 
+    private val locationRequest = LocationRequest.create()
+        .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+        .setInterval(10 * 1000) // 10 seconds
+        .setFastestInterval(5 * 1000) // 5 seconds
+
     var mFusedLocationClient: FusedLocationProviderClient? = null
-    //lateinit var mFusedLocationClient: FusedLocationProviderClient
-    var currentLocation: Location? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Create a FusedLocation Client
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-
-        //getCurrentLocation()
     }
 
     override fun onDestroyView() {
@@ -49,11 +49,6 @@ open class BaseLocationFragment : Fragment() {
         ) {
 
             Timber.i("My filters: Starting fetching for location")
-
-            val locationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(10 * 1000) // 10 seconds
-                .setFastestInterval(5 * 1000) // 5 seconds
 
             val REQUEST_CHECK_STATE = 12300 // any suitable ID
             val builder = LocationSettingsRequest.Builder()
@@ -85,9 +80,7 @@ open class BaseLocationFragment : Fragment() {
             mFusedLocationClient!!.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
                     Timber.i("My filters: last location: $location")
-                    Timber.e(location.toString())
-                    currentLocation(location)
-                    //filterViewModel.updateCurrentLocation(location)
+                    updateLocation(location)
                 } else {
                     Timber.i("My filters: Location was null")
                     mFusedLocationClient!!.requestLocationUpdates(
@@ -104,11 +97,11 @@ open class BaseLocationFragment : Fragment() {
         }
     }
 
-    fun currentLocation(location: Location){
-        this.currentLocation = location
+    open fun updateLocation(location: Location){
+        Timber.i("My filters: Updating Location from base $location")
     }
 
-    fun getLocationPermission() {
+    private fun getLocationPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
             val dialogView = layoutInflater.inflate(R.layout.location_permission_dialog, null)
             AlertDialog.Builder(requireContext())

@@ -2,6 +2,7 @@ package com.fightpandemics.filter.ui
 
 import android.animation.LayoutTransition
 import android.content.Context
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +11,14 @@ import android.widget.TextView
 import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
+import com.fightpandemics.core.widgets.BaseLocationFragment
 import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
-import kotlinx.coroutines.flow.collect
+import com.fightpandemics.filter.utils.uncheckChipGroup
+import com.fightpandemics.filter.utils.getCheckedChipsText
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -84,8 +83,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
 
         // update recycler view adapter list if data observed changes
         filterViewModel.autocomplete_locations.observe(viewLifecycleOwner, {
-            adapter.placesNames = it["names"]!!
-            adapter.placesIds = it["ids"]!!
+            adapter.placesNames = it!!
         })
 
         // Set toggle functionality to clickable filter cards
@@ -185,6 +183,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         filterViewModel.isTypeOptionsExpanded.observe(viewLifecycleOwner, { isExpanded ->
             if (isExpanded) {
                 // close other two options cards, and stop transitions when closing to prevent glitchy look
+                // TODO: maybe make function that take list of card views to be closed in View Model
                 filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition = null
                 filterViewModel.isLocationOptionsExpanded.value = false
                 filterViewModel.isFromWhomOptionsExpanded.value = false
@@ -264,18 +263,17 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
             }
             // if location in the editText is edited, delete location, lat, lgn live data
             filterViewModel.locationQuery.value = ""
-            filterViewModel.latitude.value = null
-            filterViewModel.longitude.value = null
         }
 
         filterStartFragmentBinding!!.locationOptions.shareMyLocation.setOnClickListener {
-            /*if (currentLocation == null){
-                getCurrentLocation()
-                //filterViewModel.updateCurrentLocation(currentLocation!!)
-            }*/
-            super.getCurrentLocation()
-            currentLocation?.let { it1 -> filterViewModel.updateCurrentLocation(it1) }
+            getCurrentLocation()
         }
+    }
+
+    // this function gets called inside getCurrentLocation from BaseLocationFragment
+    override fun updateLocation(location: Location) {
+        Timber.i("My filters from filter $location")
+        filterViewModel.updateCurrentLocation(location)
     }
 
     override fun onDestroyView() {
@@ -315,16 +313,6 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         }
     }
 
-    // Returns a list with the text of all checked chips
-    private fun getCheckedChipsText(chipGroup: ChipGroup): MutableList<String> {
-        val textsList = mutableListOf<String>()
-        for (id in chipGroup.checkedChipIds) {
-            val chip = chipGroup.findViewById<Chip>(id)
-            textsList.add(chip.text.toString())
-        }
-        return textsList
-    }
-
     private fun updateFromWhomFiltersData() {
         // get the names of all selected chips
         val whomChips =
@@ -360,16 +348,9 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         }
     }
 
-    private fun uncheckChipGroup(chipGroup: ChipGroup) {
-        val checkedChipIdsList = chipGroup.checkedChipIds
-        for (id in checkedChipIdsList) {
-            chipGroup.findViewById<Chip>(id).isChecked = false
-        }
-    }
-
     private fun clearFilters() {
         // close all option cards
-        filterViewModel.closeOptionCards()
+        filterViewModel.closeAllOptionCards()
         // clear fromwhom selections
         uncheckChipGroup(filterStartFragmentBinding!!.fromWhomOptions.fromWhomChipGroup)
         // clear type selections
@@ -389,11 +370,9 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
     }
 
     // on click function for recycler view (autocomplete)
-    override fun onAutocompleteLocationClick(locationSelected: String, placeId: String) {
+    override fun onAutocompleteLocationClick(locationSelected: String) {
         // update onSelectedLocation, latitude and longitude live data in view model
         filterViewModel.onSelectedLocation.value = locationSelected
-        // TODO: Get Lat and Lng here for autocomplete selection from API
-        filterViewModel.getLatLng(placeId)
     }
 }
 
