@@ -324,9 +324,6 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         filterStartFragmentBinding!!.locationOptions.autoCompleteLocationsRecyclerView.visibility =
             View.GONE
         filterStartFragmentBinding!!.locationOptions.itemLineDivider1.visibility = View.GONE
-        // // todo maybe make a function in the view model of this -
-        //  reset onSelectedLocation event to null because we finished selecting
-        filterViewModel.onSelectedLocation.value = null
     }
 
     // update number in text of apply filters button

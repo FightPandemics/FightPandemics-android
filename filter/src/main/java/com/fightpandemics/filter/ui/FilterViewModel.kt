@@ -44,9 +44,6 @@ class FilterViewModel @Inject constructor(
     var isFromWhomOptionsExpanded = MutableLiveData<Boolean>()
     var isTypeOptionsExpanded = MutableLiveData<Boolean>()
 
-    // handle on selected place event (either from recycler view or from current location button)
-    var onSelectedLocation = MutableLiveData<String>()
-
     // Values that will go into home module
     var locationQuery = MutableLiveData<String>()
     var fromWhomFilters = MutableLiveData<List<String>>()
@@ -66,7 +63,6 @@ class FilterViewModel @Inject constructor(
         fromWhomFilters.value = listOf()
         typeFilters.value = listOf()
         // initialize helper data
-        onSelectedLocation.value = null
         fromWhomCount.value = 0
         typeCount.value = 0
 
@@ -103,8 +99,6 @@ class FilterViewModel @Inject constructor(
 
     // Get user location from API using lat & lng
     fun updateCurrentLocation(location: Location1) {
-        onSelectedLocation.value = "${location.latitude}, ${location.longitude}"
-
         locationJob?.cancel()
         locationJob = viewModelScope.launch {
             userLocationUseCase(LocationRequest(location.latitude, location.longitude))
