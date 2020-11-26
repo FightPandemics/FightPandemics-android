@@ -1,6 +1,5 @@
 package com.fightpandemics.login.ui
 
-import com.fightpandemics.core.data.model.login.User
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.core.data.model.login.LoginRequest
 import com.fightpandemics.core.data.model.login.LoginResponse
+import com.fightpandemics.core.data.model.login.User
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.login.domain.LoginUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,8 +34,7 @@ class LoginViewModel @Inject constructor(
                 loginUseCase(LoginRequest(email, password))
             }
             deferredLogin.await().catch {
-
-            } .collect {
+            }.collect {
                 when (it) {
                     is Result.Success -> {
                         val loginResponse = it.data as LoginResponse
@@ -75,7 +74,6 @@ data class LoginViewState(
     val user: User?,
     val error: String?
 )
-
 
 /*
 *

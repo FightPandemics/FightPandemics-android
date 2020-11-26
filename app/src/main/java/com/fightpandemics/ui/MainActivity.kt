@@ -10,8 +10,6 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.marginBottom
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
@@ -19,16 +17,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.fightpandemics.R
 import com.fightpandemics.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
 

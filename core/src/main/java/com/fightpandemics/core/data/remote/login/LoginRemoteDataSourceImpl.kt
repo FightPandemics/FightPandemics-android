@@ -4,7 +4,6 @@ import com.fightpandemics.core.data.api.FightPandemicsAPI
 import com.fightpandemics.core.data.model.login.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import retrofit2.Response
-import timber.log.Timber
 import javax.inject.Inject
 
 class LoginRemoteDataSourceImpl @Inject constructor(

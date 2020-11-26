@@ -7,14 +7,12 @@ import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.core.utils.parseErrorJsonResponse
 import com.fightpandemics.core.utils.parseJsonResponse
-import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import retrofit2.Response
-import timber.log.Timber
 import javax.inject.Inject
 
 /*
@@ -45,7 +43,6 @@ class LoginRepositoryImpl @Inject constructor(
             awaitClose { }
         }
     }
-
 
     override suspend fun signUp(signUpRequest: SignUpRequest): Response<SignUpResponse> {
         return loginRemoteDataSource.signUp(signUpRequest)

@@ -15,7 +15,11 @@
         <action
             android:id="@+id/action_homeFragment_to_filterFragment"
             app:destination="@id/nav_filter"
-            app:launchSingleTop="true" />
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
 
         <action
             android:id="@+id/action_homeFragment_to_createPostFragment"
