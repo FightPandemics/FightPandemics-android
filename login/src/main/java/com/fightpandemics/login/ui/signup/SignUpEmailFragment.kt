@@ -29,7 +29,8 @@ class SignUpEmailFragment : Fragment() {
     }*/
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_sign_up_email, container, false)
@@ -75,7 +76,7 @@ class SignUpEmailFragment : Fragment() {
     }
 
     private fun executeSignUp(email: String, password: String, confirmPassword: String) {
-        //viewModel.executeSignUp(email, password, confirmPassword)
+        // viewModel.executeSignUp(email, password, confirmPassword)
     }
 
     /*private fun EditText.validateET(

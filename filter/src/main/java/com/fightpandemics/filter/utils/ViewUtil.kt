@@ -42,4 +42,3 @@ fun TextView.collapseContents(optionsView: View) {
         0
     )
 }
-
