@@ -72,14 +72,16 @@ class HomeViewModel @Inject constructor(
                 loadPostsUseCase(objective)
             }.await().collect {
                 when (it) {
-                    is Result.Success -> _postsState.value =
-                        PostsViewState(
-                            isLoading = false,
-                            error = null,
-                            posts = it.data as List<Post>?
-                        )
-                    is Result.Error -> _postsState.value =
-                        PostsViewState(isLoading = false, error = it, posts = emptyList())
+                    is Result.Success ->
+                        _postsState.value =
+                            PostsViewState(
+                                isLoading = false,
+                                error = null,
+                                posts = it.data as List<Post>?
+                            )
+                    is Result.Error ->
+                        _postsState.value =
+                            PostsViewState(isLoading = false, error = it, posts = emptyList())
                 }
             }
         }
@@ -104,8 +106,9 @@ class HomeViewModel @Inject constructor(
                                 posts = it.data as List<Post>?
                             )
                     }
-                    is Result.Error -> _offerState.value =
-                        PostsViewState(isLoading = false, error = it, posts = emptyList())
+                    is Result.Error ->
+                        _offerState.value =
+                            PostsViewState(isLoading = false, error = it, posts = emptyList())
                 }
             }
         }
@@ -130,8 +133,9 @@ class HomeViewModel @Inject constructor(
                                 posts = it.data as List<Post>?
                             )
                     }
-                    is Result.Error -> _requestState.value =
-                        PostsViewState(isLoading = false, error = it, posts = emptyList())
+                    is Result.Error ->
+                        _requestState.value =
+                            PostsViewState(isLoading = false, error = it, posts = emptyList())
                 }
             }
         }
@@ -141,7 +145,7 @@ class HomeViewModel @Inject constructor(
         // If user is not signed in show Profile SignIN
         if (!_isSignedIn.value!!) {
             Timber.e("Showing Profile Sigin after LikeClicked")
-            //_navigateToSignInDialogAction.value = Event(Unit)
+            // _navigateToSignInDialogAction.value = Event(Unit)
             return
         }
 
@@ -149,12 +153,12 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             val data = likePostUsecase(post) // PostRequest
             getPosts(null)
-            //getRequests("request")
+            // getRequests("request")
         }
     }
 
     override fun onEditClicked(post: Post) {
-        //TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
 
     override /*suspend*/ fun onDeleteClicked(post: Post) {
