@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -16,6 +15,8 @@ import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.core.widgets.BaseLocationFragment
 import com.fightpandemics.filter.dagger.inject
+import com.fightpandemics.filter.utils.collapseContents
+import com.fightpandemics.filter.utils.expandContents
 import com.fightpandemics.filter.utils.getCheckedChipsText
 import com.fightpandemics.filter.utils.uncheckChipGroup
 import com.fightpandemics.home.R
@@ -26,10 +27,11 @@ import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 import javax.inject.Inject
 
-
 /*
 * created by Osaigbovo Odiase & Jose Li
 * */
+@FlowPreview
+@ExperimentalCoroutinesApi
 class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener {
 
     // constant for showing autocomplete suggestions
@@ -117,16 +119,14 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
                     // re-enable transitions and open card
                     filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition =
                         defaultTransition
-                    expandContents(
-                        filterStartFragmentBinding!!.locationOptions.root,
-                        filterStartFragmentBinding!!.filterLocationExpandable.locationEmptyCard
+                    filterStartFragmentBinding!!.filterLocationExpandable.locationEmptyCard.expandContents(
+                        filterStartFragmentBinding!!.locationOptions.root
                     )
                     filterStartFragmentBinding!!.filterLocationExpandable.filtersAppliedText.visibility =
                         View.GONE
                 } else {
-                    collapseContents(
-                        filterStartFragmentBinding!!.locationOptions.root,
-                        filterStartFragmentBinding!!.filterLocationExpandable.locationEmptyCard
+                    filterStartFragmentBinding!!.filterLocationExpandable.locationEmptyCard.collapseContents(
+                        filterStartFragmentBinding!!.locationOptions.root
                     )
 
                     // logic for hiding the applied text
@@ -151,16 +151,14 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
                     // re-enable transitions and open card
                     filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition =
                         defaultTransition
-                    expandContents(
-                        filterStartFragmentBinding!!.fromWhomOptions.root,
-                        filterStartFragmentBinding!!.filterFromWhomExpandable.fromWhomEmptyCard
+                    filterStartFragmentBinding!!.filterFromWhomExpandable.fromWhomEmptyCard.expandContents(
+                        filterStartFragmentBinding!!.fromWhomOptions.root
                     )
                     filterStartFragmentBinding!!.filterFromWhomExpandable.filtersAppliedText.visibility =
                         View.GONE
                 } else {
-                    collapseContents(
-                        filterStartFragmentBinding!!.fromWhomOptions.root,
-                        filterStartFragmentBinding!!.filterFromWhomExpandable.fromWhomEmptyCard
+                    filterStartFragmentBinding!!.filterFromWhomExpandable.fromWhomEmptyCard.collapseContents(
+                        filterStartFragmentBinding!!.fromWhomOptions.root
                     )
 
                     // applied text visibility logic
@@ -187,16 +185,14 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
                 // re-enable transitions and open card
                 filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition =
                     defaultTransition
-                expandContents(
-                    filterStartFragmentBinding!!.typeOptions.root,
-                    filterStartFragmentBinding!!.filterTypeExpandable.typeEmptyCard
+                filterStartFragmentBinding!!.filterTypeExpandable.typeEmptyCard.expandContents(
+                    filterStartFragmentBinding!!.typeOptions.root
                 )
                 filterStartFragmentBinding!!.filterTypeExpandable.filtersAppliedText.visibility =
                     View.GONE
             } else {
-                collapseContents(
-                    filterStartFragmentBinding!!.typeOptions.root,
-                    filterStartFragmentBinding!!.filterTypeExpandable.typeEmptyCard
+                filterStartFragmentBinding!!.filterTypeExpandable.typeEmptyCard.collapseContents(
+                    filterStartFragmentBinding!!.typeOptions.root
                 )
 
                 // applied text visibility logic
@@ -217,11 +213,11 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
             handleApplyFilterEnableState()
             updateApplyFiltersText()
         })
-        filterViewModel.typeCount.observe(viewLifecycleOwner, { typeCount ->
+        filterViewModel.typeCount.observe(viewLifecycleOwner, {
             handleApplyFilterEnableState()
             updateApplyFiltersText()
         })
-        filterViewModel.locationQuery.observe(viewLifecycleOwner, { locationQuery ->
+        filterViewModel.locationQuery.observe(viewLifecycleOwner, {
             handleApplyFilterEnableState()
             updateApplyFiltersText()
         })
@@ -239,26 +235,6 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
     override fun onDestroyView() {
         filterStartFragmentBinding = null
         super.onDestroyView()
-    }
-
-    private fun expandContents(optionsView: View, clickableTextView: TextView) {
-        optionsView.visibility = View.VISIBLE
-        clickableTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(
-            0,
-            0,
-            R.drawable.ic_minus_sign,
-            0
-        )
-    }
-
-    private fun collapseContents(optionsView: View, clickableTextView: TextView) {
-        optionsView.visibility = View.GONE
-        clickableTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(
-            0,
-            0,
-            R.drawable.ic_plus_sign,
-            0
-        )
     }
 
     private fun shareLocation() {
@@ -299,7 +275,6 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
                     }
                 }
             }
-
             // if location in the editText is edited, delete location, lat, lgn live data
             filterViewModel.locationQuery.value = ""
         }
@@ -396,7 +371,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         filterStartFragmentBinding!!.filterTypeExpandable.filtersAppliedText.visibility = View.GONE
     }
 
-    // on click function for recycler view (autocomplete)
+    // On click function for recycler view (autocomplete)
     override fun onAutocompleteLocationClick(locationSelected: String) {
         displayLocation(locationSelected)
     }

@@ -29,7 +29,8 @@ class FilterViewModel @Inject constructor(
     private val locationDetailsUseCase: LocationDetailsUseCase
 ) : ViewModel() {
 
-    private var locationJob: Job? = null
+    private var sharelocationJob: Job? = null
+    private var searchlocationJob: Job? = null
 
     private val _currentLocationState = MutableStateFlow(UserLocationViewState(isLoading = true))
     val currentLocationState = _currentLocationState.asStateFlow()
@@ -99,8 +100,8 @@ class FilterViewModel @Inject constructor(
 
     // Get user location from API using lat & lng
     fun updateCurrentLocation(location: Location1) {
-        locationJob?.cancel()
-        locationJob = viewModelScope.launch {
+        sharelocationJob?.cancel()
+        sharelocationJob = viewModelScope.launch {
             userLocationUseCase(LocationRequest(location.latitude, location.longitude))
                 .collect {
                     when (it) {
@@ -113,11 +114,9 @@ class FilterViewModel @Inject constructor(
     }
 
     // Search for location from API using user input
-    @ExperimentalCoroutinesApi
-    @FlowPreview
     fun searchLocation() {
-        locationJob?.cancel()
-        locationJob = viewModelScope.launch {
+        searchlocationJob?.cancel()
+        searchlocationJob = viewModelScope.launch {
             searchQuery
                 .debounce(300)
                 .filter { return@filter !it.isEmpty() && it.length >= 3 }
@@ -127,13 +126,10 @@ class FilterViewModel @Inject constructor(
                 .conflate()
                 .collect {
                     when (it) {
-                        is Result.Success -> {
-                            _searchLocationState.value = it.data as MutableList<String>
-                            Timber.e("${it.toString()}")
-                        }
-                        is Result.Error -> {
-                            Timber.e(it.toString())
-                        }
+                        is Result.Success -> _searchLocationState.value =
+                            it.data as MutableList<String>
+                        is Result.Error -> Timber.e(it.toString())
+                        is Result.Loading -> Timber.e("LOADING...")
                     }
                 }
         }
