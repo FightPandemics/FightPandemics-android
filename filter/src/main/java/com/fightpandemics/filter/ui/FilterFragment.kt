@@ -15,10 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.core.widgets.BaseLocationFragment
 import com.fightpandemics.filter.dagger.inject
-import com.fightpandemics.filter.utils.collapseContents
-import com.fightpandemics.filter.utils.expandContents
-import com.fightpandemics.filter.utils.getCheckedChipsText
-import com.fightpandemics.filter.utils.uncheckChipGroup
+import com.fightpandemics.filter.utils.*
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -57,6 +54,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         val binding = FilterStartFragmentBinding.inflate(inflater)
         filterStartFragmentBinding = binding
         filterStartFragmentBinding!!.filterToolbar.setNavigationOnClickListener {
+            dismissKeyboard(it)
             findNavController().navigateUp()
         }
         return binding.root
@@ -89,6 +87,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         // Set toggle functionality to clickable filter cards
         filterStartFragmentBinding!!.filterLocationExpandable.locationEmptyCard.setOnClickListener {
             filterViewModel.toggleView(filterViewModel.isLocationOptionsExpanded)
+            dismissKeyboard(it)
         }
         filterStartFragmentBinding!!.filterFromWhomExpandable.fromWhomEmptyCard.setOnClickListener {
             filterViewModel.toggleView(filterViewModel.isFromWhomOptionsExpanded)

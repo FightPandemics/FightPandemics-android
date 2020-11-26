@@ -28,9 +28,9 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var fab: FloatingActionButton
+    private lateinit var dot: ImageView
     private lateinit var fabCreateAsOrg: MaterialButton
     private lateinit var fabCreateAsIndividual: MaterialButton
-    private lateinit var dot: ImageView
     private lateinit var fabOpen: Animation
     private lateinit var fabClose: Animation
     private lateinit var rotateForward: Animation

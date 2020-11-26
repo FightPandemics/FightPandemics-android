@@ -5,6 +5,8 @@ import com.fightpandemics.createpost.ui.CreatePostFragment
 import dagger.Subcomponent
 
 /**
+ * created by Osaigbovo Odiase
+ *
  * Component binding injections for the [:createpost] module.
  */
 @ActivityScope

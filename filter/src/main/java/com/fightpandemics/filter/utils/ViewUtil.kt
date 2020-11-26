@@ -1,6 +1,8 @@
 package com.fightpandemics.filter.utils
 
+import android.content.Context
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import com.fightpandemics.home.R
 import com.google.android.material.chip.Chip
@@ -41,4 +43,10 @@ fun TextView.collapseContents(optionsView: View) {
         R.drawable.ic_plus_sign,
         0
     )
+}
+
+fun dismissKeyboard(view: View) {
+    val imm =
+        view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
