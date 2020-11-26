@@ -1,16 +1,5 @@
 package com.fightpandemics.home.utils
 
-import android.app.Activity
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import com.fightpandemics.home.R
-
 /**
  * Utility class for posting notifications.
  * This class creates the notification channel (as necessary) and posts to it when requested.
