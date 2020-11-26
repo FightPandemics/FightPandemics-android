@@ -1,6 +1,5 @@
 package com.fightpandemics.core.data.model.post
 
-import com.fightpandemics.core.data.model.posts.Author
 import com.fightpandemics.core.data.model.posts.ExternalLinks
 
 data class PostRequest(

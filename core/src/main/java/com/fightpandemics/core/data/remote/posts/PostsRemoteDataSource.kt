@@ -4,8 +4,6 @@ import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.Path
 
 interface PostsRemoteDataSource {
 

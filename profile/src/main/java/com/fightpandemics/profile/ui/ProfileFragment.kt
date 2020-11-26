@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
-import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.ui.MainActivity
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.profile_toolbar.*

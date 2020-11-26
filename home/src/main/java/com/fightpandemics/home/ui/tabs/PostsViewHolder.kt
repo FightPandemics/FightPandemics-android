@@ -2,7 +2,6 @@ package com.fightpandemics.home.ui.tabs
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
@@ -54,8 +53,6 @@ class PostsViewHolder(
 
             itemBinding.postContent.text = post.content
 
-
-
             itemBinding.like.apply {
                 isChecked = post.liked!!
                 setOnClickListener {
@@ -104,10 +101,9 @@ class PostsViewHolder(
                 else -> itemBinding.postOption.isVisible = false
             }
 
-
             val time_post = 12.toString()
             itemBinding.timePosted.text = "Posted $time_post hrs ago"
-            //Timber.e(getPostCreated("2020-10-15T15:44:04.009Z").toString())
+            // Timber.e(getPostCreated("2020-10-15T15:44:04.009Z").toString())
 
             setOnClickListener { onItemClickListener?.invoke(post) }
         }
