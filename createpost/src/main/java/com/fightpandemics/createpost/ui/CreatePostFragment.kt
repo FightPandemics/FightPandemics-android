@@ -141,9 +141,15 @@ class CreatePostFragment : Fragment() {
         val navBackStackEntry = findNavController().getBackStackEntry(R.id.createPostFragment)
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME && navBackStackEntry.savedStateHandle.contains("tag1")) {
-                chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag1")!!)
-                chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag2")!!)
-                chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag3")!!)
+                if (!chipTexts.contains(navBackStackEntry.savedStateHandle.get<String>("tag1"))) {
+                    chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag1")!!)
+                }
+                if (!chipTexts.contains(navBackStackEntry.savedStateHandle.get<String>("tag2"))) {
+                    chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag2")!!)
+                }
+                if (!chipTexts.contains(navBackStackEntry.savedStateHandle.get<String>("tag3"))) {
+                    chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag3")!!)
+                }
             }
             Toast.makeText(requireContext(), chipTexts.toString(), Toast.LENGTH_SHORT).show()
         }
