@@ -65,15 +65,18 @@ class HomeFragment : Fragment() {
 
         val fab: FloatingActionButton = activity?.findViewById(com.fightpandemics.R.id.fab)!!
 
-        homeViewModel.isDeleted.observe(requireActivity(), EventObserver {
+        homeViewModel.isDeleted.observe(
+            requireActivity(),
+            EventObserver {
 
-            if (it.isNotBlank()) {
-                Timber.e(it)
+                if (it.isNotBlank()) {
+                    Timber.e(it)
 
-                Snackbar.make(fab, "Snackbar over BottomAppBar", Snackbar.LENGTH_SHORT)
-                    .apply { anchorView = fab }.show()
+                    Snackbar.make(fab, "Snackbar over BottomAppBar", Snackbar.LENGTH_SHORT)
+                        .apply { anchorView = fab }.show()
+                }
             }
-        })
+        )
 
         return rootView
     }
@@ -100,7 +103,7 @@ class HomeFragment : Fragment() {
 
         TabLayoutMediator(homeTabs, homePager) { tab, position ->
             tab.text = this.resources.getString(TAB_TITLES[position])
-            //homeTabs.addOnTabSelectedListener(OnTabSelected())
+            // homeTabs.addOnTabSelectedListener(OnTabSelected())
         }.attach()
     }
 

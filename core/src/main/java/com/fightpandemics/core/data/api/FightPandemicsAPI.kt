@@ -36,7 +36,6 @@ interface FightPandemicsAPI {
     @POST("/api/auth/change-password")
     suspend fun changePassword(@Body email: String): Response<ChangePasswordResponse>
 
-
     // Edit a Post
     @PATCH("api/posts/{postId}")
     suspend fun updatePost(

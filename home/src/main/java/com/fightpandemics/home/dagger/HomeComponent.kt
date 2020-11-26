@@ -1,10 +1,8 @@
 package com.fightpandemics.home.dagger
 
-import android.content.Context
 import com.fightpandemics.core.dagger.CoreComponent
 import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.dagger.AppComponent
-import com.fightpandemics.home.domain.LoadPostsUseCase
 import com.fightpandemics.home.ui.DeleteDialogFragment
 import com.fightpandemics.home.ui.HomeFragment
 import com.fightpandemics.home.ui.HomeOptionsBottomSheetFragment
@@ -19,7 +17,7 @@ import dagger.Component
  */
 @FeatureScope
 @Component(
-    modules = [HomeModule::class, HomeViewModelModule::class , HomeSubcomponentsModule::class],
+    modules = [HomeModule::class, HomeViewModelModule::class, HomeSubcomponentsModule::class],
     dependencies = [AppComponent::class, CoreComponent::class]
 )
 interface HomeComponent {

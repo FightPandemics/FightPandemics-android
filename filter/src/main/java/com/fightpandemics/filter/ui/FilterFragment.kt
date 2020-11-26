@@ -50,7 +50,9 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         val binding = FilterStartFragmentBinding.inflate(inflater)
         filterStartFragmentBinding = binding
@@ -137,7 +139,8 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
                         }
                     }
                 }
-            })
+            }
+        )
 
         filterViewModel.isFromWhomOptionsExpanded.observe(
             viewLifecycleOwner,
@@ -172,55 +175,68 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
                             )
                     }
                 }
-            })
+            }
+        )
 
-        filterViewModel.isTypeOptionsExpanded.observe(viewLifecycleOwner, { isExpanded ->
-            if (isExpanded) {
-                // close other two options cards, and stop transitions when closing to prevent glitchy look
-                // TODO: maybe make function that take list of card views to be closed in View Model
-                filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition = null
-                filterViewModel.isLocationOptionsExpanded.value = false
-                filterViewModel.isFromWhomOptionsExpanded.value = false
+        filterViewModel.isTypeOptionsExpanded.observe(
+            viewLifecycleOwner,
+            { isExpanded ->
+                if (isExpanded) {
+                    // close other two options cards, and stop transitions when closing to prevent glitchy look
+                    // TODO: maybe make function that take list of card views to be closed in View Model
+                    filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition = null
+                    filterViewModel.isLocationOptionsExpanded.value = false
+                    filterViewModel.isFromWhomOptionsExpanded.value = false
 
-                // re-enable transitions and open card
-                filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition =
-                    defaultTransition
-                filterStartFragmentBinding!!.filterTypeExpandable.typeEmptyCard.expandContents(
-                    filterStartFragmentBinding!!.typeOptions.root
-                )
-                filterStartFragmentBinding!!.filterTypeExpandable.filtersAppliedText.visibility =
-                    View.GONE
-            } else {
-                filterStartFragmentBinding!!.filterTypeExpandable.typeEmptyCard.collapseContents(
-                    filterStartFragmentBinding!!.typeOptions.root
-                )
-
-                // applied text visibility logic
-                if (filterViewModel.typeCount.value!! > 0) {
+                    // re-enable transitions and open card
+                    filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition =
+                        defaultTransition
+                    filterStartFragmentBinding!!.filterTypeExpandable.typeEmptyCard.expandContents(
+                        filterStartFragmentBinding!!.typeOptions.root
+                    )
                     filterStartFragmentBinding!!.filterTypeExpandable.filtersAppliedText.visibility =
-                        View.VISIBLE
-                    filterStartFragmentBinding!!.filterTypeExpandable.filtersAppliedText.text =
-                        requireContext().getString(
-                            R.string.card_applied_filters,
-                            filterViewModel.typeCount.value!!
-                        )
+                        View.GONE
+                } else {
+                    filterStartFragmentBinding!!.filterTypeExpandable.typeEmptyCard.collapseContents(
+                        filterStartFragmentBinding!!.typeOptions.root
+                    )
+
+                    // applied text visibility logic
+                    if (filterViewModel.typeCount.value!! > 0) {
+                        filterStartFragmentBinding!!.filterTypeExpandable.filtersAppliedText.visibility =
+                            View.VISIBLE
+                        filterStartFragmentBinding!!.filterTypeExpandable.filtersAppliedText.text =
+                            requireContext().getString(
+                                R.string.card_applied_filters,
+                                filterViewModel.typeCount.value!!
+                            )
+                    }
                 }
             }
-        })
+        )
 
         // The next three observers check if apply filter button should be enabled
-        filterViewModel.fromWhomCount.observe(viewLifecycleOwner, { fromWhomCount ->
-            handleApplyFilterEnableState()
-            updateApplyFiltersText()
-        })
-        filterViewModel.typeCount.observe(viewLifecycleOwner, {
-            handleApplyFilterEnableState()
-            updateApplyFiltersText()
-        })
-        filterViewModel.locationQuery.observe(viewLifecycleOwner, {
-            handleApplyFilterEnableState()
-            updateApplyFiltersText()
-        })
+        filterViewModel.fromWhomCount.observe(
+            viewLifecycleOwner,
+            { fromWhomCount ->
+                handleApplyFilterEnableState()
+                updateApplyFiltersText()
+            }
+        )
+        filterViewModel.typeCount.observe(
+            viewLifecycleOwner,
+            {
+                handleApplyFilterEnableState()
+                updateApplyFiltersText()
+            }
+        )
+        filterViewModel.locationQuery.observe(
+            viewLifecycleOwner,
+            {
+                handleApplyFilterEnableState()
+                updateApplyFiltersText()
+            }
+        )
 
         searchLocation()
         shareLocation() // get user location and display it
@@ -292,7 +308,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
 
         filterViewModel.locationQuery.value = address
         // todo maybe find a better way of doing this -
-        //  Take away focus from edit text once an option has been selected
+        //  Take away focus from edit text once an option has been selected binding.searchText.requestFocus()
         filterStartFragmentBinding!!.locationOptions.locationSearch.isEnabled = false
         filterStartFragmentBinding!!.locationOptions.locationSearch.isEnabled = true
         // hide recycler view autocomplete location suggestions
@@ -304,12 +320,15 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
     // update number in text of apply filters button
     private fun updateApplyFiltersText() {
         when (val total = filterViewModel.getFiltersAppliedCount()) {
-            0 -> filterStartFragmentBinding!!.applyFiltersButton.text =
-                requireContext().getString(R.string.button_apply_filter)
-            1 -> filterStartFragmentBinding!!.applyFiltersButton.text =
-                requireContext().getString(R.string.button_apply_filter_, total)
-            else -> filterStartFragmentBinding!!.applyFiltersButton.text =
-                requireContext().getString(R.string.button_apply_filters, total)
+            0 ->
+                filterStartFragmentBinding!!.applyFiltersButton.text =
+                    requireContext().getString(R.string.button_apply_filter)
+            1 ->
+                filterStartFragmentBinding!!.applyFiltersButton.text =
+                    requireContext().getString(R.string.button_apply_filter_, total)
+            else ->
+                filterStartFragmentBinding!!.applyFiltersButton.text =
+                    requireContext().getString(R.string.button_apply_filters, total)
         }
     }
 
@@ -335,7 +354,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         // if there are any chips selected in fromWhom or type
         filterStartFragmentBinding!!.applyFiltersButton.isEnabled =
             filterViewModel.locationQuery.value!!.isNotBlank() ||
-                    filterViewModel.fromWhomCount.value!! + filterViewModel.typeCount.value!! > 0
+            filterViewModel.fromWhomCount.value!! + filterViewModel.typeCount.value!! > 0
     }
 
     private fun handleAutocompleteVisibility(locationQuery: String) {
@@ -376,4 +395,3 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         displayLocation(locationSelected)
     }
 }
-

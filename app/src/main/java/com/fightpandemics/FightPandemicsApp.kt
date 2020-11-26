@@ -18,7 +18,8 @@ import com.fightpandemics.login.dagger.LoginComponentProvider
 import com.jakewharton.threetenabp.AndroidThreeTen
 import timber.log.Timber
 
-open class FightPandemicsApp : Application(),
+open class FightPandemicsApp :
+    Application(),
     CoreComponentProvider,
     LoginComponentProvider,
     FilterComponentProvider,

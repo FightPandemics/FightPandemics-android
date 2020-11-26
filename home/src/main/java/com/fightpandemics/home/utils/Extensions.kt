@@ -82,8 +82,6 @@ fun getPostCreated(createdAt: String?): String? {
 //        val elapsed = calculateTime(elapsedDuration)
 //        return elapsed
     } else {
-
-
     }
 
     val readDateTimeFormatter = DateTimeFormatter
@@ -103,7 +101,6 @@ fun getPostCreated(createdAt: String?): String? {
     Timber.e(elapsedDuration.seconds.toString())
 
     return created.toString()
-
 }
 
 @RequiresApi(Build.VERSION_CODES.O)

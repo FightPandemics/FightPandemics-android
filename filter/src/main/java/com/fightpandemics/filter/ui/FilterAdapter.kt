@@ -1,14 +1,14 @@
 package com.fightpandemics.filter.ui
 
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.home.R
 
-class FilterAdapter(val onItemClickListener: OnItemClickListener)
-    : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
+class FilterAdapter(val onItemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
     val MAX_RECYCLER_VIEW_SIZE = 5
 
     var placesNames = listOf<String>()
@@ -45,4 +45,3 @@ class FilterAdapter(val onItemClickListener: OnItemClickListener)
         fun onAutocompleteLocationClick(locationSelected: String)
     }
 }
-

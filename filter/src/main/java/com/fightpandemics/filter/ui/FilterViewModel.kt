@@ -26,7 +26,7 @@ import com.fightpandemics.core.data.model.userlocation.Location as Location2
 class FilterViewModel @Inject constructor(
     private val userLocationUseCase: UserLocationUseCase,
     private val locationPredictionsUseCase: LocationPredictionsUseCase,
-    private val locationDetailsUseCase: LocationDetailsUseCase
+    /*private val locationDetailsUseCase: LocationDetailsUseCase*/
 ) : ViewModel() {
 
     private var sharelocationJob: Job? = null
@@ -126,8 +126,9 @@ class FilterViewModel @Inject constructor(
                 .conflate()
                 .collect {
                     when (it) {
-                        is Result.Success -> _searchLocationState.value =
-                            it.data as MutableList<String>
+                        is Result.Success ->
+                            _searchLocationState.value =
+                                it.data as MutableList<String>
                         is Result.Error -> Timber.e(it.toString())
                         is Result.Loading -> Timber.e("LOADING...")
                     }
