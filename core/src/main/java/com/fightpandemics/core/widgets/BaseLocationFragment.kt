@@ -38,7 +38,7 @@ open class BaseLocationFragment : Fragment() {
         if (locationCallback != null) {
             mFusedLocationClient!!.removeLocationUpdates(locationCallback!!)
             locationCallback = null
-            //locationRequest
+            // locationRequest
         }
         mFusedLocationClient = null
 
@@ -48,8 +48,8 @@ open class BaseLocationFragment : Fragment() {
     fun getCurrentLocation() {
         // Call findCurrentPlace and handle the response (first check that the user has granted permission).
         if (ContextCompat.checkSelfPermission(
-                requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
-            )
+            requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
+        )
             == PackageManager.PERMISSION_GRANTED
         ) {
             val REQUEST_CHECK_STATE = 12300 // any suitable ID
@@ -64,10 +64,10 @@ open class BaseLocationFragment : Fragment() {
                 } catch (e: RuntimeExecutionException) {
                     Timber.i("My filters : runtime execution exception")
                     if (e.cause is ResolvableApiException)
-                        (e.cause as ResolvableApiException).startResolutionForResult(
-                            requireActivity(),
-                            REQUEST_CHECK_STATE
-                        )
+                    (e.cause as ResolvableApiException).startResolutionForResult(
+                        requireActivity(),
+                        REQUEST_CHECK_STATE
+                    )
                 }
             }
 
@@ -92,7 +92,6 @@ open class BaseLocationFragment : Fragment() {
                     )
                 }
             }
-
         } else {
             // A local method to request required permissions;
             getLocationPermission()

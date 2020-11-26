@@ -1,6 +1,5 @@
 package com.fightpandemics.core.dagger
 
-import android.content.Context
 import com.fightpandemics.core.dagger.module.*
 import com.fightpandemics.core.data.api.FightPandemicsAPI
 import com.fightpandemics.core.data.prefs.PreferenceStorage
@@ -42,7 +41,7 @@ interface CoreComponent {
     }
 
     // The return type of functions inside the component interface is what can be provided from the container
-    //fun provideContext(): Context
+    // fun provideContext(): Context
     fun providesPreferenceStorage(): PreferenceStorage
 
     fun providePostsRepository(): PostsRepository
