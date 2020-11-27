@@ -1,7 +1,9 @@
 package com.fightpandemics.home.ui.tabs
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.view.LayoutInflater
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
@@ -14,8 +16,10 @@ import com.fightpandemics.home.databinding.ItemAllFeedBinding
 import com.fightpandemics.home.databinding.SingleChipLayoutBinding
 import com.fightpandemics.home.ui.HomeEventListener
 import com.fightpandemics.home.ui.HomeFragmentDirections
+import com.fightpandemics.home.utils.getPostCreated
 import com.fightpandemics.home.utils.sharePost
 import com.fightpandemics.home.utils.userInitials
+import timber.log.Timber
 import java.util.*
 
 class PostsViewHolder(
@@ -101,9 +105,13 @@ class PostsViewHolder(
                 else -> itemBinding.postOption.isVisible = false
             }
 
-            val time_post = 12.toString()
-            itemBinding.timePosted.text = "Posted $time_post hrs ago"
-            // Timber.e(getPostCreated("2020-10-15T15:44:04.009Z").toString())
+            // Display time of Post
+            "Posted ${getPostCreated(post.createdAt.toString())} ago".also {
+                itemBinding.timePosted.text = it
+            }
+
+            Timber.e(getPostCreated(post.createdAt.toString()))
+            Timber.e(getPostCreated(post.updatedAt.toString())?.plus("EDITED"))
 
             setOnClickListener { onItemClickListener?.invoke(post) }
         }
