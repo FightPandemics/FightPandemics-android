@@ -59,17 +59,6 @@ class HomeAllFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<FilterRequest>("filters")
-            ?.observe(
-                viewLifecycleOwner
-            ) { result ->
-                // TODO: remove timber Do something with the result.
-                Timber.e("My filters are: ${result.location}, ${result.fromWhomFilters}, ${result.typeFilters}")
-            }
-        // If you’d only like to handle a result only once, you must call remove() on the
-        // SavedStateHandle to clear the result. If you do not remove the result, the LiveData
-        // will continue to return the last result to any new Observer instances.
-        // findNavController().currentBackStackEntry?.savedStateHandle?.remove<List<String>>("key")
         super.onViewCreated(view, savedInstanceState)
         getPosts()
     }

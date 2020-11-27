@@ -5,19 +5,19 @@ import android.os.Parcelable
 
 // Data class for making a filter request
 data class FilterRequest(
-    val location: String?,
-    val fromWhomFilters: List<String>?,
-    val typeFilters: List<String>?
+    //val location: String?,
+    //val fromWhomFilters: List<String>?,
+    val typeFilters: List<String?>?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.createStringArrayList(),
+        //parcel.readString(),
+        //parcel.createStringArrayList(),
         parcel.createStringArrayList()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(location)
-        parcel.writeStringList(fromWhomFilters)
+        //parcel.writeString(location)
+        //parcel.writeStringList(fromWhomFilters)
         parcel.writeStringList(typeFilters)
     }
 

@@ -46,9 +46,9 @@ class FilterViewModel @Inject constructor(
     var isTypeOptionsExpanded = MutableLiveData<Boolean>()
 
     // Values that will go into home module
-    var locationQuery = MutableLiveData<String>()
-    var fromWhomFilters = MutableLiveData<List<String>>()
-    var typeFilters = MutableLiveData<List<String>>()
+    var locationQuery = MutableLiveData<String?>("")
+    var fromWhomFilters = MutableLiveData<List<String?>>()
+    var typeFilters = MutableLiveData<List<String?>>()
 
     // Keep track of selected chip counts - Used for checking when to enable apply filter button
     var fromWhomCount = MutableLiveData<Int>()
@@ -60,7 +60,7 @@ class FilterViewModel @Inject constructor(
         isFromWhomOptionsExpanded.value = false
         isTypeOptionsExpanded.value = false
         // initialize data that will be sent as a FilterRequest
-        locationQuery.value = ""
+        //locationQuery.value = ""
         fromWhomFilters.value = listOf()
         typeFilters.value = listOf()
         // initialize helper data
@@ -145,11 +145,26 @@ class FilterViewModel @Inject constructor(
             UserLocationViewState(loading, error, "${currentLocation?.address}")
     }
 
-    fun createFilterRequest(): FilterRequest {
+    /*fun createFilterRequest(): FilterRequest {
         return FilterRequest(
             locationQuery.value,
             fromWhomFilters.value,
             typeFilters.value
+        )
+    }*/
+
+    fun createFilterRequest(): FilterRequest {
+        val stringList = mutableListOf<String?>()
+
+        if (locationQuery.value!!.isNotBlank()) stringList.add(locationQuery.value)
+        stringList.addAll(fromWhomFilters.value!!)
+        stringList.addAll(typeFilters.value!!)
+
+        return FilterRequest(
+            stringList
+            //locationQuery.value,
+            //fromWhomFilters.value,
+            //typeFilters.value
         )
     }
 }
