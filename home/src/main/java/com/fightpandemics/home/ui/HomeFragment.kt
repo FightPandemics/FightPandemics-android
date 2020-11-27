@@ -1,5 +1,8 @@
 package com.fightpandemics.home.ui
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.LayoutTransition
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -84,8 +87,13 @@ class HomeFragment : Fragment() {
             { result ->
                 Timber.e("My filters are: ${result.typeFilters}")
 
+
+                // TODO - Use stateFLow to monitor the content from the filter
+                homeViewModel.filterState.value = result.typeFilters as MutableList<String>
+
+
                 homeFragmentBinding!!.appBar.horizontalScrollBar.visibility =
-                    if (result != null) View.VISIBLE else View.GONE
+                    if (result.typeFilters!!.isNotEmpty()) View.VISIBLE else View.GONE
 
                 homeFragmentBinding!!.appBar.filterChipGroup.removeAllViews()
                 for (type: String? in result.typeFilters!!) {
@@ -105,7 +113,6 @@ class HomeFragment : Fragment() {
                         anim.duration = 250
                         anim.setAnimationListener(object : Animation.AnimationListener {
                             override fun onAnimationRepeat(animation: Animation?) {}
-
                             override fun onAnimationEnd(animation: Animation?) {
                                 homeFragmentBinding!!.appBar.filterChipGroup.removeView(
                                     homeFilterChipLayoutBinding.chip
@@ -116,8 +123,16 @@ class HomeFragment : Fragment() {
                         })
                         it.startAnimation(anim)
 
+                        homeFragmentBinding!!.homeFragment.removeView(homeFragmentBinding!!.appBar.filterChipGroup)
+
+                        val layoutTransition = homeFragmentBinding!!.homeFragment.layoutTransition
+                        layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
                         homeFragmentBinding!!.appBar.horizontalScrollBar.visibility =
-                            if (result.typeFilters!!.isNotEmpty()) View.VISIBLE else View.GONE
+                            if (result.typeFilters!!.isNotEmpty()) {
+                                View.VISIBLE
+                            } else {
+                                View.GONE
+                            }
                     }
 
                     homeFragmentBinding!!.appBar

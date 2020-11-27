@@ -17,6 +17,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -33,6 +35,8 @@ class HomeViewModel @Inject constructor(
     private val observeUserAuthStateUseCase: ObserveUserAuthStateUseCase,
     private val dispatcherProvider: CoroutinesDispatcherProvider,
 ) : ViewModel(), HomeEventListener {
+
+    val filterState = MutableStateFlow(mutableListOf(""))
 
     private val _postsState = MutableLiveData<PostsViewState>()
     val postsState: LiveData<PostsViewState> get() = _postsState

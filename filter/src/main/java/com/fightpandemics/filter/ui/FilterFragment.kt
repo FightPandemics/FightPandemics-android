@@ -1,5 +1,7 @@
 package com.fightpandemics.filter.ui
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.LayoutTransition
 import android.content.Context
 import android.location.Location
@@ -353,7 +355,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         // if there are any chips selected in fromWhom or type
         filterStartFragmentBinding!!.applyFiltersButton.isEnabled =
             filterViewModel.locationQuery.value!!.isNotBlank() ||
-            filterViewModel.fromWhomCount.value!! + filterViewModel.typeCount.value!! > 0
+                    filterViewModel.fromWhomCount.value!! + filterViewModel.typeCount.value!! > 0
     }
 
     private fun handleAutocompleteVisibility(locationQuery: String) {
