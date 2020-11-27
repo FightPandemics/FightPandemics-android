@@ -9,7 +9,9 @@ data class Post(
     val author: Author?,
     val commentsCount: Int?,
     val content: String?,
+    val createdAt: String?,
     val distance: Double?,
+    val elapsedTimeText: ElapsedTimeText?,
     val expireAt: String?,
     val externalLinks: ExternalLinks?,
     val language: List<String>?,
@@ -18,5 +20,6 @@ data class Post(
     val objective: String?,
     val title: String?,
     val types: List<String>?,
+    val updatedAt: String?,
     val visibility: String?
 ) : Parcelable
