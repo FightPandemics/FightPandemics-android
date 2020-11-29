@@ -13,11 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:minHeight="?attr/actionBarSize"
-        app:titleTextColor="@color/fightPandemicsNeonBlue"
-        app:layout_scrollFlags="scroll|enterAlways"
-
-        app:popupTheme="@style/AppTheme.AppBarOverlay" />
-    <!--app:logo="@drawable/logo"-->
+        app:layout_scrollFlags="scroll|snap|enterAlways"
+        app:logo="@drawable/logo"
+        app:popupTheme="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"/>
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollBar"

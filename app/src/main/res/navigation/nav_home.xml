@@ -8,9 +8,9 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.fightpandemics.home.ui.HomeFragment"
-        android:label="Home"
+
         app:moduleName="Fight_Pandemics.home"
-        tools:layout="@layout/home_fragment">
+        tools:layout="@layout/home_fragment"><!--android:label="Home"-->
 
         <action
             android:id="@+id/action_homeFragment_to_filterFragment"
