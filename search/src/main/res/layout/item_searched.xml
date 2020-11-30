@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/time_posted"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Posted 14hrs ago" />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/time_posted"
+            app:layout_constraintTop_toBottomOf="@+id/time_posted"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                app:singleLine="true"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.chip.Chip
+                    tools:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test1"
+                    android:visibility="gone" />
+
+                <com.google.android.material.chip.Chip
+                    tools:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test1"
+                    android:visibility="gone" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/post_title"
+            style="@style/AndroidNativeH122Px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/horizontalScrollBar"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:text="I have 100 face Masks to give away." />
+
+        <TextView
+            android:id="@+id/post_content"
+            style="@style/AndroidNativeP114Px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/post_title"
+            app:layout_constraintTop_toBottomOf="@+id/post_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="end"
+            android:text="max 3 lines for preview.max 3 lines for preview.max 3 lines for preview.max 3 lines for preview.max 3 lines for preview.max 3 lines for preview. " />
+
+        <com.google.android.material.button.MaterialButton
+            app:layout_constraintStart_toStartOf="@id/post_content"
+            app:layout_constraintTop_toBottomOf="@id/post_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="view more" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
