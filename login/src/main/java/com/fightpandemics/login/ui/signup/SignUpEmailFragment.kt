@@ -1,11 +1,16 @@
 package com.fightpandemics.login.ui.signup
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
@@ -42,43 +47,56 @@ class SignUpEmailFragment : BaseFragment() {
         }
 
         cl_btn_join.setOnClickListener {
-           // if (validEmail && validPassword && validRePassword) {
-                executeSignUp(
-                    et_email.text.toString().trim(),
-                    et_password.text.toString().trim(),
-                    et_repassword.text.toString().trim()
-                )
+            // if (validEmail && validPassword && validRePassword) {
+            executeSignUp(
+                et_email.text.toString().trim(),
+                et_password.text.toString().trim(),
+                et_repassword.text.toString().trim()
+            )
             //}
         }
     }
 
     private fun executeSignUp(email: String, password: String, confirmPassword: String) {
         loginViewModel.doSignUP(email, password, confirmPassword)
-        loginViewModel.signup.observe(viewLifecycleOwner, {
-            when {
-                it.isLoading -> {
 
+        cl_btn_join.background.setColorFilter(requireContext().resources.getColor(R.color.color_button_disabled), PorterDuff.Mode.SRC_ATOP);
+        loginViewModel.signup.observe(viewLifecycleOwner, { signupResponse ->
+            when {
+                signupResponse.isError -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Oops something wrong please try again later: " + signupResponse.error,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
-                it.emailVerified -> {
-                    displayorHideView(View.VISIBLE, cl_btn_join)
-                    Timber.e("Email verification ${it.emailVerified}")
-//                    if (it.user == null) {
-//                        findNavController().navigate(R.id.action_signInEmailFragment_to_completeProfileFragment)
-//                    } else {
-//                        // TODO 9 - Fix this hardcoded string
-//                        val PACKAGE_NAME = "com.fightpandemics"
-//                        val intent = Intent().setClassName(
-//                            PACKAGE_NAME,
-//                            "$PACKAGE_NAME.ui.MainActivity"
-//                        )
-//                        startActivity(intent).apply { requireActivity().finish() }
-//                    }
+                else -> {
+                    when {
+                        signupResponse.emailVerified -> {
+                            displayorHideView(View.VISIBLE, cl_btn_join)
+                            Timber.e("Email verification ${signupResponse.emailVerified}")
+
+                            // TODO 9 - Fix this hardcoded string
+                            val PACKAGE_NAME = "com.fightpandemics"
+                            val intent = Intent().setClassName(
+                                PACKAGE_NAME,
+                                "$PACKAGE_NAME.ui.MainActivity"
+                            )
+                            startActivity(intent).apply { requireActivity().finish() }
+
+                        }
+                        !signupResponse.emailVerified -> {
+                            Toast.makeText(
+                                requireContext(),
+                                "Please verify your email and login in",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            findNavController().navigate(R.id.action_signupEmailFragment_to_signinEmailFragment)
+                        }
+                    }
                 }
-                !it.emailVerified -> {
-                  //  displayorHideView(true, R.string.sign_in)
-                    Timber.e("ERROR ${it.error}")
-                    // TODO 8 - The user is informed that their credentials are invalid using a Snackbar.
-                }
+
+
             }
         })
     }

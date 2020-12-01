@@ -43,11 +43,19 @@
         android:label="fragment_signup_email"
         tools:layout="@layout/fragment_sign_up_email">
 
-<!--        <action-->
-<!--            android:id="@+id/action_signUpEmailFragment_to_completeProfileFragment"-->
-<!--            app:destination="@id/completeProfileFragment"-->
-<!--            app:popUpTo="@id/signInEmailFragment"-->
-<!--            app:popUpToInclusive="false" />-->
+        <action
+            android:id="@+id/action_signupEmailFragment_to_signinEmailFragment"
+            app:destination="@id/signInEmailFragment"
+            app:popUpTo="@id/signInEmailFragment"
+            app:popUpToInclusive="false" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/signInEmailFragment"
+        android:name="com.fightpandemics.login.ui.signin.SignInEmailFragment"
+        android:label="fragment_signin_email"
+        tools:layout="@layout/fragment_sign_in_email">
 
     </fragment>
 

@@ -10,6 +10,7 @@ import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.authentication.storage.SecureCredentialsManager
 import com.auth0.android.authentication.storage.SharedPreferencesStorage
 import com.auth0.android.callback.BaseCallback
+import com.auth0.android.provider.ResponseType
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.UserProfile
 import com.fightpandemics.login.R
@@ -35,7 +36,9 @@ open class Auth0BaseFragment : Fragment() {
         WebAuthProvider.login(auth0)
             .withConnection(loginConnection.provider)
             .withScheme(SCHEME)
-            .withScope("openid profile email offline_access read:current_user update:current_user_metadata")
+            .withScope("openid profile email")
+            .withResponseType(ResponseType.CODE)
+            .withState("fight-pandemics")
             .withAudience(
                 String.format(CALLBACK_START_URL, getString(R.string.com_auth0_domain))
             )

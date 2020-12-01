@@ -35,7 +35,6 @@ class LoginViewModel @Inject constructor(
     @ExperimentalCoroutinesApi
     fun doLogin(email: String, password: String) {
         _login.value?.isLoading = true
-
         viewModelScope.launch {
             val deferredLogin = async {
                 loginUseCase(LoginRequest(email, password))
@@ -87,7 +86,8 @@ class LoginViewModel @Inject constructor(
                             false,
                             signUpResponse.emailVerified!!,
                             signUpResponse.token,
-                            null
+                            null,
+                            isError = false
                         )
                     }
                     is Result.Error -> {
@@ -95,7 +95,8 @@ class LoginViewModel @Inject constructor(
                             isLoading = false,
                             emailVerified = false,
                             token = null,
-                            error = it.exception.message.toString()
+                            error = it.exception.message.toString(),
+                            isError = true
                         )
                     }
                 }
@@ -121,7 +122,8 @@ data class SignUPViewState(
     var isLoading: Boolean,
     val emailVerified: Boolean,
     val token: String?,
-    val error: String?
+    val error: String?,
+    val isError: Boolean
 )
 
 
