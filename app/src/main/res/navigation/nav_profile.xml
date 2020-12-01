@@ -13,4 +13,6 @@
         android:label="Profile"
         tools:layout="@layout/profile_fragment" />
 
+    <include app:graph="@navigation/nav_profile_example" />
+
 </navigation>
