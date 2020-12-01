@@ -6,11 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.SearchFragment">
 
-
     <com.google.android.material.appbar.AppBarLayout
-        android:background="@color/colorGreen"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorGreen">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -18,21 +17,20 @@
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:title="Testing bananas">
 
-            <androidx.appcompat.widget.SearchView
-                android:layout_width="match_parent"
-                app:iconifiedByDefault="false"
-                android:layout_height="wrap_content"
-                app:defaultQueryHint="type here"/>
-
-<!--            <ImageView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="200dp"-->
-<!--                android:src="@color/colorRed" />-->
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/search_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.SearchView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:defaultQueryHint="type here"
+                    app:iconifiedByDefault="false" />
+
+            </androidx.appcompat.widget.Toolbar>
+
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
