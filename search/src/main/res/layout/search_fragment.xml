@@ -8,6 +8,7 @@
 
 
     <com.google.android.material.appbar.AppBarLayout
+        android:background="@color/colorGreen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -17,51 +18,55 @@
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:title="Testing bananas">
 
-            <ImageView
+            <androidx.appcompat.widget.SearchView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@color/colorRed"/>
+                app:iconifiedByDefault="false"
+                android:layout_height="wrap_content"
+                app:defaultQueryHint="type here"/>
+
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:src="@color/colorRed" />-->
 
             <androidx.appcompat.widget.Toolbar
+                android:id="@+id/search_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/testing"
-            android:textSize="40dp"
-            />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-<!--        <include-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            layout="@layout/item_searched"/>-->
+            <include
+                android:id="@+id/include1"
+                layout="@layout/item_searched"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-<!--        <include-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            layout="@layout/item_searched"/>-->
+            <include
+                android:id="@+id/include2"
+                layout="@layout/item_searched"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/include1" />
 
-<!--        <include-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            layout="@layout/item_searched"/>-->
+            <include
+                android:id="@+id/include3"
+                layout="@layout/item_searched"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/include2" />
 
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

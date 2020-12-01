@@ -2,9 +2,10 @@ package com.fightpandemics.search.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -37,7 +38,12 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.search_fragment, container, false)
-        createPost()
+//        createPost()
+
+        setHasOptionsMenu(true)
+        val toolbar: Toolbar = rootView.findViewById(R.id.search_toolbar)
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+
         return rootView
     }
 
@@ -45,6 +51,22 @@ class SearchFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.filter -> {
+                Toast.makeText(requireContext(), "Filter", Toast.LENGTH_SHORT).show()
+//                findNavController()
+//                    .navigate(com.fightpandemics.R.id.action_homeFragment_to_filterFragment)
+            }
+        }
+        return true
+    }
+
 
     private fun createPost() {
         (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsOrg)
