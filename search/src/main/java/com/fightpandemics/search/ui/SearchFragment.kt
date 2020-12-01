@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.fightpandemics.search.R
 import com.fightpandemics.search.dagger.inject
 import com.fightpandemics.core.utils.ViewModelFactory
+import com.fightpandemics.search.databinding.SearchFragmentBinding
 import com.fightpandemics.ui.MainActivity
 import com.google.android.material.button.MaterialButton
 import javax.inject.Inject
@@ -26,6 +27,7 @@ class SearchFragment : Fragment() {
     }
 
     private lateinit var viewModel: SearchViewModel
+    private lateinit var binding: SearchFragmentBinding
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -36,15 +38,13 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val rootView = inflater.inflate(R.layout.search_fragment, container, false)
+    ): View {
 //        createPost()
-
+        val binding = SearchFragmentBinding.inflate(inflater)
         setHasOptionsMenu(true)
-        val toolbar: Toolbar = rootView.findViewById(R.id.search_toolbar)
+        val toolbar = binding.searchToolbar
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
-
-        return rootView
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
