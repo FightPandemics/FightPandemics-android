@@ -49,6 +49,11 @@
             app:popUpTo="@id/signInEmailFragment"
             app:popUpToInclusive="false" />
 
+        <action
+            android:id="@+id/action_signupEmailFragment_to_verifyEmailFragment"
+            app:destination="@id/verifyEmailFragment"
+            app:popUpToInclusive="false" />
+
     </fragment>
 
     <fragment
@@ -56,6 +61,19 @@
         android:name="com.fightpandemics.login.ui.signin.SignInEmailFragment"
         android:label="fragment_signin_email"
         tools:layout="@layout/fragment_sign_in_email">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/verifyEmailFragment"
+        android:name="com.fightpandemics.login.ui.verify.VerifyEmailFragment"
+        android:label="fragment_verify_email"
+        tools:layout="@layout/fragment_verify_email">
+
+        <action
+            android:id="@+id/action_verifyEmailFragment_to_signinEmailFragment"
+            app:destination="@id/signInEmailFragment"
+            app:popUpToInclusive="false" />
 
     </fragment>
 

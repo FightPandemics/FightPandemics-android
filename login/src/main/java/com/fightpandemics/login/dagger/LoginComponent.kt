@@ -5,7 +5,7 @@ import com.fightpandemics.login.domain.LoginUseCase
 import com.fightpandemics.login.ui.signin.SignInFragment
 import com.fightpandemics.login.ui.profile.CompleteProfileFragment
 import com.fightpandemics.login.ui.signin.SignInEmailFragment
-import com.fightpandemics.login.ui.signin.VerifyEmailFragment
+import com.fightpandemics.login.ui.verify.VerifyEmailFragment
 import com.fightpandemics.login.ui.signup.SignUpEmailFragment
 import com.fightpandemics.login.ui.signup.SignUpFragment
 import dagger.Subcomponent

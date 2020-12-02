@@ -86,12 +86,7 @@ class SignUpEmailFragment : BaseFragment() {
 
                         }
                         !signupResponse.emailVerified -> {
-                            Toast.makeText(
-                                requireContext(),
-                                "Please verify your email and login in",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            findNavController().navigate(R.id.action_signupEmailFragment_to_signinEmailFragment)
+                            findNavController().navigate(R.id.action_signupEmailFragment_to_verifyEmailFragment)
                         }
                     }
                 }
