@@ -30,7 +30,8 @@ interface LoginComponent {
     fun inject(signInEmailFragment: SignInEmailFragment)
     fun inject(signUpFragment: SignUpFragment)
     fun inject(SignUpFragment: SignUpEmailFragment)
+    fun inject(verifyEmailFragment: VerifyEmailFragment)
+    fun inject(completeProfileFragment: CompleteProfileFragment)
     fun providesLoginUseCase(): LoginUseCase
 
-    fun inject(verifyEmailFragment: VerifyEmailFragment)
 }

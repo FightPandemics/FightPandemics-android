@@ -53,10 +53,10 @@ class VerifyEmailFragment : Fragment() {
             joinNow(this)
         }
 
-        verify_email_toolbar = rootView.findViewById(R.id.verify_email_toolbar)
+        //verify_email_toolbar = rootView.findViewById(R.id.verify_email_toolbar)
 
 
-        btn_verify_email = rootView.findViewById(R.id.btn_verify_email)
+        //btn_verify_email = rootView.findViewById(R.id.btn_verify_email)
 
         this.bindProgressButton(btn_sign_in)
 
