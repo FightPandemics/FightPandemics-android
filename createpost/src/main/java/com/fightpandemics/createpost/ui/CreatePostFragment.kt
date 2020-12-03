@@ -66,9 +66,10 @@ class CreatePostFragment : Fragment() {
     }
 
     private fun setupViews() {
-        fragmentCreatePostBinding!!.name.setOnClickListener { displayOrganizationBottomDialog() }
-        fragmentCreatePostBinding!!.offer.setOnClickListener { }
-        fragmentCreatePostBinding!!.request.setOnClickListener { }
+        fragmentCreatePostBinding!!.toggleBt1.isChecked = true
+        fragmentCreatePostBinding!!.name.setOnClickListener {
+            displayOrganizationBottomDialog()
+        }
         fragmentCreatePostBinding!!.people.setOnClickListener {
             findNavController().navigate(R.id.action_createPostFragment_to_selectVisibilityFragment)
         }
