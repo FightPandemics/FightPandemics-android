@@ -33,18 +33,17 @@ class SelectTagFragment : BottomSheetDialogFragment() {
 
     private fun setupView() {
         fragmentSelectTagBinding!!.close.setOnClickListener {
-            if (chipTexts.size == 3) {
-                findNavController().previousBackStackEntry?.savedStateHandle?.set("tag1", chipTexts[0])
-                findNavController().previousBackStackEntry?.savedStateHandle?.set("tag2", chipTexts[1])
-                findNavController().previousBackStackEntry?.savedStateHandle?.set("tag3", chipTexts[2])
-            }
+            dismiss()
         }
+
         fragmentSelectTagBinding!!.confirm.setOnClickListener {
             if (chipTexts.size == 3) {
                 findNavController().previousBackStackEntry?.savedStateHandle?.set("tag1", chipTexts[0])
                 findNavController().previousBackStackEntry?.savedStateHandle?.set("tag2", chipTexts[1])
                 findNavController().previousBackStackEntry?.savedStateHandle?.set("tag3", chipTexts[2])
             }
+            chipTexts.clear()
+            dismiss()
         }
 
         populateArray(fragmentSelectTagBinding!!.chipMedical)
