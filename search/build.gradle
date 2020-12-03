@@ -51,6 +51,8 @@ dependencies {
 
     // Dagger
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
+
+    implementation 'com.github.mancj:MaterialSearchBar:0.8.5'
 }
 repositories {
     mavenCentral()
