@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.fightpandemics.core.data.model.login.CompleteProfileRequest
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
@@ -51,7 +52,7 @@ class CompleteProfileFragment : Fragment() {
 
     }
 
-    fun onCompleteProfile(){
-
+    fun onCompleteProfile(request : CompleteProfileRequest){
+        loginViewModel.doCompleteProfile(request)
     }
 }

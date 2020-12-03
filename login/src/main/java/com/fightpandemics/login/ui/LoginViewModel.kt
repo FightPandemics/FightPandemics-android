@@ -31,7 +31,7 @@ class LoginViewModel @Inject constructor(
     private val _completeProfile = MutableLiveData<CompleteProfileViewState>()
     val login: LiveData<LoginViewState> = _login
     val signup: LiveData<SignUPViewState> = _signup
-    val profileProfile: LiveData<CompleteProfileViewState> = _completeProfile
+    val completeProfile: LiveData<CompleteProfileViewState> = _completeProfile
 
     @ExperimentalCoroutinesApi
     fun doLogin(email: String, password: String) {
@@ -107,7 +107,7 @@ class LoginViewModel @Inject constructor(
     }
 
     @ExperimentalCoroutinesApi
-    fun doCompleteProile(request : CompleteProfileRequest) {
+    fun doCompleteProfile(request : CompleteProfileRequest) {
         signup.value?.isLoading = true
 
         viewModelScope.launch {
