@@ -27,7 +27,7 @@ interface FightPandemicsAPI {
     @POST("api/auth/signup")
     suspend fun signUp(@Body signUpRequest: SignUpRequest): Response<SignUpResponse>
 
-    @POST("api/user")
+    @POST("api/users")
     suspend fun completeProfile(@Body completeProfileRequest: CompleteProfileRequest): Response<CompleteProfileResponse>
 
     @POST("/api/auth/change-password")

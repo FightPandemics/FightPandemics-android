@@ -2,6 +2,7 @@ package com.fightpandemics.login.dagger
 
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
 import com.fightpandemics.core.domain.repository.LoginRepository
+import com.fightpandemics.login.domain.CompleteProfileUseCase
 import com.fightpandemics.login.domain.LoginUseCase
 import com.fightpandemics.login.domain.SignUPUseCase
 import dagger.Module
@@ -27,4 +28,12 @@ class LoginModule {
         loginRepository: LoginRepository,
         dispatcherProvider: CoroutinesDispatcherProvider
     ): SignUPUseCase = SignUPUseCase(loginRepository, dispatcherProvider)
+
+    @ExperimentalCoroutinesApi
+    @Provides
+    fun provideCompleteProfileUseCase(
+        loginRepository: LoginRepository,
+        dispatcherProvider: CoroutinesDispatcherProvider
+    ): CompleteProfileUseCase = CompleteProfileUseCase(loginRepository, dispatcherProvider)
+
 }

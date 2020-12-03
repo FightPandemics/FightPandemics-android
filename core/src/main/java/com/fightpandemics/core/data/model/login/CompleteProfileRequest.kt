@@ -5,7 +5,6 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 data class CompleteProfileRequest(
-    @field:Json(name = "email") val email: String,
     @field:Json(name = "firstName") val firstName: String,
     @field:Json(name = "hide") val hide: Hide,
     @field:Json(name = "lastName") val lastName: String,
