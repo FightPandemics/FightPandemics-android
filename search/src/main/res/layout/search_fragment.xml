@@ -13,15 +13,10 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/search_toolbar"
-            app:title="testing"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways"
-            android:layout_height="wrap_content">
-
-<!--            <ImageView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="200dp"-->
-<!--                />-->
+            app:title="testing">
 
             <androidx.appcompat.widget.SearchView
                 android:layout_width="match_parent"
@@ -31,61 +26,27 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-<!--        <androidx.appcompat.widget.SearchView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:iconifiedByDefault="false" />-->
+        <!--        <androidx.appcompat.widget.SearchView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:iconifiedByDefault="false" />-->
 
         <com.mancj.materialsearchbar.MaterialSearchBar
+            android:id="@+id/searchBar"
             style="@style/MaterialSearchBarLight"
-            app:mt_speechMode="true"
-            app:mt_hint="Custom hint"
-            app:mt_maxSuggestionsCount="10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/searchBar" />
+            app:mt_hint="Custom hint"
+            app:mt_maxSuggestionsCount="10"
+            app:mt_speechMode="true" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-
-    <androidx.core.widget.NestedScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searched_posts_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <include
-                android:id="@+id/include1"
-                layout="@layout/item_searched"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                android:id="@+id/include2"
-                layout="@layout/item_searched"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/include1" />
-
-            <include
-                android:id="@+id/include3"
-                layout="@layout/item_searched"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/include2" />
-
-            <include
-                android:id="@+id/include4"
-                layout="@layout/item_searched"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/include3" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

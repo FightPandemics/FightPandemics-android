@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,6 +15,7 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.search.databinding.SearchFragmentBinding
 import com.fightpandemics.ui.MainActivity
 import com.google.android.material.button.MaterialButton
+import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.search_fragment.*
 import javax.inject.Inject
 
@@ -31,6 +31,8 @@ class SearchFragment : Fragment() {
     private lateinit var viewModel: SearchViewModel
     private lateinit var binding: SearchFragmentBinding
 
+    private lateinit var searchBar: MaterialSearchBar
+    private lateinit var lastSearches: List<String>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,15 +46,32 @@ class SearchFragment : Fragment() {
     ): View {
 //        createPost()
         binding = SearchFragmentBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         setHasOptionsMenu(true)
+
+        // setup toolbar
         val toolbar = binding.searchToolbar
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
-        // setup custom suggestion adapter
-        setupCustomSuggestions()
+        // setup search bar
+        setupSearchBar()
+
+        // setup posts in recycler view
+        displayPosts()
 
 
-        return binding.root
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // todo implement save queries to disk
+//        saveSearchSuggestionToDisk(searchBar.lastSuggestions)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -75,8 +94,16 @@ class SearchFragment : Fragment() {
         return true
     }
 
+    private fun setupSearchBar(){
+        // todo add more stuff
+        searchBar = binding.searchBar
+
+        // setup custom suggestions for searchbar (initialize adapter)
+//        setupCustomSuggestions()
+
+    }
+
     private fun setupCustomSuggestions(){
-        val searchBar = binding.searchBar
         val inflater = requireActivity().getSystemService(Activity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val customSuggestionAdapter = SearchSuggestionsAdapter(inflater = inflater)
         val suggestions = mutableListOf<CustomSuggestion>()
@@ -85,6 +112,20 @@ class SearchFragment : Fragment() {
         }
         customSuggestionAdapter.suggestions = suggestions
         searchBar.setCustomSuggestionAdapter(customSuggestionAdapter)
+    }
+
+    private fun displayPosts(){
+        // todo put at top of class similar to filter module
+        val adapter = SearchedPostsAdapter()
+        binding.searchedPostsRecyclerView.adapter = adapter
+
+        // todo load all posts here
+//        loadPosts()
+        val postsData = mutableListOf<String>()
+        for(i in 1..10){
+            postsData.add("Post Number: $i")
+        }
+        adapter.searchedPostsData = postsData
     }
 
     private fun createPost() {
