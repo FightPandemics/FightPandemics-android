@@ -74,4 +74,38 @@ class LoginRepositoryImpl @Inject constructor(
     override suspend fun changePassword(email: String): Response<ChangePasswordResponse> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun completeProfile(request: CompleteProfileRequest): Flow<Result<*>>? {
+        return channelFlow {
+            val response = request?.let { loginRemoteDataSource.completeProfile(it) }
+            when {
+
+                response!!.isSuccessful && response.code() == 200 -> {
+                    val signUpResponse = response.body()
+                    //authTokenLocalDataSource.setToken(signUpResponse?.token)
+                    //TODO maybe we have to consume current user service form backend to get serID
+                    //authTokenLocalDataSource.setUserId(loginResponse?.)
+                    channel.offer(Result.Success(signUpResponse))
+                }
+
+                response.code() == 500 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+                response.code() == 401 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+                response.code() == 400 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+                response.code() == 409 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+            }
+            awaitClose { }
+        }
+    }
 }

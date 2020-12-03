@@ -48,13 +48,10 @@ class CompleteProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         arguments?.getString(USER_PROFILE)
-        /*
-        etFirstName.validate("Please enter a valid name", tilFirstName) { s -> s.isNotEmpty() }
 
-        etLastName.validate("Please enter a valid last name", tilLastName) { s -> s.isNotEmpty() }
+    }
 
-        back_arrow.setOnClickListener {
-            activity?.onBackPressed()
-        }*/
+    fun onCompleteProfile(){
+
     }
 }

@@ -9,4 +9,5 @@ interface LoginRemoteDataSource {
 
     suspend fun signUp(signUpRequest: SignUpRequest): Response<SignUpResponse>
     suspend fun changePassword(email: String): Response<ChangePasswordResponse>
+    suspend fun completeProfile(request: CompleteProfileRequest): Response<CompleteProfileResponse>
 }
