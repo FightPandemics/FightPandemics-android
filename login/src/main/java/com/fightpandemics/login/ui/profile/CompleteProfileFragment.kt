@@ -69,16 +69,16 @@ class CompleteProfileFragment : Fragment() {
 
             val objectives = Objectives(donation, information, volunteerHrsOffering)
             val needs = Needs(volunteerHrsRequest, otherHelp)
-            val notifyPrefs =
-                NotifyPrefs(
-                    Digest(true, true, true),
-                    Instant(true, true, true, true)
-                )
-            val url = Url()
+//            val notifyPrefs =
+//                NotifyPrefs(
+//                    Digest(true, true, true),
+//                    Instant(true, true, true, true)
+//                )
+//            val url = Url()
             val hide = Hide(false)
-            val location = Location("mock", "mock", listOf(0,0), "mock", "mock" , "mock", "mock" , "mock")
+            val location = Location("mock", "mock", listOf(0.0,0.0), "mock", "mock" )
 
-            val completeProfileRequest = CompleteProfileRequest(firstName, hide, lastName, location, needs, notifyPrefs, objectives, url)
+            val completeProfileRequest = CompleteProfileRequest(firstName, hide, lastName, location, needs, objectives)
             onCompleteProfile(completeProfileRequest)
         }
 
