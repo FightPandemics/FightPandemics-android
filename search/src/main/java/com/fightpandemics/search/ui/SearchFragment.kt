@@ -1,5 +1,6 @@
 package com.fightpandemics.search.ui
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -15,6 +16,7 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.search.databinding.SearchFragmentBinding
 import com.fightpandemics.ui.MainActivity
 import com.google.android.material.button.MaterialButton
+import kotlinx.android.synthetic.main.search_fragment.*
 import javax.inject.Inject
 
 class SearchFragment : Fragment() {
@@ -29,6 +31,7 @@ class SearchFragment : Fragment() {
     private lateinit var viewModel: SearchViewModel
     private lateinit var binding: SearchFragmentBinding
 
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -40,10 +43,15 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 //        createPost()
-        val binding = SearchFragmentBinding.inflate(inflater)
+        binding = SearchFragmentBinding.inflate(inflater)
         setHasOptionsMenu(true)
         val toolbar = binding.searchToolbar
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
+
+        // setup custom suggestion adapter
+        setupCustomSuggestions()
+
+
         return binding.root
     }
 
@@ -67,6 +75,17 @@ class SearchFragment : Fragment() {
         return true
     }
 
+    private fun setupCustomSuggestions(){
+        val searchBar = binding.searchBar
+        val inflater = requireActivity().getSystemService(Activity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val customSuggestionAdapter = SearchSuggestionsAdapter(inflater = inflater)
+        val suggestions = mutableListOf<CustomSuggestion>()
+        for (i in 0..11){
+            suggestions.add(CustomSuggestion("potatos"))
+        }
+        customSuggestionAdapter.suggestions = suggestions
+        searchBar.setCustomSuggestionAdapter(customSuggestionAdapter)
+    }
 
     private fun createPost() {
         (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsOrg)
