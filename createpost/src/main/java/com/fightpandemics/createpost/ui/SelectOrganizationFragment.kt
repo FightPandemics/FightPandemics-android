@@ -6,13 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.fightpandemics.createpost.databinding.FragmentSelectOrganizationBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.android.synthetic.main.fragment_select_organization.*
 
 class SelectOrganizationFragment : BottomSheetDialogFragment() {
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = SelectOrganizationFragment()
-    }
 
     private var fragmentSelectOrganizationBinding: FragmentSelectOrganizationBinding? = null
 
@@ -28,5 +24,16 @@ class SelectOrganizationFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupView()
+    }
+
+    private fun setupView() {
+        fragmentSelectOrganizationBinding!!.userCard.setOnClickListener {
+            user_radio_bt.isChecked = !user_radio_bt.isChecked
+        }
+        fragmentSelectOrganizationBinding!!.add.setOnClickListener {
+            dismiss()
+        }
     }
 }
