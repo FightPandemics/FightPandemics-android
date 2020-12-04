@@ -53,6 +53,7 @@ class SignUpEmailFragment : BaseFragment() {
         toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
         tv_sigin_instead.setOnClickListener {
+            findNavController().navigate(R.id.action_signupEmailFragment_to_signinEmailFragment)
         }
 
         cl_btn_join.setOnClickListener {
