@@ -2,13 +2,13 @@ package com.fightpandemics.login.ui.signup
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
@@ -17,9 +17,11 @@ import com.fightpandemics.login.dagger.inject
 import com.fightpandemics.login.ui.BaseFragment
 import com.fightpandemics.login.ui.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_sign_up_email.*
+import kotlinx.android.synthetic.main.sign_up_toolbar.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 import javax.inject.Inject
+
 
 @ExperimentalCoroutinesApi
 class SignUpEmailFragment : BaseFragment() {
@@ -41,33 +43,42 @@ class SignUpEmailFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_sign_up_email, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // setup toolbar
+        val toolbar = sign_up_toolbar
+        (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
+        toolbar.setTitle("")
+        toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+
         tv_sigin_instead.setOnClickListener {
         }
 
         cl_btn_join.setOnClickListener {
             // if (validEmail && validPassword && validRePassword) {
-            executeSignUp(
-                et_email.text.toString().trim(),
-                et_password.text.toString().trim(),
-                et_repassword.text.toString().trim()
-            )
-            //}
+            if (cl_btn_join.isEnabled) {
+                cl_btn_join.isEnabled = false
+                executeSignUp(
+                    et_email.text.toString().trim(),
+                    et_password.text.toString().trim(),
+                    et_repassword.text.toString().trim()
+                )
+            }
         }
     }
 
     private fun executeSignUp(email: String, password: String, confirmPassword: String) {
         loginViewModel.doSignUP(email, password, confirmPassword)
 
-        cl_btn_join.background.setColorFilter(requireContext().resources.getColor(R.color.color_button_disabled), PorterDuff.Mode.SRC_ATOP);
         loginViewModel.signup.observe(viewLifecycleOwner, { signupResponse ->
+            cl_btn_join.isEnabled = true
             when {
                 signupResponse.isError -> {
                     Toast.makeText(
                         requireContext(),
                         "Oops something wrong please try again later: " + signupResponse.error,
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
                     ).show()
                 }
                 else -> {
@@ -90,8 +101,6 @@ class SignUpEmailFragment : BaseFragment() {
                         }
                     }
                 }
-
-
             }
         })
     }
