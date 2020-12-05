@@ -3,6 +3,8 @@ package com.fightpandemics.search.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.filter.ui.FilterAdapter
@@ -10,7 +12,8 @@ import com.fightpandemics.search.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.ChipGroup
 
-class SearchedPostsAdapter : RecyclerView.Adapter<SearchedPostsAdapter.SearchedPostHolder>(){
+class SearchedPostsAdapter : RecyclerView.Adapter<SearchedPostsAdapter.SearchedPostHolder>() {
+//    var searchedPostsDataFull = listOf<String>()
     var searchedPostsData = listOf<String>()
         set(value) {
             field = value
@@ -38,6 +41,4 @@ class SearchedPostsAdapter : RecyclerView.Adapter<SearchedPostsAdapter.SearchedP
     override fun getItemCount(): Int {
         return searchedPostsData.size
     }
-
-
 }

@@ -7,6 +7,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.search.R
@@ -16,10 +17,9 @@ import com.fightpandemics.search.databinding.SearchFragmentBinding
 import com.fightpandemics.ui.MainActivity
 import com.google.android.material.button.MaterialButton
 import com.mancj.materialsearchbar.MaterialSearchBar
-import kotlinx.android.synthetic.main.search_fragment.*
 import javax.inject.Inject
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -33,6 +33,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var searchBar: MaterialSearchBar
     private lateinit var lastSearches: List<String>
+    private lateinit var adapter: SearchedPostsAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -52,6 +53,9 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Get view model
+        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
+        // setup menu
         setHasOptionsMenu(true)
 
         // setup toolbar
@@ -63,6 +67,7 @@ class SearchFragment : Fragment() {
 
         // setup posts in recycler view
         displayPosts()
+
 
 
 
@@ -94,9 +99,20 @@ class SearchFragment : Fragment() {
         return true
     }
 
+    override fun onSearchStateChanged(enabled: Boolean) {}
+    override fun onButtonClicked(buttonCode: Int) {}
+
+    // do filter of post data & update recycler view data
+    override fun onSearchConfirmed(text: CharSequence?) {
+        viewModel.filterPosts(text.toString())
+    }
+
     private fun setupSearchBar(){
         // todo add more stuff
         searchBar = binding.searchBar
+        searchBar.setSpeechMode(false)
+        searchBar.setHint("Search")
+        searchBar.setOnSearchActionListener(this)
 
         // setup custom suggestions for searchbar (initialize adapter)
 //        setupCustomSuggestions()
@@ -116,16 +132,17 @@ class SearchFragment : Fragment() {
 
     private fun displayPosts(){
         // todo put at top of class similar to filter module
-        val adapter = SearchedPostsAdapter()
+        adapter = SearchedPostsAdapter()
         binding.searchedPostsRecyclerView.adapter = adapter
 
         // todo load all posts here
-//        loadPosts()
-        val postsData = mutableListOf<String>()
-        for(i in 1..10){
-            postsData.add("Post Number: $i")
-        }
-        adapter.searchedPostsData = postsData
+        viewModel.loadAllPosts()
+
+        // update recycler view adapter
+        viewModel.filteredPosts.observe(viewLifecycleOwner, Observer { filteredList ->
+            adapter.searchedPostsData = filteredList
+        })
+
     }
 
     private fun createPost() {
