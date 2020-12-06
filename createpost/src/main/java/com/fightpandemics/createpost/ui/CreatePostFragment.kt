@@ -1,7 +1,9 @@
 package com.fightpandemics.createpost.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,8 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.createpost.R
 import com.fightpandemics.createpost.dagger.inject
 import com.fightpandemics.createpost.databinding.FragmentCreatePostBinding
+import com.google.android.material.chip.Chip
+import kotlinx.android.synthetic.main.fragment_create_post.*
 import javax.inject.Inject
 
 class CreatePostFragment : Fragment() {
@@ -49,6 +53,7 @@ class CreatePostFragment : Fragment() {
         observeDurationBottomDialog()
         observeVisibilityBottomDialog()
         observeTagBottomDialog()
+        displayChosenTags()
     }
 
     override fun onDestroyView() {
@@ -61,9 +66,10 @@ class CreatePostFragment : Fragment() {
     }
 
     private fun setupViews() {
-        fragmentCreatePostBinding!!.name.setOnClickListener { displayOrganizationBottomDialog() }
-        fragmentCreatePostBinding!!.offer.setOnClickListener { }
-        fragmentCreatePostBinding!!.request.setOnClickListener { }
+        fragmentCreatePostBinding!!.toggleBt1.isChecked = true
+        fragmentCreatePostBinding!!.name.setOnClickListener {
+            displayOrganizationBottomDialog()
+        }
         fragmentCreatePostBinding!!.people.setOnClickListener {
             findNavController().navigate(R.id.action_createPostFragment_to_selectVisibilityFragment)
         }
@@ -103,7 +109,7 @@ class CreatePostFragment : Fragment() {
         }
         navBackStackEntry.lifecycle.addObserver(observer)
         viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_DESTROY) {
+            if (event == Lifecycle.Event.ON_PAUSE) {
                 navBackStackEntry.lifecycle.removeObserver(observer)
             }
         })
@@ -131,7 +137,7 @@ class CreatePostFragment : Fragment() {
         }
         navBackStackEntry.lifecycle.addObserver(observer)
         viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_DESTROY) {
+            if (event == Lifecycle.Event.ON_PAUSE) {
                 navBackStackEntry.lifecycle.removeObserver(observer)
             }
         })
@@ -141,24 +147,32 @@ class CreatePostFragment : Fragment() {
         val navBackStackEntry = findNavController().getBackStackEntry(R.id.createPostFragment)
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME && navBackStackEntry.savedStateHandle.contains("tag1")) {
-                if (!chipTexts.contains(navBackStackEntry.savedStateHandle.get<String>("tag1"))) {
-                    chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag1")!!)
-                }
-                if (!chipTexts.contains(navBackStackEntry.savedStateHandle.get<String>("tag2"))) {
-                    chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag2")!!)
-                }
-                if (!chipTexts.contains(navBackStackEntry.savedStateHandle.get<String>("tag3"))) {
-                    chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag3")!!)
-                }
+                chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag1")!!)
+                chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag2")!!)
+                chipTexts.add(navBackStackEntry.savedStateHandle.get<String>("tag3")!!)
             }
-            Toast.makeText(requireContext(), chipTexts.toString(), Toast.LENGTH_SHORT).show()
+            displayChosenTags()
         }
         navBackStackEntry.lifecycle.addObserver(observer)
         viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_DESTROY) {
+            if (event == Lifecycle.Event.ON_PAUSE) {
                 navBackStackEntry.lifecycle.removeObserver(observer)
             }
         })
+    }
+
+    @SuppressLint("InflateParams")
+    private fun displayChosenTags() {
+        if (tag_chip_group.childCount > 0) {
+            tag_chip_group.removeAllViews()
+        }
+
+        for (text in chipTexts) {
+            val chip = layoutInflater.inflate(R.layout.item_create_post_tag, null, false) as Chip
+            chip.text = text
+            tag_chip_group.addView(chip)
+        }
+        chipTexts.clear()
     }
 
     private fun postContent() {}

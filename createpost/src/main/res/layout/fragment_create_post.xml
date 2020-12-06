@@ -50,34 +50,44 @@
         app:layout_constraintTop_toBottomOf="@+id/create_post_toolbar"
         tools:text="Victor Maragiaglio" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/offer"
-        style="@style/AndroidNativeP212Px"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggle_bt_group"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/button_shadow_left"
-        android:text="@string/offer"
-        android:textAllCaps="false"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="normal"
+        android:weightSum="2"
+        app:selectionRequired="true"
+        app:singleSelection="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintTop_toBottomOf="@+id/name">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/request"
-        style="@style/AndroidNativeP212Px"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:text="@string/request"
-        android:textAllCaps="false"
-        android:background="@color/fightPandemicsWhiteSmoke"
-        android:textColor="@color/textColorPrimary"
-        android:textStyle="normal"
-        app:layout_constraintStart_toEndOf="@+id/offer"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/toggle_bt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?attr/materialButtonOutlinedStyle"
+            android:text="@string/offer"
+            android:textSize="12sp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/worksans_regular"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="normal"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/toggle_bt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?attr/materialButtonOutlinedStyle"
+            android:text="@string/request"
+            android:textSize="12sp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/worksans_regular"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="normal"/>
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <ImageView
         android:id="@+id/view1"
@@ -85,7 +95,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_line_73"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/offer"/>
+        app:layout_constraintTop_toBottomOf="@+id/toggle_bt_group"/>
 
     <EditText
         android:id="@+id/et_title"
@@ -222,6 +232,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/post"
         app:layout_constraintTop_toBottomOf="@+id/postTag"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/tag_chip_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        app:chipSpacing="8dp"
+        app:singleSelection="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tag"
+        app:layout_constraintTop_toBottomOf="@id/postTag">
+
+    </com.google.android.material.chip.ChipGroup>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/post"

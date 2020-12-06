@@ -45,6 +45,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginStart="20dp"
         app:chipSpacing="16dp"
+        app:singleSelection="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/choose_tag">

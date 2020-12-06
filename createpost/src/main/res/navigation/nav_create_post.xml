@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_createPostFragment_to_selectTagFragment"
             app:destination="@id/selectTagFragment" />
+        <action
+            android:id="@+id/action_createPostFragment_to_selectOrganization"
+            app:destination="@id/selectOrganization" />
     </fragment>
 
     <dialog
@@ -40,4 +43,10 @@
         android:name="com.fightpandemics.createpost.ui.SelectTagFragment"
         android:label=""
         tools:layout="@layout/fragment_select_tag"/>
+
+    <dialog
+        android:id="@+id/selectOrganization"
+        android:name="com.fightpandemics.createpost.ui.SelectOrganizationFragment"
+        android:label=""
+        tools:layout="@layout/fragment_select_organization"/>
 </navigation>
