@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -92,10 +93,9 @@ class SearchFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         when (item.itemId) {
             R.id.filter -> {
                 Toast.makeText(requireContext(), "Filter", Toast.LENGTH_SHORT).show()
+                // todo add action
 //                findNavController()
 //                    .navigate(com.fightpandemics.R.id.action_homeFragment_to_filterFragment)
-                // todo remove this to searchView
-                findNavController().navigate(com.fightpandemics.R.id.action_searchFragment_to_inputSearchFragment)
             }
         }
         return true
@@ -110,12 +110,17 @@ class SearchFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
     }
 
     private fun setupSearchBar(){
-        // todo add more stuff
-        searchBar = binding.searchBar
-        searchBar.setSpeechMode(false)
-        searchBar.setHint("Search")
-        searchBar.setOnSearchActionListener(this)
+        // todo change the top searchBar to be a edittext view
+        val searchBar = binding.searchBar
+        searchBar.setOnClickListener {
+            findNavController().navigate(com.fightpandemics.R.id.action_searchFragment_to_inputSearchFragment)
+        }
 
+        // todo add more stuff
+//        searchBar = binding.searchBar
+//        searchBar.setSpeechMode(false)
+//        searchBar.setHint("Search")
+//        searchBar.setOnSearchActionListener(this)
 
         // setup custom suggestions for searchbar (initialize adapter)
 //        setupCustomSuggestions()

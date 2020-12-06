@@ -9,31 +9,37 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorGreen">
+        android:background="@color/white">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/search_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:title="testing">
+            app:layout_scrollFlags="scroll|enterAlways">
 
-<!--            <androidx.appcompat.widget.SearchView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:defaultQueryHint="type here"-->
-<!--                app:iconifiedByDefault="false" />-->
-
-            <com.mancj.materialsearchbar.MaterialSearchBar
+            <EditText
                 android:id="@+id/searchBar"
-                style="@style/MaterialSearchBarLight"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                app:mt_hint="Custom hint"
-                app:mt_maxSuggestionsCount="10"
-                app:mt_placeholder="Search"
-                app:mt_speechMode="true" />
+                android:layout_height="45dp"
+                android:background="@drawable/edit_round"
+                android:clickable="true"
+                android:drawableLeft="@drawable/ic_search"
+                android:drawablePadding="20dp"
+                android:focusable="false"
+                android:hint="Search"
+                android:paddingStart="10dp"
+                android:textSize="20dp" />
+
+            <!--            <com.mancj.materialsearchbar.MaterialSearchBar-->
+            <!--                android:id="@+id/searchBar"-->
+            <!--                style="@style/MaterialSearchBarLight"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:paddingBottom="20dp"-->
+            <!--                app:mt_hint="Custom hint"-->
+            <!--                app:mt_maxSuggestionsCount="10"-->
+            <!--                app:mt_placeholder="Search"-->
+            <!--                app:mt_speechMode="true" />-->
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -41,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="HERE GOES THE TAB LAYOUT"
-            android:textSize="30dp"/>
+            android:textSize="30dp" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
