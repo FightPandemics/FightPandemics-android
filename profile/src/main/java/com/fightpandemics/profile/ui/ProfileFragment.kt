@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
 import com.fightpandemics.utils.ViewModelFactory
+import kotlinx.android.synthetic.main.profile_fragment_content.*
 import kotlinx.android.synthetic.main.profile_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -59,6 +61,9 @@ class ProfileFragment : Fragment() {
                     super.onOptionsItemSelected(it)
                 }
             }
+        }
+        button3?.setOnClickListener {
+            findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_editProfileFragment)
         }
 
     }

@@ -11,8 +11,50 @@
         android:name="com.fightpandemics.profile.ui.ProfileFragment"
         app:moduleName="Fight_Pandemics.profile"
         android:label="Profile"
-        tools:layout="@layout/profile_fragment" />
+        tools:layout="@layout/profile_fragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
 
-    <include app:graph="@navigation/nav_profile_example" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.fightpandemics.profile.ui.EditProfileFragment"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/profile_setting_my_account"
+        >
+        <action
+            android:id="@+id/action_editProfileFragment_to_changeLocationFragment"
+            app:destination="@id/changeLocationFragment" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_changeGoalFragment"
+            app:destination="@id/changeGoalFragment" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_changeEmailFragment"
+            app:destination="@id/changeEmailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/changeLocationFragment"
+        android:name="com.fightpandemics.profile.ui.ChangeLocationFragment"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/profile_location_fragment"
+        />
+    <fragment
+        android:id="@+id/changeGoalFragment"
+        android:name="com.fightpandemics.profile.ui.ChangeGoalFragment"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/profile_change_goal_fragment"
+        />
+    <fragment
+        android:id="@+id/changeEmailFragment"
+        android:name="com.fightpandemics.profile.ui.ChangeEmailFragment"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/email_fragment"
+        />
 
 </navigation>

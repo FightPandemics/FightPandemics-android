@@ -38,7 +38,7 @@
     <string name="twitter_url">Twitter URL</string>
     <string name="github_url">Github URL</string>
     <string name="personal_website">Personal Website</string>
-  <string name="i_am_here_to">I am here to ...</string>
+    <string name="i_am_here_to">I am here to ...</string>
     <string name="donations">Donations</string>
     <string name="information">Information</string>
     <string name="other_help">Other Help</string>
@@ -114,5 +114,7 @@
     <string name="content_description_back_button">This is back button</string>
     <string name="email_sent_msg">An e-mail has been sent with further instructions. Please check your inbox.</string>
     <string name="back_to_login">Back to Login</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="share_my_location">Share my location</string>
 
 </resources>
