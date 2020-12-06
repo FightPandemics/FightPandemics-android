@@ -18,27 +18,30 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:title="testing">
 
-            <androidx.appcompat.widget.SearchView
+<!--            <androidx.appcompat.widget.SearchView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:defaultQueryHint="type here"-->
+<!--                app:iconifiedByDefault="false" />-->
+
+            <com.mancj.materialsearchbar.MaterialSearchBar
+                android:id="@+id/searchBar"
+                style="@style/MaterialSearchBarLight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:defaultQueryHint="type here"
-                app:iconifiedByDefault="false" />
+                android:paddingBottom="20dp"
+                app:mt_hint="Custom hint"
+                app:mt_maxSuggestionsCount="10"
+                app:mt_placeholder="Search"
+                app:mt_speechMode="true" />
 
         </androidx.appcompat.widget.Toolbar>
 
-        <!--        <androidx.appcompat.widget.SearchView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            app:iconifiedByDefault="false" />-->
-
-        <com.mancj.materialsearchbar.MaterialSearchBar
-            android:id="@+id/searchBar"
-            style="@style/MaterialSearchBarLight"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:mt_hint="Custom hint"
-            app:mt_maxSuggestionsCount="10"
-            app:mt_speechMode="true" />
+            android:text="HERE GOES THE TAB LAYOUT"
+            android:textSize="30dp"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

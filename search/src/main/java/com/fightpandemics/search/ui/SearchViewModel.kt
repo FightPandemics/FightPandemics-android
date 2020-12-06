@@ -23,8 +23,8 @@ class SearchViewModel @Inject constructor() : ViewModel(){
         _allPosts.value = mutableListOf()
     }
 
+    // todo: make filter function according to data ->
     fun filterPosts(query: String){
-        Timber.i("Debug: query: $query filteredposts: ${_filteredPosts.value}, full: ${_allPosts.value}")
         if (query.isBlank()){
             _filteredPosts.value = _allPosts.value!!.toMutableList()
         } else{
@@ -35,10 +35,10 @@ class SearchViewModel @Inject constructor() : ViewModel(){
                         tempList.add(post)
                     }
                 }
-                Timber.i("Debug: templist: $tempList,  filteredposts: ${_filteredPosts.value}, full: ${_allPosts.value}")
+//                Timber.i("Debug: templist: $tempList,  filteredposts: ${_filteredPosts.value}, full: ${_allPosts.value}")
                 _filteredPosts.value!!.clear()
                 _filteredPosts.value = tempList
-                Timber.i("Debug after clear: templist: $tempList,  filteredposts: ${_filteredPosts.value}, full: ${_allPosts.value}")
+//                Timber.i("Debug after clear: templist: $tempList,  filteredposts: ${_filteredPosts.value}, full: ${_allPosts.value}")
             }
         }
     }

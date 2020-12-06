@@ -94,6 +94,8 @@ class SearchFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
                 Toast.makeText(requireContext(), "Filter", Toast.LENGTH_SHORT).show()
 //                findNavController()
 //                    .navigate(com.fightpandemics.R.id.action_homeFragment_to_filterFragment)
+                // todo remove this to searchView
+                findNavController().navigate(com.fightpandemics.R.id.action_searchFragment_to_inputSearchFragment)
             }
         }
         return true
@@ -113,6 +115,7 @@ class SearchFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         searchBar.setSpeechMode(false)
         searchBar.setHint("Search")
         searchBar.setOnSearchActionListener(this)
+
 
         // setup custom suggestions for searchbar (initialize adapter)
 //        setupCustomSuggestions()

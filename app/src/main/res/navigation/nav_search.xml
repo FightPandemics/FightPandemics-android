@@ -21,6 +21,24 @@
             app:popEnterAnim="@anim/stationary"
             app:popExitAnim="@anim/slide_down" />
 
+        <action
+            android:id="@+id/action_searchFragment_to_inputSearchFragment"
+            app:destination="@id/inputSearchFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/inputSearchFragment"
+        android:name="com.fightpandemics.search.ui.InputSearchFragment2"
+        android:label="search_input"
+        app:moduleName="Fight_Pandemics.search"
+        tools:layout="@layout/input_search_fragment" >
+
     </fragment>
 
     <include app:graph="@navigation/nav_create_post" />
