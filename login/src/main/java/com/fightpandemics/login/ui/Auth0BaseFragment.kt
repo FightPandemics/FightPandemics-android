@@ -13,11 +13,18 @@ import com.auth0.android.callback.BaseCallback
 import com.auth0.android.provider.ResponseType
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.UserProfile
+import com.fightpandemics.core.data.local.AuthTokenLocalDataSource
+import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.login.R
+import javax.inject.Inject
 
 
-open class Auth0BaseFragment : Fragment() {
+open class Auth0BaseFragment(
+
+) : Fragment() {
     lateinit var auth0: Auth0
+    @Inject
+    lateinit var authTokenLocalDataSource: AuthTokenLocalDataSource
     val CALLBACK_START_URL = "https://%s/userinfo"
     val CALLBACK_PROFILE_URL = "https://%s/api/v2/"
     val SCHEME = "demo"
@@ -37,7 +44,7 @@ open class Auth0BaseFragment : Fragment() {
             .withConnection(loginConnection.provider)
             .withScheme(SCHEME)
             .withScope("openid profile email")
-            .withResponseType(ResponseType.CODE)
+            .withResponseType(ResponseType.CODE )
             .withState("fight-pandemics")
             .withAudience(
                 String.format(CALLBACK_START_URL, getString(R.string.com_auth0_domain))
@@ -55,17 +62,12 @@ open class Auth0BaseFragment : Fragment() {
                     {
                         auth0 = Auth0(requireContext())
                         auth0.isOIDCConformant = true
-                        credentialsManager = SecureCredentialsManager(
-                            requireContext(),
-                            AuthenticationAPIClient(auth0),
-                            SharedPreferencesStorage(requireContext())
-                        )
-
-                        credentialsManager?.saveCredentials(it)
+                        authTokenLocalDataSource.setToken(it.accessToken)
 
                         val accessToken = it.accessToken
                         if (accessToken != null) {
                             getProfile(accessToken) {
+                                authTokenLocalDataSource.setUserId(it?.appMetadata?.get("mongo_id") as String?)
                                 when (loginConnection) {
                                     LoginConnection.LINKEDIN_SIGNUP, LoginConnection.FACEBOOK_SIGNUP, LoginConnection.GOOGLE_SIGNUP -> {
                                         findNavController().navigate(R.id.action_signUpFragment_to_completeProfileFragment)

@@ -108,7 +108,7 @@ class LoginViewModel @Inject constructor(
 
     @ExperimentalCoroutinesApi
     fun doCompleteProfile(request : CompleteProfileRequest) {
-        signup.value?.isLoading = true
+        completeProfile.value?.isLoading = true
 
         viewModelScope.launch {
             val couroutineResponse = async {

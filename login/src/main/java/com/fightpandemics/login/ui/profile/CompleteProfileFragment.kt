@@ -1,6 +1,7 @@
 package com.fightpandemics.login.ui.profile
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +15,12 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
 import com.fightpandemics.login.ui.LoginViewModel
+import com.fightpandemics.login.util.snack
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.checkbox.MaterialCheckBox
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import timber.log.Timber
 import javax.inject.Inject
 
 class CompleteProfileFragment : Fragment() {
@@ -24,6 +28,7 @@ class CompleteProfileFragment : Fragment() {
     @Inject
     lateinit var loginViewModelFactory: ViewModelFactory
 
+    lateinit var completeProfileButton : ConstraintLayout
     private val loginViewModel: LoginViewModel by viewModels { loginViewModelFactory }
     private lateinit var complete_profile_toolbar: MaterialToolbar
 
@@ -46,8 +51,8 @@ class CompleteProfileFragment : Fragment() {
         complete_profile_toolbar = rootView.findViewById(R.id.complete_profile_toolbar)
         complete_profile_toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
-        val complete_profile_button: ConstraintLayout = rootView.findViewById(R.id.clBtnComplete)
-        complete_profile_button.setOnClickListener {
+        completeProfileButton = rootView.findViewById(R.id.clBtnComplete)
+        completeProfileButton.setOnClickListener {
 
             val firstName: String =
                 rootView.findViewById<TextInputEditText>(R.id.etFirstName).text.toString()
@@ -91,7 +96,31 @@ class CompleteProfileFragment : Fragment() {
 
     }
 
-    fun onCompleteProfile(request : CompleteProfileRequest){
+    private fun onCompleteProfile(request : CompleteProfileRequest){
         loginViewModel.doCompleteProfile(request)
+        loginViewModel.completeProfile.observe(viewLifecycleOwner, {
+            when {
+                it.isLoading -> {
+
+                }
+                it.error == null -> {
+
+                    Timber.e("LOGGED IN ${it.email}")
+                    if (it.token == null) {
+                        val PACKAGE_NAME = "com.fightpandemics"
+                        val intent = Intent().setClassName(
+                            PACKAGE_NAME,
+                            "$PACKAGE_NAME.ui.MainActivity"
+                        )
+                        startActivity(intent).apply { requireActivity().finish() }
+                    }
+                }
+                else -> {
+                    completeProfileButton.snack("it.error", Snackbar.LENGTH_LONG)
+                    Timber.e("ERROR ${it.error}")
+                    // TODO 8 - The user is informed that their credentials are invalid using a Snackbar.
+                }
+            }
+        })
     }
 }

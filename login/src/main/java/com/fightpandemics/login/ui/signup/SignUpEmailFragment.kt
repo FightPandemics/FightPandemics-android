@@ -55,13 +55,13 @@ class SignUpEmailFragment : BaseFragment() {
         tv_sigin_instead.setOnClickListener {
             findNavController().navigate(R.id.action_signupEmailFragment_to_signinEmailFragment)
         }
+        observeSignUP()
 
         cl_btn_join.setOnClickListener {
             // if (validEmail && validPassword && validRePassword) {
             if (cl_btn_join.isEnabled) {
                 cl_btn_join.isEnabled = false
-                executeSignUp(
-                    et_email.text.toString().trim(),
+                loginViewModel.doSignUP(et_email.text.toString().trim(),
                     et_password.text.toString().trim(),
                     et_repassword.text.toString().trim()
                 )
@@ -69,9 +69,7 @@ class SignUpEmailFragment : BaseFragment() {
         }
     }
 
-    private fun executeSignUp(email: String, password: String, confirmPassword: String) {
-        loginViewModel.doSignUP(email, password, confirmPassword)
-
+    private fun observeSignUP() {
         loginViewModel.signup.observe(viewLifecycleOwner, { signupResponse ->
             cl_btn_join.isEnabled = true
             when {
@@ -95,7 +93,6 @@ class SignUpEmailFragment : BaseFragment() {
                                 "$PACKAGE_NAME.ui.MainActivity"
                             )
                             startActivity(intent).apply { requireActivity().finish() }
-
                         }
                         !signupResponse.emailVerified -> {
                             findNavController().navigate(R.id.action_signupEmailFragment_to_verifyEmailFragment)

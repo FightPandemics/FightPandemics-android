@@ -14,6 +14,7 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
 import com.fightpandemics.login.ui.LoginViewModel
+import com.fightpandemics.login.ui.signin.SignInEmailFragment
 import com.fightpandemics.login.util.*
 import com.github.razir.progressbutton.bindProgressButton
 import com.google.android.material.appbar.MaterialToolbar
@@ -76,9 +77,11 @@ class VerifyEmailFragment : Fragment() {
     fun openEmailApp(){
         val intent = Intent(Intent.ACTION_MAIN)
         intent.addCategory(Intent.CATEGORY_APP_EMAIL)
-        findNavController().navigate(R.id.action_verifyEmailFragment_to_signinEmailFragment)
+
         requireActivity().startActivity(intent)
 
+        findNavController().navigate(R.id.nav_sign_in)
+        findNavController().navigate(R.id.action_signInFragment_to_signInEmailFragment)
 
     }
 
