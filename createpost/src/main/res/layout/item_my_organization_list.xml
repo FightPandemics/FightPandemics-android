@@ -5,15 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.fightpandemics.core.widgets.ProfileImageView
+    <ImageView
         android:id="@+id/organisation_avatar"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="#f3f4fe"
-        app:aiv_borderColor="?colorPrimary"
-        app:aiv_borderWidth="2dp"
-        app:aiv_initials="VM"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

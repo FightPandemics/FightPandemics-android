@@ -3,11 +3,11 @@ package com.fightpandemics.createpost.ui
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.TypedValue
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -28,6 +28,7 @@ class CreatePostFragment : Fragment() {
     private val createPostViewModel: CreatePostViewModel by viewModels { createPostViewModelFactory }
 
     private var fragmentCreatePostBinding: FragmentCreatePostBinding? = null
+    private lateinit var titleTextWatcher: TextWatcher
     private val chipTexts: ArrayList<String> = ArrayList()
 
     override fun onAttach(context: Context) {
@@ -49,6 +50,7 @@ class CreatePostFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupToolBar()
+        setTitleTextWatcher()
         setupViews()
         observeDurationBottomDialog()
         observeVisibilityBottomDialog()
@@ -67,6 +69,7 @@ class CreatePostFragment : Fragment() {
 
     private fun setupViews() {
         fragmentCreatePostBinding!!.toggleBt1.isChecked = true
+        fragmentCreatePostBinding!!.etTitle.addTextChangedListener(titleTextWatcher)
         fragmentCreatePostBinding!!.name.setOnClickListener {
             displayOrganizationBottomDialog()
         }
@@ -80,6 +83,24 @@ class CreatePostFragment : Fragment() {
             findNavController().navigate(R.id.action_createPostFragment_to_selectTagFragment)
         }
         fragmentCreatePostBinding!!.post.setOnClickListener { }
+    }
+
+    private fun setTitleTextWatcher() {
+        titleTextWatcher = object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (count >= 60) {
+                    fragmentCreatePostBinding!!.error.visibility = View.VISIBLE
+                } else {
+                    fragmentCreatePostBinding!!.error.visibility = View.GONE
+                }
+            }
+        }
     }
 
     private fun displayOrganizationBottomDialog() {
