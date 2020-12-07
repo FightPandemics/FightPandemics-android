@@ -18,7 +18,7 @@
         app:mt_hint="Custom hint"
         app:mt_maxSuggestionsCount="10"
         app:mt_placeholder="Search"
-        app:mt_speechMode="true" />
+        app:mt_speechMode="false" />
 
     <View
         android:id="@+id/location_line_divider"

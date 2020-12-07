@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -20,7 +21,7 @@ import com.google.android.material.button.MaterialButton
 import com.mancj.materialsearchbar.MaterialSearchBar
 import javax.inject.Inject
 
-class SearchFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
+class SearchFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -32,7 +33,7 @@ class SearchFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
     private lateinit var viewModel: SearchViewModel
     private lateinit var binding: SearchFragmentBinding
 
-    private lateinit var searchBar: MaterialSearchBar
+    private lateinit var searchBar: EditText
     private lateinit var lastSearches: List<String>
     private lateinit var adapter: SearchedPostsAdapter
 
@@ -69,15 +70,6 @@ class SearchFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         // setup posts in recycler view
         displayPosts()
 
-
-
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        // todo implement save queries to disk
-//        saveSearchSuggestionToDisk(searchBar.lastSuggestions)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -101,42 +93,14 @@ class SearchFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         return true
     }
 
-    override fun onSearchStateChanged(enabled: Boolean) {}
-    override fun onButtonClicked(buttonCode: Int) {}
-
-    // do filter of post data & update recycler view data
-    override fun onSearchConfirmed(text: CharSequence?) {
-        viewModel.filterPosts(text.toString())
-    }
-
     private fun setupSearchBar(){
         // todo change the top searchBar to be a edittext view
-        val searchBar = binding.searchBar
+        searchBar = binding.searchBar
         searchBar.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_searchFragment_to_inputSearchFragment)
         }
-
-        // todo add more stuff
-//        searchBar = binding.searchBar
-//        searchBar.setSpeechMode(false)
-//        searchBar.setHint("Search")
-//        searchBar.setOnSearchActionListener(this)
-
-        // setup custom suggestions for searchbar (initialize adapter)
-//        setupCustomSuggestions()
-
     }
 
-    private fun setupCustomSuggestions(){
-        val inflater = requireActivity().getSystemService(Activity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val customSuggestionAdapter = SearchSuggestionsAdapter(inflater = inflater)
-        val suggestions = mutableListOf<CustomSuggestion>()
-        for (i in 0..11){
-            suggestions.add(CustomSuggestion("potatos"))
-        }
-        customSuggestionAdapter.suggestions = suggestions
-        searchBar.setCustomSuggestionAdapter(customSuggestionAdapter)
-    }
 
     private fun displayPosts(){
         // todo put at top of class similar to filter module
