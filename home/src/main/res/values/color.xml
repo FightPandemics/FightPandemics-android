@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/fightPandemicsNeonBlue</color>
+    <color name="fightPandemicsNeonBlue">#425AF2</color>
+</resources>
