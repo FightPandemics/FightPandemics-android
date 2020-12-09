@@ -13,6 +13,8 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/search_toolbar"
+            android:paddingVertical="16dp"
+            android:paddingEnd="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways">
@@ -33,6 +35,7 @@
             <com.mancj.materialsearchbar.MaterialSearchBar
                 android:id="@+id/searchBar"
                 app:mt_roundedSearchBarEnabled="true"
+                android:padding="0dp"
                 app:mt_navIconEnabled="false"
                 app:mt_dividerColor="@color/fightPandemicsNeonBlue"
                 app:mt_searchBarColor="@color/fightPandemicsLightGrey"
@@ -49,16 +52,35 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <TextView
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="HERE GOES THE TAB LAYOUT"-->
+<!--            android:textSize="30dp" />-->
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/searchTabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HERE GOES THE TAB LAYOUT"
-            android:textSize="30dp" />
+            android:background="@color/colorWhite"
+            app:tabIndicatorColor="?colorPrimary"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorHeight="2dp"
+            app:tabSelectedTextColor="?colorPrimary"
+            app:tabTextAppearance="@style/TabText" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/searchPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <!-- todo remove recycler view    -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searched_posts_recycler_view"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

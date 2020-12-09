@@ -12,12 +12,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.fightpandemics.search.R
 import com.fightpandemics.search.dagger.inject
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.search.databinding.SearchFragmentBinding
 import com.fightpandemics.ui.MainActivity
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.mancj.materialsearchbar.MaterialSearchBar
 import javax.inject.Inject
 
@@ -32,6 +35,9 @@ class SearchFragment : Fragment() {
 
     private lateinit var viewModel: SearchViewModel
     private lateinit var binding: SearchFragmentBinding
+
+    private lateinit var searchTabs: TabLayout
+    private lateinit var searchPager: ViewPager2
 
     private lateinit var searchBar: EditText
     private lateinit var lastSearches: List<String>
@@ -64,6 +70,9 @@ class SearchFragment : Fragment() {
         val toolbar = binding.searchToolbar
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
+        // tab layout and view pager
+        setupTabs()
+
         // setup search bar
 //        setupSearchBar()
 
@@ -94,6 +103,20 @@ class SearchFragment : Fragment() {
         return true
     }
 
+    private fun setupTabs(){
+        searchTabs = binding.searchTabs
+        searchPager = binding.searchPager
+
+        searchPager.adapter = SearchPagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
+
+        TabLayoutMediator(searchTabs, searchPager) { tab, position ->
+//            tab.text = this.resources.getString(TAB_TITLES[position])
+            tab.text = "$position"
+        }.attach()
+
+
+    }
+
     private fun setupSearchBar(){
         // todo change the top searchBar to be a edittext view
 //        searchBar = binding.searchBar
@@ -101,7 +124,6 @@ class SearchFragment : Fragment() {
             findNavController().navigate(com.fightpandemics.R.id.action_searchFragment_to_inputSearchFragment)
         }
     }
-
 
     private fun displayPosts(){
         // todo put at top of class similar to filter module
