@@ -65,7 +65,7 @@ class SearchFragment : Fragment() {
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
         // setup search bar
-        setupSearchBar()
+//        setupSearchBar()
 
         // setup posts in recycler view
         displayPosts()
@@ -88,6 +88,7 @@ class SearchFragment : Fragment() {
                 // todo add action
 //                findNavController()
 //                    .navigate(com.fightpandemics.R.id.action_homeFragment_to_filterFragment)
+                findNavController().navigate(com.fightpandemics.R.id.action_searchFragment_to_inputSearchFragment)
             }
         }
         return true
@@ -95,7 +96,7 @@ class SearchFragment : Fragment() {
 
     private fun setupSearchBar(){
         // todo change the top searchBar to be a edittext view
-        searchBar = binding.searchBar
+//        searchBar = binding.searchBar
         searchBar.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_searchFragment_to_inputSearchFragment)
         }

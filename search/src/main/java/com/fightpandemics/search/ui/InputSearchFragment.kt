@@ -66,7 +66,7 @@ class InputSearchFragment2 : Fragment(), MaterialSearchBar.OnSearchActionListene
         super.onViewCreated(view, savedInstanceState)
 
         // setup search bar
-        setupSearchBar()
+//        setupSearchBar()
     }
 
     override fun onDestroy() {
