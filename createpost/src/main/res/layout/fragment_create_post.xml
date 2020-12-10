@@ -247,15 +247,16 @@
 
     </com.google.android.material.chip.ChipGroup>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/post"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="65dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/button_post"
-        android:foregroundTint="@color/fightPandemicsPerano"
+        android:backgroundTint="@color/fightPandemicsPerano"
+        app:cornerRadius="30dp"
         android:fontFamily="@font/poppins_medium"
         android:lineSpacingExtra="3sp"
+        android:enabled="false"
         android:textAllCaps="false"
         android:text="@string/post"
         android:textColor="@color/colorWhite"
