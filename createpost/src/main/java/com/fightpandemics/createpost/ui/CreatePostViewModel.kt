@@ -12,10 +12,6 @@ class CreatePostViewModel @Inject constructor() : ViewModel() {
     var descriptionNotEmpty = MutableLiveData<Boolean>()
     var isTagSet = MutableLiveData<Boolean>()
     var allDataFilled = MutableLiveData<Boolean>()
-
-    init {
-
-    }
     
     fun setDataFilled() {
         allDataFilled.value = titleNotEmpty.value == true && descriptionNotEmpty.value == true && isTagSet.value == true
