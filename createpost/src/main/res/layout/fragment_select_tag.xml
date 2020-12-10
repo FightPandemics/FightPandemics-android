@@ -161,7 +161,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="30dp"
-        android:background="@drawable/button_post"
+        android:background="@drawable/button_post_disabled"
         android:backgroundTint="@color/fightPandemicsNeonBlue"
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="3sp"

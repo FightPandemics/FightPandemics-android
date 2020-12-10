@@ -220,7 +220,7 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/button_post"
+        android:background="@drawable/button_post_disabled"
         android:backgroundTint="@color/fightPandemicsPerano"
         android:fontFamily="@font/worksans_regular"
         android:lineSpacingExtra="3sp"
