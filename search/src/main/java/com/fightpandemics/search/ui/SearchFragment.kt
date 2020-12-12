@@ -17,6 +17,7 @@ import com.fightpandemics.search.R
 import com.fightpandemics.search.dagger.inject
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.search.databinding.SearchFragmentBinding
+import com.fightpandemics.search.utils.TAB_TITLES
 import com.fightpandemics.ui.MainActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.tabs.TabLayout
@@ -76,9 +77,6 @@ class SearchFragment : Fragment() {
         // setup search bar
 //        setupSearchBar()
 
-        // setup posts in recycler view
-        displayPosts()
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -94,7 +92,7 @@ class SearchFragment : Fragment() {
         when (item.itemId) {
             R.id.filter -> {
                 Toast.makeText(requireContext(), "Filter", Toast.LENGTH_SHORT).show()
-                // todo add action
+                // todo add action to filter module
 //                findNavController()
 //                    .navigate(com.fightpandemics.R.id.action_homeFragment_to_filterFragment)
                 findNavController().navigate(com.fightpandemics.R.id.action_searchFragment_to_inputSearchFragment)
@@ -106,15 +104,11 @@ class SearchFragment : Fragment() {
     private fun setupTabs(){
         searchTabs = binding.searchTabs
         searchPager = binding.searchPager
-
         searchPager.adapter = SearchPagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
-
+        // Connect tabs to viewpager
         TabLayoutMediator(searchTabs, searchPager) { tab, position ->
-//            tab.text = this.resources.getString(TAB_TITLES[position])
-            tab.text = "$position"
+            tab.text = this.resources.getString(TAB_TITLES[position])
         }.attach()
-
-
     }
 
     private fun setupSearchBar(){
@@ -123,21 +117,6 @@ class SearchFragment : Fragment() {
         searchBar.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_searchFragment_to_inputSearchFragment)
         }
-    }
-
-    private fun displayPosts(){
-        // todo put at top of class similar to filter module
-        adapter = SearchedPostsAdapter()
-        binding.searchedPostsRecyclerView.adapter = adapter
-
-        // todo load all posts here
-        viewModel.loadAllPosts()
-
-        // update recycler view adapter
-        viewModel.filteredPosts.observe(viewLifecycleOwner, Observer { filteredList ->
-            adapter.searchedPostsData = filteredList
-        })
-
     }
 
     private fun createPost() {

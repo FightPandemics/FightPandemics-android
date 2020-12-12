@@ -1,11 +1,26 @@
 package com.fightpandemics.search.ui.tabs.people
 
+import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.Html
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.widget.TextView
+import android.widget.TextView.BufferType
+import androidx.fragment.app.Fragment
 import com.fightpandemics.search.R
+import com.fightpandemics.search.utils.makeTextViewResizable
+
+
+//import com.fightpandemics.search.utils.makeTextViewResizable
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,6 +53,12 @@ class SearchPeopleFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_search_people, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val tv = getView()?.findViewById<TextView>(R.id.testing_text)
+        makeTextViewResizable(tv!!, 3, "View More", true)
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -58,3 +79,5 @@ class SearchPeopleFragment : Fragment() {
             }
     }
 }
+
+

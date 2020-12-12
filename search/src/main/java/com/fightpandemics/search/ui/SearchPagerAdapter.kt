@@ -16,8 +16,8 @@ class SearchPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle)
     override fun createFragment(position: Int): Fragment = when(position){
         // todo remove parameters from here
         0 -> SearchPostsFragment.newInstance("dummy1", "dummy2")
-        1 -> SearchPeopleFragment.newInstance("dummy1", "dummy2")
-        2 -> SearchOrganizationFragment.newInstance("dummy1", "dummy2")
+        1 -> SearchOrganizationFragment.newInstance("dummy1", "dummy2")
+        2 -> SearchPeopleFragment.newInstance("dummy1", "dummy2")
         else -> throw IllegalArgumentException("position: $position cannot be greater than $itemCount")
     }
 }
