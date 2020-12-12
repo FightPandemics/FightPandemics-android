@@ -1,6 +1,8 @@
 package com.fightpandemics.createpost.dagger
 
 import com.fightpandemics.core.dagger.scope.ActivityScope
+import com.fightpandemics.createpost.data.api.NetworkApi
+import com.fightpandemics.createpost.domain.repository.CreatePostRepository
 import com.fightpandemics.createpost.ui.CreatePostFragment
 import dagger.Subcomponent
 
@@ -9,7 +11,13 @@ import dagger.Subcomponent
  */
 @ActivityScope
 @Subcomponent(
-    modules = [CreatePostModule::class, CreatePostViewModelModule::class]
+    modules = [
+        CreatePostModule::class,
+        CreatePostViewModelModule::class,
+        CreatePostNetworkModule::class,
+        CreatePostDataModule::class,
+        CreatePostRemoteModule::class
+    ]
 )
 interface CreatePostComponent {
 
@@ -20,4 +28,7 @@ interface CreatePostComponent {
     }
 
     fun inject(createPostFragment: CreatePostFragment)
+
+    fun provideCreatePostRepository(): CreatePostRepository
+    fun provideNetworkApi(): NetworkApi
 }
