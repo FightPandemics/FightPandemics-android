@@ -55,6 +55,7 @@ class HomeFragment : Fragment() {
         homeFragmentBinding = binding
 
         (activity as AppCompatActivity).setSupportActionBar(homeFragmentBinding!!.appBar.toolbar)
+
         setHasOptionsMenu(true)
 
         setupUi()

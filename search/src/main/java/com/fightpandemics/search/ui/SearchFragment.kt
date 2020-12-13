@@ -7,13 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
-import com.fightpandemics.search.R
 import com.fightpandemics.search.dagger.inject
 import com.fightpandemics.search.databinding.SearchFragmentBinding
-import com.fightpandemics.ui.MainActivity
-import com.google.android.material.button.MaterialButton
 import javax.inject.Inject
 
 class SearchFragment : Fragment() {
@@ -35,6 +31,7 @@ class SearchFragment : Fragment() {
     ): View {
         val binding = SearchFragmentBinding.inflate(inflater)
         searchFragmentBinding = binding
+
         createPost()
         return binding.root
     }
