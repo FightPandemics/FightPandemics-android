@@ -1,39 +1,47 @@
 package com.fightpandemics.login.ui
 
+import DataClasses.User
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.ActivityScope
-import com.fightpandemics.core.data.model.login.LoginRequest
-import com.fightpandemics.core.data.model.login.LoginResponse
-import com.fightpandemics.core.data.model.login.User
+import com.fightpandemics.core.data.model.login.*
 import com.fightpandemics.core.result.Result
+import com.fightpandemics.login.domain.CompleteProfileUseCase
 import com.fightpandemics.login.domain.LoginUseCase
+import com.fightpandemics.login.domain.SignUPUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ActivityScope
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val signUpUseCase: SignUPUseCase,
+    private val completeProfileUseCase: CompleteProfileUseCase
 ) : ViewModel() {
     private val _login = MutableLiveData<LoginViewState>()
+    private val _signup = MutableLiveData<SignUPViewState>()
+    private val _completeProfile = MutableLiveData<CompleteProfileViewState>()
     val login: LiveData<LoginViewState> = _login
+    val signup: LiveData<SignUPViewState> = _signup
+    val completeProfile: LiveData<CompleteProfileViewState> = _completeProfile
 
     @ExperimentalCoroutinesApi
     fun doLogin(email: String, password: String) {
         _login.value?.isLoading = true
-
         viewModelScope.launch {
             val deferredLogin = async {
                 loginUseCase(LoginRequest(email, password))
             }
             deferredLogin.await().catch {
+
             }.collect {
                 when (it) {
                     is Result.Success -> {
@@ -61,6 +69,77 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
+
+    @ExperimentalCoroutinesApi
+    fun doSignUP(email: String, password: String, confirmPassword: String) {
+        signup.value?.isLoading = true
+
+        viewModelScope.launch {
+            val request = SignUpRequest(email, password, confirmPassword) // PostRequest
+            val couroutineResponse = async {
+                signUpUseCase.invoke(request)
+            }
+            couroutineResponse.await().collect {
+                when (it) {
+                    is Result.Success -> {
+                        val signUpResponse = it.data as SignUpResponse
+                        _signup.value = SignUPViewState(
+                            false,
+                            signUpResponse.emailVerified!!,
+                            signUpResponse.token,
+                            null,
+                            isError = false
+                        )
+                    }
+                    is Result.Error -> {
+                        _signup.value = SignUPViewState(
+                            isLoading = false,
+                            emailVerified = false,
+                            token = null,
+                            error = it.exception.message.toString(),
+                            isError = true
+                        )
+                    }
+                }
+            }
+        }
+
+    }
+
+    @ExperimentalCoroutinesApi
+    fun doCompleteProfile(request : CompleteProfileRequest) {
+        completeProfile.value?.isLoading = true
+
+        viewModelScope.launch {
+            val couroutineResponse = async {
+                completeProfileUseCase.invoke(request)
+            }
+            couroutineResponse.await().collect {
+                when (it) {
+                    is Result.Success -> {
+                        val completeResponse = it.data as CompleteProfileResponse
+                        _completeProfile.value = CompleteProfileViewState(
+                            false,
+                            completeResponse.email,
+                            null,
+                            error = null,
+                            isError = false
+                        )
+                    }
+                    is Result.Error -> {
+                        _completeProfile.value = CompleteProfileViewState(
+                            isLoading = false,
+                            email = "",
+                            token = null,
+                            error = it.exception.message.toString(),
+                            isError = true
+                        )
+                    }
+                }
+            }
+        }
+
+    }
 }
 
 /**
@@ -74,6 +153,23 @@ data class LoginViewState(
     val user: User?,
     val error: String?
 )
+
+data class SignUPViewState(
+    var isLoading: Boolean,
+    val emailVerified: Boolean,
+    val token: String?,
+    val error: String?,
+    val isError: Boolean
+)
+data class CompleteProfileViewState(
+    var isLoading: Boolean,
+    val email: String,
+    val token: String?,
+    val error: String?,
+    val isError: Boolean
+)
+
+
 
 /*
 *

@@ -15,9 +15,6 @@ import kotlinx.coroutines.flow.channelFlow
 import retrofit2.Response
 import javax.inject.Inject
 
-/*
-* created by Osaigbovo Odiase
-* */
 @ExperimentalCoroutinesApi
 class LoginRepositoryImpl @Inject constructor(
     val moshi: Moshi,
@@ -44,11 +41,71 @@ class LoginRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun signUp(signUpRequest: SignUpRequest): Response<SignUpResponse> {
-        return loginRemoteDataSource.signUp(signUpRequest)
+
+    override suspend fun signUp(signUpRequest: SignUpRequest): Flow<Result<*>>? {
+        return channelFlow {
+            val response = signUpRequest?.let { loginRemoteDataSource.signUp(it) }
+            when {
+
+                response!!.isSuccessful && response.code() == 200 -> {
+                    val signUpResponse = response.body()
+                    //authTokenLocalDataSource.setToken(signUpResponse?.token)
+                    //TODO maybe we have to consume current user service form backend to get serID
+                    //authTokenLocalDataSource.setUserId(loginResponse?.)
+                    channel.offer(Result.Success(signUpResponse))
+                }
+                response.code() == 401 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+                response.code() == 400 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+                response.code() == 409 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+            }
+            awaitClose { }
+        }
     }
 
     override suspend fun changePassword(email: String): Response<ChangePasswordResponse> {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun completeProfile(request: CompleteProfileRequest): Flow<Result<*>>? {
+        return channelFlow {
+            val response = request?.let { loginRemoteDataSource.completeProfile(it) }
+            when {
+
+                response!!.isSuccessful && response.code() == 200 -> {
+                    val signUpResponse = response.body()
+                    //authTokenLocalDataSource.setToken(signUpResponse?.token)
+                    //TODO maybe we have to consume current user service form backend to get serID
+                    //authTokenLocalDataSource.setUserId(loginResponse?.)
+                    channel.offer(Result.Success(signUpResponse))
+                }
+
+                response.code() == 500 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+                response.code() == 401 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+                response.code() == 400 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+                response.code() == 409 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+            }
+            awaitClose { }
+        }
     }
 }

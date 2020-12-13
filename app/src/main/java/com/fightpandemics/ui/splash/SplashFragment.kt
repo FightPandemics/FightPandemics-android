@@ -12,6 +12,7 @@ import com.fightpandemics.core.result.EventObserver
 import com.fightpandemics.core.utils.ViewModelFactory
 import javax.inject.Inject
 
+
 class SplashFragment : Fragment() {
 
     @Inject
@@ -25,26 +26,23 @@ class SplashFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Handler(Looper.getMainLooper()).postDelayed(
-            {
-                launch()
-            },
-            2500
-        )
+        Handler(Looper.getMainLooper()).postDelayed({
+            launch()
+        }, 2500)
     }
 
+
     private fun launch() {
-        splashViewModel.launchDestination.observe(
-            requireActivity(),
-            EventObserver { destination ->
-                when (destination) {
-                    LaunchDestination.MAIN_ACTIVITY ->
-                        findNavController().navigate(R.id.action_splashFragment_to_mainActivity).apply { requireActivity().finish() }
-                    LaunchDestination.ONBOARD ->
-                        findNavController().navigate(R.id.action_splashFragment_to_onboardFragment)
-                }.checkAllMatched
-            }
-        )
+        splashViewModel.launchDestination.observe(requireActivity(), EventObserver { destination ->
+            when (destination) {
+                LaunchDestination.MAIN_ACTIVITY ->
+                    findNavController().navigate(R.id.action_splashFragment_to_mainActivity).apply { requireActivity().finish() }
+
+                LaunchDestination.ONBOARD ->
+                    findNavController().navigate(R.id.action_splashFragment_to_onboardFragment)
+            }.checkAllMatched
+        })
+
     }
 }
 

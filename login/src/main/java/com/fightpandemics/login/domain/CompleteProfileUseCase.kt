@@ -1,10 +1,11 @@
 package com.fightpandemics.login.domain
 
-import com.fightpandemics.core.dagger.scope.ActivityScope
+import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
-import com.fightpandemics.core.data.model.login.LoginRequest
+import com.fightpandemics.core.data.model.login.CompleteProfileRequest
 import com.fightpandemics.core.data.model.login.LoginResponse
 import com.fightpandemics.core.data.model.login.SignUpRequest
+import com.fightpandemics.core.data.model.login.SignUpResponse
 import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.core.domain.usecase.FlowUseCase
 import com.fightpandemics.core.result.Result
@@ -15,17 +16,16 @@ import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-@ActivityScope
-class LoginUseCase @Inject constructor(
+@FeatureScope
+class CompleteProfileUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
     dispatcherProvider: CoroutinesDispatcherProvider,
-) : FlowUseCase<LoginRequest, Any>(dispatcherProvider.io) {
-
-    override suspend fun execute(parameters: LoginRequest?): Flow<Result<Any>> {
+) : FlowUseCase<CompleteProfileRequest, Any>(dispatcherProvider.io) {
+    override suspend fun execute(request: CompleteProfileRequest?):  Flow<Result<Any>> {
         return channelFlow {
-            loginRepository.login(parameters)!!.collect {
+            loginRepository.completeProfile(request!!)?.collect {
                 val result = when (it) {
-                    is Result.Success -> it as Result<LoginResponse>
+                    is Result.Success -> it as Result<SignUpResponse>
                     is Result.Error -> it
                     else -> null
                 }
@@ -34,3 +34,4 @@ class LoginUseCase @Inject constructor(
         }
     }
 }
+

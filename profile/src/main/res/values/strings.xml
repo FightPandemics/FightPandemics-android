@@ -54,7 +54,39 @@
     <string name="community">Community</string>
     <string name="email">Email</string>
     <string name="automobiles">Automobiles</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="biotechnology">Biotechnology</string>
+    <string name="business_supplies_and_equipment">Business Supplies and Equipment</string>
+    <string name="e">E</string>
+    <string name="civic_and_social_organization">Civic and Social Organization</string>
+    <string name="c">C</string>
+    <string name="event_services">Event Services</string>
+    <string name="f">F</string>
+    <string name="fund_raising">Fund-Raising</string>
+    <string name="government_relations">Government Relations</string>
+    <string name="g">G</string>
+    <string name="health_wellness_and_fitness">Health, Wellness and Fitness</string>
+    <string name="hospital_and_healthcare"><![CDATA[Hospital & Healthcare]]></string>
+    <string name="i">I</string>
+    <string name="industries">Industries</string>
+    <string name="information_technology_and_services">Information Technology and Services</string>
+    <string name="legal_services">Legal Services</string>
+    <string name="m">M</string>
+    <string name="marketing_and_advertising">Marketing and Advertising</string>
+    <string name="medical_devices">Medical Devices</string>
+    <string name="n">N</string>
+    <string name="non_profit_organization_management">Non-Profit Organization Management</string>
+    <string name="o">O</string>
+    <string name="p">P</string>
+    <string name="philanthropy">Philanthropy</string>
+    <string name="primary_secondary_education">Primary/Secondary Education</string>
+    <string name="professional_training_and_coaching">Professional Training and Coaching</string>
+    <string name="r">R</string>
+    <string name="research">Research</string>
+    <string name="think_tanks">Think Tanks</string>
+    <string name="translation_and_localization">Translation and Localization</string>
+    <string name="h">H</string>
+    <string name="l">L</string>
+    <string name="t">T</string>
+
 
 </resources>

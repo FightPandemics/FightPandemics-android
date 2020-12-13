@@ -30,4 +30,7 @@
     <string name="com_auth0_client_id">J2pJ9iZ0cJzI0lqJ2h3tdLlqVPO2sGMM</string>
     <string name="com_auth0_domain">fightpandemics.eu.auth0.com</string>
     <string name="continue_with_google">Continue with Google</string>
+    <string name="please_check_your_email">We just emailed a link to %s. Click the link to confirm your account and complete your profile.\n\nIf you don\'t see a message within a few minutes please check spam, promotions or other incoming mail folders.</string>
+    <string name="if_you_dont_see_email">If you don\'t see a message within a few minutes please check spam, promotions or other incoming mail folders.</string>
+    <string name="check_your_inbox">Check your inbox</string>
 </resources>
