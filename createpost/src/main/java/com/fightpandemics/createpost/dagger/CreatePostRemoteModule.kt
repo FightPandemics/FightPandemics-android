@@ -10,7 +10,6 @@ import javax.inject.Singleton
 @Module
 class CreatePostRemoteModule {
 
-    @Singleton
     @Provides
     fun providePostsRemoteDataSource(networkApi: NetworkApi): PostRemoteDataSource =
         PostRemoteDataSourceImpl(networkApi)

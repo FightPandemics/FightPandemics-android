@@ -4,9 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.ActivityScope
-import com.fightpandemics.core.data.model.posts.Post
+import com.fightpandemics.createpost.data.model.CreatePostRequest
 import com.fightpandemics.createpost.domain.CreatePostsUseCase
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,11 +21,9 @@ class CreatePostViewModel @Inject constructor(private val createPostsUseCase: Cr
         allDataFilled.value = titleNotEmpty.value == true && descriptionNotEmpty.value == true && isTagSet.value == true
     }
 
-    fun postContent(post: Post) {
+    fun postContent(createPostRequest: CreatePostRequest) {
         viewModelScope.launch {
-            val deferredCreatePost = async {
-                createPostsUseCase(post)
-            }
+            createPostsUseCase(createPostRequest)
         }
     }
 }

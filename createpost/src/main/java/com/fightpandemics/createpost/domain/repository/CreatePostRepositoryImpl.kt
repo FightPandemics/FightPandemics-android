@@ -1,17 +1,16 @@
-package com.fightpandemics.createpost.data
+package com.fightpandemics.createpost.domain.repository
 
-import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.result.Result
+import com.fightpandemics.createpost.data.model.CreatePostRequest
 import com.fightpandemics.createpost.data.remote.PostRemoteDataSource
-import com.fightpandemics.createpost.domain.repository.CreatePostRepository
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class CreatePostRepositoryImpl @Inject constructor(private val postRemoteDataSource: PostRemoteDataSource) : CreatePostRepository {
 
-    override suspend fun createPost(post: Post): Any {
+    override suspend fun createPost(createPostRequest: CreatePostRequest): Any {
         return flow {
-            val result = postRemoteDataSource.createPost(post)
+            val result = postRemoteDataSource.createPost(createPostRequest)
             emit(Result.Success(result))
         }
     }
