@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.search.R
 import com.fightpandemics.search.databinding.SearchFragmentBinding
 import com.fightpandemics.search.ui.SearchViewModel
 import com.fightpandemics.search.ui.SearchedPostsAdapter
+import timber.log.Timber
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,7 +29,9 @@ private const val ARG_PARAM2 = "param2"
 class SearchPostsFragment : Fragment() {
 
     private lateinit var binding: SearchFragmentBinding
-    private lateinit var viewModel: SearchViewModel
+    private val viewModel: SearchViewModel by viewModels(
+        ownerProducer = {requireParentFragment()}
+    )
     private lateinit var adapter: SearchedPostsAdapter
 
     // TODO: Rename and change types of parameters
@@ -51,9 +55,6 @@ class SearchPostsFragment : Fragment() {
 //        return binding.root
         val root = inflater.inflate(R.layout.fragment_search_posts, container, false)
 
-        // Get view model
-        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
-
         // setup posts in recycler view
         displayPosts(root)
 
@@ -73,7 +74,7 @@ class SearchPostsFragment : Fragment() {
         viewModel.loadAllPosts()
 
         // update recycler view adapter
-        viewModel.filteredPosts.observe(viewLifecycleOwner, Observer { filteredList ->
+        viewModel.filteredPosts.observe(viewLifecycleOwner, { filteredList ->
             adapter.searchedPostsData = filteredList
         })
     }

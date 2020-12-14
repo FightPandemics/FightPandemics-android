@@ -9,9 +9,11 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.fightpandemics.search.R
 import com.fightpandemics.search.dagger.inject
@@ -23,6 +25,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mancj.materialsearchbar.MaterialSearchBar
+import timber.log.Timber
 import javax.inject.Inject
 
 class SearchFragment : Fragment() {
@@ -34,13 +37,13 @@ class SearchFragment : Fragment() {
         fun newInstance() = SearchFragment()
     }
 
-    private lateinit var viewModel: SearchViewModel
+    private val viewModel: SearchViewModel by viewModels()
     private lateinit var binding: SearchFragmentBinding
 
     private lateinit var searchTabs: TabLayout
     private lateinit var searchPager: ViewPager2
 
-    private lateinit var searchBar: EditText
+    private lateinit var searchBar: MaterialSearchBar
     private lateinit var lastSearches: List<String>
     private lateinit var adapter: SearchedPostsAdapter
 
@@ -62,8 +65,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Get view model
-        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
         // setup menu
         setHasOptionsMenu(true)
 
@@ -75,17 +76,18 @@ class SearchFragment : Fragment() {
         setupTabs()
 
         // setup search bar
-//        setupSearchBar()
+        setupSearchBar()
 
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.search_menu, menu)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // todo implement save queries to disk
+//        saveSearchSuggestionToDisk(searchBar.lastSuggestions)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -113,10 +115,34 @@ class SearchFragment : Fragment() {
 
     private fun setupSearchBar(){
         // todo change the top searchBar to be a edittext view
-//        searchBar = binding.searchBar
-        searchBar.setOnClickListener {
-            findNavController().navigate(com.fightpandemics.R.id.action_searchFragment_to_inputSearchFragment)
+        searchBar = binding.searchBar
+        searchBar.setSpeechMode(false)
+        searchBar.openSearch()
+        searchBar.setHint("Search")
+        searchBar.setOnSearchActionListener(object : MaterialSearchBar.OnSearchActionListener{
+            override fun onSearchStateChanged(enabled: Boolean) {}
+            override fun onButtonClicked(buttonCode: Int) {}
+            override fun onSearchConfirmed(text: CharSequence?) {
+                viewModel.filterPosts(text.toString())
+            }
+        })
+        // setup custom suggestions for searchbar (initialize adapter)
+//        setupCustomSuggestions()
+
+//        searchBar.setOnClickListener {
+//            findNavController().navigate(com.fightpandemics.R.id.action_searchFragment_to_inputSearchFragment)
+//        }
+    }
+
+    private fun setupCustomSuggestions(){
+        val inflater = requireActivity().getSystemService(Activity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val customSuggestionAdapter = SearchSuggestionsAdapter(inflater = inflater)
+        val suggestions = mutableListOf<CustomSuggestion>()
+        for (i in 0..11){
+            suggestions.add(CustomSuggestion("potatos"))
         }
+        customSuggestionAdapter.suggestions = suggestions
+        searchBar.setCustomSuggestionAdapter(customSuggestionAdapter)
     }
 
     private fun createPost() {
