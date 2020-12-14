@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.search.R
@@ -62,6 +63,9 @@ class SearchPostsFragment : Fragment() {
     private fun displayPosts(root: View) {
         // recycler view
         adapter = SearchedPostsAdapter()
+        adapter.onItemClickListener = { post ->
+            Toast.makeText(requireContext(), "${post.title}", Toast.LENGTH_SHORT).show()
+        }
         val rv = root.findViewById<RecyclerView>(R.id.searched_posts_recycler_view)
         rv.adapter = adapter
 

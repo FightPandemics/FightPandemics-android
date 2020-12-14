@@ -10,6 +10,10 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.TextView
+import com.fightpandemics.core.data.model.posts.Author
+import com.fightpandemics.core.data.model.posts.ExternalLinks
+import com.fightpandemics.core.data.model.posts.Location
+import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.search.R
 
 val TAB_TITLES = arrayOf(
@@ -110,4 +114,30 @@ open class MySpannable(isUnderline: Boolean) : ClickableSpan() {
     init {
         this.isUnderline = isUnderline
     }
+}
+
+fun createDummyPost(title: String = "title"): Post {
+    val location = Location("Orange", "CA", "USA")
+    val author = Author("id", location, "Joe Doe", "photo", "type")
+    val externalLinks = ExternalLinks("website")
+    val language = listOf("spanish", "english", "japanese")
+    val types = listOf("type1", "type2")
+    val content = "content"
+//    val title = "title"
+    return Post(
+        "_id",
+        author,
+        3,
+        content,
+        0.4,
+        "expireAt",
+        externalLinks,
+        language,
+        true,
+        3,
+        "objective",
+        title,
+        listOf(),
+        "visibility"
+    )
 }
