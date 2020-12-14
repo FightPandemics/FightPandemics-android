@@ -1,8 +1,8 @@
 package com.fightpandemics.createpost.data.remote
 
-import com.fightpandemics.core.data.model.posts.Post
+import com.fightpandemics.createpost.data.model.CreatePostRequest
 
 interface PostRemoteDataSource {
 
-    suspend fun createPost(post: Post): Any
+    suspend fun createPost(createPostRequest: CreatePostRequest): Any
 }

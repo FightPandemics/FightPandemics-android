@@ -15,19 +15,16 @@ import javax.inject.Singleton
 @Module
 class CreatePostNetworkModule {
 
-    @Singleton
     @Provides
     fun provideRetrofitService(moshi: Moshi, okHttpClient: Lazy<OkHttpClient>): NetworkApi =
         CreatePostRetrofitService.createService(moshi, okHttpClient, NetworkApi::class.java)
 
-    @Singleton
     @Provides
     fun provideMoshi(): Moshi = Moshi
         .Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
 
-    @Singleton
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor().apply {
@@ -38,7 +35,6 @@ class CreatePostNetworkModule {
             }
         }
 
-    @Singleton
     @Provides
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor

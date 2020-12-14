@@ -10,7 +10,7 @@ class CreatePostRetrofitService {
 
     companion object {
         private val builder: Retrofit.Builder = Retrofit.Builder()
-            .baseUrl(NetworkApi.RELEASE_API_ENDPOINT)
+            .baseUrl(NetworkApi.STAGING_API_ENDPOINT)
 
         @JvmStatic
         fun <S> createService(
@@ -18,7 +18,7 @@ class CreatePostRetrofitService {
             okHttpClient: Lazy<OkHttpClient>,
             serviceClass: Class<S>,
         ): S {
-            val retrofit = CreatePostRetrofitService.builder
+            val retrofit = builder
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .callFactory(okHttpClient.get())
                 .build()
