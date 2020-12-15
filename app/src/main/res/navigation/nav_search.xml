@@ -30,6 +30,20 @@
             app:popEnterAnim="@anim/stationary"
             app:popExitAnim="@anim/slide_down" />
 
+        <action
+            android:id="@+id/action_searchFragment_to_searchedPostEnlargedFragment"
+            app:destination="@id/searchedPostEnlargedFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" >
+            <argument
+                android:name="myArg"
+                app:argType="string"
+                android:defaultValue="my argument"/>
+        </action>
+
     </fragment>
 
     <fragment
@@ -38,7 +52,14 @@
         android:label="search_input"
         app:moduleName="Fight_Pandemics.search"
         tools:layout="@layout/input_search_fragment" >
+    </fragment>
 
+    <fragment
+        android:id="@+id/searchedPostEnlargedFragment"
+        android:name="com.fightpandemics.search.ui.tabs.posts.SearchedPostEnlargedFragment"
+        android:label="search_post_enlarged"
+        app:moduleName="Fight_Pandemics.search"
+        tools:layout="@layout/fragment_searched_post_enlarged" >
     </fragment>
 
     <include app:graph="@navigation/nav_create_post" />

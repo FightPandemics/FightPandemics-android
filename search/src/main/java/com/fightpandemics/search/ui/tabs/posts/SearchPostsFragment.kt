@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.search.R
 import com.fightpandemics.search.databinding.SearchFragmentBinding
@@ -66,6 +67,7 @@ class SearchPostsFragment : Fragment() {
         adapter = SearchedPostsAdapter()
         adapter.onItemClickListener = { post ->
             Toast.makeText(requireContext(), "${post.title}", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(com.fightpandemics.R.id.action_searchFragment_to_searchedPostEnlargedFragment)
         }
         val rv = root.findViewById<RecyclerView>(R.id.searched_posts_recycler_view)
         rv.adapter = adapter
