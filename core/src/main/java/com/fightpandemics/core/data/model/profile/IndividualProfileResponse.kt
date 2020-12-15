@@ -1,6 +1,6 @@
 package com.fightpandemics.core.data.model.profile
 
-data class IndividualProfile(
+data class IndividualProfileResponse(
     val email: String,
     val firstName: String,
     val hide: Hide,
