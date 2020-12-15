@@ -47,7 +47,13 @@ data class Objectives(
     val volunteer: Boolean
 )
 
-class Urls(
+data class Urls(
+    val facebook: String? = null,
+    val instagram: String? = null,
+    val linkedin: String? = null,
+    val twitter: String? = null,
+    val github: String? = null,
+    val website: String? = null,
 )
 
 data class Digest(
