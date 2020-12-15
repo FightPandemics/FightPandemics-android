@@ -45,6 +45,7 @@ class ProfileFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
+        viewModel.getndividualProfile()
         overview.setOnClickListener {
             Timber.d("Overview")
         }
