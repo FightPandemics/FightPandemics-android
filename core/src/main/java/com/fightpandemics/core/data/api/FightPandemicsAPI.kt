@@ -2,10 +2,9 @@ package com.fightpandemics.core.data.api
 
 import com.fightpandemics.core.data.model.login.*
 import com.fightpandemics.core.data.model.post.PostRequest
+import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
-import kotlinx.coroutines.Deferred
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -56,6 +55,11 @@ interface FightPandemicsAPI {
         @Path("postId") postId: String,
         @Path("userId") userId: String
     ): Response<Void>
+
+    // Profile
+    @GET("api/users/current")
+    suspend fun getCurrentUser(): IndividualProfileResponse
+
 
 
     companion object {

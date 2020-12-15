@@ -5,6 +5,7 @@ import com.fightpandemics.core.data.api.FightPandemicsAPI
 import com.fightpandemics.core.data.prefs.PreferenceStorage
 import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.core.domain.repository.PostsRepository
+import com.fightpandemics.core.domain.repository.ProfileRepository
 import dagger.Component
 import javax.inject.Singleton
 
@@ -44,5 +45,7 @@ interface CoreComponent {
     fun providePostsRepository(): PostsRepository
     fun provideLoginRepository(): LoginRepository
     fun provideFightPandemicsAPI(): FightPandemicsAPI
+
+    fun providesProfileRepository(): ProfileRepository
 
 }
