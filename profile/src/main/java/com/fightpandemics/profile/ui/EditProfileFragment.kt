@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.profile.R
-import com.fightpandemics.utils.ViewModelFactory
+import com.fightpandemics.core.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.donation_item.*
 import kotlinx.android.synthetic.main.email_item.*
 import kotlinx.android.synthetic.main.location_item.*
