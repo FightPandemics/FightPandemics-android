@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
@@ -14,17 +15,19 @@ import com.fightpandemics.core.utils.GlideApp
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
+import kotlinx.android.synthetic.main.profile_fragment.*
 import kotlinx.android.synthetic.main.profile_fragment_content.*
 import kotlinx.android.synthetic.main.profile_toolbar.*
+import kotlinx.android.synthetic.main.profile_toolbar.toolbar
 import timber.log.Timber
 import javax.inject.Inject
+
 
 class ProfileFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val profileViewModel: ProfileViewModel by viewModels { viewModelFactory }
-    private lateinit var webView: WebView
 
 
     companion object {
@@ -66,11 +69,11 @@ class ProfileFragment : Fragment() {
                         .centerCrop()
                         .into(user_avatar)
 
-                    facebook.setOnClickListener{openWebView(profile.facebook)}
-                    linkedin.setOnClickListener{openWebView(profile.linkedin)}
-                    twitter.setOnClickListener{openWebView(profile.twitter)}
-                    github.setOnClickListener{openWebView(profile.github)}
-                    link.setOnClickListener{openWebView(profile.linkedin)}
+                    facebook.setOnClickListener { openWebView(profile.facebook) }
+                    linkedin.setOnClickListener { openWebView(profile.linkedin) }
+                    twitter.setOnClickListener { openWebView(profile.twitter) }
+                    github.setOnClickListener { openWebView(profile.github) }
+                    link.setOnClickListener { openWebView(profile.linkedin) }
                     bio.text = profile.bio
 
                 }
@@ -107,12 +110,25 @@ class ProfileFragment : Fragment() {
 
     private fun openWebView(url: String?) {
         url?.let {
-            webView.webViewClient = object : WebViewClient() {
-                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                    view?.loadUrl(it)
-                    return true
+            webview.webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                    webview.visibility = View.VISIBLE
+                    view.loadUrl(url)
+                    return false
                 }
             }
+            var wbc: WebChromeClient = object : WebChromeClient() {
+                override fun onCloseWindow(w: WebView?) {
+                    super.onCloseWindow(w)
+                    webview.visibility = View.GONE
+                }
+            }
+            webview.webChromeClient = wbc;
+
+            webview.getSettings().setJavaScriptEnabled(true)
+            webview.loadUrl("http://www.google.com.br")
         }
+
     }
+
 }
