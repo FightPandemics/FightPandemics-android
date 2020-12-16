@@ -5,13 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.fightpandemics.core.utils.GlideApp
+import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
-import com.fightpandemics.core.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.profile_fragment_content.*
 import kotlinx.android.synthetic.main.profile_toolbar.*
 import timber.log.Timber
@@ -21,12 +23,13 @@ class ProfileFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+    private val profileViewModel: ProfileViewModel by viewModels { viewModelFactory }
+    private lateinit var webView: WebView
+
 
     companion object {
         fun newInstance() = ProfileFragment()
     }
-
-    private lateinit var viewModel: ProfileViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -43,9 +46,42 @@ class ProfileFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-        viewModel.getndividualProfile()
+
+        profileViewModel.individualProfile.observe(viewLifecycleOwner, { profile ->
+            when {
+                profile.isLoading -> {
+
+                }
+                profile.error == null -> {
+                    //show data
+                    user_full_name.text = profile.fullName
+                    user_location.text = profile.location
+                    // glide user_avatar
+
+
+                    GlideApp
+                        .with(requireContext())
+                        .load(profile.imgUrl)
+                        .centerCrop()
+                        .into(user_avatar)
+
+                    facebook.setOnClickListener{openWebView(profile.facebook)}
+                    linkedin.setOnClickListener{openWebView(profile.linkedin)}
+                    twitter.setOnClickListener{openWebView(profile.twitter)}
+                    github.setOnClickListener{openWebView(profile.github)}
+                    link.setOnClickListener{openWebView(profile.linkedin)}
+                    bio.text = profile.bio
+
+                }
+                profile.error != null -> {
+                    // @feryel please fill this
+                }
+
+            }
+        })
+
+        profileViewModel.getndividualProfile()
         overview.setOnClickListener {
             Timber.d("Overview")
         }
@@ -67,5 +103,16 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_editProfileFragment)
         }
 
+    }
+
+    private fun openWebView(url: String?) {
+        url?.let {
+            webView.webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                    view?.loadUrl(it)
+                    return true
+                }
+            }
+        }
     }
 }

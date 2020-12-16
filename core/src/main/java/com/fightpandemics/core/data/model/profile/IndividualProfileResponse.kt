@@ -1,6 +1,7 @@
 package com.fightpandemics.core.data.model.profile
 
 data class IndividualProfileResponse(
+    val about: String,
     val email: String,
     val firstName: String,
     val hide: Hide,
@@ -22,12 +23,9 @@ data class Hide(
 data class Location(
     val address: String,
     val city: String,
-    val coordinates: List<Int>,
+    val coordinates: List<Double>,
     val country: String,
-    val neighborhood: String,
-    val state: String,
-    val type: String,
-    val zip: String
+    val state: String
 )
 
 data class Needs(
@@ -48,12 +46,12 @@ data class Objectives(
 )
 
 data class Urls(
-    val facebook: String? = null,
-    val instagram: String? = null,
-    val linkedin: String? = null,
-    val twitter: String? = null,
-    val github: String? = null,
-    val website: String? = null,
+    val facebook: String,
+    val github: String,
+    val instagram: String,
+    val linkedin: String,
+    val twitter: String,
+    val website: String
 )
 
 data class Digest(

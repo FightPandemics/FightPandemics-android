@@ -1,16 +1,13 @@
 package com.fightpandemics.profile.ui
 
-import DataClasses.User
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.core.dagger.scope.FeatureScope
-import com.fightpandemics.core.data.model.login.LoginRequest
-import com.fightpandemics.core.data.model.login.LoginResponse
 import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
 import com.fightpandemics.core.result.Result
-import com.fightpandemics.login.ui.LoginViewState
+import com.fightpandemics.profile.domain.LoadCurrentUserUseCase
+import com.fightpandemics.profile.util.capitalizeFirstLetter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.catch
@@ -19,9 +16,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-@ActivityScope
-class ProfileViewModel @Inject constructor() : ViewModel(){
-    private val _individualProfile = MutableLiveData<IndividualProfileViewState>()
+@FeatureScope
+class ProfileViewModel @Inject constructor(
+    private val loadCurrentUserUseCase: LoadCurrentUserUseCase,
+) : ViewModel(){
+    val individualProfile = MutableLiveData<IndividualProfileViewState>()
     data class IndividualProfileViewState(
         var isLoading: Boolean,
         val fullName: String? = null,
@@ -40,10 +39,10 @@ class ProfileViewModel @Inject constructor() : ViewModel(){
 
     @ExperimentalCoroutinesApi
     fun getndividualProfile() {
-        _individualProfile.value?.isLoading = true
+        individualProfile.value?.isLoading = true
         viewModelScope.launch {
             val deferredProfile = async {
-                loginUseCase()
+                loadCurrentUserUseCase.execute("test")
             }
             deferredProfile.await().catch {
 
@@ -51,11 +50,11 @@ class ProfileViewModel @Inject constructor() : ViewModel(){
                 when (it) {
                     is Result.Success -> {
                         val individualProfileResponse = it.data as IndividualProfileResponse
-                        _individualProfile.value = IndividualProfileViewState(
+                        individualProfile.value = IndividualProfileViewState(
                             isLoading = false,
-                            fullName = individualProfileResponse.firstName + individualProfileResponse.lastName,
+                            fullName = individualProfileResponse.firstName.capitalizeFirstLetter() + " " + individualProfileResponse.lastName.capitalizeFirstLetter(),
                             imgUrl = "",
-                            location = individualProfileResponse.location.city + ", " + individualProfileResponse.location.country,
+                            location = individualProfileResponse.location.city.capitalizeFirstLetter() + " , " + individualProfileResponse.location.state.capitalizeFirstLetter() + " , " + individualProfileResponse.location.country.capitalizeFirstLetter(),
                             bio = "",
                             facebook = individualProfileResponse.urls?.facebook,
                             instagram = individualProfileResponse.urls?.instagram,
@@ -67,7 +66,7 @@ class ProfileViewModel @Inject constructor() : ViewModel(){
                         )
                     }
                     is Result.Error -> {
-                        _individualProfile.value = IndividualProfileViewState(
+                        individualProfile.value = IndividualProfileViewState(
                             isLoading = false,
                             error = it.exception.message.toString()
                         )

@@ -26,6 +26,8 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
+
     <include layout="@layout/profile_fragment_content" />
 
 </com.fightpandemics.widget.InsetDispatchingCoordinatorLayout>
