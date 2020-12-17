@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.fightpandemics.profile.ui.ProfileFragment"
+        android:name="com.fightpandemics.profile.ui.profile.ProfileFragment"
         app:moduleName="Fight_Pandemics.profile"
         android:label="Profile"
         tools:layout="@layout/profile_fragment" >
@@ -19,11 +19,15 @@
 
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.fightpandemics.profile.ui.EditProfileFragment"
+        android:name="com.fightpandemics.profile.ui.profile.EditProfileFragment"
         app:moduleName="Fight_Pandemics.profile"
         android:label="Profile"
         tools:layout="@layout/profile_setting_my_account"
         >
+        <argument
+            android:name="profile"
+            app:argType="com.fightpandemics.core.data.model.profile.IndividualProfileResponse"
+             />
         <action
             android:id="@+id/action_editProfileFragment_to_changeLocationFragment"
             app:destination="@id/changeLocationFragment" />

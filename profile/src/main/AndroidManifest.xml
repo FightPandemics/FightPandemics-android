@@ -17,7 +17,7 @@
         <activity android:name=".ui.AboutMeActivity"></activity>
         <activity android:name=".ui.SocialMediaLinksActivity" />
         <activity android:name=".ui.ChangeNameActivity" />
-        <activity android:name=".ui.MyProfileActivity" />
+        <activity android:name=".ui.profile.MyProfileActivity" />
     </application>
 
 </manifest>

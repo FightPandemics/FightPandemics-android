@@ -4,16 +4,27 @@ import android.app.Activity
 import androidx.fragment.app.Fragment
 import com.fightpandemics.FightPandemicsApp
 import com.fightpandemics.core.dagger.CoreComponentProvider
-import com.fightpandemics.profile.ui.ProfileFragment
+import com.fightpandemics.profile.ui.profile.EditProfileFragment
+import com.fightpandemics.profile.ui.profile.ProfileFragment
 
-fun inject(fragment: Fragment) {
+fun inject(fragment: ProfileFragment) {
     val appComponent =
         (fragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
 
     DaggerProfileComponent
         .factory()
         .create(appComponent, fragment.coreComponent())
-        .inject(fragment as ProfileFragment)
+        .inject(fragment)
+}
+
+fun inject(editProfileFragment: EditProfileFragment) {
+    val appComponent =
+        (editProfileFragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
+
+    DaggerProfileComponent
+        .factory()
+        .create(appComponent, editProfileFragment.coreComponent())
+        .inject(editProfileFragment)
 }
 
 fun Fragment.coreComponent() = requireActivity().coreComponent()

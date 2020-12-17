@@ -40,6 +40,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toEndOf="@+id/user_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="10dp"
+                android:textAlignment="textStart"
                 app:layout_constraintTop_toTopOf="@+id/user_avatar"
                 tools:text="Victor Maragioglio" />
 
