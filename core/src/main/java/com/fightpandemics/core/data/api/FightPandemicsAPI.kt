@@ -2,9 +2,11 @@ package com.fightpandemics.core.data.api
 
 import com.fightpandemics.core.data.model.login.*
 import com.fightpandemics.core.data.model.post.PostRequest
-import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
+import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
+import com.fightpandemics.core.data.model.profile.PatchIndividualProfileRequest
+import com.fightpandemics.core.data.model.profile.PatchIndividualProfileResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -43,7 +45,6 @@ interface FightPandemicsAPI {
     @DELETE("api/posts/{postId}")
     suspend fun deletePost(@Path("postId") postId: String): Response<Void>
 
-
     @PUT("api/posts/{postId}/likes/{userId}")
     suspend fun likePost(
         @Path("postId") postId: String,
@@ -56,11 +57,14 @@ interface FightPandemicsAPI {
         @Path("userId") userId: String
     ): Response<Void>
 
-    // Profile
+    // Profile API calls
     @GET("api/users/current")
     suspend fun getCurrentUser(): IndividualProfileResponse
 
-
+    @PATCH("api/users/current")
+    suspend fun updateCurrentUserProfile(
+        @Body patchIndividualProfileRequest: PatchIndividualProfileRequest
+    ): Response<PatchIndividualProfileResponse>
 
     companion object {
         // Staging API for Development

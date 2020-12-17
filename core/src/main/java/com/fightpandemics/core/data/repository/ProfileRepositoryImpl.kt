@@ -1,13 +1,16 @@
 package com.fightpandemics.core.data.repository
 
 import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
+import com.fightpandemics.core.data.model.profile.PatchIndividualProfileRequest
 import com.fightpandemics.core.data.prefs.PreferenceStorage
 import com.fightpandemics.core.data.remote.profile.ProfileRemoteDataSource
 import com.fightpandemics.core.domain.repository.ProfileRepository
 import com.fightpandemics.core.result.Result
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -22,6 +25,32 @@ class ProfileRepositoryImpl @Inject constructor(
         return flow {
             val individualUser = profileRemoteDataSource.fetchCurrentUser()
             emit(Result.Success(individualUser))
+        }
+    }
+
+    override fun updateInvididualUserProfile(profileRequest: PatchIndividualProfileRequest): Flow<Result<*>> {
+        return channelFlow {
+            val response = profileRemoteDataSource.updateCurrertUser(profileRequest)
+            when {
+                response.isSuccessful && response.code() == 200 -> {
+                    val profileResponse = response.body()
+                    channel.offer(Result.Success(profileResponse))
+                }
+                // TODO add error responses
+//                response.code() == 401 -> {
+//                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+//                    channel.offer(Result.Error(Exception(myError?.message)))
+//                }
+//                response.code() == 400 -> {
+//                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+//                    channel.offer(Result.Error(Exception(myError?.message)))
+//                }
+//                response.code() == 409 -> {
+//                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+//                    channel.offer(Result.Error(Exception(myError?.message)))
+//                }
+            }
+            awaitClose { }
         }
     }
 
