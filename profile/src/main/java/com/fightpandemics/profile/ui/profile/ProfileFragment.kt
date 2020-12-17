@@ -1,4 +1,4 @@
-package com.fightpandemics.profile.ui
+package com.fightpandemics.profile.ui.profile
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.profile_fragment.*
 import kotlinx.android.synthetic.main.profile_fragment_content.*
 import kotlinx.android.synthetic.main.profile_toolbar.*
 import kotlinx.android.synthetic.main.profile_toolbar.toolbar
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -27,6 +29,7 @@ class ProfileFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+    @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by viewModels { viewModelFactory }
 
 
@@ -47,6 +50,7 @@ class ProfileFragment : Fragment() {
         return inflater.inflate(R.layout.profile_fragment, container, false)
     }
 
+    @ExperimentalCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -77,7 +81,7 @@ class ProfileFragment : Fragment() {
                     bio.text = profile.bio
 
                 }
-                profile.error != null -> {
+                profile.error !=  null -> {
                     // @feryel please fill this
                 }
 
@@ -103,7 +107,8 @@ class ProfileFragment : Fragment() {
             }
         }
         button3?.setOnClickListener {
-            findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_editProfileFragment)
+            profileViewModel.currentProfile
+            findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_editProfileFragment, bundleOf("profile" to profileViewModel.currentProfile))
         }
 
     }
@@ -117,7 +122,7 @@ class ProfileFragment : Fragment() {
                     return false
                 }
             }
-            var wbc: WebChromeClient = object : WebChromeClient() {
+            val wbc: WebChromeClient = object : WebChromeClient() {
                 override fun onCloseWindow(w: WebView?) {
                     super.onCloseWindow(w)
                     webview.visibility = View.GONE

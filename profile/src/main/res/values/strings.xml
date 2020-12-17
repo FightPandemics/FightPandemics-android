@@ -93,6 +93,7 @@
     <string name="my_profile">My Profile</string>
     <string name="profile_picture">Profile Picture</string>
     <string name="edit_profile_picture">Edit Profile Picture</string>
+    <string name="add_name">Name</string>
     <string name="add_social_media_links">Add social media links</string>
     <string name="social_media">Facebook, LinkedIn, Twitter, Github</string>
     <string name="about_me">About me</string>

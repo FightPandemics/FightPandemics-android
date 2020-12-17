@@ -1,4 +1,4 @@
-package com.fightpandemics.profile.ui
+package com.fightpandemics.profile.ui.profile
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,6 +21,7 @@ class ProfileViewModel @Inject constructor(
     private val loadCurrentUserUseCase: LoadCurrentUserUseCase,
 ) : ViewModel(){
     val individualProfile = MutableLiveData<IndividualProfileViewState>()
+    lateinit var currentProfile: IndividualProfileResponse
     data class IndividualProfileViewState(
         var isLoading: Boolean,
         val fullName: String? = null,
@@ -49,19 +50,19 @@ class ProfileViewModel @Inject constructor(
             }.collect {
                 when (it) {
                     is Result.Success -> {
-                        val individualProfileResponse = it.data as IndividualProfileResponse
+                        currentProfile = it.data as IndividualProfileResponse
                         individualProfile.value = IndividualProfileViewState(
                             isLoading = false,
-                            fullName = individualProfileResponse.firstName.capitalizeFirstLetter() + " " + individualProfileResponse.lastName.capitalizeFirstLetter(),
+                            fullName = currentProfile.firstName.capitalizeFirstLetter() + " " + currentProfile.lastName.capitalizeFirstLetter(),
                             imgUrl = "",
-                            location = individualProfileResponse.location.city.capitalizeFirstLetter() + " , " + individualProfileResponse.location.state.capitalizeFirstLetter() + " , " + individualProfileResponse.location.country.capitalizeFirstLetter(),
-                            bio = "",
-                            facebook = individualProfileResponse.urls?.facebook,
-                            instagram = individualProfileResponse.urls?.instagram,
-                            linkedin = individualProfileResponse.urls?.linkedin,
-                            twitter = individualProfileResponse.urls?.twitter,
-                            github = individualProfileResponse.urls?.github,
-                            website = individualProfileResponse.urls?.website,
+                            location = currentProfile.location.city.capitalizeFirstLetter() + " , " + currentProfile.location.state.capitalizeFirstLetter() + " , " + currentProfile.location.country.capitalizeFirstLetter(),
+                            bio = currentProfile.about,
+                            facebook = currentProfile.urls?.facebook,
+                            instagram = currentProfile.urls?.instagram,
+                            linkedin = currentProfile.urls?.linkedin,
+                            twitter = currentProfile.urls?.twitter,
+                            github = currentProfile.urls?.github,
+                            website = currentProfile.urls?.website,
                             error = null
                         )
                     }
