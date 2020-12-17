@@ -20,6 +20,10 @@ import javax.inject.Inject
 class EditProfileViewModel @Inject constructor(
     //private val loadCurrentUserUseCase: LoadCurrentUserUseCase,
 ) : ViewModel(){
+    fun getName(): String =
+        currentProfile?.firstName?.capitalizeFirstLetter()  + " " + currentProfile?.lastName?.capitalizeFirstLetter()
+
+
     lateinit var currentProfile: IndividualProfileResponse
 
 

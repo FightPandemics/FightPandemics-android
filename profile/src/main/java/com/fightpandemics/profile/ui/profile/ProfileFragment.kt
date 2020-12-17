@@ -107,7 +107,6 @@ class ProfileFragment : Fragment() {
             }
         }
         button3?.setOnClickListener {
-            profileViewModel.currentProfile
             findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_editProfileFragment, bundleOf("profile" to profileViewModel.currentProfile))
         }
 
@@ -128,7 +127,7 @@ class ProfileFragment : Fragment() {
                     webview.visibility = View.GONE
                 }
             }
-            webview.webChromeClient = wbc;
+            webview.webChromeClient = wbc
 
             webview.getSettings().setJavaScriptEnabled(true)
             webview.loadUrl("http://www.google.com.br")

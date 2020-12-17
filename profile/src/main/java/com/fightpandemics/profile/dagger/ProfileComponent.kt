@@ -4,6 +4,7 @@ import com.fightpandemics.core.dagger.CoreComponent
 import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.dagger.AppComponent
 import com.fightpandemics.profile.ui.profile.EditProfileFragment
+import com.fightpandemics.profile.ui.profile.EditProfileNameFragment
 import com.fightpandemics.profile.ui.profile.ProfileFragment
 import dagger.Component
 
@@ -26,4 +27,5 @@ interface ProfileComponent {
 
     fun inject(profileFragment: ProfileFragment)
     fun inject(editProfileFragment: EditProfileFragment)
+    fun inject(editProfileNameFragment: EditProfileNameFragment)
 }
