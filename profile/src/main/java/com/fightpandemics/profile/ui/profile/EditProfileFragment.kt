@@ -72,11 +72,11 @@ class EditProfileFragment : Fragment() {
         relativeLayoutName?.setOnClickListener{
            findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeNameFragment, bundleOf("name" to  editProfileViewModel.getName()))
        }
-        donationRightChevron?.setOnClickListener{
-            findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeGoalFragment)
+        relativeLayoutSocial?.setOnClickListener{
+            findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeSocialFragment)
         }
-        emailRightChevron?.setOnClickListener{
-            findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeEmailFragment)
+        rlAboutMe?.setOnClickListener{
+            findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeAboutFragment)
         }
         toolbar.setOnClickListener {
             requireActivity().onBackPressed()

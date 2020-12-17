@@ -5,19 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
-import kotlinx.android.synthetic.main.edit_profile_name_fragment.*
-import kotlinx.android.synthetic.main.profile_toolbar.toolbar
+import kotlinx.android.synthetic.main.profile_toolbar.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 
-class EditProfileNameFragment : Fragment() {
+class EditProfileSocialFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -27,7 +25,7 @@ class EditProfileNameFragment : Fragment() {
 
 
     companion object {
-        fun newInstance() = EditProfileNameFragment()
+        fun newInstance() = EditProfileSocialFragment()
     }
 
     override fun onAttach(context: Context) {
@@ -40,14 +38,13 @@ class EditProfileNameFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.edit_profile_name_fragment, container, false)
+        return inflater.inflate(R.layout.edit_profile_social_fragment, container, false)
     }
 
     @ExperimentalCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val name = arguments?.get("name") as String
-        et_name.setText(name, TextView.BufferType.EDITABLE)
+
         toolbar.setOnClickListener {
             requireActivity().onBackPressed()
         }
