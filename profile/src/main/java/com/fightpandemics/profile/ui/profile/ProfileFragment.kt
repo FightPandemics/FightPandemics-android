@@ -130,7 +130,7 @@ class ProfileFragment : Fragment() {
             webview.webChromeClient = wbc
 
             webview.getSettings().setJavaScriptEnabled(true)
-            webview.loadUrl("http://www.google.com.br")
+            webview.loadUrl(url)
         }
 
     }
