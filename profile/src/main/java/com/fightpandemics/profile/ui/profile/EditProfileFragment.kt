@@ -2,33 +2,20 @@ package com.fightpandemics.profile.ui.profile
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
-import com.fightpandemics.core.utils.GlideApp
-import com.fightpandemics.profile.R
 import com.fightpandemics.core.utils.ViewModelFactory
+import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
-import com.fightpandemics.profile.util.capitalizeFirstLetter
-import kotlinx.android.synthetic.main.donation_item.*
 import kotlinx.android.synthetic.main.edit_profile_fragment.*
-import kotlinx.android.synthetic.main.email_item.*
-import kotlinx.android.synthetic.main.location_item.*
-import kotlinx.android.synthetic.main.location_item.user_location
-import kotlinx.android.synthetic.main.profile_fragment.*
-import kotlinx.android.synthetic.main.profile_fragment_content.*
-import kotlinx.android.synthetic.main.profile_toolbar.*
 import kotlinx.android.synthetic.main.profile_toolbar.toolbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -44,7 +31,6 @@ class EditProfileFragment : Fragment() {
 
     @ExperimentalCoroutinesApi
     private val editProfileViewModel: EditProfileViewModel by viewModels { viewModelFactory }
-
 
     companion object {
         fun newInstance() = EditProfileFragment()
@@ -73,13 +59,13 @@ class EditProfileFragment : Fragment() {
            findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeNameFragment, bundleOf("name" to  editProfileViewModel.getName()))
        }
         relativeLayoutSocial?.setOnClickListener{
-            findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeSocialFragment)
+            findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeSocialFragment, bundleOf("profile" to editProfileViewModel.currentProfile))
         }
         rlAboutMe?.setOnClickListener{
             findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeAboutFragment)
         }
-        toolbar.setOnClickListener {
-            requireActivity().onBackPressed()
+        toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
         }
 
     }

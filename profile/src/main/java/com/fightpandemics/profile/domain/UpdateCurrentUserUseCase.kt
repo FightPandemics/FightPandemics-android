@@ -20,7 +20,7 @@ class UpdateCurrentUserUseCase @Inject constructor(
 
     override suspend fun execute(parameters: PatchIndividualProfileRequest?): Flow<Result<Any>> {
         return channelFlow {
-            profileRepository.updateInvididualUserProfile(parameters!!)!!.collect {
+            profileRepository.updateInvididualUserProfile(parameters!!).collect {
                 val result = when (it) {
                     is Result.Success -> it as Result<PatchIndividualProfileResponse>
                     is Result.Error -> it

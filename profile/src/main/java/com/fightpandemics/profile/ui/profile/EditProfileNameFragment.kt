@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
@@ -48,8 +49,8 @@ class EditProfileNameFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         val name = arguments?.get("name") as String
         et_name.setText(name, TextView.BufferType.EDITABLE)
-        toolbar.setOnClickListener {
-            requireActivity().onBackPressed()
+        toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
         }
     }
 }
