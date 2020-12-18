@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,17 +7,29 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="?colorSurface"
+        android:paddingBottom="8dp">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/ProgressBarTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout3"
+            android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?colorSurface">
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.fightpandemics.profile.custom.ProfileImageView
                 android:id="@+id/user_avatar"
@@ -39,10 +50,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintStart_toEndOf="@+id/user_avatar"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="10dp"
                 android:textAlignment="textStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/user_avatar"
                 app:layout_constraintTop_toTopOf="@+id/user_avatar"
                 tools:text="Victor Maragioglio" />
 
@@ -178,27 +189,35 @@
                 app:backgroundTint="@color/fightPandemicsGhostWhite"
                 app:icon="@drawable/ic_edit_profile"
                 app:iconGravity="textStart"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/bio"
                 app:layout_constraintStart_toStartOf="@+id/facebook"
                 app:layout_constraintTop_toBottomOf="@+id/facebook" />
 
+
+            <TextView
+                android:id="@+id/requests_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/profile_activities"
+                android:textColor="?colorPrimary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button3" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/requests_tag"
+                app:layout_constraintTop_toBottomOf="@id/requests_tag">
+
+                <include layout="@layout/user_posts_content" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/requests_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/profile_activities"
-            android:textColor="?colorPrimary"
-            android:textSize="14sp" />
-
-        <include layout="@layout/user_posts_content" />
-
-    </LinearLayout>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

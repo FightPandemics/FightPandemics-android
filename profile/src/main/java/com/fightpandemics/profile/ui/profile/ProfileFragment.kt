@@ -50,22 +50,28 @@ class ProfileFragment : Fragment() {
         return inflater.inflate(R.layout.profile_fragment, container, false)
     }
 
-    @ExperimentalCoroutinesApi
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        bindLoading(true)
 
+
+    }
+    @ExperimentalCoroutinesApi
+    override fun onStart() {
+        super.onStart()
         profileViewModel.individualProfile.observe(viewLifecycleOwner, { profile ->
             when {
                 profile.isLoading -> {
-
+                    bindLoading(true)
                 }
                 profile.error == null -> {
+                    bindLoading(false)
                     //show data
                     user_full_name.text = profile.fullName
                     user_location.text = profile.location
                     // glide user_avatar
-
 
                     GlideApp
                         .with(requireContext())
@@ -82,6 +88,7 @@ class ProfileFragment : Fragment() {
 
                 }
                 profile.error !=  null -> {
+                    bindLoading(false)
                     // @feryel please fill this
                 }
 
@@ -133,6 +140,17 @@ class ProfileFragment : Fragment() {
             webview.loadUrl(url)
         }
 
+    }
+
+    private fun bindLoading(isLoading: Boolean) {
+        Thread.sleep(3_000)
+         if (isLoading){
+            content.visibility = View.INVISIBLE
+            progressBar.visibility = View.VISIBLE
+        } else{
+             content.visibility = View.VISIBLE
+             progressBar.visibility = View.GONE
+        }
     }
 
 }
