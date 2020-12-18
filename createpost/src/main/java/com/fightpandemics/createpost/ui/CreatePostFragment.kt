@@ -263,7 +263,7 @@ class CreatePostFragment : Fragment() {
             else fragmentCreatePostBinding!!.people.text.toString().toLowerCase(Locale.ROOT)
 
         val createPostRequest = CreatePostRequest(
-            actorId = "YTYHIJIOKL54974OPIUHIUGYTFGRTRTUHJUIUYHYTHJIK",
+            actorId = "YTYHIJIOKL54974OPIUHIUGYTFGRTRTUHJUIUYHYTHJIK",//Dummy data
             content = fragmentCreatePostBinding!!.etDescription.text.toString().trim(),
             expireAt = expireAt,
             externalLinks = ExternalLinks("test website"),
@@ -273,7 +273,7 @@ class CreatePostFragment : Fragment() {
             types = listOf((tag_chip_group[0] as Chip).text.toString(), (tag_chip_group[1] as Chip).text.toString(), (tag_chip_group[2] as Chip).text.toString()),
             visibility = visibility
         )
-        Timber.tag("CREATE_POST_OBJECT").e(Gson().toJson(createPostRequest))
+        //Timber.tag("CREATE_POST_OBJECT").e(Gson().toJson(createPostRequest))
         createPostViewModel.postContent(createPostRequest)
     }
 }
