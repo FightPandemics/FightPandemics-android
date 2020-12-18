@@ -23,7 +23,7 @@
         android:layout_marginEnd="32dp"
         android:clipChildren="false"
         android:hint="@string/facebook_url"
-        app:boxBackgroundColor="@color/colorBackground"
+        app:boxBackgroundColor="@color/fightPandemicsGhostWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:hint="@string/linkedIn_url"
-        app:boxBackgroundColor="@color/colorBackground"
+        app:boxBackgroundColor="@color/fightPandemicsGhostWhite"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:hint="@string/twitter_url"
-        app:boxBackgroundColor="@color/colorBackground"
+        app:boxBackgroundColor="@color/fightPandemicsGhostWhite"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:hint="@string/github_url"
-        app:boxBackgroundColor="@color/colorBackground"
+        app:boxBackgroundColor="@color/fightPandemicsGhostWhite"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:hint="@string/personal_website"
-        app:boxBackgroundColor="@color/colorBackground"
+        app:boxBackgroundColor="@color/fightPandemicsGhostWhite"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
