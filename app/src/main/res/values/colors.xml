@@ -10,7 +10,7 @@
     <color name="colorOnError">#FFFFFF</color>
     <color name="colorSurface">#FFFFFF</color>
     <color name="colorOnSurface">#000000</color>
-    <color name="colorBackground">#F3F4FE</color>
+    <color name="colorBackground">#F4F4F4</color>
     <color name="colorOnBackground">#000000</color>
     <color name="textColorPrimary">#282828</color>
 
