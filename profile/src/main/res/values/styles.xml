@@ -17,4 +17,10 @@
         <item name="android:gravity">bottom|start</item>
     </style>
 
+    <style name="ProgressBarTheme">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+        <item name="android:indeterminateTint">@color/colorPrimary</item>
+    </style>
+
 </resources>
