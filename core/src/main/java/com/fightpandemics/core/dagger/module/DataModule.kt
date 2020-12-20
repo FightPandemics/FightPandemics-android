@@ -55,9 +55,10 @@ class DataModule {
     @Singleton
     @Provides
     fun provideProfileRepository(
+        moshi: Moshi,
         preferenceStorage: PreferenceStorage,
         profileRemoteDataSource: ProfileRemoteDataSource
     ): ProfileRepository =
-        ProfileRepositoryImpl(preferenceStorage, profileRemoteDataSource)
+        ProfileRepositoryImpl(moshi, preferenceStorage, profileRemoteDataSource)
 
 }
