@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.FeatureScope
-import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
+import com.fightpandemics.core.data.model.profile.*
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.profile.domain.LoadCurrentUserUseCase
 import com.fightpandemics.profile.util.capitalizeFirstLetter
@@ -13,6 +13,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -39,7 +40,7 @@ class ProfileViewModel @Inject constructor(
 
 
     @ExperimentalCoroutinesApi
-    fun getndividualProfile() {
+    fun getIndividualProfile() {
         individualProfile.value?.isLoading = true
         viewModelScope.launch {
             val deferredProfile = async {

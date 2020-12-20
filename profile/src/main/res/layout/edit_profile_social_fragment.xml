@@ -84,6 +84,7 @@
         android:layout_marginTop="36dp"
         android:hint="@string/twitter_url"
         app:boxBackgroundColor="@color/fightPandemicsGhostWhite"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
