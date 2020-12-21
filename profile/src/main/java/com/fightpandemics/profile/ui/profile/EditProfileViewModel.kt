@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
+import com.fightpandemics.core.data.model.profile.PatchIndividualAccountRequest
 import com.fightpandemics.core.data.model.profile.PatchIndividualProfileRequest
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.profile.domain.UpdateCurrentUserUseCase
+import com.fightpandemics.profile.domain.UpdateIndividualAccountUseCase
 import com.fightpandemics.profile.util.capitalizeFirstLetter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
@@ -21,7 +23,8 @@ import javax.inject.Inject
 @FeatureScope
 class EditProfileViewModel @Inject constructor(
 //    private val loadCurrentUserUseCase: LoadCurrentUserUseCase,
-    private val updateCurrentUserUseCase: UpdateCurrentUserUseCase
+    private val updateCurrentUserUseCase: UpdateCurrentUserUseCase,
+    private val updateIndividualAccountUseCase: UpdateIndividualAccountUseCase
 ) : ViewModel(){
 
     lateinit var currentProfile: IndividualProfileResponse
@@ -48,10 +51,24 @@ class EditProfileViewModel @Inject constructor(
                 }
             }
         }
-
-
     }
 
-
+    fun updateAccount(updatedAccount: PatchIndividualAccountRequest){
+        _updateState.value?.isLoading = true
+        viewModelScope.launch {
+            async {
+                updateIndividualAccountUseCase(updatedAccount)
+            }.await().collect {
+                when(it){
+                    is Result.Success -> {
+                        Timber.i("Debug: Update was a success: ${it.data}")
+                    }
+                    is Result.Error -> {
+                        Timber.i("Debug: Update was a failure: ${it.exception.message}")
+                    }
+                }
+            }
+        }
+    }
 
 }

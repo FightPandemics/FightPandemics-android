@@ -2,6 +2,7 @@ package com.fightpandemics.core.data.repository
 
 import com.fightpandemics.core.data.model.login.ErrorResponse
 import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
+import com.fightpandemics.core.data.model.profile.PatchIndividualAccountRequest
 import com.fightpandemics.core.data.model.profile.PatchIndividualProfileRequest
 import com.fightpandemics.core.data.prefs.PreferenceStorage
 import com.fightpandemics.core.data.remote.profile.ProfileRemoteDataSource
@@ -63,4 +64,34 @@ class ProfileRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun updateInvididualUserAccount(accountRequest: PatchIndividualAccountRequest): Flow<Result<*>> {
+        return channelFlow {
+            val response = profileRemoteDataSource.updateCurrertUserAccount(accountRequest)
+            when {
+                response.isSuccessful && response.code() == 200 -> {
+                    val accountResponse = response.body()
+                    channel.offer(Result.Success(accountResponse))
+                }
+                // TODO add error responses
+//                response.code() == 401 -> {
+//                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+//                    channel.offer(Result.Error(Exception(myError?.message)))
+//                }
+                response.code() == 400 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+//                response.code() == 409 -> {
+//                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+//                    channel.offer(Result.Error(Exception(myError?.message)))
+//                }
+                else ->{
+                    // uncaught error code
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+            }
+            awaitClose { }
+        }
+    }
 }

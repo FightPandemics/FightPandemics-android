@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.fightpandemics.core.data.model.profile.*
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
@@ -52,5 +53,23 @@ class EditProfileNameFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+
+        val currentAccount = arguments?.get("profile") as IndividualProfileResponse
+        name_save_button.setOnClickListener {
+//            TODO("todo what to do about separating first from last name???")
+            val new_name = et_name.text.toString()
+            editProfileViewModel.updateAccount(
+                PatchIndividualAccountRequest(
+                    firstName = new_name,
+                    hide = currentAccount.hide,
+                    lastName = new_name,
+                    location = currentAccount.location,
+                    needs = currentAccount.needs,
+                    objectives = currentAccount.objectives
+                )
+            )
+        }
+
+
     }
 }

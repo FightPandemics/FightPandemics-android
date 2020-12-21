@@ -5,6 +5,7 @@ import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
 import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
+import com.fightpandemics.core.data.model.profile.PatchIndividualAccountRequest
 import com.fightpandemics.core.data.model.profile.PatchIndividualProfileRequest
 import com.fightpandemics.core.data.model.profile.PatchIndividualProfileResponse
 import retrofit2.Response
@@ -65,6 +66,12 @@ interface FightPandemicsAPI {
     suspend fun updateCurrentUserProfile(
         @Body patchIndividualProfileRequest: PatchIndividualProfileRequest
     ): Response<PatchIndividualProfileResponse>
+
+    @PATCH("api/users/current")
+    suspend fun updateCurrentUserAccount(
+        @Body patchIndividualAccountRequest: PatchIndividualAccountRequest
+    ): Response<PatchIndividualProfileResponse>
+
 
     companion object {
         // Staging API for Development

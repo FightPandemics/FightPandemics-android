@@ -56,7 +56,7 @@ class EditProfileFragment : Fragment() {
 
         nameValue.text = editProfileViewModel.getName()
         relativeLayoutName?.setOnClickListener{
-           findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeNameFragment, bundleOf("name" to  editProfileViewModel.getName()))
+           findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeNameFragment, bundleOf("name" to  editProfileViewModel.getName(), "profile" to editProfileViewModel.currentProfile))
        }
         relativeLayoutSocial?.setOnClickListener{
             findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeSocialFragment, bundleOf("profile" to editProfileViewModel.currentProfile))
