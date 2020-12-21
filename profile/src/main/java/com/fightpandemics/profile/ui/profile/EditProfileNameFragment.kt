@@ -48,21 +48,24 @@ class EditProfileNameFragment : Fragment() {
     @ExperimentalCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val name = arguments?.get("name") as String
-        et_name.setText(name, TextView.BufferType.EDITABLE)
+
+        val currentAccount = arguments?.get("profile") as IndividualProfileResponse
+//        val name = arguments?.get("name") as String
+        et_first_name.setText(currentAccount.firstName, TextView.BufferType.EDITABLE)
+        et_last_name.setText(currentAccount.lastName, TextView.BufferType.EDITABLE)
+
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
 
-        val currentAccount = arguments?.get("profile") as IndividualProfileResponse
         name_save_button.setOnClickListener {
-//            TODO("todo what to do about separating first from last name???")
-            val new_name = et_name.text.toString()
+            val new_first_name = et_first_name.text.toString()
+            val new_last_name = et_last_name.text.toString()
             editProfileViewModel.updateAccount(
                 PatchIndividualAccountRequest(
-                    firstName = new_name,
+                    firstName = new_first_name,
                     hide = currentAccount.hide,
-                    lastName = new_name,
+                    lastName = new_last_name,
                     location = currentAccount.location,
                     needs = currentAccount.needs,
                     objectives = currentAccount.objectives

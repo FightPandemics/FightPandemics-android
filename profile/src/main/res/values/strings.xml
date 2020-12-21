@@ -98,7 +98,9 @@
     <string name="social_media">Facebook, LinkedIn, Twitter, Github</string>
     <string name="about_me">About me</string>
     <string name="about_me_subtitle">Write a self-introduction</string>
-    <string name="name">Name</string>
+    <string name="toolbar_edit_name">Name</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
 <!--    <string name="save">Save</string>-->
     <string name="social_media_links">Social Media Links</string>
     <string name="facebook_url">Facebook URL</string>
