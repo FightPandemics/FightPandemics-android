@@ -58,7 +58,6 @@ class EditProfileSocialFragment : Fragment() {
 
         // todo save button
         // navigate up, then indicate profile view model to patch
-
         social_links_save_button.setOnClickListener {
             val urls = RequestUrls(
                 facebook = facebook_url_edittext.text.toString(),
@@ -68,8 +67,9 @@ class EditProfileSocialFragment : Fragment() {
                 twitter = twitter_url_edittext.text.toString(),
                 website = website_url_edittext.text.toString()
             )
+            val about = currentProfile.about ?: ""
             editProfileViewModel.updateProfile(
-                PatchIndividualProfileRequest(currentProfile.about, urls)
+                PatchIndividualProfileRequest(about, urls)
             )
         }
 

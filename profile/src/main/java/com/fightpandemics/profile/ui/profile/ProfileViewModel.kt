@@ -51,6 +51,7 @@ class ProfileViewModel @Inject constructor(
             }.collect {
                 when (it) {
                     is Result.Success -> {
+                        Timber.i("Debug: Result was a success, ${it.data}")
                         currentProfile = it.data as IndividualProfileResponse
                         individualProfile.value = IndividualProfileViewState(
                             isLoading = false,
@@ -68,6 +69,7 @@ class ProfileViewModel @Inject constructor(
                         )
                     }
                     is Result.Error -> {
+                        Timber.i("Debug: Result was a failure, ${it.exception.message}")
                         individualProfile.value = IndividualProfileViewState(
                             isLoading = false,
                             error = it.exception.message.toString()

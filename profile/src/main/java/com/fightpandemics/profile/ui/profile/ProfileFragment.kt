@@ -95,7 +95,7 @@ class ProfileFragment : Fragment() {
             }
         })
 
-        profileViewModel.getndividualProfile()
+        profileViewModel.getIndividualProfile()
         overview.setOnClickListener {
             Timber.d("Overview")
         }
@@ -143,7 +143,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun bindLoading(isLoading: Boolean) {
-        Thread.sleep(3_000)
+//        Thread.sleep(3_000)
          if (isLoading){
             content.visibility = View.INVISIBLE
             progressBar.visibility = View.VISIBLE
