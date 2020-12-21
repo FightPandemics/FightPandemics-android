@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class IndividualProfileResponse(
-    val about: String,
+    val about: String?,
     val email: String,
     val firstName: String,
     val hide: Hide,
@@ -50,12 +50,12 @@ data class Objectives(
 ): Parcelable
 @Parcelize
 data class Urls(
-    val facebook: String,
-    val github: String,
-    val instagram: String,
-    val linkedin: String,
-    val twitter: String,
-    val website: String
+    val facebook: String?,
+    val github: String?,
+    val instagram: String?,
+    val linkedin: String?,
+    val twitter: String?,
+    val website: String?
 ): Parcelable
 @Parcelize
 data class Digest(
