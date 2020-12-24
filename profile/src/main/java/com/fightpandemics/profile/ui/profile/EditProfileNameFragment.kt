@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.data.model.profile.*
@@ -25,7 +26,7 @@ class EditProfileNameFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     @ExperimentalCoroutinesApi
-    private val editProfileViewModel: EditProfileViewModel by viewModels { viewModelFactory }
+    private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
 
 
     companion object {
@@ -49,28 +50,27 @@ class EditProfileNameFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val currentAccount = arguments?.get("profile") as IndividualProfileResponse
-//        val name = arguments?.get("name") as String
-        et_first_name.setText(currentAccount.firstName, TextView.BufferType.EDITABLE)
-        et_last_name.setText(currentAccount.lastName, TextView.BufferType.EDITABLE)
+        et_first_name.setText(profileViewModel.individualProfile.value?.firstName, TextView.BufferType.EDITABLE)
+        et_last_name.setText(profileViewModel.individualProfile.value?.lastName, TextView.BufferType.EDITABLE)
 
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
 
         name_save_button.setOnClickListener {
-            val new_first_name = et_first_name.text.toString()
-            val new_last_name = et_last_name.text.toString()
-            editProfileViewModel.updateAccount(
+            val firstName = et_first_name.text.toString()
+            val lastName = et_last_name.text.toString()
+            profileViewModel.updateAccount(
                 PatchIndividualAccountRequest(
-                    firstName = new_first_name,
-                    hide = currentAccount.hide,
-                    lastName = new_last_name,
-                    location = currentAccount.location,
-                    needs = currentAccount.needs,
-                    objectives = currentAccount.objectives
+                    firstName = firstName,
+                    hide = profileViewModel.currentProfile.hide,
+                    lastName = lastName,
+                    location = profileViewModel.currentProfile.location,
+                    needs = profileViewModel.currentProfile.needs,
+                    objectives = profileViewModel.currentProfile.objectives
                 )
             )
+            requireActivity().onBackPressed()
         }
 
 

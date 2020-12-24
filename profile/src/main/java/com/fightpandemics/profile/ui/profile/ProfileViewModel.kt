@@ -7,6 +7,8 @@ import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.core.data.model.profile.*
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.profile.domain.LoadCurrentUserUseCase
+import com.fightpandemics.profile.domain.UpdateCurrentUserUseCase
+import com.fightpandemics.profile.domain.UpdateIndividualAccountUseCase
 import com.fightpandemics.profile.util.capitalizeFirstLetter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
@@ -20,12 +22,16 @@ import javax.inject.Inject
 @FeatureScope
 class ProfileViewModel @Inject constructor(
     private val loadCurrentUserUseCase: LoadCurrentUserUseCase,
-) : ViewModel(){
+    private val updateCurrentUserUseCase: UpdateCurrentUserUseCase,
+    private val updateIndividualAccountUseCase: UpdateIndividualAccountUseCase
+) : ViewModel() {
     val individualProfile = MutableLiveData<IndividualProfileViewState>()
+
     lateinit var currentProfile: IndividualProfileResponse
     data class IndividualProfileViewState(
         var isLoading: Boolean,
-        val fullName: String? = null,
+        val firstName: String? = null,
+        val lastName: String? = null,
         val imgUrl: String? = null,
         val location: String? = null,
         val bio: String? = null,
@@ -37,7 +43,6 @@ class ProfileViewModel @Inject constructor(
         val website: String? = null,
         val error: String?
     )
-
 
     @ExperimentalCoroutinesApi
     fun getIndividualProfile() {
@@ -55,16 +60,17 @@ class ProfileViewModel @Inject constructor(
                         currentProfile = it.data as IndividualProfileResponse
                         individualProfile.value = IndividualProfileViewState(
                             isLoading = false,
-                            fullName = currentProfile.firstName.capitalizeFirstLetter() + " " + currentProfile.lastName.capitalizeFirstLetter(),
+                            firstName = it.data.firstName.capitalizeFirstLetter(),
+                            lastName = it.data.lastName.capitalizeFirstLetter(),
                             imgUrl = "",
-                            location = currentProfile.location.city.capitalizeFirstLetter() + " , " + currentProfile.location.state.capitalizeFirstLetter() + " , " + currentProfile.location.country.capitalizeFirstLetter(),
-                            bio = currentProfile.about,
-                            facebook = currentProfile.urls?.facebook,
-                            instagram = currentProfile.urls?.instagram,
-                            linkedin = currentProfile.urls?.linkedin,
-                            twitter = currentProfile.urls?.twitter,
-                            github = currentProfile.urls?.github,
-                            website = currentProfile.urls?.website,
+                            location = it.data.location.city.capitalizeFirstLetter() + " , " + it.data.location.state.capitalizeFirstLetter() + " , " + it.data.location.country.capitalizeFirstLetter(),
+                            bio = it.data.about,
+                            facebook = it.data.urls?.facebook,
+                            instagram = it.data.urls?.instagram,
+                            linkedin = it.data.urls?.linkedin,
+                            twitter = it.data.urls?.twitter,
+                            github = it.data.urls?.github,
+                            website = it.data.urls?.website,
                             error = null
                         )
                     }
@@ -80,7 +86,42 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    fun updateProfile(updatedProfile: PatchIndividualProfileRequest) {
+        individualProfile.value?.isLoading = true
+        viewModelScope.launch {
+            async {
+                updateCurrentUserUseCase(updatedProfile)
+            }.await().collect {
+                when (it) {
+                    is Result.Success -> {
+                        Timber.i("Debug: Update was a success: ${it.data}")
+                    }
+                    is Result.Error -> {
+                        Timber.i("Debug: Update was a failure: ${it.exception.message}")
+                    }
+                }
+            }
+        }
+    }
 
+    fun updateAccount(updatedAccount: PatchIndividualAccountRequest) {
+        individualProfile.value?.isLoading = true
+        viewModelScope.launch {
+            async {
+                updateIndividualAccountUseCase(updatedAccount)
+            }.await().collect {
+                when (it) {
+                    is Result.Success -> {
+                        getIndividualProfile()
+                        Timber.i("Debug: Update was a success: ${it.data}")
+                    }
+                    is Result.Error -> {
+                        Timber.i("Debug: Update was a failure: ${it.exception.message}")
+                    }
+                }
+            }
+        }
+    }
 
 
 }

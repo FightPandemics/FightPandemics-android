@@ -10,6 +10,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.GlideApp
@@ -30,7 +31,7 @@ class ProfileFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     @ExperimentalCoroutinesApi
-    private val profileViewModel: ProfileViewModel by viewModels { viewModelFactory }
+    private val profileViewModel: ProfileViewModel by activityViewModels() { viewModelFactory }
 
 
     companion object {
@@ -69,7 +70,7 @@ class ProfileFragment : Fragment() {
                 profile.error == null -> {
                     bindLoading(false)
                     //show data
-                    user_full_name.text = profile.fullName
+                    user_full_name.text = profile.firstName + " " + profile.lastName
                     user_location.text = profile.location
                     // glide user_avatar
 
@@ -114,7 +115,7 @@ class ProfileFragment : Fragment() {
             }
         }
         button3?.setOnClickListener {
-            findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_editProfileFragment, bundleOf("profile" to profileViewModel.currentProfile))
+            findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_editProfileFragment)
         }
 
     }

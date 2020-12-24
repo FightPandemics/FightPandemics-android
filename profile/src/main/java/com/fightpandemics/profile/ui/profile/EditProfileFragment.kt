@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
 import com.fightpandemics.core.utils.ViewModelFactory
@@ -30,7 +30,7 @@ class EditProfileFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     @ExperimentalCoroutinesApi
-    private val editProfileViewModel: EditProfileViewModel by viewModels { viewModelFactory }
+    private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
 
     companion object {
         fun newInstance() = EditProfileFragment()
@@ -52,21 +52,42 @@ class EditProfileFragment : Fragment() {
     @ExperimentalCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        editProfileViewModel.currentProfile = arguments?.get("profile") as IndividualProfileResponse
 
-        nameValue.text = editProfileViewModel.getName()
-        relativeLayoutName?.setOnClickListener{
-           findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeNameFragment, bundleOf("name" to  editProfileViewModel.getName(), "profile" to editProfileViewModel.currentProfile))
-       }
-        relativeLayoutSocial?.setOnClickListener{
-            findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeSocialFragment, bundleOf("profile" to editProfileViewModel.currentProfile))
+
+        relativeLayoutName?.setOnClickListener {
+            findNavController().navigate(
+                com.fightpandemics.R.id.action_editProfileFragment_to_changeNameFragment,
+//                bundleOf(
+//                    "profile" to profileViewModel.individualProfile.
+//                )
+            )
         }
-        rlAboutMe?.setOnClickListener{
+        relativeLayoutSocial?.setOnClickListener {
+            findNavController().navigate(
+                com.fightpandemics.R.id.action_editProfileFragment_to_changeSocialFragment,
+            )
+        }
+        rlAboutMe?.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_editProfileFragment_to_changeAboutFragment)
         }
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+        profileViewModel.individualProfile.observe(viewLifecycleOwner, { it ->
+            when {
+                it.isLoading -> {
+                    //TODO
+                }
+                !it.isLoading -> {
+                    updateScreen()
+                }
 
+            }
+        })
+        updateScreen()
+    }
+
+    private fun updateScreen() {
+        nameValue?.text = profileViewModel?.individualProfile?.value?.firstName + " " + profileViewModel?.individualProfile?.value?.lastName
     }
 }
