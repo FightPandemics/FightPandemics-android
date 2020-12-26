@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
@@ -26,7 +27,7 @@ class EditProfileSocialFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     @ExperimentalCoroutinesApi
-    private val editProfileViewModel: EditProfileViewModel by viewModels { viewModelFactory }
+    private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
 
     companion object {
         fun newInstance() = EditProfileSocialFragment()
@@ -53,8 +54,7 @@ class EditProfileSocialFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        val currentProfile = arguments?.get("profile") as IndividualProfileResponse
-        bindSocialLinks(currentProfile)
+        bindSocialLinks(profileViewModel.currentProfile)
 
         // todo save button
         // navigate up, then indicate profile view model to patch
@@ -67,10 +67,11 @@ class EditProfileSocialFragment : Fragment() {
                 twitter = twitter_url_edittext.text.toString(),
                 website = website_url_edittext.text.toString()
             )
-            val about = currentProfile.about ?: ""
-            editProfileViewModel.updateProfile(
+            val about = profileViewModel.currentProfile.about ?: ""
+            profileViewModel.updateProfile(
                 PatchIndividualProfileRequest(about, urls)
             )
+            requireActivity().onBackPressed()
         }
 
     }

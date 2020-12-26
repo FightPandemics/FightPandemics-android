@@ -94,6 +94,7 @@ class ProfileViewModel @Inject constructor(
             }.await().collect {
                 when (it) {
                     is Result.Success -> {
+                        getIndividualProfile()
                         Timber.i("Debug: Update was a success: ${it.data}")
                     }
                     is Result.Error -> {
