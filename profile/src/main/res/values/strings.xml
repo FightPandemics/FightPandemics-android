@@ -190,6 +190,7 @@
 
     <!--PROFILE ERRORs-->
     <string name="error_empty_name">Name is a required field</string>
+    <string name="error_size_bio">About should have 0 to 160 chars</string>
     <!--PROFILE ERRORs-->
 
 </resources>

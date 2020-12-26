@@ -16,6 +16,9 @@ import com.fightpandemics.core.data.model.profile.RequestUrls
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
+import com.google.android.material.textfield.TextInputEditText
+import com.mobsandgeeks.saripaar.annotation.Max
+import com.mobsandgeeks.saripaar.annotation.NotEmpty
 import kotlinx.android.synthetic.main.edit_profile_about_fragment.*
 import kotlinx.android.synthetic.main.edit_profile_name_fragment.*
 import kotlinx.android.synthetic.main.edit_profile_name_fragment.et_first_name
@@ -26,10 +29,14 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 
-class EditProfileAboutFragment : Fragment() {
+class EditProfileAboutFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+
+    @Max(value = 160, messageResId = R.string.error_size_bio)
+    lateinit var tvAbout: TextInputEditText
 
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
@@ -55,14 +62,20 @@ class EditProfileAboutFragment : Fragment() {
     @ExperimentalCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        tvAbout = etAbout
+    }
 
+    override fun onStart() {
+        super.onStart()
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
         etAbout.setText(profileViewModel.individualProfile.value?.bio, TextView.BufferType.EDITABLE)
 
         aboutSaveButton.setOnClickListener {
-
+            validator.validate()
+        }
+        validationOk = {
             val urls = RequestUrls(
                 facebook = profileViewModel.currentProfile.urls.facebook ?: "",
                 github = profileViewModel.currentProfile.urls.github ?: "",
