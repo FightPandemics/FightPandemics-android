@@ -30,7 +30,7 @@ class EditProfileNameFragment : BaseFragment() {
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
 
-    @NotEmpty
+    @NotEmpty(messageResId = R.string.error_empty_name)
     lateinit var tvFirstName: TextInputEditText
     @NotEmpty
     lateinit var tvLastName: TextInputEditText
