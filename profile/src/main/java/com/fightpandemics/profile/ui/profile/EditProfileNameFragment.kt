@@ -14,19 +14,26 @@ import com.fightpandemics.core.data.model.profile.*
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
+import com.google.android.material.textfield.TextInputEditText
+import com.mobsandgeeks.saripaar.annotation.NotEmpty
 import kotlinx.android.synthetic.main.edit_profile_name_fragment.*
 import kotlinx.android.synthetic.main.profile_toolbar.toolbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 
-class EditProfileNameFragment : Fragment() {
+class EditProfileNameFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
+
+    @NotEmpty
+    lateinit var tvFirstName: TextInputEditText
+    @NotEmpty
+    lateinit var tvLastName: TextInputEditText
 
 
     companion object {
@@ -49,15 +56,26 @@ class EditProfileNameFragment : Fragment() {
     @ExperimentalCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        tvFirstName = et_first_name
+        tvLastName = et_last_name
+    }
 
-        et_first_name.setText(profileViewModel.individualProfile.value?.firstName, TextView.BufferType.EDITABLE)
-        et_last_name.setText(profileViewModel.individualProfile.value?.lastName, TextView.BufferType.EDITABLE)
+    override fun onStart() {
+        super.onStart()
+
+
+        tvFirstName?.setText(profileViewModel.individualProfile.value?.firstName, TextView.BufferType.EDITABLE)
+        tvLastName?.setText(profileViewModel.individualProfile.value?.lastName, TextView.BufferType.EDITABLE)
 
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
 
         name_save_button.setOnClickListener {
+            validator.validate()
+        }
+
+        validationOk = {
             val firstName = et_first_name.text.toString()
             val lastName = et_last_name.text.toString()
             profileViewModel.updateAccount(
@@ -72,7 +90,5 @@ class EditProfileNameFragment : Fragment() {
             )
             requireActivity().onBackPressed()
         }
-
-
     }
 }
