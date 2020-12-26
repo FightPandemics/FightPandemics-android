@@ -17,6 +17,7 @@ import com.fightpandemics.core.utils.GlideApp
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
+import com.fightpandemics.profile.util.capitalizeFirstLetter
 import kotlinx.android.synthetic.main.profile_fragment.*
 import kotlinx.android.synthetic.main.profile_fragment_content.*
 import kotlinx.android.synthetic.main.profile_toolbar.*
@@ -70,15 +71,20 @@ class ProfileFragment : Fragment() {
                 profile.error == null -> {
                     bindLoading(false)
                     //show data
-                    user_full_name.text = profile.firstName + " " + profile.lastName
+                    user_full_name.text = profile.firstName?.capitalizeFirstLetter() + " " + profile.lastName?.capitalizeFirstLetter()
                     user_location.text = profile.location
                     // glide user_avatar
 
-                    GlideApp
-                        .with(requireContext())
-                        .load(profile.imgUrl)
-                        .centerCrop()
-                        .into(user_avatar)
+                    if(profile.imgUrl == null || profile.imgUrl.isBlank()){
+                        user_avatar.setInitials(profile?.firstName?.substring(0,1)?.toUpperCase() + profile?.lastName?.split(" ")?.last()?.substring(0,1)?.toUpperCase())
+                        user_avatar.invalidate()
+                    }else{
+                        GlideApp
+                            .with(requireContext())
+                            .load(profile.imgUrl)
+                            .centerCrop()
+                            .into(user_avatar)
+                    }
 
                     facebook.setOnClickListener { openWebView(profile.facebook) }
                     linkedin.setOnClickListener { openWebView(profile.linkedin) }

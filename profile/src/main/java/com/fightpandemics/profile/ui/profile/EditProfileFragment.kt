@@ -10,10 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
+import com.fightpandemics.core.utils.GlideApp
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
+import com.fightpandemics.profile.util.capitalizeFirstLetter
 import kotlinx.android.synthetic.main.edit_profile_fragment.*
+import kotlinx.android.synthetic.main.profile_fragment_content.*
 import kotlinx.android.synthetic.main.profile_toolbar.toolbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
@@ -50,16 +53,11 @@ class EditProfileFragment : Fragment() {
     }
 
     @ExperimentalCoroutinesApi
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-
+    override fun onStart() {
+        super.onStart()
         relativeLayoutName?.setOnClickListener {
             findNavController().navigate(
                 com.fightpandemics.R.id.action_editProfileFragment_to_changeNameFragment,
-//                bundleOf(
-//                    "profile" to profileViewModel.individualProfile.
-//                )
             )
         }
         relativeLayoutSocial?.setOnClickListener {
@@ -73,21 +71,27 @@ class EditProfileFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-        profileViewModel.individualProfile.observe(viewLifecycleOwner, { it ->
+        profileViewModel.individualProfile.observe(viewLifecycleOwner, { pofile ->
             when {
-                it.isLoading -> {
+                pofile.isLoading -> {
                     //TODO
                 }
-                !it.isLoading -> {
-                    updateScreen()
+                !pofile.isLoading -> {
+                    nameValue?.text = pofile.firstName?.capitalizeFirstLetter() + " " + pofile.lastName?.capitalizeFirstLetter()
+                    if(pofile.imgUrl == null || pofile.imgUrl.isBlank()){
+                        pivAvatar.setInitials(pofile?.firstName?.substring(0,1)?.toUpperCase() + pofile?.lastName?.split(" ")?.last()?.substring(0,1)?.toUpperCase())
+                        pivAvatar.invalidate()
+                    }else{
+                        GlideApp
+                            .with(requireContext())
+                            .load(pofile.imgUrl)
+                            .centerCrop()
+                            .into(user_avatar)
+                    }
                 }
 
             }
         })
-        updateScreen()
     }
 
-    private fun updateScreen() {
-        nameValue?.text = profileViewModel?.individualProfile?.value?.firstName + " " + profileViewModel?.individualProfile?.value?.lastName
-    }
 }

@@ -39,7 +39,7 @@
                 android:layout_marginTop="28dp"
                 app:aiv_borderColor="?colorPrimary"
                 app:aiv_borderWidth="2dp"
-                app:aiv_initials="VM"
+                app:aiv_initials="FP"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
