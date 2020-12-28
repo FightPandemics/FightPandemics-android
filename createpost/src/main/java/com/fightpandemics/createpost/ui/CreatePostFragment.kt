@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.*
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,16 +14,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.fightpandemics.core.data.model.posts.Author
-import com.fightpandemics.core.data.model.posts.ExternalLinks
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.createpost.R
 import com.fightpandemics.createpost.dagger.inject
 import com.fightpandemics.createpost.data.model.CreatePostRequest
+import com.fightpandemics.createpost.data.model.CreatePostResponse
 import com.fightpandemics.createpost.databinding.FragmentCreatePostBinding
 import com.google.android.material.chip.Chip
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_create_post.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -42,6 +41,7 @@ class CreatePostFragment : Fragment() {
     private lateinit var descriptionTextWatcher: TextWatcher
     private val chipTexts: ArrayList<String> = ArrayList()
 
+    @InternalCoroutinesApi
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -57,6 +57,8 @@ class CreatePostFragment : Fragment() {
         return binding.root
     }
 
+    @ExperimentalCoroutinesApi
+    @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -68,6 +70,7 @@ class CreatePostFragment : Fragment() {
         observeTagBottomDialog()
         displayChosenTags()
         observeFields()
+        observeNetworkResponse()
     }
 
     override fun onDestroyView() {
@@ -81,6 +84,8 @@ class CreatePostFragment : Fragment() {
         }
     }
 
+    @ExperimentalCoroutinesApi
+    @InternalCoroutinesApi
     private fun setupViews() {
         fragmentCreatePostBinding!!.toggleBt1.isChecked = true
         fragmentCreatePostBinding!!.etTitle.addTextChangedListener(titleTextWatcher)
@@ -241,19 +246,9 @@ class CreatePostFragment : Fragment() {
         })
     }
 
+    @ExperimentalCoroutinesApi
+    @InternalCoroutinesApi
     private fun postContent() {
-        // Todo: Get the current logged in user and use his id as the actorId or use his organization id
-        //val actorId = fragmentCreatePostBinding!!.name.text.toString()
-        val expireAt =
-            if (fragmentCreatePostBinding!!.month.text.toString().toLowerCase(Locale.ROOT)
-                    .contains("for 1 ")
-            )
-                fragmentCreatePostBinding!!.month.text.toString().toLowerCase(Locale.ROOT)
-                    .replace("for 1 ", "") else
-                "never"
-        val objective = if (fragmentCreatePostBinding!!.toggleBt1.isChecked)
-            fragmentCreatePostBinding!!.toggleBt1.text.toString().toLowerCase(Locale.ROOT) else
-            fragmentCreatePostBinding!!.toggleBt2.text.toString().toLowerCase(Locale.ROOT)
         val visibility =
             if (fragmentCreatePostBinding!!.people.text.toString().toLowerCase(Locale.ROOT)
                     .contains("people in my ")
@@ -261,19 +256,38 @@ class CreatePostFragment : Fragment() {
                 fragmentCreatePostBinding!!.people.text.toString().toLowerCase(Locale.ROOT)
                     .replace("people in my ", "")
             else fragmentCreatePostBinding!!.people.text.toString().toLowerCase(Locale.ROOT)
+        val expireAt =
+            if (fragmentCreatePostBinding!!.month.text.toString().toLowerCase(Locale.ROOT)
+                    .contains("for 1 ")
+            )
+                fragmentCreatePostBinding!!.month.text.toString().toLowerCase(Locale.ROOT)
+                    .replace("for 1 ", "") else
+                "forever"
+        val objective = if (fragmentCreatePostBinding!!.toggleBt1.isChecked)
+            fragmentCreatePostBinding!!.toggleBt1.text.toString().toLowerCase(Locale.ROOT) else
+            fragmentCreatePostBinding!!.toggleBt2.text.toString().toLowerCase(Locale.ROOT)
 
         val createPostRequest = CreatePostRequest(
-            actorId = "YTYHIJIOKL54974OPIUHIUGYTFGRTRTUHJUIUYHYTHJIK",//Dummy data
-            content = fragmentCreatePostBinding!!.etDescription.text.toString().trim(),
-            expireAt = expireAt,
-            externalLinks = ExternalLinks("test website"),
-            language = listOf(Locale.getDefault().language.toLowerCase(Locale.ROOT)),
-            objective = objective,
             title = fragmentCreatePostBinding!!.etTitle.text.toString().trim(),
+            content = fragmentCreatePostBinding!!.etDescription.text.toString().trim(),
             types = listOf((tag_chip_group[0] as Chip).text.toString(), (tag_chip_group[1] as Chip).text.toString(), (tag_chip_group[2] as Chip).text.toString()),
-            visibility = visibility
+            visibility = visibility,
+            expireAt = expireAt,
+            objective = objective,
         )
-        //Timber.tag("CREATE_POST_OBJECT").e(Gson().toJson(createPostRequest))
         createPostViewModel.postContent(createPostRequest)
+    }
+
+    private fun observeNetworkResponse() {
+        createPostViewModel.networkResponse.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is CreatePostResponse -> {
+                    Timber.tag("CREATE_POST_NETWRK_RESP").e(Gson().toJson(it))
+                }
+                is Exception -> {
+                    Timber.tag("CREATE_POST_ERROR_RESP").e(Gson().toJson(it))
+                }
+            }
+        })
     }
 }
