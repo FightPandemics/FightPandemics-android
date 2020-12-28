@@ -5,6 +5,7 @@ import com.fightpandemics.createpost.data.api.NetworkApi
 import com.fightpandemics.createpost.domain.repository.CreatePostRepository
 import com.fightpandemics.createpost.ui.CreatePostFragment
 import dagger.Subcomponent
+import kotlinx.coroutines.InternalCoroutinesApi
 
 /**
  * Component binding injections for the [:createpost] module.
@@ -27,6 +28,7 @@ interface CreatePostComponent {
         fun create(): CreatePostComponent
     }
 
+    @InternalCoroutinesApi
     fun inject(createPostFragment: CreatePostFragment)
 
     fun provideCreatePostRepository(): CreatePostRepository

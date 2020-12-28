@@ -10,7 +10,7 @@ class CreatePostRetrofitService {
 
     companion object {
         private val builder: Retrofit.Builder = Retrofit.Builder()
-            .baseUrl(NetworkApi.STAGING_API_ENDPOINT)
+            .baseUrl(NetworkApi.RELEASE_API_ENDPOINT)
 
         @JvmStatic
         fun <S> createService(
