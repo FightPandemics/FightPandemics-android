@@ -58,18 +58,18 @@
             android:text="@string/medical_supplies" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_university"
+            android:id="@+id/chip_groceries"
             style="@style/TagChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/university" />
+            android:text="@string/groceries_food" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_r_and_d"
+            android:id="@+id/chip_housing"
             style="@style/TagChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/r_amp_d" />
+            android:text="@string/housing" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_business"
@@ -79,11 +79,39 @@
             android:text="@string/business" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/chip_childcare"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/childcare" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_education"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/education" />
+
+        <com.google.android.material.chip.Chip
             android:id="@+id/chip_legal"
             style="@style/TagChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/legal" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_well_being"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wellbeing_mental" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_entertainment"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/entertainment" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_information"
@@ -100,25 +128,25 @@
             android:text="@string/funding" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_entertainment"
+            android:id="@+id/chip_r_and_d"
             style="@style/TagChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/entertainment" />
+            android:text="@string/r_amp_d" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_groceries"
+            android:id="@+id/chip_remote_work"
             style="@style/TagChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/groceries_food" />
+            android:text="@string/remote_work" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_well_being"
+            android:id="@+id/chip_staff_paid"
             style="@style/TagChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/wellbeing_mental" />
+            android:text="@string/staff_paid" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_tech"
@@ -126,6 +154,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tech" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_translations"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/translations" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_volunteer"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/volunteer" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_others"

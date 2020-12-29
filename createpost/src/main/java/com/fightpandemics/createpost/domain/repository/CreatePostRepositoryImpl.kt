@@ -22,15 +22,14 @@ class CreatePostRepositoryImpl @Inject constructor(
     override suspend fun createPost(createPostRequest: CreatePostRequest): Flow<Result<*>> {
         return channelFlow {
             val response = postRemoteDataSource.createPost(createPostRequest)
-            when {
-                response.isSuccessful && response.code() == 200 -> {
-                    val postResponse = response.parseJsonResponse<CreatePostResponse>(moshi)
-                    offer(Result.Success(postResponse))
-                }
-                response.code() != 200 -> {
-                    val errorReturned = response.parseErrorJsonResponse<ErrorResponse>(moshi)
-                    offer(Result.Error(Exception(errorReturned!!.message)))
-                }
+            if (response.isSuccessful && response.code() == 201) {
+                val postResponse = response.parseJsonResponse<CreatePostResponse>(moshi)
+                offer(Result.Success(postResponse))
+            }
+
+            if (response.code() != 200 && response.code() != 201) {
+                val errorReturned = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                offer(Result.Error(Exception(errorReturned!!.message)))
             }
             awaitClose {  }
         }

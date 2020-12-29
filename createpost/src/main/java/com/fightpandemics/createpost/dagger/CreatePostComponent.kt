@@ -2,6 +2,7 @@ package com.fightpandemics.createpost.dagger
 
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.createpost.data.api.NetworkApi
+import com.fightpandemics.createpost.data.interceptor.CookieHeaderInterceptor
 import com.fightpandemics.createpost.domain.repository.CreatePostRepository
 import com.fightpandemics.createpost.ui.CreatePostFragment
 import dagger.Subcomponent
@@ -33,4 +34,5 @@ interface CreatePostComponent {
 
     fun provideCreatePostRepository(): CreatePostRepository
     fun provideNetworkApi(): NetworkApi
+    fun provideCookieHeaderInterceptor(): CookieHeaderInterceptor
 }

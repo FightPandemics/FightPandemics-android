@@ -3,6 +3,7 @@ package com.fightpandemics.createpost.dagger
 import com.fightpandemics.core.BuildConfig
 import com.fightpandemics.createpost.data.api.CreatePostRetrofitService
 import com.fightpandemics.createpost.data.api.NetworkApi
+import com.fightpandemics.createpost.data.interceptor.CookieHeaderInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Lazy
@@ -10,7 +11,6 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import javax.inject.Singleton
 
 @Module
 class CreatePostNetworkModule {
@@ -36,12 +36,18 @@ class CreatePostNetworkModule {
         }
 
     @Provides
+    fun provideCookieHeaderInterceptor(): CookieHeaderInterceptor =
+        CookieHeaderInterceptor()
+
+    @Provides
     fun provideOkHttpClient(
-        httpLoggingInterceptor: HttpLoggingInterceptor
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        cookieHeaderInterceptor: CookieHeaderInterceptor
     ): OkHttpClient {
         val okHttpClient = OkHttpClient
             .Builder()
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(cookieHeaderInterceptor)
         return okHttpClient.build()
     }
 }
