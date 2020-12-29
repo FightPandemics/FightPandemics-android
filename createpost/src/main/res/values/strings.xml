@@ -1,16 +1,22 @@
 <resources>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="medical_supplies">Medical Supplies</string>
-    <string name="university">University</string>
-    <string name="r_amp_d">R&amp;D</string>
+    <string name="groceries_food">Groceries/Food</string>
+    <string name="housing">Housing</string>
     <string name="business">Business</string>
+    <string name="childcare">Childcare</string>
+    <string name="education">Education</string>
     <string name="legal">Legal</string>
+    <string name="wellbeing_mental">Wellbeing/Mental</string>
+    <string name="entertainment">Entertainment</string>
     <string name="information">Information</string>
     <string name="funding">Funding</string>
-    <string name="entertainment">Entertainment</string>
-    <string name="groceries_food">Groceries/Food</string>
-    <string name="wellbeing_mental">Wellbeing/Mental</string>
+    <string name="r_amp_d">R&amp;D</string>
+    <string name="remote_work">Remote Work</string>
+    <string name="staff_paid">Staff (paid)</string>
     <string name="tech">Tech</string>
+    <string name="translations">Translations</string>
+    <string name="volunteer">Volunteer</string>
     <string name="others">Others</string>
     <string name="close">Close</string>
     <string name="how_long_should_this_post_be_active_for">How long should this post be active for?</string>

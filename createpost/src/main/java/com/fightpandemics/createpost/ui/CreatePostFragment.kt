@@ -1,12 +1,14 @@
 package com.fightpandemics.createpost.ui
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.text.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,6 +23,7 @@ import com.fightpandemics.createpost.data.model.CreatePostRequest
 import com.fightpandemics.createpost.data.model.CreatePostResponse
 import com.fightpandemics.createpost.databinding.FragmentCreatePostBinding
 import com.google.android.material.chip.Chip
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_create_post.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -104,6 +107,8 @@ class CreatePostFragment : Fragment() {
         }
         fragmentCreatePostBinding!!.post.setOnClickListener {
             postContent()
+            et_title.text = null
+            et_description.text = null
         }
     }
 
@@ -283,11 +288,28 @@ class CreatePostFragment : Fragment() {
             when (it) {
                 is CreatePostResponse -> {
                     Timber.tag("CREATE_POST_NETWRK_RESP").e(Gson().toJson(it))
+                    showDialog()
                 }
                 is Exception -> {
                     Timber.tag("CREATE_POST_ERROR_RESP").e(Gson().toJson(it))
+                    Snackbar.make(fragmentCreatePostBinding!!.root, it.message!!, Snackbar.LENGTH_LONG).setBackgroundTint(resources.getColor(R.color.colorPrimary)).show()
                 }
             }
         })
+    }
+
+    @SuppressLint("InflateParams")
+    private fun showDialog() {
+        val view = LayoutInflater.from(requireContext()).inflate(R.layout.item_view_post, null, false)
+        val alertDialog = AlertDialog.Builder(requireContext())
+        alertDialog.setView(view)
+        alertDialog.setCancelable(false)
+        val builder = alertDialog.show()
+        view.findViewById<ImageView>(R.id.view_post).setOnClickListener {
+            builder.dismiss()
+        }
+        view.findViewById<ImageView>(R.id.cancel).setOnClickListener {
+            builder.dismiss()
+        }
     }
 }
