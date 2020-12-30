@@ -74,9 +74,10 @@ class EditProfileFragment : Fragment() {
         profileViewModel.individualProfile.observe(viewLifecycleOwner, { profile ->
             when {
                 profile.isLoading -> {
-                    //TODO
+                    bindLoading(true)
                 }
                 !profile.isLoading -> {
+                    bindLoading(false)
                     nameValue?.text = profile.firstName?.capitalizeFirstLetter() + " " + profile.lastName?.capitalizeFirstLetter()
                     if(profile.imgUrl == null || profile.imgUrl.isBlank()){
                         pivAvatar.setInitials(profile?.firstName?.substring(0,1)?.toUpperCase() + profile?.lastName?.split(" ")?.last()?.substring(0,1)?.toUpperCase())
@@ -92,6 +93,16 @@ class EditProfileFragment : Fragment() {
 
             }
         })
+    }
+
+    private fun bindLoading(isLoading: Boolean) {
+        if (isLoading){
+            edit_profile_content.visibility = View.INVISIBLE
+            edit_profile_progressBar.visibility = View.VISIBLE
+        } else{
+            edit_profile_content.visibility = View.VISIBLE
+            edit_profile_progressBar.visibility = View.GONE
+        }
     }
 
 }
