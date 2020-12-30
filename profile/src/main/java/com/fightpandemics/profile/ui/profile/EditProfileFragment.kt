@@ -71,22 +71,22 @@ class EditProfileFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-        profileViewModel.individualProfile.observe(viewLifecycleOwner, { pofile ->
+        profileViewModel.individualProfile.observe(viewLifecycleOwner, { profile ->
             when {
-                pofile.isLoading -> {
+                profile.isLoading -> {
                     //TODO
                 }
-                !pofile.isLoading -> {
-                    nameValue?.text = pofile.firstName?.capitalizeFirstLetter() + " " + pofile.lastName?.capitalizeFirstLetter()
-                    if(pofile.imgUrl == null || pofile.imgUrl.isBlank()){
-                        pivAvatar.setInitials(pofile?.firstName?.substring(0,1)?.toUpperCase() + pofile?.lastName?.split(" ")?.last()?.substring(0,1)?.toUpperCase())
+                !profile.isLoading -> {
+                    nameValue?.text = profile.firstName?.capitalizeFirstLetter() + " " + profile.lastName?.capitalizeFirstLetter()
+                    if(profile.imgUrl == null || profile.imgUrl.isBlank()){
+                        pivAvatar.setInitials(profile?.firstName?.substring(0,1)?.toUpperCase() + profile?.lastName?.split(" ")?.last()?.substring(0,1)?.toUpperCase())
                         pivAvatar.invalidate()
                     }else{
                         GlideApp
                             .with(requireContext())
-                            .load(pofile.imgUrl)
+                            .load(profile.imgUrl)
                             .centerCrop()
-                            .into(user_avatar)
+                            .into(pivAvatar)
                     }
                 }
 

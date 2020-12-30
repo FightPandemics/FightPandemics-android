@@ -16,6 +16,7 @@ data class IndividualProfileResponse(
     val notifyPrefs: NotifyPrefs,
     val objectives: Objectives,
     val organisations: List<Organisation>,
+    val photo: String?,
     val urls: Urls,
     val usesPassword: Boolean
 ): Parcelable
