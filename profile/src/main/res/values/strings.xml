@@ -189,7 +189,9 @@
     <string name="share_my_location">Share my location</string>
 
     <!--PROFILE ERRORs-->
-    <string name="error_empty_name">Name is a required field</string>
+    <string name="error_empty_first_name">First name is a required field</string>
+    <string name="error_empty_last_name">Last name is a required field</string>
+    <string name="error_name_length">30 characters max</string>
     <string name="error_size_bio">About should have 0 to 160 chars</string>
     <string name="error_size_social">Social lnks cound not have more than 15 chars</string>
     <!--PROFILE ERRORs-->
