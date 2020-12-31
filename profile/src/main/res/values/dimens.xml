@@ -6,6 +6,8 @@
     <!-- Profile Social -->
     <dimen name="social_textbox_vertical_padding">10dp</dimen>
     <dimen name="social_textbox_horizontal_padding">0dp</dimen>
+    <dimen name="social_vertical_margin_top">26dp</dimen>
+
 
 
 </resources>

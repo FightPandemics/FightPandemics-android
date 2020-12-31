@@ -104,6 +104,7 @@
     <!--    <string name="save">Save</string>-->
     <string name="social_media_links">Social Media Links</string>
     <string name="facebook_url">Facebook URL</string>
+    <string name="instagram_url">Instagram URL</string>
     <string name="linkedIn_url">LinkedIn URL</string>
     <string name="twitter_url">Twitter URL</string>
     <string name="github_url">Github URL</string>
@@ -194,6 +195,7 @@
     <string name="error_name_length">30 characters max</string>
     <string name="error_size_bio">About should have 0 to 160 chars</string>
     <string name="error_size_social">Social lnks cound not have more than 15 chars</string>
+    <string name="error_facebook_valid_characters">Valid characters are: A-z 0-9 ..</string>
     <!--PROFILE ERRORs-->
 
 </resources>

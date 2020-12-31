@@ -32,6 +32,8 @@ class EditProfileSocialFragment : BaseFragment() {
     @Length(max = 15, messageResId = R.string.error_size_social)
     lateinit var etFfacebook: TextInputEditText
     @Length(max = 15, messageResId = R.string.error_size_social)
+    lateinit var etInstagram: TextInputEditText
+    @Length(max = 15, messageResId = R.string.error_size_social)
     lateinit var etGithub: TextInputEditText
     @Length(max = 15, messageResId = R.string.error_size_social)
     lateinit var etLlinkedin: TextInputEditText
@@ -65,6 +67,7 @@ class EditProfileSocialFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         etFfacebook = facebook_url_edittext
+        etInstagram = instagram_url_edittext
         etGithub = github_url_edittext
         etLlinkedin = linkedin_url_edittext
         etTwitter = twitter_url_edittext
@@ -85,7 +88,7 @@ class EditProfileSocialFragment : BaseFragment() {
             val urls = RequestUrls(
                 facebook = facebook_url_edittext.text.toString(),
                 github = github_url_edittext.text.toString(),
-                instagram = "this is missing in android",
+                instagram = instagram_url_edittext.text.toString(),
                 linkedin = linkedin_url_edittext.text.toString(),
                 twitter = twitter_url_edittext.text.toString(),
                 website = website_url_edittext.text.toString()
@@ -101,6 +104,7 @@ class EditProfileSocialFragment : BaseFragment() {
 
     private fun bindSocialLinks(profile: IndividualProfileResponse) {
         facebook_url_edittext.setText(profile.urls.facebook)
+        instagram_url_edittext.setText(profile.urls.instagram)
         linkedin_url_edittext.setText(profile.urls.linkedin)
         twitter_url_edittext.setText(profile.urls.twitter)
         github_url_edittext.setText(profile.urls.github)

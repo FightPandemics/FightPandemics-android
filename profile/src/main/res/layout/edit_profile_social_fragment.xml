@@ -41,7 +41,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="@dimen/social_vertical_margin_top"
         android:layout_marginEnd="32dp"
         android:clipChildren="false"
         android:hint="@string/facebook_url"
@@ -59,15 +59,34 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
+        android:id="@+id/textInputLayout_instagram"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:hint="@string/linkedIn_url"
+        android:layout_marginTop="@dimen/social_vertical_margin_top"
+        android:hint="@string/instagram_url"
         app:boxBackgroundColor="@color/fightPandemicsGhostWhite"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/instagram_url_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textWebEditText"
+            android:paddingHorizontal="@dimen/social_textbox_horizontal_padding"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/social_vertical_margin_top"
+        android:hint="@string/linkedIn_url"
+        app:boxBackgroundColor="@color/fightPandemicsGhostWhite"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout_instagram"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout_instagram"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_instagram">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/linkedin_url_edittext"
@@ -81,7 +100,7 @@
         android:id="@+id/textInputLayout4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="@dimen/social_vertical_margin_top"
         android:hint="@string/twitter_url"
         app:boxBackgroundColor="@color/fightPandemicsGhostWhite"
         app:errorEnabled="true"
@@ -101,7 +120,7 @@
         android:id="@+id/textInputLayout5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="@dimen/social_vertical_margin_top"
         android:hint="@string/github_url"
         app:boxBackgroundColor="@color/fightPandemicsGhostWhite"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
@@ -120,7 +139,7 @@
         android:id="@+id/textInputLayout6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="@dimen/social_vertical_margin_top"
         android:hint="@string/personal_website"
         app:boxBackgroundColor="@color/fightPandemicsGhostWhite"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
