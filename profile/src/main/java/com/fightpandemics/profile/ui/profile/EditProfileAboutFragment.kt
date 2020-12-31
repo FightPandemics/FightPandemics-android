@@ -6,24 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.fightpandemics.core.data.model.profile.PatchIndividualAccountRequest
 import com.fightpandemics.core.data.model.profile.PatchIndividualProfileRequest
 import com.fightpandemics.core.data.model.profile.RequestUrls
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
 import com.google.android.material.textfield.TextInputEditText
-import com.mobsandgeeks.saripaar.annotation.Max
-import com.mobsandgeeks.saripaar.annotation.NotEmpty
+import com.mobsandgeeks.saripaar.annotation.Length
 import kotlinx.android.synthetic.main.edit_profile_about_fragment.*
-import kotlinx.android.synthetic.main.edit_profile_name_fragment.*
-import kotlinx.android.synthetic.main.edit_profile_name_fragment.et_first_name
-import kotlinx.android.synthetic.main.edit_profile_social_fragment.*
-import kotlinx.android.synthetic.main.profile_toolbar.*
 import kotlinx.android.synthetic.main.profile_toolbar.toolbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
@@ -34,8 +26,7 @@ class EditProfileAboutFragment : BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-
-    @Max(value = 160, messageResId = R.string.error_size_bio)
+    @Length(min=0, max=160, messageResId = R.string.error_size_bio)
     lateinit var tvAbout: TextInputEditText
 
     @ExperimentalCoroutinesApi
@@ -75,6 +66,7 @@ class EditProfileAboutFragment : BaseFragment() {
         aboutSaveButton.setOnClickListener {
             validator.validate()
         }
+
         validationOk = {
             val urls = RequestUrls(
                 facebook = profileViewModel.currentProfile.urls.facebook ?: "",
