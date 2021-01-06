@@ -1,27 +1,23 @@
 package com.fightpandemics.profile.ui.profile
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.GlideApp
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
 import com.fightpandemics.profile.util.capitalizeFirstLetter
-import kotlinx.android.synthetic.main.profile_fragment.*
+import com.fightpandemics.utils.webviewer.WebViewerActivity
 import kotlinx.android.synthetic.main.profile_fragment_content.*
 import kotlinx.android.synthetic.main.profile_toolbar.*
-import kotlinx.android.synthetic.main.profile_toolbar.toolbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 import javax.inject.Inject
@@ -31,6 +27,7 @@ class ProfileFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels() { viewModelFactory }
 
@@ -60,10 +57,11 @@ class ProfileFragment : Fragment() {
 
 
     }
+
     @ExperimentalCoroutinesApi
     override fun onStart() {
         super.onStart()
-        profileViewModel.individualProfile.observe(viewLifecycleOwner, { profile ->
+        profileViewModel.individualProfile.observe(viewLifecycleOwner) { profile ->
             when {
                 profile.isLoading -> {
                     bindLoading(true)
@@ -71,14 +69,19 @@ class ProfileFragment : Fragment() {
                 profile.error == null -> {
                     bindLoading(false)
                     //show data
-                    user_full_name.text = profile.firstName?.capitalizeFirstLetter() + " " + profile.lastName?.capitalizeFirstLetter()
+                    user_full_name.text =
+                        profile.firstName?.capitalizeFirstLetter() + " " + profile.lastName?.capitalizeFirstLetter()
                     user_location.text = profile.location
                     // glide user_avatar
 
-                    if(profile.imgUrl == null || profile.imgUrl.isBlank()){
-                        user_avatar.setInitials(profile?.firstName?.substring(0,1)?.toUpperCase() + profile?.lastName?.split(" ")?.last()?.substring(0,1)?.toUpperCase())
+                    if (profile.imgUrl == null || profile.imgUrl.isBlank()) {
+                        user_avatar.setInitials(
+                            profile?.firstName?.substring(0, 1)
+                                ?.toUpperCase() + profile?.lastName?.split(" ")?.last()
+                                ?.substring(0, 1)?.toUpperCase()
+                        )
                         user_avatar.invalidate()
-                    }else{
+                    } else {
                         GlideApp
                             .with(requireContext())
                             .load(profile.imgUrl)
@@ -90,17 +93,17 @@ class ProfileFragment : Fragment() {
                     linkedin.setOnClickListener { openWebView(profile.linkedin) }
                     twitter.setOnClickListener { openWebView(profile.twitter) }
                     github.setOnClickListener { openWebView(profile.github) }
-                    link.setOnClickListener { openWebView(profile.linkedin) }
+                    link.setOnClickListener { openWebView(profile.website) }
                     bio.text = profile.bio
 
                 }
-                profile.error !=  null -> {
+                profile.error != null -> {
                     bindLoading(false)
                     // @feryel please fill this
                 }
 
             }
-        })
+        }
 
         profileViewModel.getIndividualProfile()
         overview.setOnClickListener {
@@ -127,36 +130,19 @@ class ProfileFragment : Fragment() {
     }
 
     private fun openWebView(url: String?) {
-        url?.let {
-            webview.webViewClient = object : WebViewClient() {
-                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                    webview.visibility = View.VISIBLE
-                    view.loadUrl(url)
-                    return false
-                }
-            }
-            val wbc: WebChromeClient = object : WebChromeClient() {
-                override fun onCloseWindow(w: WebView?) {
-                    super.onCloseWindow(w)
-                    webview.visibility = View.GONE
-                }
-            }
-            webview.webChromeClient = wbc
-
-            webview.getSettings().setJavaScriptEnabled(true)
-            webview.loadUrl(url)
-        }
-
+        val intent = Intent(requireContext(), WebViewerActivity::class.java)
+        intent.putExtra("url", url)
+        startActivity(intent)
     }
 
     private fun bindLoading(isLoading: Boolean) {
 //        Thread.sleep(3_000)
-         if (isLoading){
+        if (isLoading) {
             content.visibility = View.INVISIBLE
             progressBar.visibility = View.VISIBLE
-        } else{
-             content.visibility = View.VISIBLE
-             progressBar.visibility = View.GONE
+        } else {
+            content.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
         }
     }
 

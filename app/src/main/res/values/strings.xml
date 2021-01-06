@@ -39,4 +39,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+    <!-- WebView -->
+    <string name="message_invalid_url">Wrong URL</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="write_permission_denied_title">Unable to save</string>
+    <string name="write_permission_denied_message">You have denied the permission for writing. Please go to app settings and allow permission</string>
+    <string name="message_activity_not_found">Couldn\'t find application</string>
+
 </resources>

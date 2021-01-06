@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.profile.ProfileFragment">
 
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints"
+        android:visibility="gone"
+        />
+
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
@@ -31,12 +40,5 @@
 
     <include layout="@layout/profile_fragment_content" />
 
-    <WebView
-        android:id="@+id/webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="MissingConstraints"
-        android:visibility="gone"
-        />
 
 </com.fightpandemics.widget.InsetDispatchingCoordinatorLayout>
