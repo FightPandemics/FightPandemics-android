@@ -55,6 +55,39 @@ class EditProfileFragment : Fragment() {
     @ExperimentalCoroutinesApi
     override fun onStart() {
         super.onStart()
+        bindListeners()
+        profileViewModel.individualProfile.observe(viewLifecycleOwner, { profile ->
+            when {
+                profile.isLoading -> {
+                    bindLoading(true)
+                }
+                !profile.isLoading -> {
+                    bindLoading(false)
+                    updateScreen(profile)
+                }
+            }
+        })
+    }
+
+    private fun updateScreen(profile: ProfileViewModel.IndividualProfileViewState) {
+        nameValue?.text =
+            profile.firstName?.capitalizeFirstLetter() + " " + profile.lastName?.capitalizeFirstLetter()
+        if (profile.imgUrl == null || profile?.imgUrl?.isBlank()) {
+            pivAvatar.setInitials(
+                profile?.firstName?.substring(0, 1)?.toUpperCase() + profile?.lastName?.split(" ")
+                    ?.last()?.substring(0, 1)?.toUpperCase()
+            )
+            pivAvatar.invalidate()
+        } else {
+            GlideApp
+                .with(requireContext())
+                .load(profile.imgUrl)
+                .centerCrop()
+                .into(pivAvatar)
+        }
+    }
+
+    private fun bindListeners() {
         relativeLayoutName?.setOnClickListener {
             findNavController().navigate(
                 com.fightpandemics.R.id.action_editProfileFragment_to_changeNameFragment,
@@ -71,35 +104,13 @@ class EditProfileFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-        profileViewModel.individualProfile.observe(viewLifecycleOwner, { profile ->
-            when {
-                profile.isLoading -> {
-                    bindLoading(true)
-                }
-                !profile.isLoading -> {
-                    bindLoading(false)
-                    nameValue?.text = profile.firstName?.capitalizeFirstLetter() + " " + profile.lastName?.capitalizeFirstLetter()
-                    if(profile.imgUrl == null || profile.imgUrl.isBlank()){
-                        pivAvatar.setInitials(profile?.firstName?.substring(0,1)?.toUpperCase() + profile?.lastName?.split(" ")?.last()?.substring(0,1)?.toUpperCase())
-                        pivAvatar.invalidate()
-                    }else{
-                        GlideApp
-                            .with(requireContext())
-                            .load(profile.imgUrl)
-                            .centerCrop()
-                            .into(pivAvatar)
-                    }
-                }
-
-            }
-        })
     }
 
     private fun bindLoading(isLoading: Boolean) {
-        if (isLoading){
+        if (isLoading) {
             edit_profile_content.visibility = View.INVISIBLE
             edit_profile_progressBar.visibility = View.VISIBLE
-        } else{
+        } else {
             edit_profile_content.visibility = View.VISIBLE
             edit_profile_progressBar.visibility = View.GONE
         }

@@ -58,30 +58,44 @@ class EditProfileAboutFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
-        etAbout.setText(profileViewModel.individualProfile.value?.bio, TextView.BufferType.EDITABLE)
-
-        aboutSaveButton.setOnClickListener {
-            validator.validate()
-        }
-
+        initViews()
         validationOk = {
-            val urls = RequestUrls(
-                facebook = profileViewModel.currentProfile.urls.facebook ?: "",
-                github = profileViewModel.currentProfile.urls.github ?: "",
-                instagram = "",
-                linkedin = profileViewModel.currentProfile.urls.linkedin ?: "",
-                twitter = profileViewModel.currentProfile.urls.twitter ?: "",
-                website = profileViewModel.currentProfile.urls.website ?: "",
-            )
-
-            val about = etAbout.text.toString()
+            val (urls, about) = getUpdateParams()
             profileViewModel.updateProfile(
                 PatchIndividualProfileRequest(about, urls)
             )
             requireActivity().onBackPressed()
+        }
+    }
+
+    private fun initViews() {
+        bindViews()
+        bindListeners()
+    }
+
+    private fun EditProfileAboutFragment.getUpdateParams(): Pair<RequestUrls, String> {
+        val urls = RequestUrls(
+            facebook = profileViewModel.currentProfile.urls.facebook ?: "",
+            github = profileViewModel.currentProfile.urls.github ?: "",
+            instagram = "",
+            linkedin = profileViewModel.currentProfile.urls.linkedin ?: "",
+            twitter = profileViewModel.currentProfile.urls.twitter ?: "",
+            website = profileViewModel.currentProfile.urls.website ?: "",
+        )
+        val about = etAbout.text.toString()
+        return Pair(urls, about)
+    }
+
+    private fun bindViews() {
+        etAbout.setText(profileViewModel.individualProfile.value?.bio, TextView.BufferType.EDITABLE)
+    }
+
+    private fun bindListeners() {
+        toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+        aboutSaveButton.setOnClickListener {
+            validator.validate()
         }
     }
 }

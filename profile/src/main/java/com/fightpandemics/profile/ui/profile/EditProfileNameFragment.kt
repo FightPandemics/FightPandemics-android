@@ -29,11 +29,11 @@ class EditProfileNameFragment : BaseFragment() {
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
 
-    @Length(min=0, max=30, messageResId = R.string.error_name_length)
+    @Length(min = 0, max = 30, messageResId = R.string.error_name_length)
     @NotEmpty(messageResId = R.string.error_empty_first_name)
     lateinit var tvFirstName: TextInputEditText
 
-    @Length(min=0, max=30, messageResId = R.string.error_name_length)
+    @Length(min = 0, max = 30, messageResId = R.string.error_name_length)
     @NotEmpty(messageResId = R.string.error_empty_last_name)
     lateinit var tvLastName: TextInputEditText
 
@@ -63,33 +63,52 @@ class EditProfileNameFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
+        bindTextViews()
+        bindListeners()
+        validationOk = {
+            updateAccount()
+            requireActivity().onBackPressed()
+        }
+    }
 
+    private fun updateAccount() {
+        val (firstName, lastName) = getNamesValue()
+        profileViewModel.updateAccount(
+            PatchIndividualAccountRequest(
+                firstName = firstName,
+                hide = profileViewModel.currentProfile.hide,
+                lastName = lastName,
+                location = profileViewModel.currentProfile.location,
+                needs = profileViewModel.currentProfile.needs,
+                objectives = profileViewModel.currentProfile.objectives
+            )
+        )
+    }
 
-        tvFirstName?.setText(profileViewModel.individualProfile.value?.firstName, TextView.BufferType.EDITABLE)
-        tvLastName?.setText(profileViewModel.individualProfile.value?.lastName, TextView.BufferType.EDITABLE)
+    private fun getNamesValue(): Pair<String, String> {
+        val firstName = et_first_name.text.toString()
+        val lastName = et_last_name.text.toString()
+        return Pair(firstName, lastName)
+    }
 
+    private fun bindTextViews() {
+        tvFirstName?.setText(
+            profileViewModel.individualProfile.value?.firstName,
+            TextView.BufferType.EDITABLE
+        )
+        tvLastName?.setText(
+            profileViewModel.individualProfile.value?.lastName,
+            TextView.BufferType.EDITABLE
+        )
+    }
+
+    private fun bindListeners() {
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
 
         name_save_button.setOnClickListener {
             validator.validate()
-        }
-
-        validationOk = {
-            val firstName = et_first_name.text.toString()
-            val lastName = et_last_name.text.toString()
-            profileViewModel.updateAccount(
-                PatchIndividualAccountRequest(
-                    firstName = firstName,
-                    hide = profileViewModel.currentProfile.hide,
-                    lastName = lastName,
-                    location = profileViewModel.currentProfile.location,
-                    needs = profileViewModel.currentProfile.needs,
-                    objectives = profileViewModel.currentProfile.objectives
-                )
-            )
-            requireActivity().onBackPressed()
         }
     }
 }
