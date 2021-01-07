@@ -2,7 +2,7 @@ package com.fightpandemics.inbox.dagger
 
 import androidx.lifecycle.ViewModel
 import com.fightpandemics.inbox.ui.InboxViewModel
-import com.fightpandemics.utils.ViewModelKey
+import com.fightpandemics.core.utils.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

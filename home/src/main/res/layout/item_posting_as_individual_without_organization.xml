@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom">
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_line_75"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/active"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:lineSpacingExtra="6sp"
+        android:textColor="@color/fightPandemicsNero"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line"
+        tools:text="Posting As" />
+
+    <com.fightpandemics.home.custom.ProfileImageView
+        android:id="@+id/user_avatar"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="14dp"
+        app:aiv_borderColor="?colorPrimary"
+        app:aiv_borderWidth="2dp"
+        app:aiv_initials="VM"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/active" />
+
+    <TextView
+        android:id="@+id/user_full_name"
+        style="@style/AndroidNativeH314Px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_avatar"
+        app:layout_constraintStart_toEndOf="@+id/user_avatar"
+        app:layout_constraintTop_toTopOf="@+id/user_avatar"
+        tools:text="Victor Maragioglio" />
+
+    <RadioButton
+        android:id="@+id/select_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:buttonTint="?colorPrimary"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="@+id/user_avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/user_avatar" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="#4CD7D7D7"
+        app:layout_constraintTop_toBottomOf="@+id/user_avatar" />
+
+    <Button
+        android:id="@+id/add"
+        style="@style/AndroidNativeH314Px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/fightPandemicsGhostWhite"
+        android:drawableLeft="@drawable/ic_plus_sign"
+        android:text="Add an organisation account"
+        android:textAllCaps="false"
+        android:textColor="#425af2"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

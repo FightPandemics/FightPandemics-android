@@ -8,9 +8,83 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.fightpandemics.profile.ui.ProfileFragment"
+        android:name="com.fightpandemics.profile.ui.profile.ProfileFragment"
         app:moduleName="Fight_Pandemics.profile"
         android:label="Profile"
-        tools:layout="@layout/profile_fragment" />
+        tools:layout="@layout/profile_fragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.fightpandemics.profile.ui.profile.EditProfileFragment"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/profile_setting_my_account"
+        >
+        <argument
+            android:name="profile"
+            app:argType="com.fightpandemics.core.data.model.profile.IndividualProfileResponse"
+             />
+        <action
+            android:id="@+id/action_editProfileFragment_to_changeNameFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/changeNameFragment" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_changeSocialFragment"
+            app:destination="@id/changeSocialFragment" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_changeAboutFragment"
+            app:destination="@id/changeAboutFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/changeLocationFragment"
+        android:name="com.fightpandemics.profile.ui.ChangeLocationFragment"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/profile_location_fragment"
+        />
+    <fragment
+        android:id="@+id/changeGoalFragment"
+        android:name="com.fightpandemics.profile.ui.ChangeGoalFragment"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/profile_change_goal_fragment"
+        />
+    <fragment
+        android:id="@+id/changeEmailFragment"
+        android:name="com.fightpandemics.profile.ui.ChangeEmailFragment"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/email_fragment"
+        />
+
+    <fragment
+        android:id="@+id/changeNameFragment"
+        android:name="com.fightpandemics.profile.ui.profile.EditProfileNameFragment"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/edit_profile_name_fragment"
+        />
+
+    <fragment
+        android:id="@+id/changeSocialFragment"
+        android:name="com.fightpandemics.profile.ui.profile.EditProfileSocialFragment"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/edit_profile_social_fragment"
+        />
+
+    <fragment
+        android:id="@+id/changeAboutFragment"
+        android:name="com.fightpandemics.profile.ui.profile.EditProfileAboutFragment"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/edit_profile_about_fragment"
+        />
 
 </navigation>

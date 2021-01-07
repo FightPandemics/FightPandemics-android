@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--    set to neon blue opacity 30% -->
+    <item android:color="#4D425AF2" android:state_enabled="false" />
+    <item android:color="@color/fightPandemicsNeonBlue" />
+</selector>

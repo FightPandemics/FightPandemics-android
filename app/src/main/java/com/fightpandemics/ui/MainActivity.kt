@@ -1,5 +1,7 @@
 package com.fightpandemics.ui
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
@@ -19,11 +21,15 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.fightpandemics.R
 import com.fightpandemics.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
 
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var fab: FloatingActionButton
+    private lateinit var fabCreateAsOrg: MaterialButton
+    private lateinit var fabCreateAsIndividual: MaterialButton
     private lateinit var dot: ImageView
     private lateinit var fabOpen: Animation
     private lateinit var fabClose: Animation
@@ -38,36 +44,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         bottomNavigationView = findViewById(R.id.bottomNavBar)
+        fab = findViewById(R.id.fab)
+        fabCreateAsIndividual = findViewById(R.id.fabCreateAsIndiv)
+        fabCreateAsOrg = findViewById(R.id.fabCreateAsOrg)
         dot = findViewById(R.id.dot)
-
-        initFabActions()
 
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         } // Else, need to wait for onRestoreInstanceState
-        setUpNavDestinationChangeListener()
-    }
-
-    private fun setUpNavDestinationChangeListener() {
-        val destinationChangeListener = DestinationChangeListener()
-        currentNavController?.observe(this) {
-            it.addOnDestinationChangedListener(destinationChangeListener)
-        }
-    }
-
-    inner class DestinationChangeListener : NavController.OnDestinationChangedListener {
-        override fun onDestinationChanged(
-            controller: NavController,
-            destination: NavDestination,
-            arguments: Bundle?
-        ) {
-            // findViewById<Toolbar>(R.id.profile_toolbar).title = destination.label
-            when (destination.id) {
-                R.id.homeFragment, R.id.searchFragment, R.id.inboxFragment, R.id.profileFragment
-                -> showBottomBar(destination)
-                else -> bottomNavigationView.visibility = View.GONE
-            }
-        }
+        setUpBottomNavigationAndFab()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -90,12 +75,40 @@ class MainActivity : AppCompatActivity() {
             intent = intent
         )
 
-        controller.observe(
-            this
-        ) { navController ->
-            setupActionBarWithNavController(navController)
-        }
+        controller.observe(this) { setupActionBarWithNavController(it) }
         currentNavController = controller
+    }
+
+    private fun setUpBottomNavigationAndFab() {
+        currentNavController?.observe(this) {
+            it.addOnDestinationChangedListener(this@MainActivity)
+        }
+
+        fab.apply {
+            initFabAction()
+            setShowMotionSpecResource(R.animator.fab_show)
+            setHideMotionSpecResource(R.animator.fab_hide)
+            setOnClickListener {
+                fabAction()
+            }
+        }
+    }
+
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?,
+    ) {
+        when (destination.id) {
+            R.id.homeFragment, R.id.searchFragment,
+            R.id.inboxFragment, R.id.profileFragment,
+            -> {
+                showBottomBar(destination)
+                dot.visibility = View.VISIBLE
+                fab.show()
+            }
+            R.id.filterFragment -> hideBottomBar()
+        }
     }
 
     private fun showBottomBar(destination: NavDestination) {
@@ -103,31 +116,45 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.handleBottomNavSelection(destination)
     }
 
+    private fun hideBottomBar() {
+        if (isFabOpen) hideFabActions()
+        bottomNavigationView.visibility = View.GONE
+        dot.visibility = View.GONE
+        fab.hide()
+
+        // Get a handle on the animator that hides the bottom app bar so we can wait to hide
+        // the fab and bottom app bar until after it's exit animation finishes.
+        bottomNavigationView.animate().setListener(object : AnimatorListenerAdapter() {
+            var isCanceled = false
+            override fun onAnimationEnd(animation: Animator?) {
+                if (isCanceled) return
+
+                // Hide the BottomAppBar to avoid it showing above the keyboard
+                // when composing a new email.
+                bottomNavigationView.visibility = View.GONE
+                dot.visibility = View.GONE
+                fab.visibility = View.INVISIBLE
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+                isCanceled = true
+            }
+        })
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
     }
 
-    private fun initFabActions() {
-        fabOpen = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_open)
-        fabClose = AnimationUtils.loadAnimation(applicationContext, R.anim.fab_close)
-        rotateForward = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate_forward)
-        rotateBackward = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate_backward)
-        fab.setOnClickListener { fabAction() }
+    private fun initFabAction() {
+        fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open)
+        fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close)
+        rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward)
+        rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward)
     }
 
     private fun fabAction() {
         if (isFabOpen) hideFabActions() else showFabActions()
-    }
-
-    private fun hideFabActions() {
-        fab.startAnimation(rotateBackward)
-        fabCreateAsOrg.startAnimation(fabClose)
-        fabCreateAsIndividual.startAnimation(fabClose)
-        fabCreateAsOrg.isClickable = false
-        fabCreateAsIndividual.isClickable = false
-        fabCreateAsIndividual.visibility = View.INVISIBLE
-        fabCreateAsOrg.visibility = View.INVISIBLE
-        isFabOpen = false
     }
 
     private fun showFabActions() {
@@ -139,6 +166,17 @@ class MainActivity : AppCompatActivity() {
         fabCreateAsIndividual.visibility = View.VISIBLE
         fabCreateAsOrg.visibility = View.VISIBLE
         isFabOpen = true
+    }
+
+    private fun hideFabActions() {
+        fab.startAnimation(rotateBackward)
+        fabCreateAsOrg.startAnimation(fabClose)
+        fabCreateAsIndividual.startAnimation(fabClose)
+        fabCreateAsOrg.isClickable = false
+        fabCreateAsIndividual.isClickable = false
+        fabCreateAsIndividual.visibility = View.INVISIBLE
+        fabCreateAsOrg.visibility = View.INVISIBLE
+        isFabOpen = false
     }
 
     private fun BottomNavigationView.handleBottomNavSelection(destination: NavDestination) {

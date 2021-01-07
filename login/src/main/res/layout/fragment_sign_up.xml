@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/sign_up_toolbar"
+        layout="@layout/sign_up_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/signup_screen_bg"
+        android:paddingStart="13dp"
+        android:paddingTop="28dp"
+        android:paddingEnd="13dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sign_up_toolbar">
+
+        <include
+            android:id="@+id/layout_btn_google"
+            layout="@layout/layout_google_button"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/layout_btn_facebook"
+            layout="@layout/layout_facebook_button"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_btn_google" />
+
+        <include
+            android:id="@+id/layout_btn_linkedin"
+            layout="@layout/layout_linkedin_button"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_btn_facebook" />
+
+        <TextView
+            style="@style/AndroidNativeP311Px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineHeight="15.4sp"
+            android:text="@string/by_signing_up_i_agree_to_the_privacy_policy_and_terms_and_conditions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_btn_linkedin" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cl_signup_email"
+            style="@style/PrimaryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up_with_email"
+            android:textSize="18sp"
+            android:layout_marginHorizontal="7dp"
+            android:layout_marginBottom="61dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
