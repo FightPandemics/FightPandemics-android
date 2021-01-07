@@ -65,34 +65,10 @@ class EditProfileSocialFragment : BaseFragment() {
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+       initViews(profileViewModel.currentProfile)
 
-        etFfacebook = facebook_url_edittext
-        etInstagram = instagram_url_edittext
-        etGithub = github_url_edittext
-        etLlinkedin = linkedin_url_edittext
-        etTwitter = twitter_url_edittext
-        etWwebsite = website_url_edittext
-
-        toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
-
-        bindSocialLinks(profileViewModel.currentProfile)
-
-        // todo save button
-        // navigate up, then indicate profile view model to patch
-        social_links_save_button.setOnClickListener {
-            validator.validate()
-        }
         validationOk = {
-            val urls = RequestUrls(
-                facebook = facebook_url_edittext.text.toString(),
-                github = github_url_edittext.text.toString(),
-                instagram = instagram_url_edittext.text.toString(),
-                linkedin = linkedin_url_edittext.text.toString(),
-                twitter = twitter_url_edittext.text.toString(),
-                website = website_url_edittext.text.toString()
-            )
+            val urls = getSocialUrls()
             val about = profileViewModel.currentProfile.about ?: ""
             profileViewModel.updateProfile(
                 PatchIndividualProfileRequest(about, urls)
@@ -100,6 +76,35 @@ class EditProfileSocialFragment : BaseFragment() {
             requireActivity().onBackPressed()
         }
 
+    }
+
+    private fun getSocialUrls() = RequestUrls(
+        facebook = facebook_url_edittext?.text.toString(),
+        github = github_url_edittext?.text.toString(),
+        instagram = instagram_url_edittext?.text.toString(),
+        linkedin = linkedin_url_edittext?.text.toString(),
+        twitter = twitter_url_edittext?.text.toString(),
+        website = website_url_edittext?.text.toString()
+    )
+
+    private fun initViews(profile: IndividualProfileResponse) {
+        bindEditTexts()
+        bindSocialLinks(profile)
+        toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+        social_links_save_button.setOnClickListener {
+            validator.validate()
+        }
+    }
+
+    private fun bindEditTexts() {
+        etFfacebook = facebook_url_edittext
+        etInstagram = instagram_url_edittext
+        etGithub = github_url_edittext
+        etLlinkedin = linkedin_url_edittext
+        etTwitter = twitter_url_edittext
+        etWwebsite = website_url_edittext
     }
 
     private fun bindSocialLinks(profile: IndividualProfileResponse) {
