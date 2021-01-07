@@ -1,8 +1,8 @@
 package com.fightpandemics.profile.dagger
 
 import androidx.lifecycle.ViewModel
-import com.fightpandemics.profile.ui.ProfileViewModel
-import com.fightpandemics.utils.ViewModelKey
+import com.fightpandemics.core.utils.ViewModelKey
+import com.fightpandemics.profile.ui.profile.ProfileViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -14,4 +14,5 @@ abstract class ProfileViewModelModule {
     @IntoMap
     @ViewModelKey(ProfileViewModel::class)
     abstract fun bindProfileViewModel(profileViewModel: ProfileViewModel): ViewModel
+
 }

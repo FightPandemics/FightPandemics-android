@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fightpandemics.inbox.R
 import com.fightpandemics.inbox.dagger.inject
-import com.fightpandemics.utils.ViewModelFactory
+import com.fightpandemics.core.utils.ViewModelFactory
 import javax.inject.Inject
 
 class InboxFragment : Fragment() {
@@ -17,11 +17,11 @@ class InboxFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    private lateinit var viewModel: InboxViewModel
+
     companion object {
         fun newInstance() = InboxFragment()
     }
-
-    private lateinit var viewModel: InboxViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

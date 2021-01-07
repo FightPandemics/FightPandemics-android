@@ -9,6 +9,15 @@
         <dist:delivery>
             <dist:install-time />
         </dist:delivery>
+
         <dist:fusing dist:include="true" />
     </dist:module>
+
+    <application>
+        <activity android:name=".ui.AboutMeActivity"></activity>
+        <activity android:name=".ui.SocialMediaLinksActivity" />
+        <activity android:name=".ui.ChangeNameActivity" />
+        <activity android:name=".ui.profile.MyProfileActivity" />
+    </application>
+
 </manifest>

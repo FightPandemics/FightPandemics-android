@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@+id/fab"
+<com.google.android.material.floatingactionbutton.FloatingActionButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fabk"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|end"
@@ -7,10 +9,8 @@
     android:layout_marginTop="@dimen/fab_margin"
     android:layout_marginRight="@dimen/fab_margin"
     android:layout_marginBottom="72dp"
-    app:elevation="6dp"
     android:backgroundTint="@color/fightPandemicsNeonBlue"
     app:backgroundTint="@color/fightPandemicsNeonBlue"
-    app:tint="@color/fightPandemicsWhiteSmoke"
+    app:elevation="6dp"
     app:srcCompat="@drawable/ic_add"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" />
+    app:tint="@color/fightPandemicsWhiteSmoke" />
