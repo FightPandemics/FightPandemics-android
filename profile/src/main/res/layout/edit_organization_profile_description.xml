@@ -73,7 +73,7 @@ android:orientation="vertical"
     android:layout_marginTop="156dp"
     android:layout_marginStart="20dp"
     android:layout_marginEnd="20dp"
-    android:text="@string/Save">
+    android:text="@string/save">
 </Button>
 
 

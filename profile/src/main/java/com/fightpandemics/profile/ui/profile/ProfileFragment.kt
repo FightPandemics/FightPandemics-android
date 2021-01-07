@@ -59,19 +59,30 @@ class ProfileFragment : Fragment() {
     @ExperimentalCoroutinesApi
     override fun onStart() {
         super.onStart()
-        profileViewModel.individualProfile.observe(viewLifecycleOwner) { profile ->
-            getIndividualProfileListener(profile)
-        }
-
+        bindListeners()
         profileViewModel.getIndividualProfile()
+    }
 
+    private fun bindListeners() {
         toolbar.setOnMenuItemClickListener {
-            getToolbarListener(it)
+            when (it.itemId) {
+                R.id.settings -> {
+                    Timber.d("Settings")
+                    true
+                }
+
+                else -> {
+                    super.onOptionsItemSelected(it)
+                }
+            }
         }
+
         button3?.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_editProfileFragment)
         }
-
+        profileViewModel.individualProfile.observe(viewLifecycleOwner) { profile ->
+            getIndividualProfileListener(profile)
+        }
     }
 
     private fun getIndividualProfileListener(profile: ProfileViewModel.IndividualProfileViewState) {
@@ -89,16 +100,6 @@ class ProfileFragment : Fragment() {
                 bindLoading(false)
                 // @feryel please fill this
             }
-        }
-    }
-
-    private fun getToolbarListener(it: MenuItem) = when (it.itemId) {
-        R.id.settings -> {
-            Timber.d("Settings")
-            true
-        }
-        else -> {
-            super.onOptionsItemSelected(it)
         }
     }
 

@@ -28,7 +28,7 @@
             app:toolbarId="@+id/toolbar">
 
             <include
-                android:id="@+id/toolbar"
+
                 layout="@layout/profile_toolbar" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
