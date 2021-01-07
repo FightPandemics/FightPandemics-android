@@ -194,8 +194,11 @@
     <string name="error_empty_last_name">Last name is a required field</string>
     <string name="error_name_length">30 characters max</string>
     <string name="error_size_bio">About should have 0 to 160 chars</string>
-    <string name="error_size_social">Social lnks cound not have more than 15 chars</string>
-    <string name="error_facebook_valid_characters">Valid characters are: A-z 0-9 ..</string>
+    <string name="error_size_social">15 characters max</string>
+    <string name="error_facebook_valid_characters">Valid characters are: A-Z a-z 0-9 ..</string>
+    <string name="error_instagram_valid_characters">Valid characters are: A-Z a-z 0-9 . _ -.</string>
+    <string name="error_linkedin_valid_characters">Valid characters are: A-Z a-z 0-9 -.</string>
+    <string name="error_github_twitter_valid_characters">Valid characters are: A-Z a-z 0-9 _.</string>
     <!--PROFILE ERRORs-->
 
 </resources>

@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.EditText
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
@@ -15,12 +15,12 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
 import com.google.android.material.textfield.TextInputEditText
-import com.mobsandgeeks.saripaar.annotation.Length
-import com.mobsandgeeks.saripaar.annotation.Max
-import com.mobsandgeeks.saripaar.annotation.Optional
+import com.mobsandgeeks.saripaar.QuickRule
+import com.mobsandgeeks.saripaar.annotation.*
 import kotlinx.android.synthetic.main.edit_profile_social_fragment.*
 import kotlinx.android.synthetic.main.profile_toolbar.toolbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -29,18 +29,29 @@ class EditProfileSocialFragment : BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    @Length(max = 15, messageResId = R.string.error_size_social)
+    // todo add check for min of 5 chars or empty
+
+    @Pattern(regex = "[A-Za-z0-9.]*$", messageResId = R.string.error_facebook_valid_characters)
     lateinit var etFfacebook: TextInputEditText
-    @Length(max = 15, messageResId = R.string.error_size_social)
+
+    @Pattern(regex = "[A-Za-z0-9._-]*$", messageResId = R.string.error_instagram_valid_characters)
     lateinit var etInstagram: TextInputEditText
+
     @Length(max = 15, messageResId = R.string.error_size_social)
+    @Pattern(regex = "[A-Za-z0-9_]*$", messageResId = R.string.error_github_twitter_valid_characters)
     lateinit var etGithub: TextInputEditText
-    @Length(max = 15, messageResId = R.string.error_size_social)
+
+    @Pattern(regex = "[A-Za-z0-9-]*$", messageResId = R.string.error_linkedin_valid_characters)
     lateinit var etLlinkedin: TextInputEditText
-    @Length(max = 15, messageResId = R.string.error_size_social)
+
+    @Pattern(regex = "[A-Za-z0-9_]*$", messageResId = R.string.error_github_twitter_valid_characters)
     lateinit var etTwitter: TextInputEditText
-    @Length(max = 15, messageResId = R.string.error_size_social)
+
+    @Optional
+    @Url
     lateinit var etWwebsite: TextInputEditText
+
+
 
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
@@ -72,6 +83,8 @@ class EditProfileSocialFragment : BaseFragment() {
         etLlinkedin = linkedin_url_edittext
         etTwitter = twitter_url_edittext
         etWwebsite = website_url_edittext
+
+        validator.put(etFfacebook, FacebookRule(1))
 
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
@@ -109,6 +122,20 @@ class EditProfileSocialFragment : BaseFragment() {
         twitter_url_edittext.setText(profile.urls.twitter)
         github_url_edittext.setText(profile.urls.github)
         website_url_edittext.setText(profile.urls.website)
+    }
+
+    class FacebookRule  // Override this constructor ONLY if you want sequencing.
+        (sequence: Int) : QuickRule<EditText>(sequence) {
+        override fun isValid(editText: EditText): Boolean {
+            val text = editText.text.toString()
+            val length = text.length
+            Timber.i("Debug: my text is $text")
+            return length == 0 || length >= 5
+        }
+
+        override fun getMessage(context: Context): String {
+            return "Lenght should be at least 5"
+        }
     }
 
 }
