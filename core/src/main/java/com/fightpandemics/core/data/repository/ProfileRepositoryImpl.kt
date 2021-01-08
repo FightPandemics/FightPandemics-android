@@ -41,21 +41,11 @@ class ProfileRepositoryImpl @Inject constructor(
                     val profileResponse = response.body()
                     channel.offer(Result.Success(profileResponse))
                 }
-                // TODO add error responses
-//                response.code() == 401 -> {
-//                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
-//                    channel.offer(Result.Error(Exception(myError?.message)))
-//                }
                 response.code() == 400 -> {
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
-//                response.code() == 409 -> {
-//                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
-//                    channel.offer(Result.Error(Exception(myError?.message)))
-//                }
                 else ->{
-                    // uncaught error code
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
@@ -72,21 +62,11 @@ class ProfileRepositoryImpl @Inject constructor(
                     val accountResponse = response.body()
                     channel.offer(Result.Success(accountResponse))
                 }
-                // TODO add error responses
-//                response.code() == 401 -> {
-//                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
-//                    channel.offer(Result.Error(Exception(myError?.message)))
-//                }
                 response.code() == 400 -> {
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
-//                response.code() == 409 -> {
-//                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
-//                    channel.offer(Result.Error(Exception(myError?.message)))
-//                }
                 else ->{
-                    // uncaught error code
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
