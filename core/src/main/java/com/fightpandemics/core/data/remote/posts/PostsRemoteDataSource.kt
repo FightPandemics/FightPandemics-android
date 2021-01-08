@@ -12,6 +12,8 @@ interface PostsRemoteDataSource {
 
     suspend fun fetchPosts(objective: String?): List<Post>
 
+    suspend fun fetchPostsByAuthor(authorId: String): List<Post>
+
     suspend fun updatePost(postId: String, postRequest: PostRequest)
 
     suspend fun likePost(postId: String, userId: String, like: Boolean)

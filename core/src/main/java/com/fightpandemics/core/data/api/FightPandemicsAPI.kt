@@ -72,6 +72,13 @@ interface FightPandemicsAPI {
         @Body patchIndividualAccountRequest: PatchIndividualAccountRequest
     ): Response<PatchIndividualProfileResponse>
 
+    @GET("api/posts")
+    suspend fun getPostsByAuthor(
+        @Query("ignoreUserLocation") ignoreUserLocation: Boolean,
+        @Query("limit") limit: Int,
+        @Query("skip") skip: Int,
+        @Query("authorId") authorId: String,
+    ): List<Post>
 
     companion object {
         // Staging API for Development

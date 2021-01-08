@@ -34,6 +34,15 @@ class PostsRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getPostsByAuthor(
+        authorId: String
+    ): Flow<Result<List<Post>>> {
+        return flow {
+            val posts = postsRemoteDataSource.fetchPostsByAuthor(authorId)
+            emit(Result.Success(posts))
+        }
+    }
+
     override suspend fun editPost(postRequest: PostRequest) {
         //postsRemoteDataSource.updatePost(postRequest._id, postRequest)
     }
