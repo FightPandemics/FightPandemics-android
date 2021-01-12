@@ -169,4 +169,7 @@
     <string name="Add_product_link">Add product links</string>
     <string name="Product_exp">Apple Store, Google Play</string>
     <string name="Edit_profile_pic">Edit Profile Picture</string>
+
+    <!--PROFILE ACTIVITY POSTS -->
+    <string name="dot_normal">Dot Normal</string>
 </resources>
