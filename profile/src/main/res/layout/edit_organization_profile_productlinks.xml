@@ -41,7 +41,7 @@
     </View>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_Facebook_URL"
+        android:id="@+id/text_input_link_to_apple_store"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:errorEnabled="true"
@@ -65,7 +65,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_LinkedIn_URL"
+        android:id="@+id/text_input_link_to_google_play"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:errorEnabled="true"

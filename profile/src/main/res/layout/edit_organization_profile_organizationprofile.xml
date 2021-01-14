@@ -91,7 +91,7 @@
             android:background="@color/fightPandemicsLightGrey" />
 
         <TextView
-            android:id="@+id/add_socials"
+            android:id="@+id/text_view_add_socials"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -105,11 +105,11 @@
             tools:ignore="UnusedAttribute" />
 
         <TextView
-            android:id="@+id/social_description"
+            android:id="@+id/text_view_social_description"
             style="@style/AndroidNativeP212Px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/add_socials"
+            android:layout_below="@id/text_view_add_socials"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="12dp"
             android:text="@string/Description_exp" />
@@ -118,8 +118,8 @@
             android:id="@+id/icon_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/add_socials"
-            android:layout_alignBottom="@id/social_description"
+            android:layout_alignTop="@id/text_view_add_socials"
+            android:layout_alignBottom="@id/text_view_social_description"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp"
             app:srcCompat="@drawable/right_arrow" />
@@ -142,7 +142,7 @@
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
         <TextView
-            android:id="@+id/about_me"
+            android:id="@+id/text_view_about_me"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -156,21 +156,21 @@
             tools:ignore="UnusedAttribute" />
 
         <TextView
-            android:id="@+id/about_me_description"
+            android:id="@+id/text_view_about_me_description"
             style="@style/AndroidNativeP212Px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/about_me"
+            android:layout_below="@id/text_view_about_me"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="12dp"
             android:text="@string/Website_exp" />
 
         <ImageView
-            android:id="@+id/icon_two"
+            android:id="@+id/image_view_icon_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/about_me"
-            android:layout_alignBottom="@id/about_me_description"
+            android:layout_alignTop="@id/text_view_about_me"
+            android:layout_alignBottom="@id/text_view_about_me_description"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp"
             app:srcCompat="@drawable/right_arrow" />
@@ -179,7 +179,7 @@
             android:id="@+id/view3"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/about_me_description"
+            android:layout_below="@id/text_view_about_me_description"
             android:background="@color/fightPandemicsLightGrey" />
 
     </RelativeLayout>
@@ -192,7 +192,7 @@
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
 
         <TextView
-            android:id="@+id/language"
+            android:id="@+id/text_view_language"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -206,11 +206,11 @@
             tools:ignore="UnusedAttribute" />
 
         <TextView
-            android:id="@+id/text_input_language"
+            android:id="@+id/text_view_language_description"
             style="@style/AndroidNativeP212Px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/language"
+            android:layout_below="@id/text_view_language"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="12dp"
             android:text="@string/Language_exp" />
@@ -219,8 +219,8 @@
             android:id="@+id/image_view_language"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/language"
-            android:layout_alignBottom="@id/text_input_language"
+            android:layout_alignTop="@id/text_view_language"
+            android:layout_alignBottom="@id/text_view_language_description"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp"
             app:srcCompat="@drawable/right_arrow" />
@@ -229,7 +229,7 @@
             android:id="@+id/view4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/text_input_language"
+            android:layout_below="@id/text_view_language_description"
             android:background="@color/fightPandemicsLightGrey" />
 
 
@@ -243,7 +243,7 @@
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout3">
 
         <TextView
-            android:id="@+id/socialmedia"
+            android:id="@+id/text_view_social_media"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -257,21 +257,21 @@
             tools:ignore="UnusedAttribute" />
 
         <TextView
-            android:id="@+id/text_input_socialmedia"
+            android:id="@+id/text_view_social_media_description"
             style="@style/AndroidNativeP212Px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/socialmedia"
+            android:layout_below="@id/text_view_social_media"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="12dp"
             android:text="@string/Social_exp" />
 
         <ImageView
-            android:id="@+id/image_view_socialmedia"
+            android:id="@+id/image_view_social_media"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/socialmedia"
-            android:layout_alignBottom="@id/text_input_socialmedia"
+            android:layout_alignTop="@id/text_view_social_media"
+            android:layout_alignBottom="@id/text_view_social_media_description"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp"
             app:srcCompat="@drawable/right_arrow" />
@@ -280,7 +280,7 @@
             android:id="@+id/view5"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/text_input_socialmedia"
+            android:layout_below="@id/text_view_social_media_description"
             android:background="@color/fightPandemicsLightGrey" />
 
 
@@ -295,7 +295,7 @@
         android:layout_marginBottom="188dp">
 
         <TextView
-            android:id="@+id/productlinks"
+            android:id="@+id/text_view_product_links"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -309,21 +309,21 @@
             tools:ignore="UnusedAttribute" />
 
         <TextView
-            android:id="@+id/text_input_productlinks"
+            android:id="@+id/text_view_product_links_description"
             style="@style/AndroidNativeP212Px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/productlinks"
+            android:layout_below="@id/text_view_product_links"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="12dp"
             android:text="@string/Product_exp" />
 
         <ImageView
-            android:id="@+id/image_view_productlinks"
+            android:id="@+id/image_view_product_links"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/productlinks"
-            android:layout_alignBottom="@id/text_input_productlinks"
+            android:layout_alignTop="@id/text_view_product_links"
+            android:layout_alignBottom="@id/text_view_product_links_description"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp"
             app:srcCompat="@drawable/right_arrow" />
@@ -332,7 +332,7 @@
             android:id="@+id/view6"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/text_input_productlinks"
+            android:layout_below="@id/text_view_product_links_description"
             android:background="@color/fightPandemicsLightGrey" />
 
 
