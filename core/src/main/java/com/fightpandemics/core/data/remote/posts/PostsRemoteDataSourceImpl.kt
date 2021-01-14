@@ -15,12 +15,12 @@ class PostsRemoteDataSourceImpl @Inject constructor(
         fightPandemicsAPI.getPosts()
 
     override suspend fun fetchPosts(objective: String?): List<Post> =
-        fightPandemicsAPI.getPosts(objective, 50)
+        fightPandemicsAPI.getPosts(objective, 20)
 
     override suspend fun fetchPostsByAuthor(
         authorId: String
     ): List<Post> =
-        fightPandemicsAPI.getPostsByAuthor(true, 50, 0, authorId)
+        fightPandemicsAPI.getPostsByAuthor(true, 10, 0, authorId)
 
 
     override suspend fun updatePost(postId: String, postRequest: PostRequest) {

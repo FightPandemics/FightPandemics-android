@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -95,12 +94,42 @@ class ProfileFragment : Fragment() {
                 initTextViews(profile)
                 loadUserImage(profile, profile.imgUrl)
                 initSocialListeners(profile)
+                displayUserPosts(profile.id!!)
             }
             profile.error != null -> {
                 bindLoading(false)
                 // @feryel please fill this
             }
         }
+    }
+
+    private fun displayUserPosts(id: String) {
+        profileViewModel.loadUserPosts(id)
+
+        profileViewModel.postsState.observe(viewLifecycleOwner,
+            {
+                // ...
+                when {
+                    it.isLoading -> bindLoadingPosts(it.isLoading)
+                    it.posts!!.isNotEmpty() -> {
+                        bindLoading(it.isLoading)
+                        Timber.i("Debug: My posts are ${it.posts}")
+//                        homeAllFragmentBinding!!.postList.visibility = View.VISIBLE
+//                        postsAdapter.submitList(it.posts)
+//                        postsAdapter.onItemClickListener = { post ->
+//                            Timber.e("${post.author?.name}")
+//                            // findNavController().navigate(PokeListFragmentDirections.actionPokeListFragmentToPokeDetailFragment(post))
+//                        }
+                    }
+                    it.error != null -> {
+                        bindLoading(it.isLoading)
+//                        homeAllFragmentBinding!!.postList.visibility = View.GONE
+                        Timber.i("Debug: error ${it.error.exception}")
+                        // bindError()
+                    }
+                }
+            }
+        )
     }
 
     private fun loadUserImage(
@@ -151,6 +180,17 @@ class ProfileFragment : Fragment() {
         } else {
             content.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun bindLoadingPosts(isLoading: Boolean) {
+        TODO()
+        if (isLoading) {
+//            content.visibility = View.INVISIBLE
+//            progressBar.visibility = View.VISIBLE
+        } else {
+//            content.visibility = View.VISIBLE
+//            progressBar.visibility = View.GONE
         }
     }
 
