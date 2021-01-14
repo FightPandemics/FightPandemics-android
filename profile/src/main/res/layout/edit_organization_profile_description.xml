@@ -23,7 +23,7 @@ android:orientation="vertical"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/text_view_description_label"
             style="@style/AndroidNativeH122Px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
