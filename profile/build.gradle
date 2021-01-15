@@ -22,6 +22,10 @@ android {
         }
     }
 
+    buildFeatures{
+        viewBinding true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -34,6 +38,7 @@ android {
 
 dependencies {
     implementation project(":app")
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation project(':core')
     implementation project(':filter')
     implementation project(':login')
