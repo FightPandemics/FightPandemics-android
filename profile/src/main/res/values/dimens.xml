@@ -16,4 +16,11 @@
     <dimen name="feedback_card_elevation">0dp</dimen>
     <dimen name="feedback_card_corner_radius">0dp</dimen>
 
+    <dimen name="industry_scrollView_height">650dp</dimen>
+
+    <!-- Profile Social -->
+    <dimen name="social_textbox_vertical_padding">10dp</dimen>
+    <dimen name="social_textbox_horizontal_padding">0dp</dimen>
+    <dimen name="social_vertical_margin_top">26dp</dimen>
+
 </resources>
