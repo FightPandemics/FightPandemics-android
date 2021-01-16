@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/information_checkbox"
+        android:id="@+id/other_help_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="false"

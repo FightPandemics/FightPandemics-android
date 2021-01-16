@@ -11,6 +11,7 @@
         android:label="Profile"
         app:moduleName="Fight_Pandemics.profile"
         tools:layout="@layout/profile_fragment">
+
         <action
             android:id="@+id/action_profileFragment_to_createPostFragment"
             app:destination="@id/nav_create_post"
@@ -19,8 +20,21 @@
             app:launchSingleTop="true"
             app:popEnterAnim="@anim/stationary"
             app:popExitAnim="@anim/slide_down" />
+
+        <action
+            android:id="@+id/action_profileFragment_to_settingFragment"
+            app:destination="@id/settingFragment"
+            app:launchSingleTop="true"/>
+
     </fragment>
 
     <include app:graph="@navigation/nav_create_post" />
+
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.fightpandemics.profile.ui.SettingFragment"
+        android:label="fragment_setting"
+        app:moduleName="Fight_Pandemics.profile"
+        tools:layout="@layout/fragment_setting" />
 
 </navigation>

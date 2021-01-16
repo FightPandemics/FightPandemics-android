@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.fightpandemics.core.result.EventObserver
 import com.fightpandemics.core.utils.ViewModelFactory
+import com.fightpandemics.filter.ui.FilterRequest
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.databinding.HomeAllFragmentBinding
 import com.fightpandemics.home.ui.HomeViewModel
@@ -20,6 +18,9 @@ import com.fightpandemics.home.ui.tabs.PostsAdapter
 import timber.log.Timber
 import javax.inject.Inject
 
+/*
+* created by Osaigbovo Odiase
+* */
 class HomeAllFragment : Fragment() {
 
     @Inject
@@ -27,7 +28,7 @@ class HomeAllFragment : Fragment() {
 
     // Obtain the ViewModel - use the ParentFragment as the Lifecycle owner
     private val homeViewModel: HomeViewModel
-            by viewModels({ requireParentFragment() }) { viewModelFactory }
+    by viewModels({ requireParentFragment() }) { viewModelFactory }
 
     private var homeAllFragmentBinding: HomeAllFragmentBinding? = null
     private lateinit var postsAdapter: PostsAdapter
@@ -45,9 +46,10 @@ class HomeAllFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        val binding = HomeAllFragmentBinding.inflate(inflater, container, false)
+        val binding = HomeAllFragmentBinding
+            .inflate(inflater, container, false)
         homeAllFragmentBinding = binding
         homeAllFragmentBinding!!.postList.itemAnimator = null
         postsAdapter = PostsAdapter(homeViewModel)
@@ -57,18 +59,6 @@ class HomeAllFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<String>>("key")
-            ?.observe(
-                viewLifecycleOwner
-            ) { result ->
-                // Do something with the result.
-
-                Timber.e(result.toString())
-            }
-        // If you’d only like to handle a result only once, you must call remove() on the
-        // SavedStateHandle to clear the result. If you do not remove the result, the LiveData
-        // will continue to return the last result to any new Observer instances.
-        // findNavController().currentBackStackEntry?.savedStateHandle?.remove<List<String>>("key")
         super.onViewCreated(view, savedInstanceState)
         getPosts()
     }
@@ -79,27 +69,30 @@ class HomeAllFragment : Fragment() {
     }
 
     private fun getPosts() {
-        //errorLoadingText.visibility = View.GONE
+        // errorLoadingText.visibility = View.GONE
 
-        homeViewModel.postsState.observe(viewLifecycleOwner, {
-            when {
-                it.isLoading -> bindLoading(it.isLoading)
-                it.posts!!.isNotEmpty() -> {
-                    bindLoading(it.isLoading)
-                    homeAllFragmentBinding!!.postList.visibility = View.VISIBLE
-                    postsAdapter.submitList(it.posts)
-                    postsAdapter.onItemClickListener = { post ->
-                        Timber.e("${post.author?.name}")
-                        //findNavController().navigate(PokeListFragmentDirections.actionPokeListFragmentToPokeDetailFragment(post))
+        homeViewModel.postsState.observe(
+            viewLifecycleOwner,
+            {
+                when {
+                    it.isLoading -> bindLoading(it.isLoading)
+                    it.posts!!.isNotEmpty() -> {
+                        bindLoading(it.isLoading)
+                        homeAllFragmentBinding!!.postList.visibility = View.VISIBLE
+                        postsAdapter.submitList(it.posts)
+                        postsAdapter.onItemClickListener = { post ->
+                            Timber.e("${post.author?.name}")
+                            // findNavController().navigate(PokeListFragmentDirections.actionPokeListFragmentToPokeDetailFragment(post))
+                        }
+                    }
+                    it.error != null -> {
+                        bindLoading(it.isLoading)
+                        homeAllFragmentBinding!!.postList.visibility = View.GONE
+                        // bindError()
                     }
                 }
-                it.error != null -> {
-                    bindLoading(it.isLoading)
-                    homeAllFragmentBinding!!.postList.visibility = View.GONE
-                    //bindError()
-                }
             }
-        })
+        )
         homeAllFragmentBinding!!.postList.adapter = postsAdapter
     }
 

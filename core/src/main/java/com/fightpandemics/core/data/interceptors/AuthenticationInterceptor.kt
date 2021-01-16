@@ -1,10 +1,10 @@
 package com.fightpandemics.core.data.interceptors
 
 import com.fightpandemics.core.data.local.AuthTokenLocalDataSource
+import com.fightpandemics.core.data.model.login.CookieToken
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
-import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
@@ -21,9 +21,19 @@ class AuthenticationInterceptor @Inject constructor(
         if (request.header("No-Authentication") == null) {
             val token = authTokenLocalDataSource.getToken()
             if (!token.isNullOrEmpty()) {
-                val finalToken = "Bearer ${token}"
+                val finalToken = "Bearer $token"
                 requestBuilder
                     .addHeader("Authorization", finalToken)
+                    .build()
+            }
+        }
+
+        if (request.header("Login") != null) {
+            val token = authTokenLocalDataSource.getToken()
+            if (!token.isNullOrEmpty()) {
+                val cookie = CookieToken("-", token);
+                requestBuilder
+                    .addHeader(cookie.getCookieName(), cookie.getCookieParameter())
                     .build()
             }
         }

@@ -30,7 +30,8 @@ class OnBoardFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
@@ -45,32 +46,40 @@ class OnBoardFragment : Fragment() {
 
         rootView.findViewById<MaterialButton>(R.id.bt_sign_in).setOnClickListener {
             onBoardViewModel.signInClick()
-            onBoardViewModel.navigateToSignIn.observe(viewLifecycleOwner, EventObserver {
-                this.run {
-                    findNavController().navigate(R.id.action_onboardFragment_to_signInFragment)
+            onBoardViewModel.navigateToSignIn.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    this.run {
+                        findNavController().navigate(R.id.action_onboardFragment_to_signInFragment)
+                    }
                 }
-            })
+            )
         }
 
         rootView.findViewById<MaterialButton>(R.id.bt_join_now).setOnClickListener {
             onBoardViewModel.signUpClick()
-            onBoardViewModel.navigateToSignUp.observe(viewLifecycleOwner, EventObserver {
-                this.run {
-                    findNavController().navigate(R.id.action_onboardFragment_to_signUpFragment)
+            onBoardViewModel.navigateToSignUp.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    this.run {
+                        findNavController().navigate(R.id.action_onboardFragment_to_signUpFragment)
+                    }
                 }
-            })
+            )
         }
 
         rootView.findViewById<TextView>(R.id.tv_skip).setOnClickListener {
             onBoardViewModel.skipToHelpBoardClick()
-            onBoardViewModel.navigateToMainActivity.observe(viewLifecycleOwner, EventObserver {
-                this.run {
-                    findNavController().navigate(R.id.action_onboardFragment_to_mainActivity)
-                        .apply { requireActivity().finish() }
+            onBoardViewModel.navigateToMainActivity.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    this.run {
+                        findNavController().navigate(R.id.action_onboardFragment_to_mainActivity)
+                            .apply { requireActivity().finish() }
+                    }
                 }
-            })
+            )
         }
         return rootView
     }
 }
-

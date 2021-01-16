@@ -16,6 +16,24 @@
         <item name="chipCornerRadius">4dp</item>
     </style>
 
+    <style name="HomeFilterChipStyle" parent="Widget.MaterialComponents.Chip.Entry">
+        <item name="android:enabled">false</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="chipBackgroundColor">@color/fightPandemicsGhostWhite</item>
+        <item name="chipCornerRadius">4dp</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStrokeColor">@color/fightPandemicsNeonBlue</item>
+        <item name="closeIcon">@drawable/ic_cancel</item>
+        <item name="closeIconVisible">true</item>
+        <item name="closeIconTint">@null</item>
+        <item name="closeIconEnabled">true</item>
+        <item name="closeIconEndPadding">4dp</item>
+        <item name="closeIconSize">20dp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
+    </style>
+
     <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
 
     <style name="BaseBottomSheetDialog" parent="@style/Theme.MaterialComponents.Light.BottomSheetDialog">

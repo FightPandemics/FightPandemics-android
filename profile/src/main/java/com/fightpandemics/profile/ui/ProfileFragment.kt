@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
-import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.ui.MainActivity
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.profile_toolbar.*
@@ -38,6 +38,7 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         val rootView = inflater.inflate(R.layout.profile_fragment, container, false)
         createPost()
         return rootView
@@ -54,7 +55,9 @@ class ProfileFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
-                    Timber.d("Settings")
+                    Timber.e("Settings")
+                    findNavController()
+                        .navigate(com.fightpandemics.R.id.action_profileFragment_to_settingFragment)
                     true
                 }
                 else -> {

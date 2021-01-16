@@ -8,14 +8,18 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.fightpandemics.home.ui.HomeFragment"
-        android:label="Home"
+
         app:moduleName="Fight_Pandemics.home"
-        tools:layout="@layout/home_fragment">
+        tools:layout="@layout/home_fragment"><!--android:label="Home"-->
 
         <action
             android:id="@+id/action_homeFragment_to_filterFragment"
             app:destination="@id/nav_filter"
-            app:launchSingleTop="true" />
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
 
         <action
             android:id="@+id/action_homeFragment_to_createPostFragment"

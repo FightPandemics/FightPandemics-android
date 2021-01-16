@@ -11,7 +11,7 @@ class RetrofitService {
 
     companion object {
         private val builder: Retrofit.Builder = Retrofit.Builder()
-            .baseUrl(FightPandemicsAPI.RELEASE_API_ENDPOINT)
+            .baseUrl(FightPandemicsAPI.API_ENDPOINT)
 
         @JvmStatic
         fun <S> createService(
