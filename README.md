@@ -11,8 +11,8 @@ Android app for the [FightPandemics](https://fightpandemics.com/)
 
 ### Getting Started
 * The app is written entirely in Kotlin and uses the Gradle build system
-* To build the app, use the gradlew build command or use `Import Project` in Android Studio A Stable Version of 
-  4.0 or newer is required. and can be downloaded [Here](https://developer.android.com/studio)
+* To build the app, use the gradlew build command or use `Import Project` in Android Studio.
+* A Stable Version of 4.0 or newer is required and can be downloaded [Here](https://developer.android.com/studio)
 * Open `FightPandemics-android` in Android Studio 
 * Happy coding!
 
@@ -24,7 +24,7 @@ See the [CONTRIBUTING](https://github.com/FightPandemics/FightPandemics-android/
 The application uses Clean Architecture based on MVVM and Repository patterns. Implemented Architecture principles follow Google recommended [Guide to app architecture](https://developer.android.com/jetpack/guide)
 ![architecture](https://user-images.githubusercontent.com/24237865/77502018-f7d36000-6e9c-11ea-92b0-1097240c8689.png)
 
-We kept logic away from Activities and Fragments and moved it to [ViewModels](https://developer.android.com/topic/libraries/architecture/viewmodel). We observed data using [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)  and used the Data Binding Library to bind UI components 
+We kept logic away from Activities and Fragments and moved it to [ViewModels](https://developer.android.com/topic/libraries/architecture/viewmodel). We observed data using [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) and used the Data Binding Library to bind UI components 
 in layouts to the app's data sources.
 
 [Android Jetpack](https://developer.android.com/topic/libraries/architecture/) is used as an Architecture but not limited to ViewModel, LiveData, Lifecycles, Navigation, Room and Data Binding. See a complete list in "Libraries used" section.
