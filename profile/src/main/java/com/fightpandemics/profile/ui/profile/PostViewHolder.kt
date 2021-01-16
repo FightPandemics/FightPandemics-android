@@ -44,31 +44,31 @@ class PostViewHolder(private var itemBinding: ItemUserPostsBinding): RecyclerVie
 
         }
 
-//        itemBinding.objective.text = post.objective?.capitalize(Locale.ROOT)
-//        itemBinding.userFullName.text = post.author?.name
-//        itemBinding.postTitle.text = post.title
-//        itemBinding.userLocation.text =
-//            post.author?.location?.city.plus(", ").plus(post.author?.location?.country)
-//
-//        itemBinding.postContent.text = post.content
-//
-//
-//
-//        itemBinding.like.apply {
-//            isChecked = post.liked!!
+        itemBinding.objective.text = post.objective?.capitalize(Locale.ROOT)
+        itemBinding.userFullName.text = post.author?.name
+        itemBinding.postTitle.text = post.title
+        itemBinding.userLocation.text =
+            post.author?.location?.city.plus(", ").plus(post.author?.location?.country)
+
+        itemBinding.postContent.text = post.content
+
+
+
+        itemBinding.like.apply {
+            isChecked = post.liked!!
 //            setOnClickListener {
 //                post.liked = !post.liked!!
 //                homeEventListener.onLikeClicked(post)
 //            }
-//        }
-//
-//        itemBinding.likesCount.apply {
-//            text = post.likesCount.toString()
-//        }
-//
-//
-//
-//        itemBinding.commentsCount.text = post.commentsCount.toString()
+        }
+
+        itemBinding.likesCount.apply {
+            text = post.likesCount.toString()
+        }
+
+
+
+        itemBinding.commentsCount.text = post.commentsCount.toString()
 //
 //
 //
