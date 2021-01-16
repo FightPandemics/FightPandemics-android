@@ -15,9 +15,11 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
 import com.fightpandemics.profile.util.capitalizeFirstLetter
+import com.fightpandemics.profile.util.userInitials
 import com.fightpandemics.utils.webviewer.WebViewerActivity
 import kotlinx.android.synthetic.main.profile_fragment_content.*
 import kotlinx.android.synthetic.main.profile_toolbar.*
+import kotlinx.android.synthetic.main.user_posts_content.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 import javax.inject.Inject
@@ -104,6 +106,12 @@ class ProfileFragment : Fragment() {
     }
 
     private fun displayUserPosts(id: String) {
+
+        val adapter = PostsAdapter()
+
+        val rv = profile_activities_recyclerView
+        rv.adapter = adapter
+
         profileViewModel.loadUserPosts(id)
 
         profileViewModel.postsState.observe(viewLifecycleOwner,
@@ -113,7 +121,7 @@ class ProfileFragment : Fragment() {
                     it.isLoading -> bindLoadingPosts(it.isLoading)
                     it.posts!!.isNotEmpty() -> {
                         bindLoading(it.isLoading)
-                        Timber.i("Debug: My posts are ${it.posts}")
+                        adapter.data = it.posts
 //                        homeAllFragmentBinding!!.postList.visibility = View.VISIBLE
 //                        postsAdapter.submitList(it.posts)
 //                        postsAdapter.onItemClickListener = { post ->
@@ -137,11 +145,7 @@ class ProfileFragment : Fragment() {
         imgUrl: String?
     ) {
         if (profile.imgUrl == null || imgUrl.toString().isBlank()) {
-            user_avatar.setInitials(
-                profile?.firstName?.substring(0, 1)
-                    ?.toUpperCase() + profile?.lastName?.split(" ")?.last()
-                    ?.substring(0, 1)?.toUpperCase()
-            )
+            user_avatar.setInitials(userInitials(profile.firstName, profile.lastName))
             user_avatar.invalidate()
         } else {
             GlideApp
@@ -184,7 +188,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun bindLoadingPosts(isLoading: Boolean) {
-        TODO()
         if (isLoading) {
 //            content.visibility = View.INVISIBLE
 //            progressBar.visibility = View.VISIBLE

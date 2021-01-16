@@ -135,7 +135,6 @@ class EditProfileSocialFragment : BaseFragment() {
         override fun isValid(editText: EditText): Boolean {
             val text = editText.text.toString()
             val length = text.length
-            Timber.i("Debug: my text is $text")
             return length == 0 || length >= 5
         }
 
@@ -152,7 +151,6 @@ class EditProfileSocialFragment : BaseFragment() {
         override fun isValid(editText: EditText): Boolean {
             val text = editText.text.toString()
             val length = text.length
-            Timber.i("Debug: my text is $text")
             return length == 0 || regex.matches(text)
         }
 
