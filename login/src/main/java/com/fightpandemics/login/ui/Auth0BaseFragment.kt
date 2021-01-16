@@ -96,28 +96,30 @@ open class Auth0BaseFragment : Fragment() {
         val authenticationAPIClient = AuthenticationAPIClient(auth0)
         val usersClient = UsersAPIClient(auth0, accessToken)
         authenticationAPIClient.userInfo(accessToken)
-            .start(object : BaseCallback<UserProfile?,
-                    AuthenticationException?> {
-                override fun onSuccess(payload: UserProfile?) {
-                    payload?.id?.let {
-                        usersClient.getProfile(it)
-                            .start(object : BaseCallback<UserProfile?,
-                                    ManagementException?> {
-                                override fun onSuccess(profile: UserProfile?) {
-                                    loginConnection.invoke(profile)
-                                }
+            .start(
+                object : BaseCallback<UserProfile?,
+                        AuthenticationException?> {
+                    override fun onSuccess(payload: UserProfile?) {
+                        payload?.id?.let {
+                            usersClient.getProfile(it)
+                                .start(object : BaseCallback<UserProfile?,
+                                        ManagementException?> {
+                                    override fun onSuccess(profile: UserProfile?) {
+                                        loginConnection.invoke(profile)
+                                    }
 
-                                override fun onFailure(error: ManagementException) {
-                                    print(error) // TODO error login
+                                    override fun onFailure(error: ManagementException) {
+                                        print(error) // TODO error login
+                                    }
                                 }
-                            })
+                                )
+                        }
                     }
-                }
 
-                override fun onFailure(error: AuthenticationException) {
-                    print(error) // TODO error login
-                }
-            })
+                    override fun onFailure(error: AuthenticationException) {
+                        print(error) // TODO error login
+                    }
+                })
     }
 
     companion object {
@@ -129,5 +131,4 @@ open class Auth0BaseFragment : Fragment() {
         private const val MONGO_DB_ID = "mongo_id"
         private const val PACKAGE_NAME = "com.fightpandemics"
     }
-
 }
