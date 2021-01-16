@@ -20,6 +20,7 @@ import javax.inject.Inject
 
 open class Auth0BaseFragment : Fragment() {
     lateinit var auth0: Auth0
+
     @Inject
     lateinit var authTokenLocalDataSource: AuthTokenLocalDataSource
 
@@ -29,15 +30,6 @@ open class Auth0BaseFragment : Fragment() {
             resources.getString(R.string.com_auth0_domain)
         )
         auth0.isOIDCConformant = true
-    }
-
-    companion object {
-        private const val CALLBACK_PROFILE_URL = "https://%s/api/v2/"
-        private const val SCHEME = "demo"
-        private const val SCOPE = "openid profile email offline_access read:current_user update:current_user_metadata"
-        private const val STATE = "fight-pandemics"
-        private const val MONGO_DB_ID = "mongo_id"
-        private const val PACKAGE_NAME = "com.fightpandemics"
     }
 
     fun doSocialLogin(loginConnection: LoginConnection) = WebAuthProvider.login(auth0)
@@ -63,7 +55,11 @@ open class Auth0BaseFragment : Fragment() {
                     val accessToken = credentials.accessToken
                     if (accessToken != null) {
                         getProfile(accessToken) { userProfile ->
-                            authTokenLocalDataSource.setUserId(userProfile?.appMetadata?.get(MONGO_DB_ID) as String?)
+                            authTokenLocalDataSource.setUserId(
+                                userProfile?.appMetadata?.get(
+                                    MONGO_DB_ID
+                                ) as String?
+                            )
                             authTokenLocalDataSource.setToken(credentials.accessToken)
                             when (loginConnection) {
                                 LoginConnection.LINKEDIN_SIGNUP,
@@ -103,19 +99,19 @@ open class Auth0BaseFragment : Fragment() {
             .start(object : BaseCallback<UserProfile?,
                     AuthenticationException?> {
                 override fun onSuccess(payload: UserProfile?) {
-                        payload?.id?.let {
-                            usersClient.getProfile(it)
-                                .start(object : BaseCallback<UserProfile?,
-                                        ManagementException?> {
-                                    override fun onSuccess(profile: UserProfile?) {
-                                        loginConnection.invoke(profile)
-                                    }
+                    payload?.id?.let {
+                        usersClient.getProfile(it)
+                            .start(object : BaseCallback<UserProfile?,
+                                    ManagementException?> {
+                                override fun onSuccess(profile: UserProfile?) {
+                                    loginConnection.invoke(profile)
+                                }
 
-                                    override fun onFailure(error: ManagementException) {
-                                        print(error) // TODO error login
-                                    }
-                                })
-                        }
+                                override fun onFailure(error: ManagementException) {
+                                    print(error) // TODO error login
+                                }
+                            })
+                    }
                 }
 
                 override fun onFailure(error: AuthenticationException) {
@@ -123,4 +119,15 @@ open class Auth0BaseFragment : Fragment() {
                 }
             })
     }
+
+    companion object {
+        private const val CALLBACK_PROFILE_URL = "https://%s/api/v2/"
+        private const val SCHEME = "demo"
+        private const val SCOPE =
+            "openid profile email offline_access read:current_user update:current_user_metadata"
+        private const val STATE = "fight-pandemics"
+        private const val MONGO_DB_ID = "mongo_id"
+        private const val PACKAGE_NAME = "com.fightpandemics"
+    }
+
 }
