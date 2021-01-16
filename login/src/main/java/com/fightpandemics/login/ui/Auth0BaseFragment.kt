@@ -22,14 +22,6 @@ open class Auth0BaseFragment : Fragment() {
     lateinit var auth0: Auth0
     @Inject
     lateinit var authTokenLocalDataSource: AuthTokenLocalDataSource
-    companion object {
-        private const val CALLBACK_PROFILE_URL = "https://%s/api/v2/"
-        private const val SCHEME = "demo"
-        private const val SCOPE = "openid profile email offline_access read:current_user update:current_user_metadata"
-        private const val STATE = "fight-pandemics"
-        private const val MONGO_DB_ID = "mongo_id"
-        private const val PACKAGE_NAME = "com.fightpandemics"
-    }
 
     fun init() {
         auth0 = Auth0(
@@ -37,6 +29,15 @@ open class Auth0BaseFragment : Fragment() {
             resources.getString(R.string.com_auth0_domain)
         )
         auth0.isOIDCConformant = true
+    }
+
+    companion object {
+        private const val CALLBACK_PROFILE_URL = "https://%s/api/v2/"
+        private const val SCHEME = "demo"
+        private const val SCOPE = "openid profile email offline_access read:current_user update:current_user_metadata"
+        private const val STATE = "fight-pandemics"
+        private const val MONGO_DB_ID = "mongo_id"
+        private const val PACKAGE_NAME = "com.fightpandemics"
     }
 
     fun doSocialLogin(loginConnection: LoginConnection) = WebAuthProvider.login(auth0)
@@ -65,10 +66,14 @@ open class Auth0BaseFragment : Fragment() {
                             authTokenLocalDataSource.setUserId(userProfile?.appMetadata?.get(MONGO_DB_ID) as String?)
                             authTokenLocalDataSource.setToken(credentials.accessToken)
                             when (loginConnection) {
-                                LoginConnection.LINKEDIN_SIGNUP, LoginConnection.FACEBOOK_SIGNUP, LoginConnection.GOOGLE_SIGNUP -> {
+                                LoginConnection.LINKEDIN_SIGNUP,
+                                LoginConnection.FACEBOOK_SIGNUP,
+                                LoginConnection.GOOGLE_SIGNUP -> {
                                     findNavController().navigate(R.id.action_signUpFragment_to_completeProfileFragment)
                                 }
-                                LoginConnection.LINKEDIN_SIGNIN, LoginConnection.FACEBOOK_SIGNIN, LoginConnection.GOOGLE_SIGNIN -> {
+                                LoginConnection.LINKEDIN_SIGNIN,
+                                LoginConnection.FACEBOOK_SIGNIN,
+                                LoginConnection.GOOGLE_SIGNIN -> {
                                     goMain()
                                 }
                             }
@@ -95,24 +100,26 @@ open class Auth0BaseFragment : Fragment() {
         val authenticationAPIClient = AuthenticationAPIClient(auth0)
         val usersClient = UsersAPIClient(auth0, accessToken)
         authenticationAPIClient.userInfo(accessToken)
-            .start(object : BaseCallback<UserProfile?, AuthenticationException?> {
+            .start(object : BaseCallback<UserProfile?,
+                    AuthenticationException?> {
                 override fun onSuccess(payload: UserProfile?) {
                         payload?.id?.let {
                             usersClient.getProfile(it)
-                                .start(object : BaseCallback<UserProfile?, ManagementException?> {
+                                .start(object : BaseCallback<UserProfile?,
+                                        ManagementException?> {
                                     override fun onSuccess(profile: UserProfile?) {
                                         loginConnection.invoke(profile)
                                     }
 
                                     override fun onFailure(error: ManagementException) {
-                                        print(error) //TODO error login
+                                        print(error) // TODO error login
                                     }
                                 })
                         }
                 }
 
                 override fun onFailure(error: AuthenticationException) {
-                    print(error) //TODO error login
+                    print(error) // TODO error login
                 }
             })
     }
