@@ -4,5 +4,4 @@
         <attr name="imageUrl" format="string"/>
         <attr name="userInitials" format="string" />
     </declare-styleable>
-
 </resources>

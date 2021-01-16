@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ic_cancel"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_cancel" />
+
+    <TextView
+        android:id="@+id/create_post"
+        style="@style/AndroidNativeH122Px"
+        android:layout_width="152dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="148dp"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Create a post" />
+
+    <com.fightpandemics.home.custom.ProfileImageView
+        android:id="@+id/user_avatar"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="14dp"
+        app:aiv_borderColor="?colorPrimary"
+        app:aiv_borderWidth="2dp"
+        app:aiv_initials="VM"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ic_cancel" />
+
+    <Button
+        android:id="@+id/name"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="120dp"
+        android:backgroundTint="@color/fightPandemicsGhostWhite"
+        android:drawableEnd="@drawable/ic_arrow_down"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="3sp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="11sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_post"
+        tools:text="Victor Maragiaglio" />
+
+    <Button
+        android:id="@+id/offer"
+        style="@style/AndroidNativeP212Px"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/button_shadow_left"
+        android:backgroundTint="@color/fightPandemicsGhostWhite"
+        android:text="Offer"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <Button
+        android:id="@+id/request"
+        style="@style/AndroidNativeP212Px"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/button_shadow_right"
+        android:backgroundTint="#f2f2f2"
+        android:text="Request"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@+id/offer"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/offer"
+        app:srcCompat="@drawable/ic_line_73"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/AndroidNativeH122Px"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:text="I have 100 face Masks to give away."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/error"
+        style="@style/AndroidNativeP311Px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="It exceeds 60 characters."
+        android:textColor="#ff5656"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/description"
+        style="@style/AndroidNativeP114Px"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:text="I have a small store and I would like to give away 100 mask but I don’t know where, please contact me if you need t. I have a small store and I would like to give away 100 mask but I don’t know where, please contact"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/error"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/line1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:srcCompat="@drawable/ic_line_73"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/postView"
+        style="@style/AndroidNativeH216Px"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:text="Who can see this post and for how long?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line1"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="@color/fightPandemicsGhostWhite"
+        android:drawableEnd="@drawable/ic_arrow_down"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="3sp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="11sp"
+        android:textStyle="normal"
+        app:layout_constraintBaseline_toBaselineOf="@+id/month"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="People in the city" />
+
+    <Button
+        android:id="@+id/month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/fightPandemicsGhostWhite"
+        android:drawableEnd="@drawable/ic_arrow_down"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="3sp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="11sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@id/people"
+        app:layout_constraintTop_toBottomOf="@+id/postView"
+        tools:text="For 1 Month" />
+
+    <TextView
+        android:id="@+id/postTag"
+        style="@style/AndroidNativeH216Px"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:text="Add tags to help boost your visibility"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/people"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#f2f2f2"
+        android:drawableLeft="@drawable/ic_tag"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="3sp"
+        android:textAllCaps="false"
+        android:textColor="#333333"
+        android:textSize="11sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postTag"
+        tools:text="Add Tag" />
+
+    <Button
+        android:id="@+id/post"
+        android:layout_width="320dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button_post"
+        android:backgroundTint="#425af2"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="3sp"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tag"
+        tools:text="Post" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

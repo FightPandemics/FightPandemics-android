@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_filter"
+    app:startDestination="@id/filterFragment">
+
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.fightpandemics.filter.ui.FilterFragment"
+        android:label="Filter"
+        app:moduleName="Fight_Pandemics.filter"
+        tools:layout="@layout/filter_start_fragment" >
+
+        <!--<action
+            android:id="@+id/action_homeFragment_to_filterFragment"
+            app:destination="@id/nav_filter" />-->
+
+    </fragment>
+
+<!--    <include app:graph="@navigation/nav_home" />-->
+
+</navigation>

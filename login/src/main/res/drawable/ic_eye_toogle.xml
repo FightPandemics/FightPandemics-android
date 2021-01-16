@@ -1,0 +1,29 @@
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="NewApi">
+
+  <item
+      android:id="@+id/visible"
+      android:drawable="@drawable/ic_password_eye"
+      android:state_checked="true"
+      android:backgroundTint="@color/fightPandemicsPerano"
+      />
+
+  <item
+      android:id="@+id/masked"
+      android:drawable="@drawable/ic_password_eye_masked"
+      android:backgroundTint="@color/fightPandemicsPerano"
+      />
+
+  <transition
+      android:drawable="@drawable/ic_password_eye"
+      android:fromId="@id/masked"
+      android:toId="@id/visible"/>
+
+  <transition
+      android:drawable="@drawable/ic_password_eye_masked"
+      android:fromId="@id/visible"
+      android:toId="@id/masked"/>
+
+</animated-selector>

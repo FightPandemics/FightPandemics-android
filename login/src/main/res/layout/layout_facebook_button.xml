@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.button.MaterialButton
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/facebookSignin"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    style="@style/SocialButton"
+    android:text="@string/continue_with_facebook"
+    android:textColor="@color/colorWhite"
+    app:backgroundTint="@color/color_facebook_button"
+    app:icon="@drawable/ic_facebook"
+    app:iconPadding="15dp" />

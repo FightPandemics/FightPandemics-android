@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_sign_up"
+    app:startDestination="@id/signUpFragment">
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.fightpandemics.login.ui.signup.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+
+        <action
+            android:id="@+id/action_signUpFragment_to_completeProfileFragment"
+            app:destination="@id/completeProfileFragment"
+            app:popUpTo="@id/signInEmailFragment"
+            app:popUpToInclusive="false" />
+
+        <action
+            android:id="@+id/action_signupFragment_to_signUpEmailFragment"
+            app:destination="@id/signUpEmailFragment"
+            app:popUpTo="@id/signInEmailFragment"
+            app:popUpToInclusive="false" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/completeProfileFragment"
+        android:name="com.fightpandemics.login.ui.profile.CompleteProfileFragment"
+        android:label="fragment_complete_profile"
+        tools:layout="@layout/fragment_complete_profile">
+        <argument
+            android:name="userEmail"
+            app:argType="string"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpEmailFragment"
+        android:name="com.fightpandemics.login.ui.signup.SignUpEmailFragment"
+        android:label="fragment_signup_email"
+        tools:layout="@layout/fragment_sign_up_email">
+
+        <action
+            android:id="@+id/action_signupEmailFragment_to_signinEmailFragment"
+            app:destination="@id/signInEmailFragment"
+            app:popUpTo="@id/signInEmailFragment"
+            app:popUpToInclusive="false" />
+
+        <action
+            android:id="@+id/action_signupEmailFragment_to_verifyEmailFragment"
+            app:destination="@id/verifyEmailFragment"
+            app:popUpToInclusive="false" />
+
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/verifyEmailFragment"
+        android:name="com.fightpandemics.login.ui.verify.VerifyEmailFragment"
+        android:label="fragment_verify_email"
+        tools:layout="@layout/fragment_verify_email">
+
+    </fragment>
+
+</navigation>
