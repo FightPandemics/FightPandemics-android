@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:paddingHorizontal="@dimen/feedback_horizontal_margin"
+    android:paddingVertical="@dimen/feedback_vertical_padding">
+
+    <TextView
+        android:id="@+id/rating_text"
+        style="@style/AndroidNativeP114Px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/how_has_covid_19_impacted_you"
+        app:layout_constraintBottom_toTopOf="@+id/rating_radio_group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/rating_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rating_text">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rating_1"
+            style="@style/VerticalRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/go_to_work_school" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rating_2"
+            style="@style/VerticalRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/healthy_but_in_a_stay_at_home" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rating_3"
+            style="@style/VerticalRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mild_symptoms" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rating_4"
+            style="@style/VerticalRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/diagnosed_with_covid_19" />
+
+    </RadioGroup>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
