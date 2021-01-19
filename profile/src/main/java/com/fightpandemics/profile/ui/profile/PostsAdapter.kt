@@ -28,8 +28,6 @@ class PostsAdapter: RecyclerView.Adapter<PostViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemBinding: ItemUserPostsBinding = ItemUserPostsBinding.inflate(layoutInflater, parent, false)
-//        val view = LayoutInflater.from(parent.context)
-//            .inflate(R.layout.item_user_posts, parent, false)
         return PostViewHolder(itemBinding)
     }
 
@@ -42,5 +40,6 @@ class PostsAdapter: RecyclerView.Adapter<PostViewHolder>() {
     override fun getItemCount(): Int {
         return data.size
     }
+
 
 }

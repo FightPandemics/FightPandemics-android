@@ -12,6 +12,7 @@ import com.fightpandemics.core.utils.GlideApp
 import com.fightpandemics.core.widgets.ProfileImageView
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.databinding.ItemUserPostsBinding
+import com.fightpandemics.profile.databinding.SingleChipLayoutBinding
 import com.fightpandemics.profile.util.userInitials
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.item_user_posts.view.*
@@ -20,7 +21,6 @@ import java.util.*
 class PostViewHolder(private var itemBinding: ItemUserPostsBinding): RecyclerView.ViewHolder(itemBinding.root) {
 
     fun bind(post: Post, onItemClickListener: ((Post) -> Unit)?){
-        itemBinding
         with(itemBinding.root){
 
             if (post.author?.photo != null) {
@@ -39,18 +39,30 @@ class PostViewHolder(private var itemBinding: ItemUserPostsBinding): RecyclerVie
                 )
             }
 
+            itemBinding.objective.text = post.objective?.capitalize(Locale.ROOT)
+            itemBinding.userFullName.text = post.author?.name
+            itemBinding.postTitle.text = post.title
+            itemBinding.userLocation.text =
+                post.author?.location?.city.plus(", ").plus(post.author?.location?.country)
 
+            itemBinding.postContent.text = post.content
+
+            itemBinding.chipGroup.removeAllViews()
+            for (type: String in post.types!!) {
+                val singleChipLayoutBinding = SingleChipLayoutBinding.inflate(
+                    LayoutInflater.from(this.context),
+                    itemBinding.chipGroup,
+                    false
+                )
+                singleChipLayoutBinding.chip.text = type
+                singleChipLayoutBinding.chip.isEnabled = false
+
+                itemBinding.chipGroup.addView(singleChipLayoutBinding.chip)
+            }
 
 
         }
 
-        itemBinding.objective.text = post.objective?.capitalize(Locale.ROOT)
-        itemBinding.userFullName.text = post.author?.name
-        itemBinding.postTitle.text = post.title
-        itemBinding.userLocation.text =
-            post.author?.location?.city.plus(", ").plus(post.author?.location?.country)
-
-        itemBinding.postContent.text = post.content
 
 
 
@@ -66,24 +78,10 @@ class PostViewHolder(private var itemBinding: ItemUserPostsBinding): RecyclerVie
             text = post.likesCount.toString()
         }
 
-
-
         itemBinding.commentsCount.text = post.commentsCount.toString()
 //
 //
 //
-//        itemBinding.chipGroup.removeAllViews()
-//        for (type: String in post.types!!) {
-//            val singleChipLayoutBinding = SingleChipLayoutBinding.inflate(
-//                LayoutInflater.from(this.context),
-//                itemBinding.chipGroup,
-//                false
-//            )
-//            singleChipLayoutBinding.chip.text = type
-//            singleChipLayoutBinding.chip.isEnabled = false
-//
-//            itemBinding.chipGroup.addView(singleChipLayoutBinding.chip)
-//        }
 //
 //
 //

@@ -23,4 +23,13 @@
         <item name="android:indeterminateTint">@color/colorPrimary</item>
     </style>
 
+    <style name="ChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="backgroundTint">@color/fightPandemicsGhostWhite</item>
+        <item name="chipCornerRadius">4dp</item>
+    </style>
+
 </resources>
