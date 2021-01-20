@@ -18,7 +18,7 @@ import com.fightpandemics.login.R
 import javax.inject.Inject
 
 open class Auth0BaseFragment : Fragment() {
-    lateinit var auth0: Auth0
+    private lateinit var auth0: Auth0
 
     @Inject
     lateinit var authTokenLocalDataSource: AuthTokenLocalDataSource
@@ -88,7 +88,7 @@ open class Auth0BaseFragment : Fragment() {
         startActivity(intent).apply { requireActivity().finish() }
     }
 
-    fun getProfile(
+    private fun getProfile(
         accessToken: String,
         loginConnection: (user: UserProfile?) -> Unit
     ) {
