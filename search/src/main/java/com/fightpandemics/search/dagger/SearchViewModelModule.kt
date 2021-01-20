@@ -1,8 +1,8 @@
 package com.fightpandemics.search.dagger
 
 import androidx.lifecycle.ViewModel
-import com.fightpandemics.search.ui.SearchViewModel
 import com.fightpandemics.core.utils.ViewModelKey
+import com.fightpandemics.search.ui.SearchViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

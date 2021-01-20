@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_nav_background"
+    android:paddingBottom="20dp"
+    android:layout_gravity="top">
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_line_75"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/active"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:text="@string/how_long_should_this_post_be_active_for"
+        android:lineSpacingExtra="6sp"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/day"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="7sp"
+        android:textAllCaps="false"
+        android:background="@color/fightPandemicsWhiteSmoke"
+        android:text="@string/a_day"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/active"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/week"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="7sp"
+        android:textAllCaps="false"
+        android:background="@color/fightPandemicsWhiteSmoke"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="15sp"
+        android:text="@string/a_week"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/day"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/month"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="7sp"
+        android:textAllCaps="false"
+        android:background="@color/fightPandemicsWhiteSmoke"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="15sp"
+        android:text="@string/a_month"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/week"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/forever"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="7sp"
+        android:textAllCaps="false"
+        android:background="@color/fightPandemicsWhiteSmoke"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="15sp"
+        android:text="@string/forever"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/month"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

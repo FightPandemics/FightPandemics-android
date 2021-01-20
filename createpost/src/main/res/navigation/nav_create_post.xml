@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_create_post"
+    app:startDestination="@id/createPostFragment">
+
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="com.fightpandemics.createpost.ui.CreatePostFragment"
+        android:label="Create Post"
+        app:moduleName="Fight_Pandemics.createpost"
+        tools:layout="@layout/fragment_create_post" >
+
+        <action
+            android:id="@+id/action_createPostFragment_to_selectDurationFragment"
+            app:destination="@id/selectDurationFragment" />
+
+        <action
+            android:id="@+id/action_createPostFragment_to_selectVisibilityFragment"
+            app:destination="@id/selectVisibilityFragment" />
+        <action
+            android:id="@+id/action_createPostFragment_to_selectTagFragment"
+            app:destination="@id/selectTagFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/selectDurationFragment"
+        android:name="com.fightpandemics.createpost.ui.SelectDurationFragment"
+        android:label=""
+        tools:layout="@layout/fragment_select_duration"/>
+
+    <dialog
+        android:id="@+id/selectVisibilityFragment"
+        android:name="com.fightpandemics.createpost.ui.SelectVisibilityFragment"
+        android:label=""
+        tools:layout="@layout/fragment_select_visibility"/>
+
+    <dialog
+        android:id="@+id/selectTagFragment"
+        android:name="com.fightpandemics.createpost.ui.SelectTagFragment"
+        android:label=""
+        tools:layout="@layout/fragment_select_tag"/>
+</navigation>

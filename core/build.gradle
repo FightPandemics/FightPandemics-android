@@ -46,6 +46,9 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    // Material Design
+    implementation "com.google.android.material:material:${versions.material}"
+
     // Moshi
     implementation "com.squareup.moshi:moshi-kotlin:${versions.moshi}"
     implementation "com.squareup.moshi:moshi:${versions.moshi}"
@@ -58,4 +61,10 @@ dependencies {
     // Dagger
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
 
+    // Location
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
+
+}
+repositories {
+    mavenCentral()
 }

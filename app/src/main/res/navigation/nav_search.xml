@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_search"
@@ -9,8 +8,21 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.fightpandemics.search.ui.SearchFragment"
-        app:moduleName="Fight_Pandemics.search"
         android:label="Search"
-        tools:layout="@layout/search_fragment" />
+        app:moduleName="Fight_Pandemics.search"
+        tools:layout="@layout/search_fragment">
+
+        <action
+            android:id="@+id/action_searchFragment_to_createPostFragment"
+            app:destination="@id/nav_create_post"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+
+    </fragment>
+
+    <include app:graph="@navigation/nav_create_post" />
 
 </navigation>

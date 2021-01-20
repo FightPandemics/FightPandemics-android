@@ -36,19 +36,20 @@
 
     <TextView
         android:id="@+id/filters_applied_text"
+        style="@style/AndroidNativeP212Px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        style="@style/AndroidNativeP212Px"
+        android:layout_marginStart="@dimen/applied_text_start_margin"
+        android:text="@string/filters_applied_placeholder"
         android:textColor="@color/fightPandemicsSuvaGrey"
-        android:text="0 applied"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@+id/type_text"
         app:layout_constraintBottom_toBottomOf="@+id/type_empty_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/type_text"
         app:layout_constraintTop_toTopOf="@+id/type_empty_card"
-        android:visibility="gone"
-        tools:visibility="visible"
-        app:layout_constraintVertical_bias="0.405" />
+        app:layout_constraintVertical_bias="0.405"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

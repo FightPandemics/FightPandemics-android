@@ -8,8 +8,21 @@
     <fragment
         android:id="@+id/inboxFragment"
         android:name="com.fightpandemics.inbox.ui.InboxFragment"
-        app:moduleName="Fight_Pandemics.inbox"
         android:label="Inbox"
-        tools:layout="@layout/inbox_fragment" />
+        app:moduleName="Fight_Pandemics.inbox"
+        tools:layout="@layout/inbox_fragment">
+
+        <action
+            android:id="@+id/action_inboxFragment_to_createPostFragment"
+            app:destination="@id/nav_create_post"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
+
+    </fragment>
+
+    <include app:graph="@navigation/nav_create_post" />
 
 </navigation>

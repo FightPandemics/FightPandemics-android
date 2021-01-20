@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.fightpandemics.core.widgets.ProfileImageView
+        android:id="@+id/organisation_avatar"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:background="#f3f4fe"
+        app:aiv_borderColor="?colorPrimary"
+        app:aiv_borderWidth="2dp"
+        app:aiv_initials="VM"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/organisation_name"
+        style="@style/AndroidNativeH314Px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/organisation_avatar"
+        app:layout_constraintStart_toEndOf="@+id/organisation_avatar"
+        app:layout_constraintTop_toTopOf="@+id/organisation_avatar"
+        tools:text="Notion.io" />
+
+    <RadioButton
+        android:id="@+id/select_organisation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/organisation_avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/organisation_avatar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
