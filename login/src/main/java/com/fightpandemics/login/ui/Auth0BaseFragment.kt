@@ -119,8 +119,8 @@ open class Auth0BaseFragment : Fragment() {
                     override fun onFailure(error: AuthenticationException) {
                         print(error) // TODO error login
                     }
-                })
-
+                }
+            )
     }
 
     companion object {
