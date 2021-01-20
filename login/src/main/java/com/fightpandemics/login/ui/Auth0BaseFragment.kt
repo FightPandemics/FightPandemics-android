@@ -101,7 +101,8 @@ open class Auth0BaseFragment : Fragment() {
                     override fun onSuccess(payload: UserProfile?) {
                         payload?.id?.let {
                             usersClient.getProfile(it)
-                                .start(object : BaseCallback<UserProfile?,
+                                .start(
+                                    object : BaseCallback<UserProfile?,
                                         ManagementException?> {
                                         override fun onSuccess(profile: UserProfile?) {
                                             loginConnection.invoke(profile)
@@ -119,6 +120,7 @@ open class Auth0BaseFragment : Fragment() {
                         print(error) // TODO error login
                     }
                 })
+
     }
 
     companion object {
