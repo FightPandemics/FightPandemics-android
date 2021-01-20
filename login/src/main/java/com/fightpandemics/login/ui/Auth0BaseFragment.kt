@@ -17,7 +17,6 @@ import com.fightpandemics.core.data.local.AuthTokenLocalDataSource
 import com.fightpandemics.login.R
 import javax.inject.Inject
 
-
 open class Auth0BaseFragment : Fragment() {
     lateinit var auth0: Auth0
 
@@ -45,7 +44,7 @@ open class Auth0BaseFragment : Fragment() {
                 {
                     Toast.makeText(
                         context,
-                        "Unexpected error, try again later",
+                        getString(R.string.unnexpected_error_login),
                         Toast.LENGTH_LONG
                     ).show()
                 },
@@ -98,20 +97,20 @@ open class Auth0BaseFragment : Fragment() {
         authenticationAPIClient.userInfo(accessToken)
             .start(
                 object : BaseCallback<UserProfile?,
-                        AuthenticationException?> {
+                    AuthenticationException?> {
                     override fun onSuccess(payload: UserProfile?) {
                         payload?.id?.let {
                             usersClient.getProfile(it)
                                 .start(object : BaseCallback<UserProfile?,
                                         ManagementException?> {
-                                    override fun onSuccess(profile: UserProfile?) {
-                                        loginConnection.invoke(profile)
-                                    }
+                                        override fun onSuccess(profile: UserProfile?) {
+                                            loginConnection.invoke(profile)
+                                        }
 
-                                    override fun onFailure(error: ManagementException) {
-                                        print(error) // TODO error login
+                                        override fun onFailure(error: ManagementException) {
+                                            print(error) // TODO error login
+                                        }
                                     }
-                                }
                                 )
                         }
                     }
