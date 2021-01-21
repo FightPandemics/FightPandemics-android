@@ -4,5 +4,3 @@ import dagger.Module
 
 @Module/*(includes = [LoginModule::class])*/
 class AppModule
-
-

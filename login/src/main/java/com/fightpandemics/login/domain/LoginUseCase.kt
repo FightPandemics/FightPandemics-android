@@ -4,6 +4,7 @@ import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
 import com.fightpandemics.core.data.model.login.LoginRequest
 import com.fightpandemics.core.data.model.login.LoginResponse
+import com.fightpandemics.core.data.model.login.SignUpRequest
 import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.core.domain.usecase.FlowUseCase
 import com.fightpandemics.core.result.Result

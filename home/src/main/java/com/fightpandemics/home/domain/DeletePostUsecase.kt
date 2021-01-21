@@ -9,5 +9,4 @@ import javax.inject.Inject
 class DeletePostUsecase @Inject constructor(
     private val postsRepository: PostsRepository,
     dispatcherProvider: CoroutinesDispatcherProvider,
-) {
-}
+)

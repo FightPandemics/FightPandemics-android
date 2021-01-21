@@ -1,22 +1,37 @@
 package com.fightpandemics.home.ui
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.fightpandemics.core.data.model.posts.Post
+import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.home.R
+import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.databinding.EditDeleteBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import javax.inject.Inject
 
+// BottomSheetDialog for Edit and Delete options.
 class HomeOptionsBottomSheetFragment : BottomSheetDialogFragment() {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
     private var editDeleteBinding: EditDeleteBinding? = null
 
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = BottomSheetDialog(requireContext(), theme)
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
+        BottomSheetDialog(requireContext(), theme)
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +45,8 @@ class HomeOptionsBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpViews()
+        val post = arguments?.let { HomeOptionsBottomSheetFragmentArgs.fromBundle(it).post }
+        setUpActions(post)
     }
 
     override fun onDestroyView() {
@@ -38,29 +54,24 @@ class HomeOptionsBottomSheetFragment : BottomSheetDialogFragment() {
         super.onDestroyView()
     }
 
-    private fun setUpViews() {
-        // We can have cross button on the top right corner for providing elemnet to dismiss the bottom sheet
-        //iv_close.setOnClickListener { dismissAllowingStateLoss() }
+    private fun setUpActions(post: Post?) {
+        // Edit a post.
+        editDeleteBinding!!.btnEditPost.setOnClickListener {
+            // Launch CreatePost filled with elements from this "post".
+            findNavController().navigate(
+                HomeOptionsBottomSheetFragmentDirections
+                    .actionHomeOptionsBottomSheetFragmentToCreatePostFragment(post)
+            )
+            dismissAllowingStateLoss()
+        }
 
-//         txt_download.setOnClickListener {
-//             dismissAllowingStateLoss()
-//             Toast.makeText(application, "Download option clicked", Toast.LENGTH_LONG)
-//                 .show()
-//         }
-
-//         txt_share.setOnClickListener {
-//             dismissAllowingStateLoss()
-//             Toast.makeText(application, "Share option clicked", Toast.LENGTH_LONG)
-//                 .show()
-//         }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(/*bundle: Bundle*/): HomeOptionsBottomSheetFragment {
-            val fragment = HomeOptionsBottomSheetFragment()
-            //fragment.arguments = bundle
-            return fragment
+        // Delete a post.
+        editDeleteBinding!!.btnDeletePost.setOnClickListener {
+            // Launch DialogFragment the "post"
+            val bundle = Bundle()
+            bundle.putParcelable("post", post)
+            DeleteDialogFragment.newInstance(bundle).show(childFragmentManager, "")
+            dismissAllowingStateLoss()
         }
     }
 }

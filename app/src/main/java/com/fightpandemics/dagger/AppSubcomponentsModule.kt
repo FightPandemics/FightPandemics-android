@@ -12,6 +12,7 @@ import dagger.Module
         SplashComponent::class,
         LoginComponent::class,
         FilterComponent::class,
-        CreatePostComponent::class]
+        CreatePostComponent::class
+    ]
 )
 class AppSubcomponentsModule

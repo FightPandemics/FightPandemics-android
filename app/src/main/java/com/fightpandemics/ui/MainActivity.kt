@@ -17,9 +17,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.fightpandemics.R
 import com.fightpandemics.utils.setupWithNavController
@@ -31,9 +28,9 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var fab: FloatingActionButton
+    private lateinit var dot: ImageView
     private lateinit var fabCreateAsOrg: MaterialButton
     private lateinit var fabCreateAsIndividual: MaterialButton
-    private lateinit var dot: ImageView
     private lateinit var fabOpen: Animation
     private lateinit var fabClose: Animation
     private lateinit var rotateForward: Animation
@@ -110,7 +107,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 dot.visibility = View.VISIBLE
                 fab.show()
             }
-            R.id.filterFragment, R.id.createPostFragment -> hideBottomBar()
+            R.id.filterFragment, R.id.createPostFragment, R.id.settingFragment -> hideBottomBar()
         }
     }
 

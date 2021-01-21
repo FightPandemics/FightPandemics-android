@@ -16,17 +16,41 @@
         <item name="chipCornerRadius">4dp</item>
     </style>
 
+    <style name="HomeFilterChipStyle" parent="Widget.MaterialComponents.Chip.Entry">
+        <item name="android:enabled">false</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="chipBackgroundColor">@color/fightPandemicsGhostWhite</item>
+        <item name="chipCornerRadius">4dp</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStrokeColor">@color/fightPandemicsNeonBlue</item>
+        <item name="closeIcon">@drawable/ic_cancel</item>
+        <item name="closeIconVisible">true</item>
+        <item name="closeIconTint">@null</item>
+        <item name="closeIconEnabled">true</item>
+        <item name="closeIconEndPadding">4dp</item>
+        <item name="closeIconSize">20dp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
+    </style>
+
     <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
 
-    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.MaterialComponents.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@color/color_white</item>
         <item name="bottomSheetStyle">@style/BottomSheet</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Design.BottomSheetDialog</item>
     </style>
 
     <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bottom_nav_background</item>
+    </style>
+
+    <style name="BottomSheetDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
     </style>
 
     <style name="buttonEdit" parent="Widget.MaterialComponents.Button.OutlinedButton">

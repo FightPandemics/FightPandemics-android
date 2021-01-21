@@ -30,7 +30,7 @@ class ProfileImageView @JvmOverloads constructor(
         private const val DEFAULT_BORDER_COLOR = Color.WHITE
         private const val DEFAULT_SIZE = 40
 
-        //Not basically using an array of background colors in this project
+        // Not basically using an array of background colors in this project
         val bgColors = arrayOf(
             Color.parseColor("#FFFFFF")
         )
@@ -261,6 +261,5 @@ class ProfileImageView @JvmOverloads constructor(
 
             override fun newArray(size: Int): Array<SavedState?> = arrayOfNulls(size)
         }
-
     }
 }

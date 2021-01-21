@@ -17,7 +17,7 @@ class SelectDurationFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentSelectDurationBinding.inflate(inflater, container, false)
         fragmentSelectDurationBinding = binding
         return binding.root

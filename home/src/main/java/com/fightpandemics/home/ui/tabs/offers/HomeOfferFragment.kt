@@ -9,11 +9,11 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.home.R
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.ui.HomeViewModel
 import com.fightpandemics.home.ui.tabs.PostsAdapter
-import com.fightpandemics.core.utils.ViewModelFactory
 import javax.inject.Inject
 
 class HomeOfferFragment : Fragment() {
@@ -55,22 +55,24 @@ class HomeOfferFragment : Fragment() {
     }
 
     private fun getOfferPosts() {
-        //errorLoadingText.visibility = View.GONE
+        // errorLoadingText.visibility = View.GONE
 
-        //homeViewModel.getOffers("offer")
-        homeViewModel.offerState.observe(viewLifecycleOwner, {
-            when {
-                it.isLoading -> bindLoading(it.isLoading)
-                it.posts!!.isNotEmpty() -> {
-                    bindLoading(it.isLoading)
-                    postList.visibility = View.VISIBLE
-                    postAdapter.submitList(it.posts)
+        // homeViewModel.getOffers("offer")
+        homeViewModel.offerState.observe(
+            viewLifecycleOwner,
+            {
+                when {
+                    it.isLoading -> bindLoading(it.isLoading)
+                    it.posts!!.isNotEmpty() -> {
+                        bindLoading(it.isLoading)
+                        postList.visibility = View.VISIBLE
+                        postAdapter.submitList(it.posts)
+                    }
                 }
             }
-        })
+        )
         postAdapter.notifyDataSetChanged()
         postList.adapter = postAdapter
-
 
 //        sharedHomeViewModel.state.observe(viewLifecycleOwner, onChanged = {
 //            when {
@@ -115,5 +117,4 @@ class HomeOfferFragment : Fragment() {
     private fun bindLoading(isLoading: Boolean) {
         progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
-
 }

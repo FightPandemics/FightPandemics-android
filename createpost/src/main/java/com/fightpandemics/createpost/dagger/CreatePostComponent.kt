@@ -9,6 +9,8 @@ import dagger.Subcomponent
 import kotlinx.coroutines.InternalCoroutinesApi
 
 /**
+ * created by Osaigbovo Odiase
+ *
  * Component binding injections for the [:createpost] module.
  */
 @ActivityScope

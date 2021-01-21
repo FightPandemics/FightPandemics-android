@@ -21,5 +21,5 @@ interface SplashComponent {
     fun inject(onBoardFragment: OnBoardFragment)
 
     fun providesOnBoardCompleteActionUseCase(): OnBoardCompleteActionUseCase
-    fun providesOnBoardCompletedUseCase() : OnBoardCompletedUseCase
+    fun providesOnBoardCompletedUseCase(): OnBoardCompletedUseCase
 }

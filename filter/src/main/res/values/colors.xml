@@ -26,12 +26,12 @@
     <color name="fightPandemicsSuvaGrey">#939393</color>
     <color name="fightPandemicsSilver">#C5C5C5</color>
     <color name="fightPandemicsLightGrey">#D7D7D7</color>
+    <color name="fightPandemicsLightGreyVariant">#4CD7D7D7</color>
     <color name="fightPandemicsGhostWhite2">#F6F7FB</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorWhite_30p">#4DFFFFFF</color>
     <color name="fightPandemicsSnow">#F9F9F9</color>
     <color name="fightPandemicsWhiteSmoke">#F2F2F2</color>
-
 
     <!-- We use a dark scrim by default since light status is API 23+ -->
     <color name="status_bar_scrim">@color/system_ui_scrim_black</color>

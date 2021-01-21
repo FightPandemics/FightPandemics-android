@@ -22,4 +22,8 @@ class LoginRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun changePassword(email: String): Response<ChangePasswordResponse> =
         fightPandemicsAPI.changePassword(email)
+
+    override suspend fun completeProfile(request: CompleteProfileRequest): Response<CompleteProfileResponse> {
+        return fightPandemicsAPI.completeProfile(request)
+    }
 }

@@ -1,13 +1,12 @@
 package com.fightpandemics.home.ui.tabs
 
 import android.annotation.SuppressLint
-import android.content.DialogInterface
-import android.view.Gravity
+import android.os.Build
 import android.view.LayoutInflater
-import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentActivity
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 import com.fightpandemics.core.data.model.posts.Post
@@ -16,10 +15,10 @@ import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.ItemAllFeedBinding
 import com.fightpandemics.home.databinding.SingleChipLayoutBinding
 import com.fightpandemics.home.ui.HomeEventListener
-import com.fightpandemics.home.ui.HomeOptionsBottomSheetFragment
+import com.fightpandemics.home.ui.HomeFragmentDirections
+import com.fightpandemics.home.utils.getPostCreated
+import com.fightpandemics.home.utils.sharePost
 import com.fightpandemics.home.utils.userInitials
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import timber.log.Timber
 import java.util.*
 
@@ -32,6 +31,7 @@ class PostsViewHolder(
     fun bind(post: Post, onItemClickListener: ((Post) -> Unit)?) {
         with(itemBinding.root) {
 
+            // Display author avatar
             if (post.author?.photo != null) {
                 GlideApp.with(this)
                     .load(post.author?.photo)
@@ -48,6 +48,7 @@ class PostsViewHolder(
                 )
             }
 
+            //
             itemBinding.objective.text = post.objective?.capitalize(Locale.ROOT)
             itemBinding.userFullName.text = post.author?.name
             itemBinding.postTitle.text = post.title
@@ -55,8 +56,6 @@ class PostsViewHolder(
                 post.author?.location?.city.plus(", ").plus(post.author?.location?.country)
 
             itemBinding.postContent.text = post.content
-
-
 
             itemBinding.like.apply {
                 isChecked = post.liked!!
@@ -66,16 +65,20 @@ class PostsViewHolder(
                 }
             }
 
+            // Display Post like counts
             itemBinding.likesCount.apply {
                 text = post.likesCount.toString()
             }
 
-
-
+            // Display Post comment counts.
             itemBinding.commentsCount.text = post.commentsCount.toString()
 
+            // Share a Post
+            itemBinding.share.setOnClickListener {
+                context.startActivity(sharePost(post.title, post._id))
+            }
 
-
+            // Display Post tags/types.
             itemBinding.chipGroup.removeAllViews()
             for (type: String in post.types!!) {
                 val singleChipLayoutBinding = SingleChipLayoutBinding.inflate(
@@ -88,78 +91,29 @@ class PostsViewHolder(
                 itemBinding.chipGroup.addView(singleChipLayoutBinding.chip)
             }
 
-
-            // Options for User to Edit or Delete his post.
+            // Display Post options to Edit or Delete his/her post.
             when (post.author!!.id) {
                 homeEventListener.userId() -> {
                     itemBinding.postOption.isVisible = true
-
-                    val fragmentManager = (context as FragmentActivity).supportFragmentManager
-                    val homeOptionsBottomSheetFragment =
-                        HomeOptionsBottomSheetFragment.newInstance()
-
                     itemBinding.postOption.setOnClickListener {
-                        homeOptionsBottomSheetFragment
-                            .show(fragmentManager, homeOptionsBottomSheetFragment.tag)
-
-                        // execute the commited transaction before trying to access the view
-                        fragmentManager.executePendingTransactions()
-
-                        // accessing button view
-                        homeOptionsBottomSheetFragment
-                            .view?.findViewById<MaterialButton>(R.id.btn_edit_post)
-                            ?.setOnClickListener {
-                                Timber.e("EDIT ${post.author}")
-                                // TODO - Launch Create Post Screen filled with elements from this post.
-                                homeOptionsBottomSheetFragment.dismissAllowingStateLoss()
-                            }
-
-                        homeOptionsBottomSheetFragment
-                            .view?.findViewById<MaterialButton>(R.id.btn_delete_post)
-                            ?.setOnClickListener {
-
-                                MaterialAlertDialogBuilder(this.context, R.style.PostMaterialDialog)
-                                    .setTitle(R.string.delete_confirm_alert_title)
-                                    .setMessage(R.string.delete_confirm_alert_msg)
-                                    .setNegativeButton("Cancel", null)
-                                    .setPositiveButton("Delete") { dialog, which ->
-                                        Timber.e("DELETE ${post.author}")
-
-                                        homeEventListener.onDeleteClicked(post).apply {
-
-                                        }
-
-                                        // TODO - This Toast in the return of the delete
-                                        val layoutInflater = LayoutInflater.from(context)
-                                        val customLayout = layoutInflater.inflate(
-                                            R.layout.delete_post_feedback,
-                                            findViewById(R.id.delete_post_feedback)
-                                        )
-                                        with(Toast(this.context.applicationContext)){
-                                            duration = Toast.LENGTH_SHORT
-                                            setGravity(Gravity.CENTER_VERTICAL, 0, 0)
-                                            view = customLayout
-                                            show()
-                                        }
-                                    }
-                                    .show()
-
-                                homeOptionsBottomSheetFragment.dismissAllowingStateLoss()
-                            }
+                        findNavController().navigate(
+                            HomeFragmentDirections
+                                .actionHomeFragmentToHomeOptionsBottomSheetFragment(post)
+                        )
                     }
                 }
-                else -> {
-                    itemBinding.postOption.isVisible = false
-                }
+                else -> itemBinding.postOption.isVisible = false
             }
 
+            // Display time of Post
+            "Posted ${getPostCreated(post.createdAt.toString())} ago".also {
+                itemBinding.timePosted.text = it
+            }
 
-            val time_post = 12.toString()
-            itemBinding.timePosted.text = "Posted $time_post hrs ago"
-            //Timber.e(getPostCreated("2020-10-15T15:44:04.009Z").toString())
+            Timber.e(getPostCreated(post.createdAt.toString()))
+            Timber.e(getPostCreated(post.updatedAt.toString())?.plus("EDITED"))
 
             setOnClickListener { onItemClickListener?.invoke(post) }
         }
     }
 }
-

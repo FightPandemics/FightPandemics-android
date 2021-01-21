@@ -6,13 +6,12 @@ import android.os.Handler
 import android.os.Looper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.R
 import com.fightpandemics.core.result.EventObserver
 import com.fightpandemics.core.utils.ViewModelFactory
-import kotlinx.coroutines.delay
 import javax.inject.Inject
+
 
 class SplashFragment : Fragment() {
 
@@ -32,15 +31,18 @@ class SplashFragment : Fragment() {
         }, 2500)
     }
 
+
     private fun launch() {
         splashViewModel.launchDestination.observe(requireActivity(), EventObserver { destination ->
             when (destination) {
                 LaunchDestination.MAIN_ACTIVITY ->
                     findNavController().navigate(R.id.action_splashFragment_to_mainActivity).apply { requireActivity().finish() }
+
                 LaunchDestination.ONBOARD ->
                     findNavController().navigate(R.id.action_splashFragment_to_onboardFragment)
             }.checkAllMatched
         })
+
     }
 }
 

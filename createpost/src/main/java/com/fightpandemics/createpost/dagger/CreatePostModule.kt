@@ -8,6 +8,7 @@ import dagger.Provides
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
+ * created by Osaigbovo Odiase
  * Dagger module providing stuff for [:createpost] module.
  */
 @Module

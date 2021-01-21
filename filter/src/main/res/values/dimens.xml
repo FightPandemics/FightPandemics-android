@@ -4,4 +4,17 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="appbar_padding">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Filter dimens -->
+    <dimen name="filter_options_card_height">230dp</dimen>
+    <dimen name="line_width">1dp</dimen>
+    <dimen name="location_search_icon_padding">8dp</dimen>
+    <dimen name="autocomplete_location_vertical_spacing">8dp</dimen>
+    <!-- Filter clickable cards-->
+    <dimen name="applied_text_start_margin">16dp</dimen>
+    <!-- Filter button -->
+    <dimen name="filter_button_width">156dp</dimen>
+    <dimen name="filter_button_height">60dp</dimen>
+    <dimen name="filter_button_text_size">14sp</dimen>
+
 </resources>

@@ -78,6 +78,9 @@ dependencies {
     // Coil - Image Loading library
     implementation("io.coil-kt:coil:0.11.0")
 
+    // Auth0
+    implementation 'com.auth0.android:auth0:1.29.0'
+
     // Room
     def room = "2.3.0-alpha02"
     implementation "androidx.room:room-runtime:$room"
@@ -90,7 +93,7 @@ dependencies {
 //    detekt("io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version")
 //    detekt("io.gitlab.arturbosch.detekt:detekt-cli:$detekt_version")
 
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
 }
 repositories {
     mavenCentral()
