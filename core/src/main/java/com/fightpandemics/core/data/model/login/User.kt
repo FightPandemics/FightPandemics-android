@@ -8,3 +8,4 @@ data class User(
     @field:Json(name = "id") val id: String,
     @field:Json(name = "lastName") val lastName: String,
     @field:Json(name = "organisations") val organisations: List<Any>
+)
