@@ -39,6 +39,7 @@
         <item name="android:button">@null</item>
         <item name="android:drawableBottom">?android:attr/listChoiceIndicatorSingle</item>
         <item name="android:gravity">center_horizontal|bottom</item>
+    </style>
 
     <!-- Profile -->
     <style name="ProgressBarTheme">
