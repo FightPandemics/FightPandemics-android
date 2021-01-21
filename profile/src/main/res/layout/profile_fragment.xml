@@ -15,12 +15,17 @@
         android:visibility="gone"
         />
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:theme="@style/AppTheme.AppBarOverlay">
+<!--    &lt;!&ndash; TODO: CHECK and remove if not necessary    &ndash;&gt;-->
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appBar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:theme="@style/AppTheme.AppBarOverlay">-->
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -28,17 +33,16 @@
             app:toolbarId="@+id/toolbar">
 
             <include
-
                 layout="@layout/profile_toolbar" />
+<!--            &lt;!&ndash; TODO: CHECK and remove if not necessary            &ndash;&gt;-->
+<!--            <include-->
+<!--                android:id="@+id/toolbar"-->
+<!--                layout="@layout/profile_toolbar" />-->
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-
-
     <include layout="@layout/profile_fragment_content" />
-
 
 </com.fightpandemics.widget.InsetDispatchingCoordinatorLayout>

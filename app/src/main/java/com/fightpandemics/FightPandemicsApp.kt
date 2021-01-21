@@ -7,6 +7,8 @@ import com.fightpandemics.core.dagger.CoreComponentProvider
 import com.fightpandemics.core.dagger.DaggerCoreComponent
 import com.fightpandemics.core.dagger.module.ContextModule
 import com.fightpandemics.core.dagger.module.SharedPreferencesModule
+import com.fightpandemics.createpost.dagger.CreatePostComponent
+import com.fightpandemics.createpost.dagger.CreatePostComponentProvider
 import com.fightpandemics.dagger.AppComponent
 import com.fightpandemics.dagger.DaggerAppComponent
 import com.fightpandemics.filter.dagger.FilterComponent
@@ -16,10 +18,12 @@ import com.fightpandemics.login.dagger.LoginComponentProvider
 import com.jakewharton.threetenabp.AndroidThreeTen
 import timber.log.Timber
 
-open class FightPandemicsApp : Application(),
+open class FightPandemicsApp :
+    Application(),
     CoreComponentProvider,
     LoginComponentProvider,
-    FilterComponentProvider {
+    FilterComponentProvider,
+    CreatePostComponentProvider {
 
     override fun onCreate() {
         // ThreeTenBP for times and dates, called before super to be available for objects
@@ -59,6 +63,10 @@ open class FightPandemicsApp : Application(),
 
     override fun provideFilterComponent(): FilterComponent {
         return appComponent.filterComponent().create()
+    }
+
+    override fun provideCreatePostComponent(): CreatePostComponent {
+        return appComponent.createPostComponent().create()
     }
 
     companion object {

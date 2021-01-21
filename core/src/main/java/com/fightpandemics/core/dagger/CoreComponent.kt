@@ -3,6 +3,7 @@ package com.fightpandemics.core.dagger
 import com.fightpandemics.core.dagger.module.*
 import com.fightpandemics.core.data.api.FightPandemicsAPI
 import com.fightpandemics.core.data.prefs.PreferenceStorage
+import com.fightpandemics.core.domain.repository.LocationRepository
 import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.core.domain.repository.PostsRepository
 import com.fightpandemics.core.domain.repository.ProfileRepository
@@ -10,6 +11,9 @@ import dagger.Component
 import javax.inject.Singleton
 
 /*
+*
+* created by Osaigbovo Odiase
+*
 * @Singleton ensures the same copy of all the dependencies is injected to anything that needs it.
 * @Component makes Dagger create a graph of dependencies.
 * The "modules" attribute tells Dagger what Modules to include when building the graph
@@ -38,14 +42,13 @@ interface CoreComponent {
     }
 
     // The return type of functions inside the component interface is what can be provided from the container
-    //fun provideContext(): Context
+    // fun provideContext(): Context
     fun providesPreferenceStorage(): PreferenceStorage
-
 
     fun providePostsRepository(): PostsRepository
     fun provideLoginRepository(): LoginRepository
+    fun provideLocationRepository(): LocationRepository
     fun provideFightPandemicsAPI(): FightPandemicsAPI
-
     fun providesProfileRepository(): ProfileRepository
 
 }

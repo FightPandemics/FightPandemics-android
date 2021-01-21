@@ -7,4 +7,6 @@ import com.fightpandemics.core.data.model.posts.Post
  */
 interface EventActions {
     fun onLikeClicked(post: Post)
+    fun onEditClicked(post: Post)
+    fun onDeleteClicked(post: Post)
 }

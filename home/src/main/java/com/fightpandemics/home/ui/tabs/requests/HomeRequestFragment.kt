@@ -9,11 +9,11 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.home.R
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.ui.HomeViewModel
 import com.fightpandemics.home.ui.tabs.PostsAdapter
-import com.fightpandemics.core.utils.ViewModelFactory
 import javax.inject.Inject
 
 class HomeRequestFragment : Fragment() {
@@ -55,22 +55,24 @@ class HomeRequestFragment : Fragment() {
     }
 
     private fun getRequestPosts() {
-        //errorLoadingText.visibility = View.GONE
+        // errorLoadingText.visibility = View.GONE
 
-        //homeViewModel.getPosts("request")
-        homeViewModel.requestState.observe(viewLifecycleOwner, {
-            when {
-                it.isLoading -> bindLoading(it.isLoading)
-                it.posts!!.isNotEmpty() -> {
-                    bindLoading(it.isLoading)
-                    requestList.visibility = View.VISIBLE
-                    homeRequestAdapter.submitList(it.posts)
+        // homeViewModel.getPosts("request")
+        homeViewModel.requestState.observe(
+            viewLifecycleOwner,
+            {
+                when {
+                    it.isLoading -> bindLoading(it.isLoading)
+                    it.posts!!.isNotEmpty() -> {
+                        bindLoading(it.isLoading)
+                        requestList.visibility = View.VISIBLE
+                        homeRequestAdapter.submitList(it.posts)
+                    }
                 }
             }
-        })
+        )
         homeRequestAdapter.notifyDataSetChanged()
         requestList.adapter = homeRequestAdapter
-
 
 //        sharedHomeViewModel.state.observe(viewLifecycleOwner, onChanged = {
 //            when {

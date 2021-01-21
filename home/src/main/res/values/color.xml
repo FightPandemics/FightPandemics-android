@@ -2,4 +2,5 @@
 <resources>
     <color name="colorPrimary">@color/fightPandemicsNeonBlue</color>
     <color name="fightPandemicsNeonBlue">#425AF2</color>
+    <color name="dialogue_background_transparent">#6b000000</color>
 </resources>

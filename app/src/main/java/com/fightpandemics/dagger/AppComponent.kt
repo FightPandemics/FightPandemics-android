@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.fightpandemics.core.dagger.CoreComponent
 import com.fightpandemics.core.dagger.scope.AppScope
+import com.fightpandemics.createpost.dagger.CreatePostComponent
 import com.fightpandemics.filter.dagger.FilterComponent
 import com.fightpandemics.login.dagger.LoginComponent
 import com.fightpandemics.ui.splash.SplashComponent
@@ -27,6 +28,7 @@ interface AppComponent {
     fun splashComponent(): SplashComponent.Factory
     fun loginComponent(): LoginComponent.Factory
     fun filterComponent(): FilterComponent.Factory
+    fun createPostComponent(): CreatePostComponent.Factory
 
     fun inject(application: Application)
 }

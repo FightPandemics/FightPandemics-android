@@ -7,6 +7,7 @@
     <string name="you_are_not_signed_in">You are not signed in</string>
     <string name="sign_up_or_log_in_to_see_your_profile">Sign up or log in to see your profile</string>
     <string name="you_are_not_signed_in_image">You are not signed in image</string>
+
     <!--Profile-->
     <string name="profile_title">Profile</string>
     <string name="request_help">Request Help</string>
@@ -94,6 +95,19 @@
     <string name="h">H</string>
     <string name="l">L</string>
     <string name="t">T</string>
+
+
+    <!--Password Recovery-->
+    <string name="msg_email_not_registered">Email address isn’t registered yet</string>
+    <string name="msg_email_invalid">Please enter a valid email address</string>
+    <string name="e_mail">E-mail</string>
+    <string name="resend">Resend</string>
+    <string name="reset_msg">We’ll send you an email with a recovery link</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="content_description_back_button">This is back button</string>
+    <string name="email_sent_msg">An e-mail has been sent with further instructions. Please check your inbox.</string>
+    <string name="back_to_login">Back to Login</string>
+
     <!--My Profile-->
     <string name="profile_picture">Profile Picture</string>
     <string name="add_name">Name</string>
@@ -136,6 +150,7 @@
     <string name="linkedIn_url">LinkedIn URL</string>
     <string name="github_url">Github URL</string>
     <string name="personal_website">Personal Website</string>
+
     <!--EDIT_ORGANIZATION_PROFILE_LINKS-->
     <string name="Social_links">Social Media Links</string>
     <string name="linkedin_link">linkedin.com/in/</string>
@@ -172,4 +187,29 @@
 
     <!--PROFILE ACTIVITY POSTS -->
     <string name="dot_normal">Dot Normal</string>
+
+    <!--Feedback Screens-->
+    <string name="feedback_appbar">Feedback</string>
+    <string name="thank_you_early_user">Thank you for being an early user of FightPandemics!</string>
+    <string name="please_fill_out_this_survey">Please fill out this survey so we can create a better product.</string>
+    <string name="submit_button">Submit</string>
+    <string name="change_one_thing_about_fightpandemics">If you could change one thing about FightPandemics, what would it be?</string>
+    <string name="your_answer">Your answer</string>
+    <string name="valuable_features">Which features are the most valuable to you?</string>
+    <string name="feedback_for_us">Any other feedback for us?</string>
+    <string name="what_is_your_age">What is your age?</string>
+    <string name="how_has_covid_19_impacted_you">How has COVID-19 impacted you?</string>
+    <string name="go_to_work_school">I go to work/school normally</string>
+    <string name="healthy_but_in_a_stay_at_home">I am healthy but in a stay-at-home quarantine</string>
+    <string name="mild_symptoms">I have mild symptoms but haven\'t been tested</string>
+    <string name="diagnosed_with_covid_19">I am diagnosed with Covid-19</string>
+    <string name="fightpandemics_meet_needs">How well does FightPandemics meet your needs?</string>
+    <string name="rating1">1</string>
+    <string name="rating2">2</string>
+    <string name="rating3">3</string>
+    <string name="rating4">4</string>
+    <string name="rating5">5</string>
+    <string name="poorly">Poorly</string>
+    <string name="very_well">Very Well</string>
+
 </resources>

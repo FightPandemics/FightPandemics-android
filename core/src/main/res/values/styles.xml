@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="AndroidNativeH216Px">
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/fightPandemicsNero</item>
+    </style>
+
+    <style name="AndroidNativeP114Px">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
+        <item name="android:textColor">@color/fightPandemicsNero</item>
+    </style>
+
 </resources>

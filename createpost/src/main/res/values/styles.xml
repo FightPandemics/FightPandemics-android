@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ProgressBarTheme">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+        <item name="android:indeterminateTint">@color/colorPrimary</item>
+    </style>
+
+    <style name="ChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="backgroundTint">@color/fightPandemicsGhostWhite</item>
+        <item name="chipCornerRadius">4dp</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/color_white</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_nav_background</item>
+    </style>
+
+    <style name="PostMaterialDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/AndroidNativeH216Px</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/AndroidNativeP114Px</item>
+    </style>
+
+    <style name="textViewClickable" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:letterSpacing">0.04</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Widget.FightPandemics.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="fontFamily">@font/worksans_regular</item>
+        <item name="android:textColor">@color/fightPandemicsSuvaGrey</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:topLeftRadius">40dp</item>
+        <item name="android:topRightRadius">40dp</item>
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="statusBarScrim">@color/material_on_surface_stroke</item>
+    </style>
+
+    <style name="AndroidNativeH122Px">
+        <item name="android:textSize">22sp</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/fightPandemicsNero</item>
+    </style>
+
+    <style name="AndroidNativeH216Px">
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/fightPandemicsNero</item>
+    </style>
+
+    <style name="AndroidNativeH314Px">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textColor">@color/fightPandemicsNero</item>
+    </style>
+
+    <style name="AndroidNativeP114Px">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
+        <item name="android:textColor">@color/fightPandemicsNero</item>
+    </style>
+
+    <style name="AndroidNativeH412Px">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:textColor">@color/fightPandemicsNero</item>
+    </style>
+
+    <style name="AndroidNativeP212Px">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
+        <item name="android:textColor">@color/fightPandemicsNero</item>
+    </style>
+
+    <style name="AndroidNativeP311Px">
+        <item name="android:textSize">11sp</item>
+        <item name="android:lineSpacingExtra">4.4sp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
+        <item name="android:textColor">@color/fightPandemicsNero</item>
+    </style>
+
+    <style name="TabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/fightPandemicsSuvaGrey</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="TabText.Unselected">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TabText.Selected">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TagChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@drawable/chip_selected_effect</item>
+        <item name="android:textColor">@drawable/chip_text_color_selected_effect</item>
+        <item name="chipMinTouchTargetSize">32dp</item>
+        <item name="chipCornerRadius">6dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
+    </style>
+
+    <style name="FlatButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">12sp</item>
+        <item name="backgroundTint">@color/fightPandemicsGhostWhite</item>
+        <item name="cornerRadius">6dp</item>
+        <item name="fontFamily">@font/worksans_regular</item>
+    </style>
+
+    <style name="PrimaryButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:background">@color/button_primary_background_selector</item>
+        <item name="android:textColor">@color/button_primary_text_selector</item>
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="paddingStart">28dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="paddingEnd">28dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="cornerRadius">50dp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="SecondaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:background">@color/colorWhite</item>
+        <item name="strokeColor">@color/fightPandemicsNeonBlue</item>
+        <item name="android:textColor">@color/fightPandemicsNeonBlue</item>
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="paddingStart">28dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="paddingEnd">28dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="cornerRadius">50dp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="BottomSheetOverlay" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.BottomSheet</item>
+    </style>
+
+    <style name="Widget.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/BottomSheetShape</item>
+    </style>
+
+    <style name="BottomSheetShape" parent="">
+        <item name="cornerSize">8dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+
+</resources>

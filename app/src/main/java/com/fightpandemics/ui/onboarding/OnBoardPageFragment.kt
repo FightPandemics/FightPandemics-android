@@ -39,7 +39,8 @@ class OnBoardPageFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         val rootView = inflater.inflate(R.layout.onboard_page_fragment, container, false)
@@ -60,16 +61,24 @@ class OnBoardPageFragment : Fragment() {
     }
 
     private fun loadData() {
-        val images = listOf(R.drawable.onboarding_1_image,
-            R.drawable.onboarding_2_image)
-        val headerTexts = listOf(R.string.welcome_to_fightpandemics,
-            R.string.find_and_share_support_with_people_near_you)
-        val descTexts = listOf(R.string.first_on_boarding_desc_text,
-            R.string.second_on_boarding_desc_text)
+        val images = listOf(
+            R.drawable.onboarding_1_image,
+            R.drawable.onboarding_2_image
+        )
+        val headerTexts = listOf(
+            R.string.welcome_to_fightpandemics,
+            R.string.find_and_share_support_with_people_near_you
+        )
+        val descTexts = listOf(
+            R.string.first_on_boarding_desc_text,
+            R.string.second_on_boarding_desc_text
+        )
         for (i in images.indices) {
-            val onBoardItem = OnBoardItem(images[i],
+            val onBoardItem = OnBoardItem(
+                images[i],
                 resources.getString(headerTexts[i]),
-                resources.getString(descTexts[i]))
+                resources.getString(descTexts[i])
+            )
             onBoardItems.add(onBoardItem)
         }
     }

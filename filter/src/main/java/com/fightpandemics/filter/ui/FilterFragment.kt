@@ -1,371 +1,398 @@
 package com.fightpandemics.filter.ui
 
-import android.Manifest
-import android.app.Activity
-import android.app.AlertDialog
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.LayoutTransition
 import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
-import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.view.children
+import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
+import com.fightpandemics.core.widgets.BaseLocationFragment
 import com.fightpandemics.filter.dagger.inject
+import com.fightpandemics.filter.utils.*
 import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.FilterStartFragmentBinding
-import com.google.android.gms.common.api.ApiException
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
-import com.google.android.libraries.places.widget.Autocomplete
-import com.google.android.libraries.places.widget.AutocompleteActivity
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
-import com.google.android.material.transition.MaterialSharedAxis
-import kotlinx.android.synthetic.main.filter_location_options.view.*
-import kotlinx.android.synthetic.main.filter_start_fragment.view.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
-class FilterFragment : Fragment() {
+/*
+* created by Osaigbovo Odiase & Jose Li
+* */
+@FlowPreview
+@ExperimentalCoroutinesApi
+class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener {
+
+    // constant for showing autocomplete suggestions
+    private val LENGTH_TO_SHOW_SUGGESTIONS = 3
+    private val adapter = FilterAdapter(this)
 
     @Inject
     lateinit var filterViewModelFactory: ViewModelFactory
-    private lateinit var filterViewModel: FilterViewModel
-    private lateinit var binding: FilterStartFragmentBinding
-    private var whomSelectedChips: Int? = 0
-    private var typeSelectedChips: Int? = 0
-    private var total: Int = 0
-
-    var x: Int by Delegates.observable(0) { prop, old, new ->
-        when (new) {
-            0 -> {
-                binding.applyFiltersButton.isEnabled = false
-                binding.applyFiltersButton.text =
-                    getString(R.string.button_apply_filter)
-            }
-            1 -> {
-                binding.applyFiltersButton.isEnabled = true
-                binding.applyFiltersButton.text =
-                    getString(R.string.button_apply_filter_, new)
-            }
-            else -> {
-                binding.applyFiltersButton.isEnabled = true
-                binding.applyFiltersButton.text =
-                    getString(R.string.button_apply_filters, new)
-            }
-        }
-    }
-
-
-    // Places API variables
-    private val AUTOCOMPLETE_REQUEST_CODE = 1
-    private val STORAGE_PERMISSION_CODE = 1
-    private val PLACES_API_KEY: String = "BuildConfig.PLACES_API_KEY"
+    private val filterViewModel: FilterViewModel by viewModels { filterViewModelFactory }
+    private var filterStartFragmentBinding: FilterStartFragmentBinding? = null
+    private lateinit var defaultTransition: LayoutTransition
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
-        }
-        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        binding = FilterStartFragmentBinding.inflate(inflater)
-        binding.filterToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+        savedInstanceState: Bundle?
+    ): View {
+        val binding = FilterStartFragmentBinding.inflate(inflater)
+        filterStartFragmentBinding = binding
+        filterStartFragmentBinding!!.filterToolbar.setNavigationOnClickListener {
+            dismissKeyboard(it)
+            findNavController().navigateUp()
+        }
         return binding.root
     }
 
+    @FlowPreview
+    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Get default transition
+        defaultTransition = filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition
 
-
-        // Get the viewmodel
-        filterViewModel = ViewModelProvider(this).get(FilterViewModel::class.java)
-
-        binding.filterLocationExpandable.locationEmptyCard.setOnClickListener {
-            filterViewModel.toggleView(filterViewModel.isLocationOptionsExpanded)
+        // set up clear filter button
+        filterStartFragmentBinding!!.clearFiltersButton.setOnClickListener {
+            clearFilters()
         }
-
-        binding.filterFromWhomExpandable.fromWhomEmptyCard.setOnClickListener {
-            filterViewModel.toggleView(filterViewModel.isFromWhomOptionsExpanded)
-        }
-
-        binding.filterTypeExpandable.typeEmptyCard.setOnClickListener {
-            filterViewModel.toggleView(filterViewModel.isTypeOptionsExpanded)
-        }
-
-        filterViewModel.isLocationOptionsExpanded.observe(
-            viewLifecycleOwner,
-            Observer { isExpanded ->
-                if (isExpanded) {
-                    expandContents(
-                        binding.locationOptions.root,
-                        binding.filterLocationExpandable.locationEmptyCard
-                    )
-                    binding.filterLocationExpandable.filtersAppliedText.visibility = View.GONE
-                } else {
-                    collapseContents(
-                        binding.locationOptions.root,
-                        binding.filterLocationExpandable.locationEmptyCard
-                    )
-
-//                    // TODO: find a better way of writing this / uncomment this
-                    val selectedLocationQuery =
-                        binding.locationOptions.root.location_search.text.toString()
-                    if (selectedLocationQuery != "") {
-                        binding.filterLocationExpandable.filtersAppliedText.visibility =
-                            View.VISIBLE
-                    }
-
-                }
-            })
-
-        filterViewModel.isFromWhomOptionsExpanded.observe(
-            viewLifecycleOwner, Observer { isExpanded ->
-                if (isExpanded) {
-                    expandContents(
-                        binding.fromWhomOptions.root,
-                        binding.filterFromWhomExpandable.fromWhomEmptyCard
-                    )
-                    binding.filterFromWhomExpandable.filtersAppliedText.visibility = View.GONE
-                    whomSelectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds.size
-                    x -= whomSelectedChips!!
-                } else {
-                    collapseContents(
-                        binding.fromWhomOptions.root,
-                        binding.filterFromWhomExpandable.fromWhomEmptyCard
-                    )
-                    // TODO: find a better way of writing this
-                    whomSelectedChips = binding.fromWhomOptions.fromWhomChipGroup.checkedChipIds.size
-                    x += whomSelectedChips!!
-                    if (whomSelectedChips!! > 0) {
-                        binding.filterFromWhomExpandable.filtersAppliedText.visibility =
-                            View.VISIBLE
-                        binding.filterFromWhomExpandable.filtersAppliedText.text =
-                            "${whomSelectedChips} applied"
-                    }
-                }
-            })
-
-        filterViewModel.isTypeOptionsExpanded.observe(viewLifecycleOwner, Observer { isExpanded ->
-            if (isExpanded) {
-                expandContents(binding.typeOptions.root, binding.filterTypeExpandable.typeEmptyCard)
-                binding.filterTypeExpandable.filtersAppliedText.visibility = View.GONE
-                typeSelectedChips = binding.typeOptions.typeChipGroup.checkedChipIds.size
-                x -= typeSelectedChips!!
-            } else {
-                collapseContents(
-                    binding.typeOptions.root,
-                    binding.filterTypeExpandable.typeEmptyCard
-                )
-
-                // TODO: find a better way of writing this
-                typeSelectedChips = binding.typeOptions.typeChipGroup.checkedChipIds.size
-                x += typeSelectedChips!!
-                if (!binding.root.type_options.isVisible && typeSelectedChips!! > 0) {
-                    binding.filterTypeExpandable.filtersAppliedText.visibility = View.VISIBLE
-                    binding.filterTypeExpandable.filtersAppliedText.text =
-                        "${typeSelectedChips} applied"
-                }
-            }
-        })
-
-        binding.applyFiltersButton.setOnClickListener {
+        // send data to home module
+        filterStartFragmentBinding!!.applyFiltersButton.setOnClickListener {
             findNavController().previousBackStackEntry?.savedStateHandle?.set(
-                "key",
-                listOf("1", "2")
+                "filters",
+                filterViewModel.createFilterRequest()
             )
             findNavController().popBackStack()
         }
 
-        // Places API Logic
-        binding.locationOptions.locationSearch.setOnClickListener {
-            launchPlacesIntent()
+        // set the custom adapter to the RecyclerView
+        filterStartFragmentBinding!!.locationOptions.autoCompleteLocationsRecyclerView.adapter =
+            adapter
+
+        // Set toggle functionality to clickable filter cards
+        filterStartFragmentBinding!!.filterLocationExpandable.locationEmptyCard.setOnClickListener {
+            filterViewModel.toggleView(filterViewModel.isLocationOptionsExpanded)
+            dismissKeyboard(it)
+        }
+        filterStartFragmentBinding!!.filterFromWhomExpandable.fromWhomEmptyCard.setOnClickListener {
+            filterViewModel.toggleView(filterViewModel.isFromWhomOptionsExpanded)
+        }
+        filterStartFragmentBinding!!.filterTypeExpandable.typeEmptyCard.setOnClickListener {
+            filterViewModel.toggleView(filterViewModel.isTypeOptionsExpanded)
         }
 
-        binding.locationOptions.shareMyLocation.setOnClickListener {
+        // setonclick listeners for fromWhom and Type chips
+        for (fromWhomChip in filterStartFragmentBinding!!.fromWhomOptions.fromWhomChipGroup.children) {
+            fromWhomChip.setOnClickListener {
+                updateFromWhomFiltersData()
+            }
+        }
+        for (typeChip in filterStartFragmentBinding!!.typeOptions.typeChipGroup.children) {
+            typeChip.setOnClickListener {
+                updateTypeFiltersData()
+            }
+        }
+
+        filterViewModel.isLocationOptionsExpanded.observe(
+            viewLifecycleOwner,
+            { isExpanded ->
+                if (isExpanded) {
+                    // close other two options cards, and stop transitions when closing to prevent glitchy look
+                    filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition = null
+                    filterViewModel.isFromWhomOptionsExpanded.value = false
+                    filterViewModel.isTypeOptionsExpanded.value = false
+
+                    // re-enable transitions and open card
+                    filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition =
+                        defaultTransition
+                    filterStartFragmentBinding!!.filterLocationExpandable.locationEmptyCard.expandContents(
+                        filterStartFragmentBinding!!.locationOptions.root
+                    )
+                    filterStartFragmentBinding!!.filterLocationExpandable.filtersAppliedText.visibility =
+                        View.GONE
+                } else {
+                    filterStartFragmentBinding!!.filterLocationExpandable.locationEmptyCard.collapseContents(
+                        filterStartFragmentBinding!!.locationOptions.root
+                    )
+
+                    // logic for hiding the applied text
+                    filterViewModel.locationQuery.value?.let {
+                        if (it.isNotBlank()) {
+                            filterStartFragmentBinding!!.filterLocationExpandable.filtersAppliedText.visibility =
+                                View.VISIBLE
+                        }
+                    }
+                }
+            }
+        )
+
+        filterViewModel.isFromWhomOptionsExpanded.observe(
+            viewLifecycleOwner,
+            { isExpanded ->
+                if (isExpanded) {
+                    // close other two options cards, and stop transitions when closing to prevent glitchy look
+                    filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition = null
+                    filterViewModel.isLocationOptionsExpanded.value = false
+                    filterViewModel.isTypeOptionsExpanded.value = false
+
+                    // re-enable transitions and open card
+                    filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition =
+                        defaultTransition
+                    filterStartFragmentBinding!!.filterFromWhomExpandable.fromWhomEmptyCard.expandContents(
+                        filterStartFragmentBinding!!.fromWhomOptions.root
+                    )
+                    filterStartFragmentBinding!!.filterFromWhomExpandable.filtersAppliedText.visibility =
+                        View.GONE
+                } else {
+                    filterStartFragmentBinding!!.filterFromWhomExpandable.fromWhomEmptyCard.collapseContents(
+                        filterStartFragmentBinding!!.fromWhomOptions.root
+                    )
+
+                    // applied text visibility logic
+                    if (filterViewModel.fromWhomCount.value!! > 0) {
+                        filterStartFragmentBinding!!.filterFromWhomExpandable.filtersAppliedText.visibility =
+                            View.VISIBLE
+                        filterStartFragmentBinding!!.filterFromWhomExpandable.filtersAppliedText.text =
+                            requireContext().getString(
+                                R.string.card_applied_filters,
+                                filterViewModel.fromWhomCount.value!!
+                            )
+                    }
+                }
+            }
+        )
+
+        filterViewModel.isTypeOptionsExpanded.observe(
+            viewLifecycleOwner,
+            { isExpanded ->
+                if (isExpanded) {
+                    // close other two options cards, and stop transitions when closing to prevent glitchy look
+                    // TODO: maybe make function that take list of card views to be closed in View Model
+                    filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition = null
+                    filterViewModel.isLocationOptionsExpanded.value = false
+                    filterViewModel.isFromWhomOptionsExpanded.value = false
+
+                    // re-enable transitions and open card
+                    filterStartFragmentBinding!!.constraintLayoutOptions.layoutTransition =
+                        defaultTransition
+                    filterStartFragmentBinding!!.filterTypeExpandable.typeEmptyCard.expandContents(
+                        filterStartFragmentBinding!!.typeOptions.root
+                    )
+                    filterStartFragmentBinding!!.filterTypeExpandable.filtersAppliedText.visibility =
+                        View.GONE
+                } else {
+                    filterStartFragmentBinding!!.filterTypeExpandable.typeEmptyCard.collapseContents(
+                        filterStartFragmentBinding!!.typeOptions.root
+                    )
+
+                    // applied text visibility logic
+                    if (filterViewModel.typeCount.value!! > 0) {
+                        filterStartFragmentBinding!!.filterTypeExpandable.filtersAppliedText.visibility =
+                            View.VISIBLE
+                        filterStartFragmentBinding!!.filterTypeExpandable.filtersAppliedText.text =
+                            requireContext().getString(
+                                R.string.card_applied_filters,
+                                filterViewModel.typeCount.value!!
+                            )
+                    }
+                }
+            }
+        )
+
+        // The next three observers check if apply filter button should be enabled
+        filterViewModel.fromWhomCount.observe(
+            viewLifecycleOwner,
+            { fromWhomCount ->
+                handleApplyFilterEnableState()
+                updateApplyFiltersText()
+            }
+        )
+        filterViewModel.typeCount.observe(
+            viewLifecycleOwner,
+            {
+                handleApplyFilterEnableState()
+                updateApplyFiltersText()
+            }
+        )
+        filterViewModel.locationQuery.observe(
+            viewLifecycleOwner,
+            {
+                handleApplyFilterEnableState()
+                updateApplyFiltersText()
+            }
+        )
+
+        searchLocation()
+        shareLocation() // get user location and display it
+    }
+
+    // this function gets called inside getCurrentLocation from BaseLocationFragment
+    override fun updateLocation(location: Location) {
+        Timber.i("My filters from filter $location")
+        filterViewModel.updateCurrentLocation(location)
+    }
+
+    override fun onDestroyView() {
+        filterStartFragmentBinding = null
+        super.onDestroyView()
+    }
+
+    private fun shareLocation() {
+        filterStartFragmentBinding!!.locationOptions.shareMyLocation.setOnClickListener {
+            filterStartFragmentBinding!!.locationOptions.locationSearch.setText("")
             getCurrentLocation()
-        }
-    }
-
-    private fun getCurrentLocation() {
-        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
-        // Create a new PlacesClient instance
-        val placesClient = Places.createClient(requireContext())
-
-        // Use fields to define the data types to return.
-        val placeFields: List<Place.Field> = listOf(Place.Field.ADDRESS, Place.Field.LAT_LNG)
-
-        // Use the builder to create a FindCurrentPlaceRequest.
-        val request: FindCurrentPlaceRequest = FindCurrentPlaceRequest.newInstance(placeFields)
-
-        // Call findCurrentPlace and handle the response (first check that the user has granted permission).
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-
-//            Toast.makeText(requireContext(), "You already have permissions, great!", Toast.LENGTH_SHORT).show()
-
-            val placeResponse = placesClient.findCurrentPlace(request)
-            placeResponse.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val response = task.result
-                    binding.locationOptions.locationSearch.setText(
-                        response.placeLikelihoods[0].place.address ?: "Not found"
-                    )
-//                    for (placeLikelihood: PlaceLikelihood in response?.placeLikelihoods
-//                        ?: emptyList()) {
-//                        binding.locationOptions.locationSearch.setText(placeLikelihood.place.address)
-//                        break
-//                        Timber.i("Place '${placeLikelihood.place.address}', '${placeLikelihood.place.latLng}' has likelihood: ${placeLikelihood.likelihood}")
-//                        Toast.makeText(requireContext(), "Place '${placeLikelihood.place.address}', '${placeLikelihood.place.latLng}' has likelihood: ${placeLikelihood.likelihood}", Toast.LENGTH_SHORT).show()
-//                    }
-                } else {
-                    val exception = task.exception
-                    if (exception is ApiException) {
-                        Timber.e("Place not found: ${exception.statusCode}")
-                        Toast.makeText(
-                            requireContext(),
-                            "Place not found: Exception status code ${exception.statusCode}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+            lifecycleScope.launchWhenStarted {
+                filterViewModel.currentLocationState.collect {
+                    when {
+                        it.isLoading -> bindLoading(it.isLoading)
+                        it.userLocation!!.isNotEmpty() -> {
+                            bindLoading(it.isLoading)
+                            displayLocation(it.userLocation)
+                        }
+                        it.error != null -> {
+                            bindLoading(it.isLoading)
+                        }
                     }
                 }
             }
+        }
+    }
+
+    @FlowPreview
+    @ExperimentalCoroutinesApi
+    private fun searchLocation() {
+        // do not start autocomplete until 3 chars in and delete location input that is not selected
+        filterStartFragmentBinding!!.locationOptions.locationSearch.doAfterTextChanged { inputLocation ->
+
+            lifecycleScope.launchWhenStarted {
+                // do not search autocomplete suggestions until 3 chars in
+                inputLocation?.let {
+                    handleAutocompleteVisibility(it.toString())
+                    Timber.e(it.toString())
+                    filterViewModel.searchQuery.value = it.toString()
+                    filterViewModel.searchLocationState.collect {
+                        adapter.placesNames = it
+                    }
+                }
+            }
+            // if location in the editText is edited, delete location, lat, lgn live data
+            filterViewModel.locationQuery.value = ""
+        }
+    }
+
+    private fun bindLoading(isLoading: Boolean) {
+        filterStartFragmentBinding!!.locationOptions.progressBar.visibility =
+            if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun displayLocation(address: String) {
+        filterStartFragmentBinding!!.locationOptions
+            .locationSearch
+            .setText(address)
+
+        filterViewModel.locationQuery.value = address
+        // todo maybe find a better way of doing this -
+        //  Take away focus from edit text once an option has been selected binding.searchText.requestFocus()
+        filterStartFragmentBinding!!.locationOptions.locationSearch.isEnabled = false
+        filterStartFragmentBinding!!.locationOptions.locationSearch.isEnabled = true
+        // hide recycler view autocomplete location suggestions
+        filterStartFragmentBinding!!.locationOptions.autoCompleteLocationsRecyclerView.visibility =
+            View.GONE
+        filterStartFragmentBinding!!.locationOptions.itemLineDivider1.visibility = View.GONE
+    }
+
+    // update number in text of apply filters button
+    private fun updateApplyFiltersText() {
+        when (val total = filterViewModel.getFiltersAppliedCount()) {
+            0 ->
+                filterStartFragmentBinding!!.applyFiltersButton.text =
+                    requireContext().getString(R.string.button_apply_filter)
+            1 ->
+                filterStartFragmentBinding!!.applyFiltersButton.text =
+                    requireContext().getString(R.string.button_apply_filter_, total)
+            else ->
+                filterStartFragmentBinding!!.applyFiltersButton.text =
+                    requireContext().getString(R.string.button_apply_filters, total)
+        }
+    }
+
+    private fun updateFromWhomFiltersData() {
+        // get the names of all selected chips
+        val whomChips =
+            getCheckedChipsText(filterStartFragmentBinding!!.fromWhomOptions.fromWhomChipGroup)
+        // update live data
+        filterViewModel.fromWhomFilters.value = whomChips
+        filterViewModel.fromWhomCount.value = whomChips.size
+    }
+
+    private fun updateTypeFiltersData() {
+        // get the names of all selected chips
+        val typeChips = getCheckedChipsText(filterStartFragmentBinding!!.typeOptions.typeChipGroup)
+        // update live data
+        filterViewModel.typeFilters.value = typeChips
+        filterViewModel.typeCount.value = typeChips.size
+    }
+
+    private fun handleApplyFilterEnableState() {
+        // button should be enabled if there is text in the exittext or
+        // if there are any chips selected in fromWhom or type
+        filterStartFragmentBinding!!.applyFiltersButton.isEnabled =
+            filterViewModel.locationQuery.value!!.isNotBlank() ||
+                    filterViewModel.fromWhomCount.value!! + filterViewModel.typeCount.value!! > 0
+    }
+
+    private fun handleAutocompleteVisibility(locationQuery: String) {
+        if (locationQuery.isBlank() || locationQuery.length < LENGTH_TO_SHOW_SUGGESTIONS) {
+            filterStartFragmentBinding!!.locationOptions.autoCompleteLocationsRecyclerView.visibility =
+                View.GONE
+            filterStartFragmentBinding!!.locationOptions.itemLineDivider1.visibility = View.GONE
         } else {
-            // A local method to request required permissions;
-            // See https://developer.android.com/training/permissions/requesting
-            getLocationPermission()
+            filterStartFragmentBinding!!.locationOptions.autoCompleteLocationsRecyclerView.visibility =
+                View.VISIBLE
+            filterStartFragmentBinding!!.locationOptions.itemLineDivider1.visibility = View.VISIBLE
         }
     }
 
-    private fun getLocationPermission() {
-        // TODO: Add custom alert dialog
-        if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            AlertDialog.Builder(requireContext())
-                .setTitle("Allow FightPandemics to access your location?")
-                .setMessage("FightPandemics uses location to show hospitals and aid information near you.")
-                .setPositiveButton("ALLOW", DialogInterface.OnClickListener { dialog, which ->
-                    requestPermissions(
-                        arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                        STORAGE_PERMISSION_CODE
-                    )
-                })
-                .setNegativeButton("CANCEL", DialogInterface.OnClickListener { dialog, id ->
-                    dialog.dismiss()
-                }).create().show()
-        } else {
-            requestPermissions(
-                arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                STORAGE_PERMISSION_CODE
-            )
-        }
-
+    private fun clearFilters() {
+        // close all option cards
+        filterViewModel.closeAllOptionCards()
+        // clear fromwhom selections
+        uncheckChipGroup(filterStartFragmentBinding!!.fromWhomOptions.fromWhomChipGroup)
+        // clear type selections
+        uncheckChipGroup(filterStartFragmentBinding!!.typeOptions.typeChipGroup)
+        // clear location box
+        filterStartFragmentBinding!!.locationOptions.locationSearch.text?.clear()
+        // clear the live data
+        filterViewModel.clearLiveDataFilters()
+        // update text in apply filters button
+        updateApplyFiltersText()
+        // change visibility of any applied texts left
+        filterStartFragmentBinding!!.filterLocationExpandable.filtersAppliedText.visibility =
+            View.GONE
+        filterStartFragmentBinding!!.filterFromWhomExpandable.filtersAppliedText.visibility =
+            View.GONE
+        filterStartFragmentBinding!!.filterTypeExpandable.filtersAppliedText.visibility = View.GONE
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            STORAGE_PERMISSION_CODE -> {
-                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-            }
-        }
-
+    // On click function for recycler view (autocomplete)
+    override fun onAutocompleteLocationClick(locationSelected: String) {
+        displayLocation(locationSelected)
     }
-
-    private fun launchPlacesIntent() {
-        Places.initialize(requireActivity().applicationContext, PLACES_API_KEY)
-
-        // Set the fields to specify which types of place data to
-        // return after the user has made a selection.
-        val fields = listOf(Place.Field.ID, Place.Field.NAME)
-
-        // Start the autocomplete intent.
-        val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
-            .build(requireActivity().applicationContext)
-        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
-            when (resultCode) {
-                Activity.RESULT_OK -> {
-                    data?.let {
-                        val place = Autocomplete.getPlaceFromIntent(data)
-                        Timber.i("Place: ${place.name}, ${place.id}")
-                    }
-                }
-                AutocompleteActivity.RESULT_ERROR -> {
-                    // TODO: Handle the error.
-                    data?.let {
-                        val status = Autocomplete.getStatusFromIntent(data)
-                        Timber.i(status.statusMessage)
-                    }
-                }
-                Activity.RESULT_CANCELED -> {
-                    // The user canceled the operation.
-                }
-            }
-            return
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    private fun expandContents(optionsView: View, clickableTextView: TextView) {
-        optionsView.visibility = View.VISIBLE
-        clickableTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(
-            0,
-            0,
-            R.drawable.ic_minus_sign,
-            0
-        )
-    }
-
-    private fun collapseContents(optionsView: View, clickableTextView: TextView) {
-        optionsView.visibility = View.GONE
-        clickableTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(
-            0,
-            0,
-            R.drawable.ic_plus_sign,
-            0
-        )
-    }
-
 }
-

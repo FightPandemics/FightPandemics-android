@@ -42,8 +42,7 @@ class NetworkModule {
             .addInterceptor(httpLoggingInterceptor)
             .addInterceptor(authenticationInterceptor)
         // TODO  10 - Add authenticator
-        //.authenticator(new AccessTokenAuthenticator())
-
+        // .authenticator(new AccessTokenAuthenticator())
 
         if (BuildConfig.DEBUG) {
             okHttpClient

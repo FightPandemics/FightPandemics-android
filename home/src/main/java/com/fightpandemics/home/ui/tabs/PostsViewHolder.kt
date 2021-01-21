@@ -1,11 +1,12 @@
 package com.fightpandemics.home.ui.tabs
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.view.LayoutInflater
-import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 import com.fightpandemics.core.data.model.posts.Post
@@ -14,11 +15,12 @@ import com.fightpandemics.home.R
 import com.fightpandemics.home.databinding.ItemAllFeedBinding
 import com.fightpandemics.home.databinding.SingleChipLayoutBinding
 import com.fightpandemics.home.ui.HomeEventListener
+import com.fightpandemics.home.ui.HomeFragmentDirections
+import com.fightpandemics.home.utils.getPostCreated
+import com.fightpandemics.home.utils.sharePost
 import com.fightpandemics.home.utils.userInitials
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import timber.log.Timber
 import java.util.*
-
 
 class PostsViewHolder(
     private val homeEventListener: HomeEventListener,
@@ -29,6 +31,7 @@ class PostsViewHolder(
     fun bind(post: Post, onItemClickListener: ((Post) -> Unit)?) {
         with(itemBinding.root) {
 
+            // Display author avatar
             if (post.author?.photo != null) {
                 GlideApp.with(this)
                     .load(post.author?.photo)
@@ -45,6 +48,7 @@ class PostsViewHolder(
                 )
             }
 
+            //
             itemBinding.objective.text = post.objective?.capitalize(Locale.ROOT)
             itemBinding.userFullName.text = post.author?.name
             itemBinding.postTitle.text = post.title
@@ -52,8 +56,6 @@ class PostsViewHolder(
                 post.author?.location?.city.plus(", ").plus(post.author?.location?.country)
 
             itemBinding.postContent.text = post.content
-
-
 
             itemBinding.like.apply {
                 isChecked = post.liked!!
@@ -63,16 +65,20 @@ class PostsViewHolder(
                 }
             }
 
+            // Display Post like counts
             itemBinding.likesCount.apply {
                 text = post.likesCount.toString()
             }
 
-
-
+            // Display Post comment counts.
             itemBinding.commentsCount.text = post.commentsCount.toString()
 
+            // Share a Post
+            itemBinding.share.setOnClickListener {
+                context.startActivity(sharePost(post.title, post._id))
+            }
 
-
+            // Display Post tags/types.
             itemBinding.chipGroup.removeAllViews()
             for (type: String in post.types!!) {
                 val singleChipLayoutBinding = SingleChipLayoutBinding.inflate(
@@ -82,35 +88,32 @@ class PostsViewHolder(
                 )
                 singleChipLayoutBinding.chip.text = type
                 singleChipLayoutBinding.chip.isEnabled = false
-
                 itemBinding.chipGroup.addView(singleChipLayoutBinding.chip)
             }
 
-
-
+            // Display Post options to Edit or Delete his/her post.
             when (post.author!!.id) {
                 homeEventListener.userId() -> {
                     itemBinding.postOption.isVisible = true
                     itemBinding.postOption.setOnClickListener {
-                        val view: View = View.inflate(context, R.layout.edit_delete, null)
-                        val mBottomSheetDialog = BottomSheetDialog(context, R.style.BottomSheetDialogTheme)
-                        mBottomSheetDialog.setContentView(view)
-                        mBottomSheetDialog.show()
+                        findNavController().navigate(
+                            HomeFragmentDirections
+                                .actionHomeFragmentToHomeOptionsBottomSheetFragment(post)
+                        )
                     }
                 }
-                else -> {
-                    itemBinding.postOption.isVisible = false
-                }
+                else -> itemBinding.postOption.isVisible = false
             }
 
-            val time_post = 12.toString()
-            itemBinding.timePosted.text = "Posted $time_post hrs ago"
-            //Timber.e(getPostCreated("2020-10-15T15:44:04.009Z").toString())
+            // Display time of Post
+            "Posted ${getPostCreated(post.createdAt.toString())} ago".also {
+                itemBinding.timePosted.text = it
+            }
+
+            Timber.e(getPostCreated(post.createdAt.toString()))
+            Timber.e(getPostCreated(post.updatedAt.toString())?.plus("EDITED"))
 
             setOnClickListener { onItemClickListener?.invoke(post) }
         }
     }
-
-
 }
-
