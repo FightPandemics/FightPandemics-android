@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black_overlay">#5C000000</color>
+    <color name="signup_screen_bg">#F5F6FB</color>
+    <color name="transparent_signup_screen_bg">#FFFFFFFF</color>
+    <color name="color_facebook_button">#4267b2</color>
+    <color name="color_linkedIn_button">#0177b5</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_button_disabled">#BBC3F8</color>
+
+    <color name="colorPrimary">@color/fightPandemicsNeonBlue</color>
+    <color name="colorPrimaryVariant">@color/fightPandemicsNeonBlue</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorSecondary">@color/fightPandemicsNeonBlue</color>
+    <color name="colorSecondaryVariant">#4D425AF2</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+    <color name="colorError">#F44336</color>
+    <color name="colorOnError">#FFFFFF</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#000000</color>
+    <color name="colorBackground">#F4F4F4</color>
+    <color name="colorOnBackground">#000000</color>
+    <color name="textColorPrimary">#282828</color>
+    <color name="color_view">#4CD7D7D7</color>
+    <color name="error_text_color">#ff5656</color>
+
+    <color name="fightPandemics">#F5F6FB</color>
+    <color name="fightPandemicsBars">#86D7D8DD</color>
+    <color name="fightPandemicsNeonBlue">#425AF2</color>
+    <color name="fightPandemicsNeonBlue_30p">#4D425AF2</color>
+    <color name="fightPandemicsPerano">#B8C2F8</color>
+    <color name="fightPandemicsGhostWhite">#F3F4FE</color>
+    <color name="colorRed">#FF5656</color>
+    <color name="colorGreen">#22D9A2</color>
+    <color name="fightPandemicsNero">#2F2F2F</color>
+    <color name="fightPandemicsSuvaGrey">#939393</color>
+    <color name="fightPandemicsSilver">#C5C5C5</color>
+    <color name="fightPandemicsLightGrey">#D7D7D7</color>
+    <color name="fightPandemicsGhostWhite2">#F6F7FB</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhite_30p">#4DFFFFFF</color>
+    <color name="fightPandemicsSnow">#F9F9F9</color>
+    <color name="fightPandemicsWhiteSmoke">#F2F2F2</color>
+
+
+    <!-- We use a dark scrim by default since light status is API 23+ -->
+    <color name="status_bar_scrim">@color/system_ui_scrim_black</color>
+    <!-- We use a dark scrim by default since light nav bar is API 27+ -->
+    <color name="nav_bar_scrim">@color/system_ui_scrim_black</color>
+
+    <!-- Scrim colors -->
+    <color name="system_ui_scrim_light">#B3FFFFFF</color> <!-- 70% white -->
+    <color name="system_ui_scrim_black">#66000000</color> <!-- 40% black -->
+
+
+
+
+
+    <color name="default_tag_color">#999</color>
+    <color name="scrim">#33000000</color> <!-- 20% black -->
+
+    <!-- Same value as textColorPrimary disabled -->
+    <color name="color_control_light">#39000000</color>
+
+    <!-- Used for detail/speaker header background and other generic placeholder backgrounds -->
+    <color name="generic_placeholder_background">#10000000</color>
+
+    <!--<color name="color_primary">@color/android_blue</color>
+    <color name="color_primary_dark">@color/android_navy</color>
+    <color name="color_on_secondary">#fff</color>
+    <color name="info_event_card_logo_background">@color/android_blue_light</color>-->
+
+    <color name="transparent">#00000000</color>
+</resources>

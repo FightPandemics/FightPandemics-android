@@ -1,0 +1,12 @@
+
+
+// TODO 22 - Search for location details with placeId, sessionToken is optional
+// https://staging.fightpandemics.work/api/geo/location-details?placeId=ChIJ8TLM73cQtIkR8Iqw75hHGD8&sessiontoken=2aba106d-9a0f-4939-a7bf-a5bce157f2cd
+// https://staging.fightpandemics.work/api/geo/location-details
+// use this endpoint to search location from input string, access token (access token is not mandatory)
+// Session Token import { v4 as uuidv4 } from 'uuid'; uuidv4(v4options);
+
+
+// ⇨ '109156be-c4fb-41ea-b1b4-efe1671c5836' import java.util.UUID; uuid = UUID.fromString(id); (edited)
+
+// API entry LocationDetails

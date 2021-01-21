@@ -1,8 +1,8 @@
 package com.fightpandemics.search.dagger
 
-import com.fightpandemics.dagger.AppComponent
 import com.fightpandemics.core.dagger.CoreComponent
 import com.fightpandemics.core.dagger.scope.FeatureScope
+import com.fightpandemics.dagger.AppComponent
 import com.fightpandemics.search.ui.SearchFragment
 import dagger.Component
 

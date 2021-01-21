@@ -1,0 +1,11 @@
+
+
+// TODO 21 - Search for location with user input
+// https://staging.fightpandemics.work/api/geo/address-predictions?input=orange&sessiontoken=2aba106d-9a0f-4939-a7bf-a5bce157f2cd
+// "orange" "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed" use this endpoint to search for locations from input string and sessionToken
+
+
+// get sessionToken from import java.util.UUID; uuid = UUID.fromString(id);
+Either store the sessionToken in SharedPreference or generate a new one everytime.
+
+// API entry LocationPrediction

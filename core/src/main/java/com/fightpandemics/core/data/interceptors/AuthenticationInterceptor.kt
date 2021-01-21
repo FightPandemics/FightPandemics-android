@@ -21,7 +21,7 @@ class AuthenticationInterceptor @Inject constructor(
         if (request.header("No-Authentication") == null) {
             val token = authTokenLocalDataSource.getToken()
             if (!token.isNullOrEmpty()) {
-                val finalToken = "Bearer ${token}"
+                val finalToken = "Bearer $token"
                 requestBuilder
                     .addHeader("Authorization", finalToken)
                     .build()

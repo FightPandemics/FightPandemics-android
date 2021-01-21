@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="tab_all">All</string>
     <string name="tab_offers">Offers</string>
@@ -22,5 +22,6 @@
     <string name="delete_confirm_alert_msg">Once your post is deleted, it is gone forever and this action cannot be undone.</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
+    <string name="share_post" tools:ignore="ExtraTranslation">Share</string>
 
 </resources>

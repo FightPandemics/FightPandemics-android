@@ -65,3 +65,6 @@ dependencies {
     // Loading Progree Button
     implementation 'com.github.razir.progressbutton:progressbutton:2.1.0'
 }
+repositories {
+    mavenCentral()
+}

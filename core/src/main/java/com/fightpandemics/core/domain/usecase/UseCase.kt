@@ -1,9 +1,9 @@
 package com.fightpandemics.core.domain.usecase
 
+import com.fightpandemics.core.result.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import com.fightpandemics.core.result.Result
 
 /**
  * Executes business logic synchronously or asynchronously using Coroutines.

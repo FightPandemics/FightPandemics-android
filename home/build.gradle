@@ -40,8 +40,10 @@ android {
 dependencies {
     implementation project(":app")
     implementation project(':core')
+    implementation project(':createpost')
     implementation project(':filter')
     implementation project(':login')
+    implementation project(':postdetails')
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
@@ -62,4 +64,7 @@ dependencies {
 
     // Dagger
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
+}
+repositories {
+    mavenCentral()
 }

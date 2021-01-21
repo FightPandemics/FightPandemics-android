@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:background="@drawable/bottom_nav_background"
+    android:paddingBottom="20dp">
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_line_75"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/choose_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:text="@string/choose_tags"
+        android:lineSpacingExtra="6sp"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/line"
+        tools:text="Choose Tags" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/tag_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="20dp"
+        app:chipSpacing="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/choose_tag">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_medical"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/medical_supplies" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_university"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/university" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_r_and_d"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/r_amp_d" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_business"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/business" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_legal"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/legal" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_information"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/information" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_funding"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/funding" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_entertainment"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/entertainment" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_groceries"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/groceries_food" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_well_being"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wellbeing_mental" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_tech"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tech" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_others"
+            style="@style/TagChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/others" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <Button
+        android:id="@+id/close"
+        style="@style/AndroidNativeH314Px"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="30dp"
+        android:background="@drawable/button_cancel"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="3sp"
+        android:text="@string/close"
+        android:textAllCaps="false"
+        android:textColor="@color/fightPandemicsNeonBlue"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintTop_toBottomOf="@id/tag_chip_group"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/confirm"
+        style="@style/AndroidNativeH314Px"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/button_post"
+        android:backgroundTint="@color/fightPandemicsNeonBlue"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="3sp"
+        android:text="@string/confirm"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tag_chip_group" />
+</androidx.constraintlayout.widget.ConstraintLayout>
