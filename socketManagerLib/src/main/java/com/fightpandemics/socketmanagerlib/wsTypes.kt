@@ -2,7 +2,7 @@ package com.fightpandemics.socketmanagerlib
 
 import com.google.gson.JsonElement
 
-//TODO("fill up the Object properties")
+//TODO("fill up the Object properties from Backend Models")
 data class Message(val content : String? = null, val authorId : String? = null){
     val _id : String? = null
 }

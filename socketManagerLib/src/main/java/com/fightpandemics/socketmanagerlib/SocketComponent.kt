@@ -36,7 +36,7 @@ class SocketComponentBackend {
      * This property is a function that is in charge of a situation if a user is blocked
      * */
     var forceRoomUpdate = fun(_: String){
-        throw Exception("You must implement a forceUpdateListener. " +
+        throw UninitializedPropertyAccessException("You must implement a forceUpdateListener. " +
                 "<instance>.forceRoomUpdate = <your lambda function>")
     }
     fun stop() {
@@ -100,11 +100,11 @@ class SocketComponentBackend {
         })
     }
 
-    fun deleteMessage(messageId : String, cb : wsCallBack<Boolean>? = null){
+    fun deleteMessage(messageId : String){
         _socket.emit(DELETE_MESSAGE, messageId)
     }
 
-    fun editMessage(data : Message, cb : wsCallBack<Boolean>? = null){
+    fun editMessage(data : Message){
         val jsonedMssg = _gson.toJson(data)
         _socket.emit(EDIT_MESSAGE, JSONObject(jsonedMssg))
     }
