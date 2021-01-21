@@ -44,7 +44,7 @@ open class Auth0BaseFragment : Fragment() {
                 {
                     Toast.makeText(
                         context,
-                        getString(R.string.unnexpected_error_login),
+                        getString(R.string.unexpected_error_login),
                         Toast.LENGTH_LONG
                     ).show()
                 },
