@@ -16,7 +16,9 @@ import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
 import com.fightpandemics.profile.util.capitalizeFirstLetter
 import com.fightpandemics.profile.util.userInitials
+import com.fightpandemics.ui.MainActivity
 import com.fightpandemics.utils.webviewer.WebViewerActivity
+import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.profile_fragment_content.*
 import kotlinx.android.synthetic.main.profile_toolbar.*
 import kotlinx.android.synthetic.main.user_posts_content.*
@@ -48,6 +50,7 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        createPost()
         return inflater.inflate(R.layout.profile_fragment, container, false)
     }
 
@@ -84,6 +87,18 @@ class ProfileFragment : Fragment() {
         profileViewModel.individualProfile.observe(viewLifecycleOwner) { profile ->
             getIndividualProfileListener(profile)
         }
+    }
+
+    private fun createPost() {
+        (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsOrg)
+            .setOnClickListener {
+                findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_createPostFragment)
+            }
+
+        (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsIndiv)
+            .setOnClickListener {
+                findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_createPostFragment)
+            }
     }
 
     private fun getIndividualProfileListener(profile: ProfileViewModel.IndividualProfileViewState) {
