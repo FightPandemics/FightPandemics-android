@@ -36,6 +36,10 @@ class LoginRepositoryImpl @Inject constructor(
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
+                else ->{
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
             }
             awaitClose { }
         }
@@ -63,6 +67,10 @@ class LoginRepositoryImpl @Inject constructor(
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
                 response.code() == 409 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+                else->{
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
@@ -101,6 +109,10 @@ class LoginRepositoryImpl @Inject constructor(
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
                 response.code() == 409 -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+                else->{
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
