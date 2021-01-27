@@ -8,4 +8,6 @@
     <string name="dialog_location_request_title">Allow FightPandemics to access your location?</string>
     <string name="placeholder_autocomplete_location">Neukoln, Berlin</string>
 
+    <!-- Toolbar -->
+    <string name="content_description_back_button">This is back button</string>
 </resources>

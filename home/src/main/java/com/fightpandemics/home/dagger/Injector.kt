@@ -7,6 +7,7 @@ import com.fightpandemics.core.dagger.CoreComponentProvider
 import com.fightpandemics.home.ui.DeleteDialogFragment
 import com.fightpandemics.home.ui.HomeFragment
 import com.fightpandemics.home.ui.HomeOptionsBottomSheetFragment
+import com.fightpandemics.home.ui.PostDetailsFragment
 import com.fightpandemics.home.ui.tabs.all.HomeAllFragment
 import com.fightpandemics.home.ui.tabs.offers.HomeOfferFragment
 import com.fightpandemics.home.ui.tabs.requests.HomeRequestFragment
@@ -71,6 +72,16 @@ fun inject(deleteDialogFragment: DeleteDialogFragment) {
         .factory()
         .create(appComponent, deleteDialogFragment.coreComponent())
         .inject(deleteDialogFragment)
+}
+
+fun inject(postDetailsFragment: PostDetailsFragment) {
+    val appComponent =
+        (postDetailsFragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
+
+    DaggerHomeComponent
+        .factory()
+        .create(appComponent, postDetailsFragment.coreComponent())
+        .inject(postDetailsFragment)
 }
 
 fun Fragment.coreComponent() = requireActivity().coreComponent()

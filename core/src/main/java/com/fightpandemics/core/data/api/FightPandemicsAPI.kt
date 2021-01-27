@@ -20,12 +20,24 @@ interface FightPandemicsAPI {
     @GET("api/posts")
     suspend fun getPosts(): Posts
 
-    // Get Post
+    // Get Posts
     @GET("api/posts")
     suspend fun getPosts(
         @Query("objective") objective: String?,
         @Query("limit") limit: Int
     ): Response<List<Post>>
+
+    // Get Post
+    @GET("api/posts/{postId}")
+    suspend fun getPost(
+        @Path("postId") postId: String
+    ): Response<Post>
+
+    // Get comments of a post
+    @GET("api/posts/{postId}/comments")
+    suspend fun getPostComments(
+
+    )
 
     // Login
     @Headers("No-Authentication: true") // no need to add authentication

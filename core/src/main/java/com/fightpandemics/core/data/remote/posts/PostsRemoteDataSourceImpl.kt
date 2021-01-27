@@ -18,6 +18,9 @@ class PostsRemoteDataSourceImpl @Inject constructor(
     override suspend fun fetchPosts(objective: String?): Response<List<Post>> =
         fightPandemicsAPI.getPosts(objective, 20)
 
+    override suspend fun fetchPost(postId: String): Response<Post> =
+        fightPandemicsAPI.getPost(postId = postId)
+
     override suspend fun updatePost(postId: String, postRequest: PostRequest) {
         val d = fightPandemicsAPI.updatePost(postId, postRequest)
         Timber.e(d.isSuccessful.toString())

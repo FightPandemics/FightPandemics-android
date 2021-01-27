@@ -10,9 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.core.utils.ViewModelFactory
-import com.fightpandemics.filter.ui.FilterRequest
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.databinding.HomeAllFragmentBinding
+import com.fightpandemics.home.ui.HomeFragmentDirections
 import com.fightpandemics.home.ui.HomeViewModel
 import com.fightpandemics.home.ui.tabs.PostsAdapter
 import timber.log.Timber
@@ -82,7 +82,7 @@ class HomeAllFragment : Fragment() {
                         postsAdapter.submitList(it.posts)
                         postsAdapter.onItemClickListener = { post ->
                             Timber.e("${post.author?.name}")
-                            // findNavController().navigate(PokeListFragmentDirections.actionPokeListFragmentToPokeDetailFragment(post))
+                            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPostDetailsFragment(postId = post._id))
                         }
                     }
                     it.error != null -> {

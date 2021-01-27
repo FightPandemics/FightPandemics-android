@@ -6,6 +6,7 @@ import com.fightpandemics.dagger.AppComponent
 import com.fightpandemics.home.ui.DeleteDialogFragment
 import com.fightpandemics.home.ui.HomeFragment
 import com.fightpandemics.home.ui.HomeOptionsBottomSheetFragment
+import com.fightpandemics.home.ui.PostDetailsFragment
 import com.fightpandemics.home.ui.tabs.all.HomeAllFragment
 import com.fightpandemics.home.ui.tabs.offers.HomeOfferFragment
 import com.fightpandemics.home.ui.tabs.requests.HomeRequestFragment
@@ -17,7 +18,7 @@ import dagger.Component
  */
 @FeatureScope
 @Component(
-    modules = [HomeModule::class, HomeViewModelModule::class, HomeSubcomponentsModule::class],
+    modules = [HomeModule::class, HomeViewModelModule::class, HomeSubcomponentsModule::class, PostDetailViewModelModule::class],
     dependencies = [AppComponent::class, CoreComponent::class]
 )
 interface HomeComponent {
@@ -37,4 +38,5 @@ interface HomeComponent {
     fun inject(homeRequestFragment: HomeRequestFragment)
     fun inject(homeOptionsBottomSheetFragment: HomeOptionsBottomSheetFragment)
     fun inject(deleteDialogFragment: DeleteDialogFragment)
+    fun inject(postDetailsFragment: PostDetailsFragment)
 }

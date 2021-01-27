@@ -11,6 +11,8 @@ interface PostsRemoteDataSource {
 
     suspend fun fetchPosts(objective: String?): Response<List<Post>>
 
+    suspend fun fetchPost(postId: String): Response<Post>
+
     suspend fun updatePost(postId: String, postRequest: PostRequest)
 
     suspend fun deletePost(postId: String)

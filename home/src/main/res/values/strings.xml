@@ -14,6 +14,12 @@
     <string name="share">Share</string>
     <string name="dot_normal">Dot Normal</string>
 
+    <!-- Post -->
+    <string name="post">Post</string>
+    <string name="like">Like</string>
+    <string name="reply">Reply</string>
+    <string name="write_a_comment">Write a comment ...</string>
+
     <!--Edit Delete Post-->
     <string name="edit_post">Edit Post</string>
     <string name="delete_post">Delete Post</string>

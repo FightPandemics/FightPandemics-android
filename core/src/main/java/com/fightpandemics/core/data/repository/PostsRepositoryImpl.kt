@@ -12,7 +12,6 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import java.lang.Exception
 import javax.inject.Inject
 
 @FlowPreview
@@ -40,6 +39,16 @@ class PostsRepositoryImpl @Inject constructor(
         }.catch { cause ->
             val error = postsRemoteDataSource.fetchPosts(objective).errorBody().toString()
             emit(Result.Error(Exception(error)))
+        }
+    }
+
+    override suspend fun getPost(postId: String): Flow<Result<Post>> {
+        return flow<Result<Post>> {
+            val post = postsRemoteDataSource.fetchPost(postId = postId).body()!!
+            emit(Result.Success(post))
+        }.catch {
+            val error = postsRemoteDataSource.fetchPost(postId = postId).errorBody().toString()
+            emit(Result.Error(Exception("Failed to get the post with id $postId: $error")))
         }
     }
 

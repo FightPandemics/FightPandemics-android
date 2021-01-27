@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_homeFragment_to_homeOptionsBottomSheetFragment"
             app:destination="@id/homeOptionsBottomSheetFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment" />
     </fragment>
 
     <dialog
@@ -66,4 +69,13 @@
 
     <include app:graph="@navigation/nav_filter" />
     <include app:graph="@navigation/nav_create_post" />
+
+    <fragment
+        android:id="@+id/postDetailsFragment"
+        android:name="com.fightpandemics.home.ui.PostDetailsFragment"
+        tools:layout="@layout/fragment_post">
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </fragment>
 </navigation>
