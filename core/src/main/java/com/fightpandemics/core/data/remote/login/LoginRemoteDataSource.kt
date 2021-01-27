@@ -1,6 +1,11 @@
 package com.fightpandemics.core.data.remote.login
 
-import com.fightpandemics.core.data.model.login.*
+import com.fightpandemics.core.data.model.login.LoginRequest
+import com.fightpandemics.core.data.model.login.SignUpRequest
+import com.fightpandemics.core.data.model.login.SignUpResponse
+import com.fightpandemics.core.data.model.login.ChangePasswordResponse
+import com.fightpandemics.core.data.model.login.CompleteProfileRequest
+import com.fightpandemics.core.data.model.login.CompleteProfileResponse
 import retrofit2.Response
 
 interface LoginRemoteDataSource {
