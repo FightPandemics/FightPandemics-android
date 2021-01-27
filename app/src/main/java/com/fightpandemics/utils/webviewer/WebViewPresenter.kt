@@ -13,12 +13,12 @@ import java.net.URLEncoder
 class WebViewPresenter(
     private val mContext: Context,
     private val mInteractor: Interactor
-)  {
+) {
     private fun makeToast(text: CharSequence): Toast {
         return Toast.makeText(mContext, text, Toast.LENGTH_LONG)
     }
 
-    fun validateUrl(url: String?) {
+    fun validateUrl(url : String?) {
         if (URLUtil.isValidUrl(url)) {
             mInteractor.loadUrl(url)
         } else {
@@ -27,6 +27,7 @@ class WebViewPresenter(
                 if (!URLUtil.isHttpUrl(url) && !URLUtil.isHttpsUrl(url)) {
                     tempUrl = "http://$url"
                 }
+
                 if (URLUtil.isValidUrl(tempUrl)) {
                     mInteractor.loadUrl(tempUrl)
                 } else try {

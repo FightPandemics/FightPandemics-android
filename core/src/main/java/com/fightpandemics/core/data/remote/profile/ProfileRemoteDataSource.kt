@@ -13,5 +13,4 @@ interface ProfileRemoteDataSource {
     suspend fun updateCurrertUser(patchIndividualProfileRequest: PatchIndividualProfileRequest): Response<PatchIndividualProfileResponse>
 
     suspend fun updateCurrertUserAccount(patchIndividualAccountRequest: PatchIndividualAccountRequest): Response<PatchIndividualProfileResponse>
-
 }

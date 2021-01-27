@@ -21,5 +21,4 @@ class ProfileRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun updateCurrertUserAccount(patchIndividualAccountRequest: PatchIndividualAccountRequest): Response<PatchIndividualProfileResponse> =
         fightPandemicsAPI.updateCurrentUserAccount(patchIndividualAccountRequest)
-
 }
