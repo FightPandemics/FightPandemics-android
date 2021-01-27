@@ -57,9 +57,6 @@ class LoginRepositoryImpl @Inject constructor(
 
                 response.isSuccessful && response.code() == 200 -> {
                     val signUpResponse = response.body()
-                    // authTokenLocalDataSource.setToken(signUpResponse?.token)
-                    // TODO maybe we have to consume current user service form backend to get serID
-                    // authTokenLocalDataSource.setUserId(loginResponse?.)
                     channel.offer(Result.Success(signUpResponse))
                 }
                 response.code() == 401 -> {
