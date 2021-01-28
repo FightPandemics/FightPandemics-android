@@ -38,10 +38,6 @@ class CompleteProfileFragment : Fragment() {
     private val loginViewModel: LoginViewModel by viewModels { loginViewModelFactory }
     private lateinit var completeProfileToolbar: MaterialToolbar
 
-    companion object {
-        const val USER_PROFILE = "userProfile"
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -123,5 +119,9 @@ class CompleteProfileFragment : Fragment() {
                 }
             }
         )
+    }
+
+    companion object {
+        const val USER_PROFILE = "userProfile"
     }
 }

@@ -53,8 +53,8 @@ open class BaseLocationFragment : Fragment() {
     fun getCurrentLocation() {
         // Call findCurrentPlace and handle the response (first check that the user has granted permission).
         if (ContextCompat.checkSelfPermission(
-           requireContext(),
-           Manifest.permission.ACCESS_FINE_LOCATION
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
         ) {
             val requestCheckState = anySuitableId
