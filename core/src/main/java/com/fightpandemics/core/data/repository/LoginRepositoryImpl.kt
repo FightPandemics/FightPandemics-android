@@ -21,14 +21,14 @@ import kotlinx.coroutines.flow.channelFlow
 import retrofit2.Response
 import javax.inject.Inject
 
+private const val NO_RESPONSE = "No Response"
+
 @ExperimentalCoroutinesApi
 class LoginRepositoryImpl @Inject constructor(
     val moshi: Moshi,
     private val loginRemoteDataSource: LoginRemoteDataSource,
     private val authTokenLocalDataSource: AuthTokenLocalDataSource
 ) : LoginRepository {
-
-    private val NO_RESPONSE = "No Response"
 
     override suspend fun login(loginRequest: LoginRequest?): Flow<Result<*>> {
         return channelFlow {
@@ -117,4 +117,5 @@ class LoginRepositoryImpl @Inject constructor(
             awaitClose { }
         }
     }
+
 }
