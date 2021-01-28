@@ -2,18 +2,20 @@ package com.fightpandemics.home.utils
 
 import android.content.Intent
 import android.os.Build
-import androidx.annotation.RequiresApi
 import com.fightpandemics.core.utils.Constants
 import com.fightpandemics.home.R
-import org.threeten.bp.*
+import org.threeten.bp.Instant
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
+import org.threeten.bp.ZoneOffset
+import org.threeten.bp.Duration
 import org.threeten.bp.format.DateTimeFormatter
-import timber.log.Timber
-import java.util.*
+import java.util.Locale
 
 val TAB_TITLES = arrayOf(
-    com.fightpandemics.home.R.string.tab_all,
-    com.fightpandemics.home.R.string.tab_offers,
-    com.fightpandemics.home.R.string.tab_requests
+    R.string.tab_all,
+    R.string.tab_offers,
+    R.string.tab_requests
 )
 
 fun userInitials(userName: String?): String {
@@ -21,8 +23,8 @@ fun userInitials(userName: String?): String {
     val firstInitials = splitName[0][0]
 
     return when {
-        splitName.size > 1 -> {
-            val secondInitials = splitName[1][0]
+        splitName.size > one -> {
+            val secondInitials = splitName[one][0]
             "$firstInitials$secondInitials".toUpperCase(Locale.ROOT)
         }
         else -> "$firstInitials".toUpperCase(Locale.ROOT)
@@ -65,7 +67,6 @@ fun getPostCreated(createdAt: String?): String? {
         return ""
     }
 }
-
 fun calculateTime(elapsedDuration: Duration): String? {
     val day = elapsedDuration.toDays().toInt()
     val hr = elapsedDuration.toHours().toInt()
@@ -73,25 +74,35 @@ fun calculateTime(elapsedDuration: Duration): String? {
     val sec = elapsedDuration.seconds.toInt()
 
     when {
-        day >= 365 -> return "${day / 365} year"
+        day >= threeSixFive -> return "${day / threeSixFive} year"
 
-        day in 31..364 -> return "${day / 30} months"
-        day == 30 -> return "${day / 30} month"
+        day in threeOne..threeSixFour -> return "${day / thirty} months"
+        day == thirty -> return "${day / thirty} month"
 
-        day in 7..29 -> return "${day / 7} weeks"
-        day == 7 -> return "${day / 7} week"
+        day in seven..twentyNine -> return "${day / seven} weeks"
+        day == seven -> return "${day / seven} week"
 
-        day >= 1 -> return "$day days"
-        day == 1 -> return "$day day"
+        day >= one -> return "$day days"
+        day == one -> return "$day day"
 
-        hr in 2..23 -> return "$hr hours"
-        hr == 1 -> return "$hr hour"
+        hr in two..twentyThree -> return "$hr hours"
+        hr == one -> return "$hr hour"
 
-        min in 2..60 -> return "$min mins"
-        min == 1 -> return "$min min"
+        min in two..60 -> return "$min mins"
+        min == one -> return "$min min"
 
-        sec in 1..60 -> return "${sec} secs"
-        sec == 0 -> return "now"
+        sec in one..60 -> return "${sec} secs"
+        sec == zero -> return "now"
     }
     return null
 }
+    private const val zero = 0
+    private const val one = 1
+    private const val two = 2
+    private const val seven = 7
+    private const val twentyThree = 23
+    private const val twentyNine = 29
+    private const val thirty = 30
+    private const val threeOne = 31
+    private const val threeSixFour = 364
+    private const val threeSixFive = 365
