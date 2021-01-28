@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Build
 import com.fightpandemics.core.utils.Constants
 import com.fightpandemics.home.R
+import org.threeten.bp.Duration
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZoneOffset
-import org.threeten.bp.Duration
 import org.threeten.bp.format.DateTimeFormatter
 import java.util.Locale
 
@@ -17,6 +17,16 @@ val TAB_TITLES = arrayOf(
     R.string.tab_offers,
     R.string.tab_requests
 )
+private const val zero = 0
+private const val one = 1
+private const val two = 2
+private const val seven = 7
+private const val twentyThree = 23
+private const val twentyNine = 29
+private const val thirty = 30
+private const val threeOne = 31
+private const val threeSixFour = 364
+private const val threeSixFive = 365
 
 fun userInitials(userName: String?): String {
     val splitName = userName!!.trim().split("\\s+".toRegex()).toMutableList()
@@ -58,12 +68,11 @@ fun getPostCreated(createdAt: String?): String? {
         val now = Instant.now()
         val elapsedDuration: Duration = Duration.between(created, now)
 
-        //Timber.e(elapsedDuration.seconds.toString())
+        // Timber.e(elapsedDuration.seconds.toString())
 
         val elapsed = calculateTime(elapsedDuration)
         return elapsed
     } else {
-
         return ""
     }
 }
@@ -91,18 +100,8 @@ fun calculateTime(elapsedDuration: Duration): String? {
         min in two..60 -> return "$min mins"
         min == one -> return "$min min"
 
-        sec in one..60 -> return "${sec} secs"
+        sec in one..60 -> return "$sec secs"
         sec == zero -> return "now"
     }
     return null
 }
-    private const val zero = 0
-    private const val one = 1
-    private const val two = 2
-    private const val seven = 7
-    private const val twentyThree = 23
-    private const val twentyNine = 29
-    private const val thirty = 30
-    private const val threeOne = 31
-    private const val threeSixFour = 364
-    private const val threeSixFive = 365
