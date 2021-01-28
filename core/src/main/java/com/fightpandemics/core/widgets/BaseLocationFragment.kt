@@ -48,8 +48,8 @@ open class BaseLocationFragment : Fragment() {
     fun getCurrentLocation() {
         // Call findCurrentPlace and handle the response (first check that the user has granted permission).
         if (ContextCompat.checkSelfPermission(
-            requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
-        )
+                requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
+            )
             == PackageManager.PERMISSION_GRANTED
         ) {
             val REQUEST_CHECK_STATE = 12300 // any suitable ID
@@ -64,10 +64,10 @@ open class BaseLocationFragment : Fragment() {
                 } catch (e: RuntimeExecutionException) {
                     Timber.i("My filters : runtime execution exception")
                     if (e.cause is ResolvableApiException)
-                    (e.cause as ResolvableApiException).startResolutionForResult(
-                        requireActivity(),
-                        REQUEST_CHECK_STATE
-                    )
+                        (e.cause as ResolvableApiException).startResolutionForResult(
+                            requireActivity(),
+                            REQUEST_CHECK_STATE
+                        )
                 }
             }
 
@@ -110,7 +110,7 @@ open class BaseLocationFragment : Fragment() {
                 .setPositiveButton("ALLOW") { dialog, which ->
                     requestPermissions(
                         arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                        Companion.LOCATION_PERMISSION_CODE
+                        LOCATION_PERMISSION_CODE
                     )
                 }
                 .setNegativeButton("CANCEL") { dialog, id ->
@@ -119,7 +119,7 @@ open class BaseLocationFragment : Fragment() {
         } else {
             requestPermissions(
                 arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                Companion.LOCATION_PERMISSION_CODE
+                LOCATION_PERMISSION_CODE
             )
         }
     }
@@ -130,7 +130,7 @@ open class BaseLocationFragment : Fragment() {
         grantResults: IntArray
     ) {
         when (requestCode) {
-            Companion.LOCATION_PERMISSION_CODE -> {
+            LOCATION_PERMISSION_CODE -> {
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
                 } else {
