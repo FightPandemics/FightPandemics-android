@@ -34,4 +34,8 @@
     <string name="if_you_dont_see_email">If you don\'t see a message within a few minutes please check spam, promotions or other incoming mail folders.</string>
     <string name="check_your_inbox">Check your inbox</string>
     <string name="unexpected_error_login">Unexpected error, try again later</string>
+
+    <!-- complete profile location -->
+    <string name="zip_code_neighborhood_or_city">Zip code, neighborhood or city</string>
+    <string name="share_my_location">Share my location</string>
 </resources>

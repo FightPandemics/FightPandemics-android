@@ -1,3 +1,10 @@
 <resources>
     <dimen name="activity_horizontal_margin">64dp</dimen>
+    <!-- Complete profile location layout -->
+    <dimen name="location_horizontal_margin">16dp</dimen>
+    <dimen name="location_vertical_margin">16dp</dimen>
+    <dimen name="filter_options_card_height">230dp</dimen>
+    <dimen name="location_search_icon_padding">8dp</dimen>
+    <dimen name="line_width">1dp</dimen>
+    <dimen name="autocomplete_location_vertical_spacing">8dp</dimen>
 </resources>
