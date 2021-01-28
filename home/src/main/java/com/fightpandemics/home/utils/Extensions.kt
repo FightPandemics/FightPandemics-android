@@ -40,7 +40,6 @@ fun sharePost(postTitle: String?, postId: String): Intent {
     return Intent.createChooser(sendIntent, "Share link to")
 }
 
-// TODO 4 -
 fun getPostCreated(createdAt: String?): String? {
 
     // FOR API >= 26
@@ -82,14 +81,14 @@ fun calculateTime(elapsedDuration: Duration): String? {
         day in 7..29 -> return "${day / 7} weeks"
         day == 7 -> return "${day / 7} week"
 
-        day >= 1 -> return "${day} days"
-        day == 1 -> return "${day} day"
+        day >= 1 -> return "$day days"
+        day == 1 -> return "$day day"
 
-        hr in 2..23 -> return "${hr} hours"
-        hr == 1 -> return "${hr} hour"
+        hr in 2..23 -> return "$hr hours"
+        hr == 1 -> return "$hr hour"
 
-        min in 2..60 -> return "${min} mins"
-        min == 1 -> return "${min} min"
+        min in 2..60 -> return "$min mins"
+        min == 1 -> return "$min min"
 
         sec in 1..60 -> return "${sec} secs"
         sec == 0 -> return "now"

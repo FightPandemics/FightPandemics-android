@@ -1,7 +1,12 @@
 package com.fightpandemics.core.data.repository
 
 import com.fightpandemics.core.data.local.AuthTokenLocalDataSource
-import com.fightpandemics.core.data.model.login.*
+import com.fightpandemics.core.data.model.login.ChangePasswordResponse
+import com.fightpandemics.core.data.model.login.CompleteProfileRequest
+import com.fightpandemics.core.data.model.login.ErrorResponse
+import com.fightpandemics.core.data.model.login.LoginRequest
+import com.fightpandemics.core.data.model.login.LoginResponse
+import com.fightpandemics.core.data.model.login.SignUpRequest
 import com.fightpandemics.core.data.remote.login.LoginRemoteDataSource
 import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.core.result.Result
@@ -13,6 +18,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import retrofit2.Response
+import java.net.HttpURLConnection
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -21,8 +27,7 @@ class LoginRepositoryImpl @Inject constructor(
     private val loginRemoteDataSource: LoginRemoteDataSource,
     private val authTokenLocalDataSource: AuthTokenLocalDataSource
 ) : LoginRepository {
-
-    override suspend fun login(loginRequest: LoginRequest?): Flow<Result<*>>? {
+    override suspend fun login(loginRequest: LoginRequest?): Flow<Result<*>> {
         return channelFlow {
             val response = loginRequest?.let { loginRemoteDataSource.login(it) }
             when {
@@ -41,30 +46,26 @@ class LoginRepositoryImpl @Inject constructor(
         }
     }
 
-
-    override suspend fun signUp(signUpRequest: SignUpRequest): Flow<Result<*>>? {
+    override suspend fun signUp(signUpRequest: SignUpRequest): Flow<Result<*>> {
         return channelFlow {
             val response = signUpRequest.let { loginRemoteDataSource.signUp(it) }
             when {
 
-                response.isSuccessful && response.code() == 200 -> {
+                response.isSuccessful && response.code() == HttpURLConnection.HTTP_OK -> {
                     val signUpResponse = response.body()
-                    //authTokenLocalDataSource.setToken(signUpResponse?.token)
-                    //TODO maybe we have to consume current user service form backend to get serID
-                    //authTokenLocalDataSource.setUserId(loginResponse?.)
+                    // authTokenLocalDataSource.setToken(signUpResponse?.token)
+                    // TODO maybe we have to consume current user service form backend to get serID
+                    // authTokenLocalDataSource.setUserId(loginResponse?.)
                     channel.offer(Result.Success(signUpResponse))
                 }
-                response.code() == 401 -> {
+                response.code() == HttpURLConnection.HTTP_UNAUTHORIZED ||
+                    response.code() == HttpURLConnection.HTTP_BAD_REQUEST ||
+                    response.code() == HttpURLConnection.HTTP_CONFLICT -> {
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
-                response.code() == 400 -> {
-                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
-                    channel.offer(Result.Error(Exception(myError?.message)))
-                }
-                response.code() == 409 -> {
-                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
-                    channel.offer(Result.Error(Exception(myError?.message)))
+                else -> {
+                    channel.offer(Result.Error(Exception(noResponse)))
                 }
             }
             awaitClose { }
@@ -75,37 +76,35 @@ class LoginRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun completeProfile(request: CompleteProfileRequest): Flow<Result<*>>? {
+    override suspend fun completeProfile(request: CompleteProfileRequest): Flow<Result<*>> {
         return channelFlow {
             val response = request.let { loginRemoteDataSource.completeProfile(it) }
             when {
 
-                response.isSuccessful && response.code() == 200 -> {
+                response.isSuccessful && response.code() == HttpURLConnection.HTTP_OK -> {
                     val signUpResponse = response.body()
-                    //authTokenLocalDataSource.setToken(signUpResponse?.token)
-                    //TODO maybe we have to consume current user service form backend to get serID
-                    //authTokenLocalDataSource.setUserId(loginResponse?.)
+                    // authTokenLocalDataSource.setToken(signUpResponse?.token)
+                    // TODO maybe we have to consume current user service form backend to get serID
+                    // authTokenLocalDataSource.setUserId(loginResponse?.)
                     channel.offer(Result.Success(signUpResponse))
                 }
 
-                response.code() == 500 -> {
+                response.code() == HttpURLConnection.HTTP_UNAUTHORIZED ||
+                    response.code() == HttpURLConnection.HTTP_BAD_REQUEST ||
+                    response.code() == HttpURLConnection.HTTP_CONFLICT -> {
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
-                response.code() == 401 -> {
-                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
-                    channel.offer(Result.Error(Exception(myError?.message)))
-                }
-                response.code() == 400 -> {
-                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
-                    channel.offer(Result.Error(Exception(myError?.message)))
-                }
-                response.code() == 409 -> {
-                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
-                    channel.offer(Result.Error(Exception(myError?.message)))
+
+                else -> {
+                    channel.offer(Result.Error(Exception(noResponse)))
                 }
             }
             awaitClose { }
         }
+    }
+
+    companion object {
+        private const val noResponse = "No Response from Server"
     }
 }

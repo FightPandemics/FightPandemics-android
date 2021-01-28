@@ -10,7 +10,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.fightpandemics.core.data.model.login.*
+import com.fightpandemics.core.data.model.login.CompleteProfileRequest
+import com.fightpandemics.core.data.model.login.Hide
+import com.fightpandemics.core.data.model.login.Location
+import com.fightpandemics.core.data.model.login.Needs
+import com.fightpandemics.core.data.model.login.Objectives
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
@@ -20,6 +24,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -28,11 +33,12 @@ class CompleteProfileFragment : Fragment() {
     @Inject
     lateinit var loginViewModelFactory: ViewModelFactory
 
-    lateinit var completeProfileButton : ConstraintLayout
+    private lateinit var completeProfileButton: ConstraintLayout
+    @ExperimentalCoroutinesApi
     private val loginViewModel: LoginViewModel by viewModels { loginViewModelFactory }
-    private lateinit var complete_profile_toolbar: MaterialToolbar
+    private lateinit var completeProfileToolbar: MaterialToolbar
 
-    companion object{
+    companion object {
         const val USER_PROFILE = "userProfile"
     }
 
@@ -41,6 +47,7 @@ class CompleteProfileFragment : Fragment() {
         inject(this)
     }
 
+    @ExperimentalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,8 +56,8 @@ class CompleteProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_complete_profile, container, false)
 
-        complete_profile_toolbar = rootView.findViewById(R.id.complete_profile_toolbar)
-        complete_profile_toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+        completeProfileToolbar = rootView.findViewById(R.id.complete_profile_toolbar)
+        completeProfileToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
         completeProfileButton = rootView.findViewById(R.id.clBtnComplete)
         completeProfileButton.setOnClickListener {
@@ -75,14 +82,8 @@ class CompleteProfileFragment : Fragment() {
 
             val objectives = Objectives(donation, information, volunteerHrsOffering)
             val needs = Needs(volunteerHrsRequest, otherHelp)
-//            val notifyPrefs =
-//                NotifyPrefs(
-//                    Digest(true, true, true),
-//                    Instant(true, true, true, true)
-//                )
-//            val url = Url()
             val hide = Hide(false)
-            val location = Location("mock", "mock", listOf(0.0,0.0), "mock", "mock" )
+            val location = Location("mock", "mock", listOf(0.0, 0.0), "mock", "mock")
 
             val completeProfileRequest = CompleteProfileRequest(firstName, hide, lastName, location, needs, objectives)
             onCompleteProfile(completeProfileRequest)
@@ -94,34 +95,33 @@ class CompleteProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         arguments?.getString(USER_PROFILE)
-
     }
 
-    private fun onCompleteProfile(request : CompleteProfileRequest){
+    @ExperimentalCoroutinesApi
+    private fun onCompleteProfile(request: CompleteProfileRequest) {
         loginViewModel.doCompleteProfile(request)
-        loginViewModel.completeProfile.observe(viewLifecycleOwner, {
-            when {
-                it.isLoading -> {
+        loginViewModel.completeProfile.observe(
+            viewLifecycleOwner,
+            {
+                when (it.error) {
+                    null -> {
 
-                }
-                it.error == null -> {
-
-                    Timber.e("LOGGED IN ${it.email}")
-                    if (it.token == null) {
-                        val PACKAGE_NAME = "com.fightpandemics"
-                        val intent = Intent().setClassName(
-                            PACKAGE_NAME,
-                            "$PACKAGE_NAME.ui.MainActivity"
-                        )
-                        startActivity(intent).apply { requireActivity().finish() }
+                        Timber.e("LOGGED IN ${it.email}")
+                        if (it.token == null) {
+                            val packageName = "com.fightpandemics"
+                            val intent = Intent().setClassName(
+                                packageName,
+                                "$packageName.ui.MainActivity"
+                            )
+                            startActivity(intent).apply { requireActivity().finish() }
+                        }
+                    }
+                    else -> {
+                        completeProfileButton.snack("it.error", Snackbar.LENGTH_LONG)
+                        Timber.e("ERROR ${it.error}")
                     }
                 }
-                else -> {
-                    completeProfileButton.snack("it.error", Snackbar.LENGTH_LONG)
-                    Timber.e("ERROR ${it.error}")
-                    // TODO 8 - The user is informed that their credentials are invalid using a Snackbar.
-                }
             }
-        })
+        )
     }
 }
