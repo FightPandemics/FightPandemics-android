@@ -25,6 +25,7 @@ private const val TWENTY_THREE = 23
 private const val TWENTY_NINE = 29
 private const val THIRTY = 30
 private const val THREE_ONE = 31
+private const val SIXTY = 60
 private const val THREE_SIX_FOUR = 364
 private const val THREE_SIX_FIVE = 365
 
@@ -97,10 +98,10 @@ fun calculateTime(elapsedDuration: Duration): String? {
         hr in TWO..TWENTY_THREE -> return "$hr hours"
         hr == ONE -> return "$hr hour"
 
-        min in TWO..60 -> return "$min mins"
+        min in TWO..SIXTY -> return "$min mins"
         min == ONE -> return "$min min"
 
-        sec in ONE..60 -> return "$sec secs"
+        sec in ONE..SIXTY -> return "$sec secs"
         sec == ZERO -> return "now"
     }
     return null
