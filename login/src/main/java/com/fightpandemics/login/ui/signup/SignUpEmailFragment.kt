@@ -2,7 +2,6 @@ package com.fightpandemics.login.ui.signup
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +21,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 import javax.inject.Inject
 
-
 @ExperimentalCoroutinesApi
 class SignUpEmailFragment : BaseFragment() {
 
@@ -37,7 +35,8 @@ class SignUpEmailFragment : BaseFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_sign_up_email, container, false)
@@ -49,7 +48,7 @@ class SignUpEmailFragment : BaseFragment() {
         // setup toolbar
         val toolbar = sign_up_toolbar
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
-        toolbar.setTitle("")
+        toolbar.title = ""
         toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
         tv_sigin_instead.setOnClickListener {
@@ -61,7 +60,8 @@ class SignUpEmailFragment : BaseFragment() {
             // if (validEmail && validPassword && validRePassword) {
             if (cl_btn_join.isEnabled) {
                 cl_btn_join.isEnabled = false
-                loginViewModel.doSignUP(et_email.text.toString().trim(),
+                loginViewModel.doSignUP(
+                    et_email.text.toString().trim(),
                     et_password.text.toString().trim(),
                     et_repassword.text.toString().trim()
                 )
@@ -70,53 +70,41 @@ class SignUpEmailFragment : BaseFragment() {
     }
 
     private fun observeSignUP() {
-        loginViewModel.signup.observe(viewLifecycleOwner, { signupResponse ->
-            cl_btn_join.isEnabled = true
-            when {
-                signupResponse.isError -> {
-                    Toast.makeText(
-                        requireContext(),
-                        "Oops something wrong please try again later: " + signupResponse.error,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                else -> {
-                    when {
-                        signupResponse.emailVerified -> {
-                            displayorHideView(View.VISIBLE, cl_btn_join)
-                            Timber.e("Email verification ${signupResponse.emailVerified}")
+        loginViewModel.signup.observe(
+            viewLifecycleOwner,
+            { signupResponse ->
+                cl_btn_join.isEnabled = true
+                when {
+                    signupResponse.isError -> {
+                        Toast.makeText(
+                            requireContext(),
+                            "Oops something wrong please try again later: " + signupResponse.error,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    else -> {
+                        when {
+                            signupResponse.emailVerified -> {
+                                displayorHideView(View.VISIBLE, cl_btn_join)
+                                Timber.e("Email verification ${signupResponse.emailVerified}")
 
-                            // TODO 9 - Fix this hardcoded string
-                            val PACKAGE_NAME = "com.fightpandemics"
-                            val intent = Intent().setClassName(
-                                PACKAGE_NAME,
-                                "$PACKAGE_NAME.ui.MainActivity"
-                            )
-                            startActivity(intent).apply { requireActivity().finish() }
-                        }
-                        !signupResponse.emailVerified -> {
-                            findNavController().navigate(R.id.action_signupEmailFragment_to_verifyEmailFragment)
+                                val intent = Intent().setClassName(
+                                    packageName,
+                                    "$packageName.ui.MainActivity"
+                                )
+                                startActivity(intent).apply { requireActivity().finish() }
+                            }
+                            !signupResponse.emailVerified -> {
+                                findNavController().navigate(R.id.action_signupEmailFragment_to_verifyEmailFragment)
+                            }
                         }
                     }
                 }
             }
-        })
+        )
     }
 
-    private fun checkLayoutSignUpButton() {
-//        if (validEmail && validPassword && validRePassword) {
-//            val filter: ColorFilter = PorterDuffColorFilter(
-//                resources.getColor(R.color.colorPrimary),
-//                PorterDuff.Mode.SRC_ATOP
-//            )
-//            cl_btn_join.background.colorFilter = filter
-//        } else {
-//            val filter: ColorFilter = PorterDuffColorFilter(
-//                resources.getColor(R.color.color_button_disabled),
-//                PorterDuff.Mode.SRC_ATOP
-//            )
-//            cl_btn_join.background.colorFilter = filter
-//        }
+    companion object {
+        private const val packageName = "com.fightpandemics"
     }
-
 }
