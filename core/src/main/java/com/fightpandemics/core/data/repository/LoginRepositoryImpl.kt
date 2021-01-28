@@ -10,7 +10,6 @@ import com.fightpandemics.core.data.model.login.SignUpRequest
 import com.fightpandemics.core.data.remote.login.LoginRemoteDataSource
 import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.core.result.Result
-import com.fightpandemics.core.utils.StatusCode
 import com.fightpandemics.core.utils.parseErrorJsonResponse
 import com.fightpandemics.core.utils.parseJsonResponse
 import com.squareup.moshi.Moshi
@@ -19,6 +18,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import retrofit2.Response
+import java.net.HttpURLConnection
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -28,23 +28,23 @@ class LoginRepositoryImpl @Inject constructor(
     private val authTokenLocalDataSource: AuthTokenLocalDataSource
 ) : LoginRepository {
 
-    private val NO_RESPONSE = "No Response"
+    private val noResponse = "No Response"
 
     override suspend fun login(loginRequest: LoginRequest?): Flow<Result<*>> {
         return channelFlow {
             val response = loginRequest?.let { loginRemoteDataSource.login(it) }
             if (response != null) {
                 when {
-                    response.isSuccessful && response.code() == StatusCode.OK.code -> {
+                    response.isSuccessful && response.code() == HttpURLConnection.HTTP_OK -> {
                         val loginResponse = response.parseJsonResponse<LoginResponse>(moshi)
                         authTokenLocalDataSource.setToken(loginResponse?.token)
                         authTokenLocalDataSource.setUserId(loginResponse?.user?.id)
                         channel.offer(Result.Success(loginResponse))
                     }
-                    response.code() == StatusCode.InternalServerError.code ||
-                        response.code() == StatusCode.Unauthorized.code ||
-                        response.code() == StatusCode.BadRequest.code ||
-                        response.code() == StatusCode.Conflict.code -> {
+                    response.code() == HttpURLConnection.HTTP_INTERNAL_ERROR ||
+                        response.code() == HttpURLConnection.HTTP_UNAUTHORIZED ||
+                        response.code() == HttpURLConnection.HTTP_BAD_REQUEST ||
+                        response.code() == HttpURLConnection.HTTP_CONFLICT -> {
                         val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                         channel.offer(Result.Error(Exception(myError?.message)))
                     }
@@ -54,7 +54,7 @@ class LoginRepositoryImpl @Inject constructor(
                     }
                 }
             } else {
-                channel.offer(Result.Error(Exception(NO_RESPONSE)))
+                channel.offer(Result.Error(Exception(noResponse)))
             }
             awaitClose { }
         }
@@ -65,14 +65,14 @@ class LoginRepositoryImpl @Inject constructor(
             val response = signUpRequest.let { loginRemoteDataSource.signUp(it) }
             when {
 
-                response.isSuccessful && response.code() == StatusCode.OK.code -> {
+                response.isSuccessful && response.code() == HttpURLConnection.HTTP_OK -> {
                     val signUpResponse = response.body()
                     channel.offer(Result.Success(signUpResponse))
                 }
-                response.code() == StatusCode.InternalServerError.code ||
-                    response.code() == StatusCode.Unauthorized.code ||
-                    response.code() == StatusCode.BadRequest.code ||
-                    response.code() == StatusCode.Conflict.code -> {
+                response.code() == HttpURLConnection.HTTP_INTERNAL_ERROR ||
+                    response.code() == HttpURLConnection.HTTP_UNAUTHORIZED ||
+                    response.code() == HttpURLConnection.HTTP_BAD_REQUEST ||
+                    response.code() == HttpURLConnection.HTTP_CONFLICT -> {
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
@@ -94,7 +94,7 @@ class LoginRepositoryImpl @Inject constructor(
             val response = loginRemoteDataSource.completeProfile(request)
             when {
 
-                response.isSuccessful && response.code() == StatusCode.OK.code -> {
+                response.isSuccessful && response.code() == HttpURLConnection.HTTP_OK -> {
                     val signUpResponse = response.body()
                     // authTokenLocalDataSource.setToken(signUpResponse?.token)
                     // TODO maybe we have to consume current user service form backend to get serID
@@ -102,10 +102,10 @@ class LoginRepositoryImpl @Inject constructor(
                     channel.offer(Result.Success(signUpResponse))
                 }
 
-                response.code() == StatusCode.InternalServerError.code ||
-                    response.code() == StatusCode.Unauthorized.code ||
-                    response.code() == StatusCode.BadRequest.code ||
-                    response.code() == StatusCode.Conflict.code -> {
+                response.code() == HttpURLConnection.HTTP_INTERNAL_ERROR ||
+                    response.code() == HttpURLConnection.HTTP_UNAUTHORIZED ||
+                    response.code() == HttpURLConnection.HTTP_BAD_REQUEST ||
+                    response.code() == HttpURLConnection.HTTP_CONFLICT -> {
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
