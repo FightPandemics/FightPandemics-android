@@ -22,6 +22,7 @@ import com.github.razir.progressbutton.hideProgress
 import com.github.razir.progressbutton.showProgress
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_sign_in_email.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
@@ -107,6 +108,7 @@ class SignInEmailFragment : Fragment() {
                     !it.emailVerified -> {
                         displayButton(true, R.string.sign_in)
                         Timber.e("ERROR ${it.error}")
+                        Snackbar.make(sign_in_email_constraint_layout, "ERROR ${it.error}", Snackbar.LENGTH_LONG).show()
                         // TODO 8 - The user is informed that their credentials are invalid using a Snackbar.
                     }
                 }
