@@ -17,24 +17,24 @@ val TAB_TITLES = arrayOf(
     R.string.tab_offers,
     R.string.tab_requests
 )
-private const val zero = 0
-private const val one = 1
-private const val two = 2
-private const val seven = 7
-private const val twentyThree = 23
-private const val twentyNine = 29
-private const val thirty = 30
-private const val threeOne = 31
-private const val threeSixFour = 364
-private const val threeSixFive = 365
+private const val ZERO = 0
+private const val ONE = 1
+private const val TWO = 2
+private const val SEVEN = 7
+private const val TWENTY_THREE = 23
+private const val TWENTY_NINE = 29
+private const val THIRTY = 30
+private const val THREE_ONE = 31
+private const val THREE_SIX_FOUR = 364
+private const val THREE_SIX_FIVE = 365
 
 fun userInitials(userName: String?): String {
     val splitName = userName!!.trim().split("\\s+".toRegex()).toMutableList()
     val firstInitials = splitName[0][0]
 
     return when {
-        splitName.size > one -> {
-            val secondInitials = splitName[one][0]
+        splitName.size > ONE -> {
+            val secondInitials = splitName[ONE][0]
             "$firstInitials$secondInitials".toUpperCase(Locale.ROOT)
         }
         else -> "$firstInitials".toUpperCase(Locale.ROOT)
@@ -83,25 +83,25 @@ fun calculateTime(elapsedDuration: Duration): String? {
     val sec = elapsedDuration.seconds.toInt()
 
     when {
-        day >= threeSixFive -> return "${day / threeSixFive} year"
+        day >= THREE_SIX_FIVE -> return "${day / THREE_SIX_FIVE} year"
 
-        day in threeOne..threeSixFour -> return "${day / thirty} months"
-        day == thirty -> return "${day / thirty} month"
+        day in THREE_ONE..THREE_SIX_FOUR -> return "${day / THIRTY} months"
+        day == THIRTY -> return "${day / THIRTY} month"
 
-        day in seven..twentyNine -> return "${day / seven} weeks"
-        day == seven -> return "${day / seven} week"
+        day in SEVEN..TWENTY_NINE -> return "${day / SEVEN} weeks"
+        day == SEVEN -> return "${day / SEVEN} week"
 
-        day >= one -> return "$day days"
-        day == one -> return "$day day"
+        day >= ONE -> return "$day days"
+        day == ONE -> return "$day day"
 
-        hr in two..twentyThree -> return "$hr hours"
-        hr == one -> return "$hr hour"
+        hr in TWO..TWENTY_THREE -> return "$hr hours"
+        hr == ONE -> return "$hr hour"
 
-        min in two..60 -> return "$min mins"
-        min == one -> return "$min min"
+        min in TWO..60 -> return "$min mins"
+        min == ONE -> return "$min min"
 
-        sec in one..60 -> return "$sec secs"
-        sec == zero -> return "now"
+        sec in ONE..60 -> return "$sec secs"
+        sec == ZERO -> return "now"
     }
     return null
 }

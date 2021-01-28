@@ -53,14 +53,13 @@ open class BaseLocationFragment : Fragment() {
     fun getCurrentLocation() {
         // Call findCurrentPlace and handle the response (first check that the user has granted permission).
         if (ContextCompat.checkSelfPermission(
-                requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
-            val requestCheckState = 12300 // any suitable ID
+            val requestCheckState = anySuitableId
             val builder = LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest)
-
             val client = LocationServices.getSettingsClient(requireContext())
             client.checkLocationSettings(builder.build()).addOnCompleteListener { task ->
                 try {
@@ -68,11 +67,12 @@ open class BaseLocationFragment : Fragment() {
                     Timber.i("My filters : gps is on")
                 } catch (e: RuntimeExecutionException) {
                     Timber.i("My filters : runtime execution exception")
-                    if (e.cause is ResolvableApiException)
+                    if (e.cause is ResolvableApiException) {
                         (e.cause as ResolvableApiException).startResolutionForResult(
                             requireActivity(),
                             requestCheckState
                         )
+                    }
                 }
             }
 
@@ -150,5 +150,6 @@ open class BaseLocationFragment : Fragment() {
     companion object {
         // variable for location permission
         private const val LOCATION_PERMISSION_CODE = 1
+        private const val anySuitableId = 12300
     }
 }
