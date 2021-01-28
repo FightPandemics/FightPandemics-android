@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -16,9 +15,13 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
 import com.fightpandemics.profile.util.capitalizeFirstLetter
+import com.fightpandemics.profile.util.userInitials
+import com.fightpandemics.ui.MainActivity
 import com.fightpandemics.utils.webviewer.WebViewerActivity
+import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.profile_fragment_content.*
 import kotlinx.android.synthetic.main.profile_toolbar.*
+import kotlinx.android.synthetic.main.user_posts_content.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 import javax.inject.Inject
@@ -47,6 +50,7 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        createPost()
         return inflater.inflate(R.layout.profile_fragment, container, false)
     }
 
@@ -85,6 +89,18 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun createPost() {
+        (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsOrg)
+            .setOnClickListener {
+                findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_createPostFragment)
+            }
+
+        (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsIndiv)
+            .setOnClickListener {
+                findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_createPostFragment)
+            }
+    }
+
     private fun getIndividualProfileListener(profile: ProfileViewModel.IndividualProfileViewState) {
         when {
             profile.isLoading -> {
@@ -95,6 +111,7 @@ class ProfileFragment : Fragment() {
                 initTextViews(profile)
                 loadUserImage(profile, profile.imgUrl)
                 initSocialListeners(profile)
+                displayUserPosts(profile.id!!)
             }
             profile.error != null -> {
                 bindLoading(false)
@@ -103,16 +120,47 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun displayUserPosts(id: String) {
+
+        val adapter = PostsAdapter()
+
+        val rv = profile_activities_recyclerView
+        rv.adapter = adapter
+
+        profileViewModel.loadUserPosts(id)
+
+        profileViewModel.postsState.observe(viewLifecycleOwner,
+            {
+                // ...
+                when {
+                    it.isLoading -> bindLoadingPosts(it.isLoading)
+                    it.posts!!.isNotEmpty() -> {
+                        bindLoading(it.isLoading)
+                        adapter.data = it.posts
+//                        homeAllFragmentBinding!!.postList.visibility = View.VISIBLE
+//                        postsAdapter.submitList(it.posts)
+//                        postsAdapter.onItemClickListener = { post ->
+//                            Timber.e("${post.author?.name}")
+//                            // findNavController().navigate(PokeListFragmentDirections.actionPokeListFragmentToPokeDetailFragment(post))
+//                        }
+                    }
+                    it.error != null -> {
+                        bindLoading(it.isLoading)
+//                        homeAllFragmentBinding!!.postList.visibility = View.GONE
+                        Timber.i("Debug: error ${it.error.exception}")
+                        // bindError()
+                    }
+                }
+            }
+        )
+    }
+
     private fun loadUserImage(
         profile: ProfileViewModel.IndividualProfileViewState,
         imgUrl: String?
     ) {
         if (profile.imgUrl == null || imgUrl.toString().isBlank()) {
-            user_avatar.setInitials(
-                profile?.firstName?.substring(0, 1)
-                    ?.toUpperCase() + profile?.lastName?.split(" ")?.last()
-                    ?.substring(0, 1)?.toUpperCase()
-            )
+            user_avatar.setInitials(userInitials(profile.firstName, profile.lastName))
             user_avatar.invalidate()
         } else {
             GlideApp
@@ -151,6 +199,16 @@ class ProfileFragment : Fragment() {
         } else {
             content.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun bindLoadingPosts(isLoading: Boolean) {
+        if (isLoading) {
+//            content.visibility = View.INVISIBLE
+//            progressBar.visibility = View.VISIBLE
+        } else {
+//            content.visibility = View.VISIBLE
+//            progressBar.visibility = View.GONE
         }
     }
 

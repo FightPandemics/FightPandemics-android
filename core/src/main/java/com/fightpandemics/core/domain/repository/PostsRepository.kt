@@ -10,7 +10,7 @@ interface PostsRepository {
 
     fun getPosts(): Flow<Result<Posts>>
 
-    suspend fun getPosts(objective: String?): Flow<Result<List<Post>>>
+    suspend fun getPosts(objective: String?): Flow<Result<*>>
 
     suspend fun getPostsByAuthor(
         authorId: String
@@ -18,7 +18,7 @@ interface PostsRepository {
 
     suspend fun editPost(postRequest: PostRequest)
 
-    suspend fun deletePost(postRequest: PostRequest)
+    suspend fun deletePost(post: Post)
 
     suspend fun likePost(post: Post)
 }

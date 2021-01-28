@@ -190,4 +190,5 @@ class WebViewerActivity : AppCompatActivity(), WebViewPresenter.Interactor,
         private const val REQUEST_PERMISSION_SETTING = 2
         const val EXTRA_URL = "url"
     }
+
 }

@@ -1,12 +1,15 @@
 package com.fightpandemics.profile.ui.profile
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.FeatureScope
+import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.profile.*
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.profile.domain.LoadCurrentUserUseCase
+import com.fightpandemics.profile.domain.LoadIndividualUserPostsUseCase
 import com.fightpandemics.profile.domain.UpdateCurrentUserUseCase
 import com.fightpandemics.profile.domain.UpdateIndividualAccountUseCase
 import com.fightpandemics.profile.util.capitalizeFirstLetter
@@ -21,15 +24,20 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @FeatureScope
 class ProfileViewModel @Inject constructor(
+    private val loadIndividualUserPostsUseCase: LoadIndividualUserPostsUseCase,
     private val loadCurrentUserUseCase: LoadCurrentUserUseCase,
     private val updateCurrentUserUseCase: UpdateCurrentUserUseCase,
     private val updateIndividualAccountUseCase: UpdateIndividualAccountUseCase
 ) : ViewModel() {
     val individualProfile = MutableLiveData<IndividualProfileViewState>()
 
+    private val _postsState = MutableLiveData<PostsViewState>()
+    val postsState: LiveData<PostsViewState> get() = _postsState
+
     lateinit var currentProfile: IndividualProfileResponse
     data class IndividualProfileViewState(
         var isLoading: Boolean,
+        val id: String? = null,
         val firstName: String? = null,
         val lastName: String? = null,
         val imgUrl: String? = null,
@@ -42,6 +50,11 @@ class ProfileViewModel @Inject constructor(
         val github: String? = null,
         val website: String? = null,
         val error: String?
+    )
+    data class PostsViewState(
+        var isLoading: Boolean,
+        val error: Result.Error?,
+        val posts: List<Post>? = null
     )
 
     @ExperimentalCoroutinesApi
@@ -60,6 +73,7 @@ class ProfileViewModel @Inject constructor(
                         currentProfile = it.data as IndividualProfileResponse
                         individualProfile.value = IndividualProfileViewState(
                             isLoading = false,
+                            id = it.data.id,
                             firstName = it.data.firstName.capitalizeFirstLetter(),
                             lastName = it.data.lastName.capitalizeFirstLetter(),
                             imgUrl = it.data.photo,
@@ -122,6 +136,31 @@ class ProfileViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun loadUserPosts(authorId: String){
+        // Set a default loading state
+        _postsState.value?.isLoading = true
+
+        viewModelScope.launch {
+            async {
+                loadIndividualUserPostsUseCase(authorId)
+            }.await().collect {
+                when (it) {
+                    is Result.Success ->
+                        _postsState.value =
+                            PostsViewState(
+                                isLoading = false,
+                                error = null,
+                                posts = it.data as List<Post>?
+                            )
+                    is Result.Error ->
+                        _postsState.value =
+                            PostsViewState(isLoading = false, error = it, posts = emptyList())
+                }
+            }
+        }
+
     }
 
 }

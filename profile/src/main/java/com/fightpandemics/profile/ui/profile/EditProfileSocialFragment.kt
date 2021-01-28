@@ -23,6 +23,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 import javax.inject.Inject
 
+private val SEQUENCE_NUMBER = 1
 
 class EditProfileSocialFragment : BaseFragment() {
 
@@ -36,16 +37,21 @@ class EditProfileSocialFragment : BaseFragment() {
     lateinit var etInstagram: TextInputEditText
 
     @Length(max = 15, messageResId = R.string.error_size_social)
-    @Pattern(regex = "[A-Za-z0-9_]*$", messageResId = R.string.error_github_twitter_valid_characters)
+    @Pattern(
+        regex = "[A-Za-z0-9_]*$",
+        messageResId = R.string.error_github_twitter_valid_characters
+    )
     lateinit var etGithub: TextInputEditText
 
     @Pattern(regex = "[A-Za-z0-9-]*$", messageResId = R.string.error_linkedin_valid_characters)
     lateinit var etLlinkedin: TextInputEditText
 
-    @Pattern(regex = "[A-Za-z0-9_]*$", messageResId = R.string.error_github_twitter_valid_characters)
+    @Pattern(
+        regex = "[A-Za-z0-9_]*$",
+        messageResId = R.string.error_github_twitter_valid_characters
+    )
     lateinit var etTwitter: TextInputEditText
 
-    @Url
     lateinit var etWwebsite: TextInputEditText
 
     @ExperimentalCoroutinesApi
@@ -71,7 +77,7 @@ class EditProfileSocialFragment : BaseFragment() {
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       initViews(profileViewModel.currentProfile)
+        initViews(profileViewModel.currentProfile)
 
         validationOk = {
             val urls = getSocialUrls()
@@ -99,7 +105,8 @@ class EditProfileSocialFragment : BaseFragment() {
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-        validator.put(etFfacebook, FacebookRule(1))
+        validator.put(etFfacebook, FacebookRule())
+        validator.put(etWwebsite, UrlRule())
         social_links_save_button.setOnClickListener {
             validator.validate()
         }
@@ -124,16 +131,31 @@ class EditProfileSocialFragment : BaseFragment() {
     }
 
     class FacebookRule  // Override this constructor ONLY if you want sequencing.
-        (sequence: Int) : QuickRule<EditText>(sequence) {
+        : QuickRule<EditText>(SEQUENCE_NUMBER) {
         override fun isValid(editText: EditText): Boolean {
             val text = editText.text.toString()
             val length = text.length
-            Timber.i("Debug: my text is $text")
             return length == 0 || length >= 5
         }
 
         override fun getMessage(context: Context): String {
             return "Lenght should be at least 5"
+        }
+    }
+
+    class UrlRule  // Override this constructor ONLY if you want sequencing.
+        : QuickRule<EditText>(SEQUENCE_NUMBER) {
+        val regex =
+            "^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?\$".toRegex()
+
+        override fun isValid(editText: EditText): Boolean {
+            val text = editText.text.toString()
+            val length = text.length
+            return length == 0 || regex.matches(text)
+        }
+
+        override fun getMessage(context: Context): String {
+            return "Invalid URL"
         }
     }
 

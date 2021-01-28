@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:background="@color/colorWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/create_post_toolbar"
+        layout="@layout/create_post_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.fightpandemics.createpost.custom.ProfileImageView
+        android:id="@+id/user_avatar"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/colorWhite"
+        app:aiv_borderColor="?colorPrimary"
+        app:aiv_borderWidth="2dp"
+        app:aiv_initials="VM"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_post_toolbar" />
+
+    <Button
+        android:id="@+id/name"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="120dp"
+        android:backgroundTint="@color/fightPandemicsGhostWhite"
+        android:drawableEnd="@drawable/ic_arrow_down"
+        android:fontFamily="@font/worksans_regular"
+        android:text="Victor Maragiaglio"
+        android:lineSpacingExtra="3sp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_post_toolbar"
+        tools:text="Victor Maragiaglio" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/offer"
+        style="@style/AndroidNativeP212Px"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/button_shadow_left"
+        android:text="@string/offer"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/request"
+        style="@style/AndroidNativeP212Px"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/request"
+        android:textAllCaps="false"
+        android:background="@color/fightPandemicsWhiteSmoke"
+        android:textColor="@color/textColorPrimary"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@+id/offer"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <ImageView
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_line_73"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/offer"/>
+
+    <EditText
+        android:id="@+id/et_title"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        style="AndroidNativeH122Px"
+        android:layout_marginTop="16dp"
+        android:textSize="22sp"
+        android:textColor="@color/textColorPrimary"
+        android:fontFamily="@font/poppins_bold"
+        android:hint="@string/title_hint"
+        android:background="@android:color/transparent"
+        android:textColorHint="@color/fightPandemicsSuvaGrey"
+        app:layout_constraintTop_toBottomOf="@id/view1"/>
+
+    <TextView
+        android:id="@+id/error"
+        style="@style/AndroidNativeP311Px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="@string/it_exceeds_60_characters"
+        android:textColor="@color/error_text_color"
+        android:fontFamily="@font/worksans_regular"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_title"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/et_description"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="12dp"
+        style="AndroidNativeH114Px"
+        android:textSize="14sp"
+        android:gravity="top"
+        android:textColor="@color/textColorPrimary"
+        android:fontFamily="@font/worksans_regular"
+        android:hint="@string/description_of_your_post"
+        android:background="@android:color/transparent"
+        android:textColorHint="@color/fightPandemicsSuvaGrey"
+        app:layout_constraintTop_toBottomOf="@id/error"/>
+
+    <ImageView
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_line_73"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/et_description"/>
+
+    <TextView
+        android:id="@+id/postView"
+        style="@style/AndroidNativeH216Px"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/who_can_see_this_post_and_for_how_long"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view2"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/fightPandemicsGhostWhite"
+        android:drawableEnd="@drawable/ic_arrow_down"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="3sp"
+        android:textAllCaps="false"
+        android:text="@string/people_in_my_city"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintBaseline_toBaselineOf="@+id/month"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="People in my city" />
+
+    <Button
+        android:id="@+id/month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/fightPandemicsGhostWhite"
+        android:drawableEnd="@drawable/ic_arrow_down"
+        android:fontFamily="@font/worksans_regular"
+        android:lineSpacingExtra="3sp"
+        android:text="@string/for_1_month"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@id/people"
+        app:layout_constraintTop_toBottomOf="@+id/postView"
+        tools:text="For 1 Month" />
+
+    <TextView
+        android:id="@+id/postTag"
+        style="@style/AndroidNativeH216Px"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/add_tags_to_help_boost_your_visibility"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/people"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/fightPandemicsWhiteSmoke"
+        android:drawableStart="@drawable/ic_tag"
+        android:fontFamily="@font/worksans_regular"
+        android:text="@string/add_tags"
+        android:lineSpacingExtra="3sp"
+        android:textAllCaps="false"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/post"
+        app:layout_constraintTop_toBottomOf="@+id/postTag"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/post"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_post"
+        android:foregroundTint="@color/fightPandemicsPerano"
+        android:fontFamily="@font/poppins_medium"
+        android:lineSpacingExtra="3sp"
+        android:textAllCaps="false"
+        android:text="@string/post"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

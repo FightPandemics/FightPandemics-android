@@ -26,5 +26,4 @@ class Auth0CallBack(
 
         successCallBack.invoke(credentials)
     }
-
 }

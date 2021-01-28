@@ -47,7 +47,8 @@ class SignInEmailFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -82,33 +83,35 @@ class SignInEmailFragment : Fragment() {
 
     private fun doLogin(email: String, password: String) {
         loginViewModel.doLogin(email, password)
-        loginViewModel.login.observe(viewLifecycleOwner, {
-            when {
-                it.isLoading -> {
-
-                }
-                it.emailVerified -> {
-                    displayButton(false, R.string.loggedin)
-                    Timber.e("LOGGED IN ${it.email}")
-                    if (it.user == null) {
-                        findNavController().navigate(R.id.action_signInEmailFragment_to_completeProfileFragment)
-                    } else {
-                        // TODO 9 - Fix this hardcoded string
-                        val PACKAGE_NAME = "com.fightpandemics"
-                        val intent = Intent().setClassName(
-                            PACKAGE_NAME,
-                            "$PACKAGE_NAME.ui.MainActivity"
-                        )
-                        startActivity(intent).apply { requireActivity().finish() }
+        loginViewModel.login.observe(
+            viewLifecycleOwner,
+            {
+                when {
+                    it.isLoading -> {
+                    }
+                    it.emailVerified -> {
+                        displayButton(false, R.string.loggedin)
+                        Timber.e("LOGGED IN ${it.email}")
+                        if (it.user == null) {
+                            findNavController().navigate(R.id.action_signInEmailFragment_to_completeProfileFragment)
+                        } else {
+                            // TODO 9 - Fix this hardcoded string
+                            val PACKAGE_NAME = "com.fightpandemics"
+                            val intent = Intent().setClassName(
+                                PACKAGE_NAME,
+                                "$PACKAGE_NAME.ui.MainActivity"
+                            )
+                            startActivity(intent).apply { requireActivity().finish() }
+                        }
+                    }
+                    !it.emailVerified -> {
+                        displayButton(true, R.string.sign_in)
+                        Timber.e("ERROR ${it.error}")
+                        // TODO 8 - The user is informed that their credentials are invalid using a Snackbar.
                     }
                 }
-                !it.emailVerified -> {
-                    displayButton(true, R.string.sign_in)
-                    Timber.e("ERROR ${it.error}")
-                    // TODO 8 - The user is informed that their credentials are invalid using a Snackbar.
-                }
             }
-        })
+        )
     }
 
     private fun validateFieldsAndDoLogin() {
@@ -140,8 +143,10 @@ class SignInEmailFragment : Fragment() {
     }
 
     private fun displayErrorMsgs(
-        displayEmail: Boolean, displayPass: Boolean,
-        displayEmailError: String?, displayPassError: String?
+        displayEmail: Boolean,
+        displayPass: Boolean,
+        displayEmailError: String?,
+        displayPassError: String?
     ) {
         et_email_layout.isErrorEnabled = displayEmail
         et_email_layout.error = displayEmailError
