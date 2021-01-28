@@ -21,14 +21,14 @@ import retrofit2.Response
 import java.net.HttpURLConnection
 import javax.inject.Inject
 
+private const val NO_RESPONSE = "No Response"
+
 @ExperimentalCoroutinesApi
 class LoginRepositoryImpl @Inject constructor(
     val moshi: Moshi,
     private val loginRemoteDataSource: LoginRemoteDataSource,
     private val authTokenLocalDataSource: AuthTokenLocalDataSource
 ) : LoginRepository {
-
-    private val noResponse = "No Response"
 
     override suspend fun login(loginRequest: LoginRequest?): Flow<Result<*>> {
         return channelFlow {
@@ -54,7 +54,7 @@ class LoginRepositoryImpl @Inject constructor(
                     }
                 }
             } else {
-                channel.offer(Result.Error(Exception(noResponse)))
+                channel.offer(Result.Error(Exception(NO_RESPONSE)))
             }
             awaitClose { }
         }
