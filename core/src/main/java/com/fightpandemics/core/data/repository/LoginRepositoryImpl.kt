@@ -44,10 +44,10 @@ class LoginRepositoryImpl @Inject constructor(
 
     override suspend fun signUp(signUpRequest: SignUpRequest): Flow<Result<*>>? {
         return channelFlow {
-            val response = signUpRequest?.let { loginRemoteDataSource.signUp(it) }
+            val response = signUpRequest.let { loginRemoteDataSource.signUp(it) }
             when {
 
-                response!!.isSuccessful && response.code() == 200 -> {
+                response.isSuccessful && response.code() == 200 -> {
                     val signUpResponse = response.body()
                     //authTokenLocalDataSource.setToken(signUpResponse?.token)
                     //TODO maybe we have to consume current user service form backend to get serID
@@ -77,10 +77,10 @@ class LoginRepositoryImpl @Inject constructor(
 
     override suspend fun completeProfile(request: CompleteProfileRequest): Flow<Result<*>>? {
         return channelFlow {
-            val response = request?.let { loginRemoteDataSource.completeProfile(it) }
+            val response = request.let { loginRemoteDataSource.completeProfile(it) }
             when {
 
-                response!!.isSuccessful && response.code() == 200 -> {
+                response.isSuccessful && response.code() == 200 -> {
                     val signUpResponse = response.body()
                     //authTokenLocalDataSource.setToken(signUpResponse?.token)
                     //TODO maybe we have to consume current user service form backend to get serID
