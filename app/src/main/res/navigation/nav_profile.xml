@@ -16,6 +16,10 @@
             android:id="@+id/action_profileFragment_to_editProfileFragment"
             app:popUpToInclusive="true"
             app:destination="@id/editProfileFragment" />
+
+        <action
+            android:id="@+id/action_profileFragment_to_indivProfileSettings"
+            app:destination="@id/indivProfileSettings" />
         <action
             android:id="@+id/action_profileFragment_to_createPostFragment"
             app:destination="@id/nav_create_post"
@@ -107,5 +111,36 @@
         android:label="Profile"
         tools:layout="@layout/edit_profile_about_fragment"
         />
+    <fragment
+        android:id="@+id/indivProfileSettings"
+        android:name="com.fightpandemics.profile.ui.profile.IndivProfileSettings"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/activity_logged_in"
+        >
+        <action
+            android:id="@+id/action_indivProfileSettings_to_editAccountFragment"
+            app:destination="@id/editAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editAccountFragment"
+        android:name="com.fightpandemics.profile.ui.profile.EditAccountFragment"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/profile_setting_my_account"
+        >
+        <action
+            android:id="@+id/action_editAccountFragment_to_changeNameFragment"
+            app:destination="@id/changeNameFragment" />
+        <action
+            android:id="@+id/action_editAccountFragment_to_changeGoalFragment"
+            app:destination="@id/changeGoalFragment" />
+        <action
+            android:id="@+id/action_editAccountFragment_to_changeEmailFragment"
+            app:destination="@id/changeEmailFragment" />
+        <action
+            android:id="@+id/action_editAccountFragment_to_changeLocationFragment"
+            app:destination="@id/changeLocationFragment" />
+    </fragment>
 
 </navigation>

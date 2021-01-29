@@ -37,6 +37,7 @@ class ProfileViewModel @Inject constructor(
     lateinit var currentProfile: IndividualProfileResponse
     data class IndividualProfileViewState(
         var isLoading: Boolean,
+        val email: String? = null,
         val id: String? = null,
         val firstName: String? = null,
         val lastName: String? = null,
@@ -49,7 +50,9 @@ class ProfileViewModel @Inject constructor(
         val twitter: String? = null,
         val github: String? = null,
         val website: String? = null,
-        val error: String?
+        val error: String?,
+        val objectives: Objectives? = null,
+        val needs: Needs? = null
     )
     data class PostsViewState(
         var isLoading: Boolean,
@@ -73,6 +76,7 @@ class ProfileViewModel @Inject constructor(
                         currentProfile = it.data as IndividualProfileResponse
                         individualProfile.value = IndividualProfileViewState(
                             isLoading = false,
+                            email = it.data.email,
                             id = it.data.id,
                             firstName = it.data.firstName.capitalizeFirstLetter(),
                             lastName = it.data.lastName.capitalizeFirstLetter(),
@@ -85,7 +89,9 @@ class ProfileViewModel @Inject constructor(
                             twitter = it.data.urls?.twitter,
                             github = it.data.urls?.github,
                             website = it.data.urls?.website,
-                            error = null
+                            error = null,
+                            objectives = it.data.objectives,
+                            needs = it.data.needs
                         )
                     }
                     is Result.Error -> {

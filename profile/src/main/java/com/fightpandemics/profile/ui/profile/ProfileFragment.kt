@@ -3,9 +3,7 @@ package com.fightpandemics.profile.ui.profile
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
@@ -72,6 +70,7 @@ class ProfileFragment : Fragment() {
             when (it.itemId) {
                 R.id.settings -> {
                     Timber.d("Settings")
+                    findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_indivProfileSettings)
                     true
                 }
 

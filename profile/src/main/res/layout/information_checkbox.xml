@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/info_txt"
-        android:layout_width="350dp"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginRight="@dimen/activity_horizontal_margin"

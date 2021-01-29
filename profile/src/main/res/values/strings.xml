@@ -118,6 +118,7 @@
     <string name="share_my_location">Share my location</string>
     <!--PROFILE ERRORs-->
     <string name="error_empty_first_name">First name is a required field</string>
+    <string name="error_empty_email">Email is a required field</string>
     <string name="error_empty_last_name">Last name is a required field</string>
     <string name="error_name_length">30 characters max</string>
     <string name="error_size_bio">About should have 0 to 160 chars</string>
@@ -173,6 +174,7 @@
     <string name="Add_product_link">Add product links</string>
     <string name="Product_exp">Apple Store, Google Play</string>
     <string name="Edit_profile_pic">Edit Profile Picture</string>
+    <string name="medical_help">Medical Help</string>
 
     <!--PROFILE ACTIVITY POSTS -->
     <string name="dot_normal">Dot Normal</string>
@@ -200,5 +202,4 @@
     <string name="rating5">5</string>
     <string name="poorly">Poorly</string>
     <string name="very_well">Very Well</string>
-
 </resources>
