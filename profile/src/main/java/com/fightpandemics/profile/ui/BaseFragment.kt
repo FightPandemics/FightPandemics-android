@@ -10,7 +10,7 @@ import com.mobsandgeeks.saripaar.Validator
 open class BaseFragment : Fragment(), Validator.ValidationListener {
 
     lateinit var validator: Validator
-    private var validationOk: () -> Unit = {}
+    var validationOk: () -> Unit = {}
     private var validationError: () -> Unit = {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
