@@ -2,21 +2,21 @@ package com.fightpandemics.profile.ui
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.data.model.profile.Needs
 import com.fightpandemics.core.data.model.profile.Objectives
 import com.fightpandemics.core.data.model.profile.PatchIndividualAccountRequest
-import com.fightpandemics.profile.R
 import com.fightpandemics.core.utils.ViewModelFactory
-import com.fightpandemics.profile.dagger.inject
+import com.fightpandemics.profile.R
 import com.fightpandemics.profile.ui.profile.IndivProfileSettings
 import com.fightpandemics.profile.ui.profile.ProfileViewModel
+import com.fightpandemics.ui.splash.inject
 import kotlinx.android.synthetic.main.donation_checkbox.*
 import kotlinx.android.synthetic.main.information_checkbox.*
 import kotlinx.android.synthetic.main.medical_help_checkbox.*
@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.profile_change_goal_fragment.*
 import kotlinx.android.synthetic.main.volunteer_hrs_checkbok.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
-
 
 /**
  * A simple [Fragment] subclass.
@@ -60,12 +59,14 @@ class ChangeGoalFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         bindListeners()
-        profileViewModel.individualProfile.observe(viewLifecycleOwner
+        profileViewModel.individualProfile.observe(
+            viewLifecycleOwner
         ) { profile ->
             updateScreen(profile)
         }
     }
 
+    @ExperimentalCoroutinesApi
     private fun bindListeners() {
 
         appBar.setNavigationOnClickListener {
@@ -85,24 +86,21 @@ class ChangeGoalFragment : Fragment() {
                 )
             )
         }
-
-
     }
-    private fun getObjectives():Triple<Boolean, Boolean, Boolean>
-    {
+    private fun getObjectives(): Triple<Boolean, Boolean, Boolean> {
         val donate = donation_checkbox!!.isChecked
         val shareInformation = information_checkbox!!.isChecked
         val volunteer = volunteer_hrs_checkbox!!.isChecked
 
         return Triple(donate, shareInformation, volunteer)
     }
-    private fun getNeeds():Pair<Boolean, Boolean>
-    {
+    private fun getNeeds(): Pair<Boolean, Boolean> {
         val medicalHelp = medical_help_checkbox!!.isChecked
         val otherHelp = other_help_checkbox!!.isChecked
 
         return Pair(medicalHelp, otherHelp)
     }
+    @ExperimentalCoroutinesApi
     private fun updateScreen(profile: ProfileViewModel.IndividualProfileViewState) {
         donation_checkbox!!.isChecked = profile.objectives?.donate ?: false
         information_checkbox!!.isChecked = profile.objectives?.shareInformation ?: false
@@ -110,6 +108,5 @@ class ChangeGoalFragment : Fragment() {
 
         medical_help_checkbox!!.isChecked = profile.needs?.medicalHelp ?: false
         other_help_checkbox!!.isChecked = profile.needs?.otherHelp ?: false
-
     }
 }

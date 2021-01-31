@@ -9,13 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-import com.fightpandemics.core.utils.GlideApp
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
-import com.fightpandemics.profile.dagger.inject
 import com.fightpandemics.profile.util.capitalizeFirstLetter
+import com.fightpandemics.ui.splash.inject
 import kotlinx.android.synthetic.main.activity_logged_in.toolbar
-import kotlinx.android.synthetic.main.edit_profile_fragment.*
 import kotlinx.android.synthetic.main.email_item.*
 import kotlinx.android.synthetic.main.location_item.*
 import kotlinx.android.synthetic.main.name_item.*
@@ -23,7 +21,7 @@ import kotlinx.android.synthetic.main.profile_setting_my_account.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
-class EditAccountFragment: Fragment() {
+class EditAccountFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -51,10 +49,12 @@ class EditAccountFragment: Fragment() {
     override fun onStart() {
         super.onStart()
         bindListeners()
-        profileViewModel.individualProfile.observe(viewLifecycleOwner, { profile ->
-                    updateScreen(profile)
-            })
-
+        profileViewModel.individualProfile.observe(
+            viewLifecycleOwner,
+            { profile ->
+                updateScreen(profile)
+            }
+        )
     }
 
     @ExperimentalCoroutinesApi
@@ -68,18 +68,17 @@ class EditAccountFragment: Fragment() {
     }
     private fun bindListeners() {
 
-        name_item.setOnClickListener{
+        name_item.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_editAccountFragment_to_changeNameFragment)
         }
-        location_item.setOnClickListener{
+        location_item.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_editAccountFragment_to_changeLocationFragment)
         }
-        donation_item.setOnClickListener{
+        donation_item.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_editAccountFragment_to_changeGoalFragment)
         }
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-
     }
 }

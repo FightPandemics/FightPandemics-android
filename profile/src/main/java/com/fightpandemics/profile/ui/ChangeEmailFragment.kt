@@ -8,19 +8,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.fightpandemics.profile.R
 import com.fightpandemics.core.utils.ViewModelFactory
-import com.fightpandemics.profile.dagger.inject
+import com.fightpandemics.profile.R
 import com.fightpandemics.profile.ui.profile.BaseFragment
 import com.fightpandemics.profile.ui.profile.ProfileViewModel
+import com.fightpandemics.ui.splash.inject
 import com.google.android.material.textfield.TextInputEditText
+import com.mobsandgeeks.saripaar.annotation.Email
+import com.mobsandgeeks.saripaar.annotation.NotEmpty
 import kotlinx.android.synthetic.main.email_fragment.*
 import kotlinx.android.synthetic.main.profile_change_goal_fragment.appBar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
-import com.mobsandgeeks.saripaar.annotation.NotEmpty
-import com.mobsandgeeks.saripaar.annotation.Email
-
 
 class ChangeEmailFragment : BaseFragment() {
     @Inject
@@ -30,7 +29,7 @@ class ChangeEmailFragment : BaseFragment() {
     private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
     @Email
     @NotEmpty(messageResId = R.string.error_empty_email)
-    lateinit var tvEmail: TextInputEditText
+    private lateinit var tvEmail: TextInputEditText
     companion object {
         fun newInstance() = ChangeEmailFragment()
     }
@@ -40,7 +39,8 @@ class ChangeEmailFragment : BaseFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -60,8 +60,9 @@ class ChangeEmailFragment : BaseFragment() {
 //            ?.text = it.email?:""
 //        }
         user_email?.setText(
-                profileViewModel.individualProfile.value?.email,
-                TextView.BufferType.EDITABLE)
+            profileViewModel.individualProfile.value?.email,
+            TextView.BufferType.EDITABLE
+        )
 
         validationOk = {
             updateEmail()
@@ -69,7 +70,7 @@ class ChangeEmailFragment : BaseFragment() {
         }
     }
 
-private fun updateEmail() {
+    private fun updateEmail() {
 
 //    profileViewModel.updateAccount(
 //        PatchIndividualAccountRequest(
@@ -81,7 +82,7 @@ private fun updateEmail() {
 //            objectives = profileViewModel.currentProfile.objectives
 //        )
 //    )
-}
+    }
     private fun bindListeners() {
 
         appBar.setNavigationOnClickListener {
@@ -90,6 +91,5 @@ private fun updateEmail() {
         email_save_btn.setOnClickListener {
             validator.validate()
         }
-
     }
 }

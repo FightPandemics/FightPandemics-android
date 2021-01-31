@@ -7,21 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
-import com.fightpandemics.filter.dagger.inject
 import com.fightpandemics.profile.R
-import com.fightpandemics.profile.dagger.inject
+import com.fightpandemics.ui.splash.inject
 import kotlinx.android.synthetic.main.activity_logged_in.*
-import kotlinx.android.synthetic.main.profile_fragment_content.*
-import kotlinx.android.synthetic.main.profile_toolbar.*
+import kotlinx.android.synthetic.main.profile_toolbar.toolbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import timber.log.Timber
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.profile_toolbar.toolbar as toolbar1
 
-class IndivProfileSettings: Fragment() {
+class IndivProfileSettings : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -74,7 +69,7 @@ class IndivProfileSettings: Fragment() {
 //            getIndividualProfileListener(profile)
 //        }
 
-        updateAccountInfoContainer.setOnClickListener{
+        updateAccountInfoContainer.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_indivProfileSettings_to_editAccountFragment)
         }
         toolbar.setNavigationOnClickListener {
