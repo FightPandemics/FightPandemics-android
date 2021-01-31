@@ -18,7 +18,7 @@ class WebViewPresenter(
         return Toast.makeText(mContext, text, Toast.LENGTH_LONG)
     }
 
-    fun validateUrl(url : String?) {
+    fun validateUrl(url: String?) {
         if (URLUtil.isValidUrl(url)) {
             mInteractor.loadUrl(url)
         } else {
@@ -27,19 +27,10 @@ class WebViewPresenter(
                 if (!URLUtil.isHttpUrl(url) && !URLUtil.isHttpsUrl(url)) {
                     tempUrl = "http://$url"
                 }
-
                 if (URLUtil.isValidUrl(tempUrl)) {
                     mInteractor.loadUrl(tempUrl)
-                } else try {
-                    tempUrl =
-                        "http://www.google.com/search?q=" + URLEncoder.encode(url, "UTF-8")
-                    tempUrl = getHost(tempUrl)
-                    mInteractor.loadUrl(tempUrl)
-                } catch (e: UnsupportedEncodingException) {
-                    e.printStackTrace()
-                    mInteractor.showToast(makeToast(mContext.getString(R.string.message_invalid_url)))
-                    mInteractor.close()
-                } catch (e: MalformedURLException) {
+                } else {
+                    getInfoFromGoogle(url)
                 }
             } else {
                 mInteractor.showToast(makeToast(mContext.getString(R.string.message_invalid_url)))
@@ -48,10 +39,27 @@ class WebViewPresenter(
         }
     }
 
+    private fun getInfoFromGoogle(url: String?) {
+        var tempUrl1: String?
+        try {
+            tempUrl1 =
+                "http://www.google.com/search?q=" + URLEncoder.encode(url, "UTF-8")
+            tempUrl1 = getHost(tempUrl1)
+            mInteractor.loadUrl(tempUrl1)
+        } catch (e: UnsupportedEncodingException) {
+            e.printStackTrace()
+            mInteractor.showToast(makeToast(mContext.getString(R.string.message_invalid_url)))
+            mInteractor.close()
+        } catch (e: MalformedURLException) {
+            e.printStackTrace()
+            mInteractor.showToast(makeToast(mContext.getString(R.string.message_invalid_url)))
+            mInteractor.close()
+        }
+    }
+
     interface Interactor {
         fun loadUrl(url: String?)
         fun close()
         fun showToast(toast: Toast?)
     }
-
 }
