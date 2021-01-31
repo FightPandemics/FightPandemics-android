@@ -6,18 +6,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.core.data.model.posts.Post
-import com.fightpandemics.core.data.model.profile.*
+import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
+import com.fightpandemics.core.data.model.profile.Needs
+import com.fightpandemics.core.data.model.profile.Objectives
+import com.fightpandemics.core.data.model.profile.PatchIndividualAccountRequest
+import com.fightpandemics.core.data.model.profile.PatchIndividualProfileRequest
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.profile.domain.LoadCurrentUserUseCase
 import com.fightpandemics.profile.domain.LoadIndividualUserPostsUseCase
 import com.fightpandemics.profile.domain.UpdateCurrentUserUseCase
 import com.fightpandemics.profile.domain.UpdateIndividualAccountUseCase
 import com.fightpandemics.profile.util.capitalizeFirstLetter
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -68,12 +74,11 @@ class ProfileViewModel @Inject constructor(
                 loadCurrentUserUseCase.execute("test")
             }
             deferredProfile.await().catch {
-
             }.collect {
                 when (it) {
                     is Result.Success -> {
                         Timber.i("Debug: Result was a success, ${it.data}")
-                        currentProfile = it.data as IndividualProfileResponse
+                        currentProfile = it.data
                         individualProfile.value = IndividualProfileViewState(
                             isLoading = false,
                             email = it.data.email,
@@ -83,12 +88,12 @@ class ProfileViewModel @Inject constructor(
                             imgUrl = it.data.photo,
                             location = it.data.location.city.capitalizeFirstLetter() + " , " + it.data.location.state.capitalizeFirstLetter() + " , " + it.data.location.country.capitalizeFirstLetter(),
                             bio = it.data.about,
-                            facebook = it.data.urls?.facebook,
-                            instagram = it.data.urls?.instagram,
-                            linkedin = it.data.urls?.linkedin,
-                            twitter = it.data.urls?.twitter,
-                            github = it.data.urls?.github,
-                            website = it.data.urls?.website,
+                            facebook = it.data.urls.facebook,
+                            instagram = it.data.urls.instagram,
+                            linkedin = it.data.urls.linkedin,
+                            twitter = it.data.urls.twitter,
+                            github = it.data.urls.github,
+                            website = it.data.urls.website,
                             error = null,
                             objectives = it.data.objectives,
                             needs = it.data.needs
@@ -101,6 +106,9 @@ class ProfileViewModel @Inject constructor(
                             error = it.exception.message.toString()
                         )
                     }
+                    else -> {
+                        TODO()
+                    }
                 }
             }
         }
@@ -109,9 +117,9 @@ class ProfileViewModel @Inject constructor(
     fun updateProfile(updatedProfile: PatchIndividualProfileRequest) {
         individualProfile.value?.isLoading = true
         viewModelScope.launch {
-            async {
+            withContext(Dispatchers.Default) {
                 updateCurrentUserUseCase(updatedProfile)
-            }.await().collect {
+            }.collect {
                 when (it) {
                     is Result.Success -> {
                         getIndividualProfile()
@@ -119,6 +127,9 @@ class ProfileViewModel @Inject constructor(
                     }
                     is Result.Error -> {
                         Timber.i("Debug: Update was a failure: ${it.exception.message}")
+                    }
+                    else -> {
+                        TODO()
                     }
                 }
             }
@@ -128,9 +139,9 @@ class ProfileViewModel @Inject constructor(
     fun updateAccount(updatedAccount: PatchIndividualAccountRequest) {
         individualProfile.value?.isLoading = true
         viewModelScope.launch {
-            async {
+            withContext(Dispatchers.Default) {
                 updateIndividualAccountUseCase(updatedAccount)
-            }.await().collect {
+            }.collect {
                 when (it) {
                     is Result.Success -> {
                         getIndividualProfile()
@@ -139,19 +150,20 @@ class ProfileViewModel @Inject constructor(
                     is Result.Error -> {
                         Timber.i("Debug: Update was a failure: ${it.exception.message}")
                     }
+                    else -> TODO()
                 }
             }
         }
     }
 
-    fun loadUserPosts(authorId: String){
+    fun loadUserPosts(authorId: String) {
         // Set a default loading state
         _postsState.value?.isLoading = true
 
         viewModelScope.launch {
-            async {
+            withContext(Dispatchers.Default) {
                 loadIndividualUserPostsUseCase(authorId)
-            }.await().collect {
+            }.collect {
                 when (it) {
                     is Result.Success ->
                         _postsState.value =
@@ -163,10 +175,9 @@ class ProfileViewModel @Inject constructor(
                     is Result.Error ->
                         _postsState.value =
                             PostsViewState(isLoading = false, error = it, posts = emptyList())
+                    else -> TODO()
                 }
             }
         }
-
     }
-
 }

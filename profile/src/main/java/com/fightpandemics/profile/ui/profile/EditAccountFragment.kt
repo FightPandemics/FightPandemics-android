@@ -28,10 +28,6 @@ class EditAccountFragment : Fragment() {
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
 
-    companion object {
-        fun newInstance() = IndivProfileSettings()
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -80,5 +76,8 @@ class EditAccountFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+    }
+    companion object {
+        fun newInstance() = IndivProfileSettings()
     }
 }

@@ -38,10 +38,6 @@ class ChangeGoalFragment : Fragment() {
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
 
-    companion object {
-        fun newInstance() = IndivProfileSettings()
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -108,5 +104,9 @@ class ChangeGoalFragment : Fragment() {
 
         medical_help_checkbox!!.isChecked = profile.needs?.medicalHelp ?: false
         other_help_checkbox!!.isChecked = profile.needs?.otherHelp ?: false
+    }
+
+    companion object {
+        fun newInstance() = IndivProfileSettings()
     }
 }

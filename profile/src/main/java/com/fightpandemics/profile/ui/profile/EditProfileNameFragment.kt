@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.profile_toolbar.toolbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
-
 class EditProfileNameFragment : BaseFragment() {
 
     @Inject
@@ -62,6 +61,7 @@ class EditProfileNameFragment : BaseFragment() {
         tvLastName = et_last_name
     }
 
+    @ExperimentalCoroutinesApi
     override fun onStart() {
         super.onStart()
         bindTextViews()
@@ -72,6 +72,7 @@ class EditProfileNameFragment : BaseFragment() {
         }
     }
 
+    @ExperimentalCoroutinesApi
     private fun updateAccount() {
         val (firstName, lastName) = getNamesValue()
         profileViewModel.updateAccount(
@@ -92,12 +93,13 @@ class EditProfileNameFragment : BaseFragment() {
         return Pair(firstName, lastName)
     }
 
+    @ExperimentalCoroutinesApi
     private fun bindTextViews() {
-        tvFirstName?.setText(
+        tvFirstName.setText(
             profileViewModel.individualProfile.value?.firstName,
             TextView.BufferType.EDITABLE
         )
-        tvLastName?.setText(
+        tvLastName.setText(
             profileViewModel.individualProfile.value?.lastName,
             TextView.BufferType.EDITABLE
         )

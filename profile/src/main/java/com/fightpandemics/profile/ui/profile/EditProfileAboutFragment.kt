@@ -21,18 +21,16 @@ import kotlinx.android.synthetic.main.profile_toolbar.toolbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
-
 class EditProfileAboutFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    @Length(min=0, max=160, messageResId = R.string.error_size_bio)
+    @Length(min = 0, max = 160, messageResId = R.string.error_size_bio)
     lateinit var tvAbout: TextInputEditText
 
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
-
 
     companion object {
         fun newInstance() = EditProfileAboutFragment()
@@ -57,6 +55,7 @@ class EditProfileAboutFragment : BaseFragment() {
         tvAbout = etAbout
     }
 
+    @ExperimentalCoroutinesApi
     override fun onStart() {
         super.onStart()
         initViews()
@@ -69,12 +68,14 @@ class EditProfileAboutFragment : BaseFragment() {
         }
     }
 
+    @ExperimentalCoroutinesApi
     private fun initViews() {
         bindViews()
         bindListeners()
     }
 
-    private fun EditProfileAboutFragment.getUpdateParams(): Pair<RequestUrls, String> {
+    @ExperimentalCoroutinesApi
+    private fun getUpdateParams(): Pair<RequestUrls, String> {
         val urls = RequestUrls(
             facebook = profileViewModel.currentProfile.urls.facebook ?: "",
             github = profileViewModel.currentProfile.urls.github ?: "",
@@ -87,6 +88,7 @@ class EditProfileAboutFragment : BaseFragment() {
         return Pair(urls, about)
     }
 
+    @ExperimentalCoroutinesApi
     private fun bindViews() {
         etAbout.setText(profileViewModel.individualProfile.value?.bio, TextView.BufferType.EDITABLE)
     }

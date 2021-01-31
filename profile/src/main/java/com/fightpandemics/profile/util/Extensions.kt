@@ -1,9 +1,9 @@
 package com.fightpandemics.profile.util
 
-import java.util.*
+import java.util.Locale
 
 fun String.capitalizeFirstLetter(): String =
-    split(" ").joinToString(" ") { it.toLowerCase().capitalize() }
+    split(" ").joinToString(" ") { it.toLowerCase(Locale.ROOT).capitalize(Locale.ROOT) }
 
 fun userInitials(userName: String?): String {
     val splitName = userName!!.split("\\s".toRegex()).toMutableList()
@@ -20,5 +20,5 @@ fun userInitials(userName: String?): String {
 
 fun userInitials(firstName: String?, lastName: String?): String =
     firstName?.substring(0, 1)
-        ?.toUpperCase() + lastName?.split(" ")?.last()
-        ?.substring(0, 1)?.toUpperCase()
+        ?.toUpperCase(Locale.ROOT) + lastName?.split(" ")?.last()
+        ?.substring(0, 1)?.toUpperCase(Locale.ROOT)

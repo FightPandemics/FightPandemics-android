@@ -1,27 +1,20 @@
 package com.fightpandemics.profile.ui.profile
 
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.utils.GlideApp
-import com.fightpandemics.core.widgets.ProfileImageView
-import com.fightpandemics.profile.R
 import com.fightpandemics.profile.databinding.ItemUserPostsBinding
 import com.fightpandemics.profile.databinding.SingleChipLayoutBinding
 import com.fightpandemics.profile.util.userInitials
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.item_user_posts.view.*
-import java.util.*
+import java.util.Locale
 
-class PostViewHolder(private var itemBinding: ItemUserPostsBinding): RecyclerView.ViewHolder(itemBinding.root) {
+class PostViewHolder(private var itemBinding: ItemUserPostsBinding) : RecyclerView.ViewHolder(itemBinding.root) {
 
-    fun bind(post: Post, onItemClickListener: ((Post) -> Unit)?){
-        with(itemBinding.root){
+    fun bind(post: Post, onItemClickListener: ((Post) -> Unit)?) {
+        with(itemBinding.root) {
 
             if (post.author?.photo != null) {
                 GlideApp.with(this)
@@ -59,12 +52,7 @@ class PostViewHolder(private var itemBinding: ItemUserPostsBinding): RecyclerVie
 
                 itemBinding.chipGroup.addView(singleChipLayoutBinding.chip)
             }
-
-
         }
-
-
-
 
         itemBinding.like.apply {
             isChecked = post.liked!!
@@ -106,7 +94,4 @@ class PostViewHolder(private var itemBinding: ItemUserPostsBinding): RecyclerVie
 //
 //        setOnClickListener { onItemClickListener?.invoke(post) }
     }
-
-
-
 }

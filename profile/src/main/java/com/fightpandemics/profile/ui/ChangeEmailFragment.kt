@@ -29,9 +29,7 @@ class ChangeEmailFragment : BaseFragment() {
     @Email
     @NotEmpty(messageResId = R.string.error_empty_email)
     private lateinit var tvEmail: TextInputEditText
-    companion object {
-        fun newInstance() = ChangeEmailFragment()
-    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -90,5 +88,8 @@ class ChangeEmailFragment : BaseFragment() {
         email_save_btn.setOnClickListener {
             validator.validate()
         }
+    }
+    companion object {
+        fun newInstance() = ChangeEmailFragment()
     }
 }

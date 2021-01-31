@@ -17,7 +17,8 @@ import com.fightpandemics.profile.dagger.inject
 import com.fightpandemics.profile.ui.BaseFragment
 import com.google.android.material.textfield.TextInputEditText
 import com.mobsandgeeks.saripaar.QuickRule
-import com.mobsandgeeks.saripaar.annotation.*
+import com.mobsandgeeks.saripaar.annotation.Length
+import com.mobsandgeeks.saripaar.annotation.Pattern
 import kotlinx.android.synthetic.main.edit_profile_social_fragment.*
 import kotlinx.android.synthetic.main.profile_toolbar.toolbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -57,10 +58,6 @@ class EditProfileSocialFragment : BaseFragment() {
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
 
-    companion object {
-        fun newInstance() = EditProfileSocialFragment()
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -87,7 +84,6 @@ class EditProfileSocialFragment : BaseFragment() {
             )
             requireActivity().onBackPressed()
         }
-
     }
 
     private fun getSocialUrls() = RequestUrls(
@@ -130,7 +126,7 @@ class EditProfileSocialFragment : BaseFragment() {
         website_url_edittext.setText(profile.urls.website)
     }
 
-    class FacebookRule  // Override this constructor ONLY if you want sequencing.
+    class FacebookRule // Override this constructor ONLY if you want sequencing.
         : QuickRule<EditText>(SEQUENCE_NUMBER) {
         override fun isValid(editText: EditText): Boolean {
             val text = editText.text.toString()
@@ -143,10 +139,13 @@ class EditProfileSocialFragment : BaseFragment() {
         }
     }
 
-    class UrlRule  // Override this constructor ONLY if you want sequencing.
+    class UrlRule // Override this constructor ONLY if you want sequencing.
         : QuickRule<EditText>(SEQUENCE_NUMBER) {
         val regex =
-            "^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?\$".toRegex()
+            (
+                "^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)" +
+                    "*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?\$"
+                ).toRegex()
 
         override fun isValid(editText: EditText): Boolean {
             val text = editText.text.toString()
@@ -159,4 +158,7 @@ class EditProfileSocialFragment : BaseFragment() {
         }
     }
 
+    companion object {
+        fun newInstance() = EditProfileSocialFragment()
+    }
 }

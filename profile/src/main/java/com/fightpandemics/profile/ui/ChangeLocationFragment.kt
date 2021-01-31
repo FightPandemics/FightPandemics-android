@@ -47,13 +47,6 @@ class ChangeLocationFragment : Fragment() {
         return inflater.inflate(R.layout.profile_location_fragment, container, false)
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ChangeLocationFragment().apply {
-            }
-    }
-
     @ExperimentalCoroutinesApi
     override fun onStart() {
         super.onStart()
@@ -69,5 +62,12 @@ class ChangeLocationFragment : Fragment() {
         appBar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            ChangeLocationFragment().apply {
+            }
     }
 }

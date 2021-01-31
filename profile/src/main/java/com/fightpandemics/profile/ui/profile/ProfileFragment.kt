@@ -34,10 +34,6 @@ class ProfileFragment : Fragment() {
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels() { viewModelFactory }
 
-    companion object {
-        fun newInstance() = ProfileFragment()
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -143,7 +139,8 @@ class ProfileFragment : Fragment() {
 //                        postsAdapter.submitList(it.posts)
 //                        postsAdapter.onItemClickListener = { post ->
 //                            Timber.e("${post.author?.name}")
-//                            // findNavController().navigate(PokeListFragmentDirections.actionPokeListFragmentToPokeDetailFragment(post))
+//                            // findNavController().navigate(PokeListFragmentDirections
+//                            .actionPokeListFragmentToPokeDetailFragment(post))
 //                        }
                     }
                     it.error != null -> {
@@ -215,5 +212,9 @@ class ProfileFragment : Fragment() {
 //            content.visibility = View.VISIBLE
 //            progressBar.visibility = View.GONE
         }
+    }
+
+    companion object {
+        fun newInstance() = ProfileFragment()
     }
 }

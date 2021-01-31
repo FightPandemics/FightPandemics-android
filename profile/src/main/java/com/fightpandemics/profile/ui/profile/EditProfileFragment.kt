@@ -5,22 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
 import com.fightpandemics.core.utils.GlideApp
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
 import com.fightpandemics.profile.util.capitalizeFirstLetter
 import kotlinx.android.synthetic.main.edit_profile_fragment.*
-import kotlinx.android.synthetic.main.profile_fragment_content.*
 import kotlinx.android.synthetic.main.profile_toolbar.toolbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.util.Locale
 import javax.inject.Inject
-
 
 /**
  * A simple [Fragment] subclass.
@@ -56,26 +53,30 @@ class EditProfileFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         bindListeners()
-        profileViewModel.individualProfile.observe(viewLifecycleOwner, { profile ->
-            when {
-                profile.isLoading -> {
-                    bindLoading(true)
-                }
-                !profile.isLoading -> {
-                    bindLoading(false)
-                    updateScreen(profile)
+        profileViewModel.individualProfile.observe(
+            viewLifecycleOwner,
+            { profile ->
+                when {
+                    profile.isLoading -> {
+                        bindLoading(true)
+                    }
+                    !profile.isLoading -> {
+                        bindLoading(false)
+                        updateScreen(profile)
+                    }
                 }
             }
-        })
+        )
     }
 
+    @ExperimentalCoroutinesApi
     private fun updateScreen(profile: ProfileViewModel.IndividualProfileViewState) {
         nameValue?.text =
             profile.firstName?.capitalizeFirstLetter() + " " + profile.lastName?.capitalizeFirstLetter()
-        if (profile.imgUrl == null || profile?.imgUrl?.isBlank()) {
+        if (profile.imgUrl == null || profile.imgUrl.isBlank()) {
             pivAvatar.setInitials(
-                profile?.firstName?.substring(0, 1)?.toUpperCase() + profile?.lastName?.split(" ")
-                    ?.last()?.substring(0, 1)?.toUpperCase()
+                profile.firstName?.substring(0, 1)?.toUpperCase(Locale.ROOT) + profile.lastName?.split(" ")
+                    ?.last()?.substring(0, 1)?.toUpperCase(Locale.ROOT)
             )
             pivAvatar.invalidate()
         } else {
@@ -115,5 +116,4 @@ class EditProfileFragment : Fragment() {
             edit_profile_progressBar.visibility = View.GONE
         }
     }
-
 }

@@ -32,16 +32,6 @@ class ProfileImageView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : AppCompatImageView(context, attrs, defStyleAttr) {
-    companion object {
-        private const val DEFAULT_BORDER_WIDHT = 2
-        private const val DEFAULT_BORDER_COLOR = Color.WHITE
-        private const val DEFAULT_SIZE = 40
-
-        // Not basically using an array of background colors in this project
-        val bgColors = arrayOf(
-            Color.parseColor("#FFFFFF")
-        )
-    }
 
     @Px
     private var borderWidth = context.dpToPx(DEFAULT_BORDER_WIDHT)
@@ -258,5 +248,16 @@ class ProfileImageView @JvmOverloads constructor(
 
             override fun newArray(size: Int): Array<SavedState?> = arrayOfNulls(size)
         }
+    }
+
+    companion object {
+        private const val DEFAULT_BORDER_WIDHT = 2
+        private const val DEFAULT_BORDER_COLOR = Color.WHITE
+        private const val DEFAULT_SIZE = 40
+
+        // Not basically using an array of background colors in this project
+        val bgColors = arrayOf(
+            Color.parseColor("#FFFFFF")
+        )
     }
 }
