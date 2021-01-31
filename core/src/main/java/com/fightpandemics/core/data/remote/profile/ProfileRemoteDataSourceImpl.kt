@@ -16,9 +16,11 @@ class ProfileRemoteDataSourceImpl @Inject constructor(
         return fightPandemicsAPI.getCurrentUser()
     }
 
-    override suspend fun updateCurrertUser(patchIndividualProfileRequest: PatchIndividualProfileRequest): Response<PatchIndividualProfileResponse> =
-        fightPandemicsAPI.updateCurrentUserProfile(patchIndividualProfileRequest)
+    override suspend fun updateCurrentUser(patchIndividualProfileRequest: PatchIndividualProfileRequest):
+        Response<PatchIndividualProfileResponse> =
+            fightPandemicsAPI.updateCurrentUserProfile(patchIndividualProfileRequest)
 
-    override suspend fun updateCurrertUserAccount(patchIndividualAccountRequest: PatchIndividualAccountRequest): Response<PatchIndividualProfileResponse> =
-        fightPandemicsAPI.updateCurrentUserAccount(patchIndividualAccountRequest)
+    override suspend fun updateCurrentUserAccount(patchIndividualAccountRequest: PatchIndividualAccountRequest):
+        Response<PatchIndividualProfileResponse> =
+            fightPandemicsAPI.updateCurrentUserAccount(patchIndividualAccountRequest)
 }

@@ -8,10 +8,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProfileRepository {
 
-    fun getInvididualUser(): Flow<Result<IndividualProfileResponse>>
+    fun getIndividualUser(): Flow<Result<IndividualProfileResponse>>
 
-    fun updateInvididualUserProfile(profileRequest: PatchIndividualProfileRequest): Flow<Result<*>>
+    fun updateIndividualUserProfile(profileRequest: PatchIndividualProfileRequest): Flow<Result<*>>
 
-    fun updateInvididualUserAccount(accountRequest: PatchIndividualAccountRequest): Flow<Result<*>>
-
+    fun updateIndividualUserAccount(accountRequest: PatchIndividualAccountRequest): Flow<Result<*>>
 }

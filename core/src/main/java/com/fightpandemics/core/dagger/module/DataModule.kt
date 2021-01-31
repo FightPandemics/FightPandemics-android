@@ -74,5 +74,4 @@ class DataModule {
         profileRemoteDataSource: ProfileRemoteDataSource
     ): ProfileRepository =
         ProfileRepositoryImpl(moshi, preferenceStorage, profileRemoteDataSource)
-
 }

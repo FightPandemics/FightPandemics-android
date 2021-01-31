@@ -20,10 +20,12 @@ data class IndividualProfileResponse(
     val urls: Urls,
     val usesPassword: Boolean
 ) : Parcelable
+
 @Parcelize
 data class Hide(
     val address: Boolean
 ) : Parcelable
+
 @Parcelize
 data class Location(
     val address: String,
@@ -32,23 +34,27 @@ data class Location(
     val country: String,
     val state: String
 ) : Parcelable
+
 @Parcelize
 data class Needs(
     val medicalHelp: Boolean,
     val otherHelp: Boolean
 ) : Parcelable
+
 @Parcelize
 data class NotifyPrefs(
     val _id: String,
     val digest: Digest,
     val instant: Instant
 ) : Parcelable
+
 @Parcelize
 data class Objectives(
     val donate: Boolean,
     val shareInformation: Boolean,
     val volunteer: Boolean
 ) : Parcelable
+
 @Parcelize
 data class Urls(
     val facebook: String?,
@@ -58,12 +64,14 @@ data class Urls(
     val twitter: String?,
     val website: String?
 ) : Parcelable
+
 @Parcelize
 data class Digest(
     val biweekly: Boolean,
     val daily: Boolean,
     val weekly: Boolean
 ) : Parcelable
+
 @Parcelize
 data class Instant(
     val comment: Boolean,
@@ -71,6 +79,7 @@ data class Instant(
     val message: Boolean,
     val share: Boolean
 ) : Parcelable
+
 @Parcelize
 data class Organisation(
     val _id: String,

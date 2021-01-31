@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
-import com.fightpandemics.profile.ui.profile.BaseFragment
 import com.fightpandemics.profile.ui.profile.ProfileViewModel
 import com.fightpandemics.ui.splash.inject
 import com.google.android.material.textfield.TextInputEditText

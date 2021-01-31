@@ -7,6 +7,7 @@ import com.fightpandemics.core.data.model.profile.PatchIndividualProfileResponse
 import com.fightpandemics.core.domain.repository.ProfileRepository
 import com.fightpandemics.core.domain.usecase.FlowUseCase
 import com.fightpandemics.core.result.Result
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collect
@@ -18,9 +19,10 @@ class UpdateCurrentUserUseCase @Inject constructor(
     dispatcherProvider: CoroutinesDispatcherProvider,
 ) : FlowUseCase<PatchIndividualProfileRequest, Any>(dispatcherProvider.default) {
 
+    @ExperimentalCoroutinesApi
     override suspend fun execute(parameters: PatchIndividualProfileRequest?): Flow<Result<Any>> {
         return channelFlow {
-            profileRepository.updateInvididualUserProfile(parameters!!).collect {
+            profileRepository.updateIndividualUserProfile(parameters!!).collect {
                 val result = when (it) {
                     is Result.Success -> it as Result<PatchIndividualProfileResponse>
                     is Result.Error -> it
@@ -30,5 +32,4 @@ class UpdateCurrentUserUseCase @Inject constructor(
             }
         }
     }
-
 }

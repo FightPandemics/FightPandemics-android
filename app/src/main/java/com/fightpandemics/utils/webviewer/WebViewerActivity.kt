@@ -9,21 +9,26 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.webkit.*
+import android.webkit.JsResult
+import android.webkit.ValueCallback
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.fightpandemics.R
 import kotlinx.android.synthetic.main.a_web_viewer.*
 
-class WebViewerActivity : AppCompatActivity(), WebViewPresenter.Interactor,
+class WebViewerActivity :
+    AppCompatActivity(),
+    WebViewPresenter.Interactor,
     View.OnClickListener {
     private var mUrl: String? = null
     private var filePathCallbackLollipop: ValueCallback<Array<Uri>?>? = null
     private var filePathCallbackNormal: ValueCallback<Uri?>? = null
     private var mPresenter: WebViewPresenter? = null
     private var mCoordinatorLayout: CoordinatorLayout? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +98,6 @@ class WebViewerActivity : AppCompatActivity(), WebViewPresenter.Interactor,
         }
     }
 
-
     private fun bindView() {
         mCoordinatorLayout = findViewById(R.id.a_web_viewer_coordinatorlayout)
         val webSettings = a_web_viewer_wv.settings
@@ -119,7 +123,6 @@ class WebViewerActivity : AppCompatActivity(), WebViewPresenter.Interactor,
     override fun showToast(toast: Toast?) {
         toast?.show()
     }
-
 
     override fun onClick(v: View) {}
     override fun onPointerCaptureChanged(hasCapture: Boolean) {}
@@ -156,11 +159,9 @@ class WebViewerActivity : AppCompatActivity(), WebViewPresenter.Interactor,
             dialog.show()
             return true
         }
-
     }
 
     inner class MyWebViewClient : WebViewClient() {
-        override fun onPageFinished(view: WebView, url: String) {}
         override fun shouldOverrideUrlLoading(
             view: WebView,
             url: String
@@ -171,8 +172,8 @@ class WebViewerActivity : AppCompatActivity(), WebViewPresenter.Interactor,
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 view.context.startActivity(intent)
                 true
-            } else if (url.startsWith("tel:") || url.startsWith("sms:") || url.startsWith("smsto:")
-                || url.startsWith("mms:") || url.startsWith("mmsto:") || url.startsWith("mailto:")
+            } else if (url.startsWith("tel:") || url.startsWith("sms:") || url.startsWith("smsto:") ||
+                url.startsWith("mms:") || url.startsWith("mmsto:") || url.startsWith("mailto:")
             ) {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -190,5 +191,4 @@ class WebViewerActivity : AppCompatActivity(), WebViewPresenter.Interactor,
         private const val REQUEST_PERMISSION_SETTING = 2
         const val EXTRA_URL = "url"
     }
-
 }

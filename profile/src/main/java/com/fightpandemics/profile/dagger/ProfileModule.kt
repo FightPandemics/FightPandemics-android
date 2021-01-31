@@ -14,7 +14,7 @@ import dagger.Provides
  * Dagger module providing stuff for [:Profile].
  */
 @Module
-class ProfileModule{
+class ProfileModule {
 
     @Provides
     fun provideLoadCurrentUserUseCase(
@@ -38,6 +38,5 @@ class ProfileModule{
     fun provideLoadIndividualUserPostsUseCase(
         postsRepository: PostsRepository,
         dispatcherProvider: CoroutinesDispatcherProvider,
-    ) : LoadIndividualUserPostsUseCase = LoadIndividualUserPostsUseCase(postsRepository, dispatcherProvider)
-
+    ): LoadIndividualUserPostsUseCase = LoadIndividualUserPostsUseCase(postsRepository, dispatcherProvider)
 }

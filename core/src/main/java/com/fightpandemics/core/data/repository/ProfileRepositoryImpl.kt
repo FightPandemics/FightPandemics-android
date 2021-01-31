@@ -16,6 +16,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
+import java.net.HttpURLConnection
 import javax.inject.Inject
 
 @FlowPreview
@@ -26,18 +27,18 @@ class ProfileRepositoryImpl @Inject constructor(
     private val profileRemoteDataSource: ProfileRemoteDataSource,
 ) : ProfileRepository {
 
-    override fun getInvididualUser(): Flow<Result<IndividualProfileResponse>> {
+    override fun getIndividualUser(): Flow<Result<IndividualProfileResponse>> {
         return flow {
             val individualUser = profileRemoteDataSource.fetchCurrentUser()
             emit(Result.Success(individualUser))
         }
     }
 
-    override fun updateInvididualUserProfile(profileRequest: PatchIndividualProfileRequest): Flow<Result<*>> {
+    override fun updateIndividualUserProfile(profileRequest: PatchIndividualProfileRequest): Flow<Result<*>> {
         return channelFlow {
-            val response = profileRemoteDataSource.updateCurrertUser(profileRequest)
+            val response = profileRemoteDataSource.updateCurrentUser(profileRequest)
             when {
-                response.isSuccessful && response.code() == 200 -> {
+                response.isSuccessful && response.code() == HttpURLConnection.HTTP_OK -> {
                     val profileResponse = response.body()
                     channel.offer(Result.Success(profileResponse))
                 }
@@ -45,7 +46,7 @@ class ProfileRepositoryImpl @Inject constructor(
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
-                else ->{
+                else -> {
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
@@ -54,19 +55,19 @@ class ProfileRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun updateInvididualUserAccount(accountRequest: PatchIndividualAccountRequest): Flow<Result<*>> {
+    override fun updateIndividualUserAccount(accountRequest: PatchIndividualAccountRequest): Flow<Result<*>> {
         return channelFlow {
-            val response = profileRemoteDataSource.updateCurrertUserAccount(accountRequest)
+            val response = profileRemoteDataSource.updateCurrentUserAccount(accountRequest)
             when {
-                response.isSuccessful && response.code() == 200 -> {
+                response.isSuccessful && response.code() == HttpURLConnection.HTTP_OK -> {
                     val accountResponse = response.body()
                     channel.offer(Result.Success(accountResponse))
                 }
-                response.code() == 400 -> {
+                response.code() == HttpURLConnection.HTTP_BAD_REQUEST -> {
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
-                else ->{
+                else -> {
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }

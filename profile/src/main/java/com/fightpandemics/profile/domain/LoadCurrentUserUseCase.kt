@@ -17,7 +17,7 @@ class LoadCurrentUserUseCase @Inject constructor(
 ) : FlowUseCase<String, IndividualProfileResponse>(dispatcherProvider.default) {
 
     override suspend fun execute(parameters: String?): Flow<Result<IndividualProfileResponse>> {
-        return profileRepository.getInvididualUser().map { results ->
+        return profileRepository.getIndividualUser().map { results ->
             when (results) {
                 is Result.Success -> results
                 is Result.Error -> results

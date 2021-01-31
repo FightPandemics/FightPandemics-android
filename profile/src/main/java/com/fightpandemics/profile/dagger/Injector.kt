@@ -4,7 +4,11 @@ import android.app.Activity
 import androidx.fragment.app.Fragment
 import com.fightpandemics.FightPandemicsApp
 import com.fightpandemics.core.dagger.CoreComponentProvider
-import com.fightpandemics.profile.ui.profile.*
+import com.fightpandemics.profile.ui.profile.EditProfileAboutFragment
+import com.fightpandemics.profile.ui.profile.EditProfileFragment
+import com.fightpandemics.profile.ui.profile.EditProfileNameFragment
+import com.fightpandemics.profile.ui.profile.EditProfileSocialFragment
+import com.fightpandemics.profile.ui.profile.ProfileFragment
 
 fun inject(fragment: ProfileFragment) {
     val appComponent =

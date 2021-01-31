@@ -1,4 +1,4 @@
-package com.fightpandemics.profile.ui.profile
+package com.fightpandemics.profile.ui
 
 import android.os.Bundle
 import android.widget.EditText
@@ -7,12 +7,11 @@ import androidx.fragment.app.Fragment
 import com.mobsandgeeks.saripaar.ValidationError
 import com.mobsandgeeks.saripaar.Validator
 
+open class BaseFragment : Fragment(), Validator.ValidationListener {
 
-open class BaseFragment  : Fragment(), Validator.ValidationListener {
-
-    lateinit var validator : Validator
-    var validationOk : () -> Unit = {}
-    var validationError : () -> Unit = {}
+    lateinit var validator: Validator
+    private var validationOk: () -> Unit = {}
+    private var validationError: () -> Unit = {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +20,7 @@ open class BaseFragment  : Fragment(), Validator.ValidationListener {
     }
 
     override fun onValidationSucceeded() {
-        validationOk?.invoke()
+        validationOk.invoke()
     }
 
     override fun onValidationFailed(errors: MutableList<ValidationError>?) {
@@ -37,7 +36,7 @@ open class BaseFragment  : Fragment(), Validator.ValidationListener {
                     Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
                 }
             }
-            validationError?.invoke()
+            validationError.invoke()
         }
     }
 }

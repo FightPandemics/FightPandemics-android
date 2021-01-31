@@ -14,13 +14,13 @@ import com.fightpandemics.core.data.model.profile.RequestUrls
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
+import com.fightpandemics.profile.ui.BaseFragment
 import com.google.android.material.textfield.TextInputEditText
 import com.mobsandgeeks.saripaar.QuickRule
 import com.mobsandgeeks.saripaar.annotation.*
 import kotlinx.android.synthetic.main.edit_profile_social_fragment.*
 import kotlinx.android.synthetic.main.profile_toolbar.toolbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import timber.log.Timber
 import javax.inject.Inject
 
 private val SEQUENCE_NUMBER = 1

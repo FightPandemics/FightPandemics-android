@@ -1,6 +1,12 @@
 package com.fightpandemics.core.dagger
 
-import com.fightpandemics.core.dagger.module.*
+import com.fightpandemics.core.dagger.module.ContextModule
+import com.fightpandemics.core.dagger.module.DataModule
+import com.fightpandemics.core.dagger.module.DatabaseModule
+import com.fightpandemics.core.dagger.module.NetworkModule
+import com.fightpandemics.core.dagger.module.RemoteModule
+import com.fightpandemics.core.dagger.module.SharedPreferencesModule
+import com.fightpandemics.core.dagger.module.ViewModelBuilderModule
 import com.fightpandemics.core.data.api.FightPandemicsAPI
 import com.fightpandemics.core.data.prefs.PreferenceStorage
 import com.fightpandemics.core.domain.repository.LocationRepository
@@ -50,5 +56,4 @@ interface CoreComponent {
     fun provideLocationRepository(): LocationRepository
     fun provideFightPandemicsAPI(): FightPandemicsAPI
     fun providesProfileRepository(): ProfileRepository
-
 }
