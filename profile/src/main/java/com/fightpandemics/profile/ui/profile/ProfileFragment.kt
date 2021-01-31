@@ -3,7 +3,9 @@ package com.fightpandemics.profile.ui.profile
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
@@ -24,7 +26,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 import javax.inject.Inject
 
-
 class ProfileFragment : Fragment() {
 
     @Inject
@@ -32,7 +33,6 @@ class ProfileFragment : Fragment() {
 
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels() { viewModelFactory }
-
 
     companion object {
         fun newInstance() = ProfileFragment()
@@ -52,7 +52,6 @@ class ProfileFragment : Fragment() {
         return inflater.inflate(R.layout.profile_fragment, container, false)
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         bindLoading(true)
@@ -65,6 +64,7 @@ class ProfileFragment : Fragment() {
         profileViewModel.getIndividualProfile()
     }
 
+    @ExperimentalCoroutinesApi
     private fun bindListeners() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -100,6 +100,7 @@ class ProfileFragment : Fragment() {
             }
     }
 
+    @ExperimentalCoroutinesApi
     private fun getIndividualProfileListener(profile: ProfileViewModel.IndividualProfileViewState) {
         when {
             profile.isLoading -> {
@@ -112,13 +113,14 @@ class ProfileFragment : Fragment() {
                 initSocialListeners(profile)
                 displayUserPosts(profile.id!!)
             }
-            profile.error != null -> {
+            profile.error.isNotBlank() -> {
                 bindLoading(false)
-                // @feryel please fill this
+                // TODO add error treatment on get current profile
             }
         }
     }
 
+    @ExperimentalCoroutinesApi
     private fun displayUserPosts(id: String) {
 
         val adapter = PostsAdapter()
@@ -128,7 +130,8 @@ class ProfileFragment : Fragment() {
 
         profileViewModel.loadUserPosts(id)
 
-        profileViewModel.postsState.observe(viewLifecycleOwner,
+        profileViewModel.postsState.observe(
+            viewLifecycleOwner,
             {
                 // ...
                 when {
@@ -154,6 +157,7 @@ class ProfileFragment : Fragment() {
         )
     }
 
+    @ExperimentalCoroutinesApi
     private fun loadUserImage(
         profile: ProfileViewModel.IndividualProfileViewState,
         imgUrl: String?
@@ -170,6 +174,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    @ExperimentalCoroutinesApi
     private fun initTextViews(profile: ProfileViewModel.IndividualProfileViewState) {
         user_full_name.text =
             profile.firstName?.capitalizeFirstLetter() + " " + profile.lastName?.capitalizeFirstLetter()
@@ -177,6 +182,7 @@ class ProfileFragment : Fragment() {
         bio.text = profile.bio
     }
 
+    @ExperimentalCoroutinesApi
     private fun initSocialListeners(profile: ProfileViewModel.IndividualProfileViewState) {
         facebook.setOnClickListener { openWebView(profile.facebook) }
         linkedin.setOnClickListener { openWebView(profile.linkedin) }
@@ -210,5 +216,4 @@ class ProfileFragment : Fragment() {
 //            progressBar.visibility = View.GONE
         }
     }
-
 }

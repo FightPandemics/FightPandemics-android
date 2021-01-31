@@ -1,7 +1,14 @@
 package com.fightpandemics.profile.custom
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapShader
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
+import android.graphics.RectF
+import android.graphics.Shader
 import android.graphics.drawable.Drawable
 import android.os.Parcel
 import android.os.Parcelable
@@ -96,7 +103,7 @@ class ProfileImageView @JvmOverloads constructor(
         canvas.drawOval(borderRect.toRectF(), borderPaint)
     }
 
-    override fun onSaveInstanceState(): Parcelable? {
+    override fun onSaveInstanceState(): Parcelable {
         val savedState = SavedState(super.onSaveInstanceState())
         savedState.isAvatarMode = isAvatarMode
         savedState.borderWidth = borderWidth
