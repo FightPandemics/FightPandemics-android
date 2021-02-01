@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.data.model.login.CompleteProfileRequest
 import com.fightpandemics.core.data.model.login.Hide
@@ -16,6 +18,7 @@ import com.fightpandemics.core.data.model.login.Location
 import com.fightpandemics.core.data.model.login.Needs
 import com.fightpandemics.core.data.model.login.Objectives
 import com.fightpandemics.core.utils.ViewModelFactory
+import com.fightpandemics.core.widgets.BaseLocationFragment
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
 import com.fightpandemics.login.ui.LoginViewModel
@@ -24,11 +27,14 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textview.MaterialTextView
+import kotlinx.android.synthetic.main.complete_profile_location.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 import javax.inject.Inject
 
-class CompleteProfileFragment : Fragment() {
+class CompleteProfileFragment : BaseLocationFragment() {
 
     @Inject
     lateinit var loginViewModelFactory: ViewModelFactory
@@ -86,12 +92,42 @@ class CompleteProfileFragment : Fragment() {
             onCompleteProfile(completeProfileRequest)
         }
 
+        shareLocation(rootView) // get user location and display it
+
         return rootView
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         arguments?.getString(USER_PROFILE)
+    }
+
+    override fun updateLocation(location: android.location.Location) {
+        Timber.i("My filters from filter $location")
+        // filterViewModel.updateCurrentLocation(location)
+        loginViewModel.updateCurrentLocation(location)
+    }
+
+    private fun shareLocation(root: View?) {
+        val shareMyLocation = root!!.findViewById<MaterialTextView>(R.id.share_my_location)
+        shareMyLocation.setOnClickListener {
+            etAddress.setText("")
+            getCurrentLocation()
+            lifecycleScope.launchWhenStarted {
+                loginViewModel.currentLocationState.collect {
+                    when {
+                        it.isLoading -> bindLoading(root, it.isLoading)
+                        it.userLocation!!.isNotEmpty() -> {
+                            bindLoading(root, it.isLoading)
+                            displayLocation(root, it.userLocation)
+                        }
+                        it.error != null -> {
+                            bindLoading(root, it.isLoading)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @ExperimentalCoroutinesApi
@@ -121,4 +157,24 @@ class CompleteProfileFragment : Fragment() {
             }
         )
     }
+}
+
+private fun displayLocation(root: View?, address: String) {
+
+    root!!.findViewById<EditText>(R.id.etAddress).setText(address)
+
+//    filterViewModel.locationQuery.value = address
+//    // todo maybe find a better way of doing this -
+//    //  Take away focus from edit text once an option has been selected binding.searchText.requestFocus()
+//    filterStartFragmentBinding!!.locationOptions.locationSearch.isEnabled = false
+//    filterStartFragmentBinding!!.locationOptions.locationSearch.isEnabled = true
+//    // hide recycler view autocomplete location suggestions
+//    filterStartFragmentBinding!!.locationOptions.autoCompleteLocationsRecyclerView.visibility =
+//        View.GONE
+//    filterStartFragmentBinding!!.locationOptions.itemLineDivider1.visibility = View.GONE
+}
+
+private fun bindLoading(root: View?, isLoading: Boolean) {
+    root!!.findViewById<ProgressBar>(R.id.progressBar).visibility =
+        if (isLoading) View.VISIBLE else View.GONE
 }

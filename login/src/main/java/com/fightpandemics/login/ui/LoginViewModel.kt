@@ -1,35 +1,50 @@
 package com.fightpandemics.login.ui
 
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.core.data.model.login.*
+import com.fightpandemics.core.data.model.userlocation.LocationRequest
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.login.domain.CompleteProfileUseCase
 import com.fightpandemics.login.domain.LoginUseCase
 import com.fightpandemics.login.domain.SignUPUseCase
+import com.fightpandemics.login.domain.UserLocationUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ActivityScope
 class LoginViewModel @Inject constructor(
+    private val userLocationUseCase: UserLocationUseCase,
     private val loginUseCase: LoginUseCase,
     private val signUpUseCase: SignUPUseCase,
     private val completeProfileUseCase: CompleteProfileUseCase
 ) : ViewModel() {
+    // location variables
+    private var sharelocationJob: Job? = null
+    private var searchlocationJob: Job? = null
+    val searchQuery = MutableStateFlow("")
+    private val _currentLocationState = MutableStateFlow(UserLocationViewState(isLoading = true))
+    val currentLocationState = _currentLocationState.asStateFlow()
+
     private val _login = MutableLiveData<LoginViewState>()
     private val _signup = MutableLiveData<SignUPViewState>()
     private val _completeProfile = MutableLiveData<CompleteProfileViewState>()
     val login: LiveData<LoginViewState> = _login
     val signup: LiveData<SignUPViewState> = _signup
     val completeProfile: LiveData<CompleteProfileViewState> = _completeProfile
+
+    init {
+//        searchLocation()
+    }
 
     @ExperimentalCoroutinesApi
     fun doLogin(email: String, password: String) {
@@ -39,7 +54,6 @@ class LoginViewModel @Inject constructor(
                 loginUseCase(LoginRequest(email, password))
             }
             deferredLogin.await().catch {
-
             }.collect {
                 when (it) {
                     is Result.Success -> {
@@ -101,11 +115,10 @@ class LoginViewModel @Inject constructor(
                 }
             }
         }
-
     }
 
     @ExperimentalCoroutinesApi
-    fun doCompleteProfile(request : CompleteProfileRequest) {
+    fun doCompleteProfile(request: CompleteProfileRequest) {
         completeProfile.value?.isLoading = true
 
         viewModelScope.launch {
@@ -136,7 +149,53 @@ class LoginViewModel @Inject constructor(
                 }
             }
         }
+    }
 
+    // Get user location from API using lat & lng
+    fun updateCurrentLocation(location: Location) {
+        sharelocationJob?.cancel()
+        sharelocationJob = viewModelScope.launch {
+            userLocationUseCase(LocationRequest(location.latitude, location.longitude))
+                .collect {
+                    when (it) {
+                        is Result.Loading -> currentLocation(true, null, null)
+                        is Result.Success -> currentLocation(false, null, it.data as com.fightpandemics.core.data.model.userlocation.Location)
+                        is Result.Error -> currentLocation(true, it, null)
+                    }
+                }
+        }
+    }
+
+    // Search for location from API using user input
+//    fun searchLocation() {
+//        searchlocationJob?.cancel()
+//        searchlocationJob = viewModelScope.launch {
+//            searchQuery
+//                .debounce(300)
+//                .filter { return@filter !it.isEmpty() && it.length >= 3 }
+//                .distinctUntilChanged()
+//                .map { it.trim() }
+//                .flatMapLatest { locationPredictionsUseCase(it) }
+//                .conflate()
+//                .collect {
+//                    when (it) {
+//                        is Result.Success ->
+//                            _searchLocationState.value =
+//                                it.data as MutableList<String>
+//                        is Result.Error -> Timber.e(it.toString())
+//                        is Result.Loading -> Timber.e("LOADING...")
+//                    }
+//                }
+//        }
+//    }
+
+    private fun currentLocation(
+        loading: Boolean,
+        error: Result.Error?,
+        currentLocation: com.fightpandemics.core.data.model.userlocation.Location?
+    ) {
+        _currentLocationState.value =
+            UserLocationViewState(loading, error, "${currentLocation?.address}")
     }
 }
 
@@ -166,8 +225,11 @@ data class CompleteProfileViewState(
     val error: String?,
     val isError: Boolean
 )
-
-
+data class UserLocationViewState(
+    var isLoading: Boolean,
+    val error: Result.Error? = null,
+    val userLocation: String? = null,
+)
 
 /*
 *
