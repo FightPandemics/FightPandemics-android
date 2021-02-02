@@ -1,6 +1,7 @@
 package com.fightpandemics.core.data.model.profile
 
 import android.os.Parcelable
+import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -43,7 +44,7 @@ data class Needs(
 
 @Parcelize
 data class NotifyPrefs(
-    val _id: String,
+    @Json(name = "_id") val backendID: String,
     val digest: Digest,
     val instant: Instant
 ) : Parcelable
@@ -82,7 +83,7 @@ data class Instant(
 
 @Parcelize
 data class Organisation(
-    val _id: String,
+    @Json(name = "_id") val backendID: String,
     val createdAt: String,
     val email: String,
     val global: Boolean,
