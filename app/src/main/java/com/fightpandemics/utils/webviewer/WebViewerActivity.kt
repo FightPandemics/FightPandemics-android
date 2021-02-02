@@ -124,8 +124,12 @@ class WebViewerActivity :
         toast?.show()
     }
 
-    override fun onClick(v: View) {}
-    override fun onPointerCaptureChanged(hasCapture: Boolean) {}
+    override fun onClick(v: View) {
+        TODO()
+    }
+    override fun onPointerCaptureChanged(hasCapture: Boolean) {
+        TODO()
+    }
     inner class MyWebChromeClient : WebChromeClient() {
         override fun onJsAlert(
             view: WebView,
@@ -172,16 +176,24 @@ class WebViewerActivity :
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 view.context.startActivity(intent)
                 true
-            } else if (url.startsWith("tel:") || url.startsWith("sms:") || url.startsWith("smsto:") ||
-                url.startsWith("mms:") || url.startsWith("mmsto:") || url.startsWith("mailto:")
+            } else if (url.startsWith("tel:") ||
+                url.startsWith("sms:") ||
+                url.startsWith("smsto:")
             ) {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                view.context.startActivity(intent)
+                getURLIntent(url, view)
+                true
+            } else if (url.startsWith("mms:") || url.startsWith("mmsto:") || url.startsWith("mailto:")) {
+                getURLIntent(url, view)
                 true
             } else {
                 super.shouldOverrideUrlLoading(view, url)
             }
+        }
+
+        private fun getURLIntent(url: String, view: WebView) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            view.context.startActivity(intent)
         }
     }
 

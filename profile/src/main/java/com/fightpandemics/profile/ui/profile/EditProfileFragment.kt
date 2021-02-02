@@ -116,5 +116,4 @@ class EditProfileFragment : Fragment() {
     companion object {
         fun newInstance() = EditProfileFragment()
     }
-
 }

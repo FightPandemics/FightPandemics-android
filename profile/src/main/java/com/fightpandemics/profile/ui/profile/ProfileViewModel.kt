@@ -86,7 +86,9 @@ class ProfileViewModel @Inject constructor(
                             firstName = it.data.firstName.capitalizeFirstLetter(),
                             lastName = it.data.lastName.capitalizeFirstLetter(),
                             imgUrl = it.data.photo,
-                            location = it.data.location.city.capitalizeFirstLetter() + " , " + it.data.location.state.capitalizeFirstLetter() + " , " + it.data.location.country.capitalizeFirstLetter(),
+                            location = it.data.location.city.capitalizeFirstLetter() + " , " +
+                                it.data.location.state.capitalizeFirstLetter() + " , " +
+                                it.data.location.country.capitalizeFirstLetter(),
                             bio = it.data.about,
                             facebook = it.data.urls.facebook,
                             instagram = it.data.urls.instagram,

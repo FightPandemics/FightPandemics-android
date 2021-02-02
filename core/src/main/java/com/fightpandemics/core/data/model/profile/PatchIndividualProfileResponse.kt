@@ -1,9 +1,11 @@
 package com.fightpandemics.core.data.model.profile
 
+import com.squareup.moshi.Json
+
 data class PatchIndividualProfileResponse(
-    val __t: String,
-    val __v: Int,
-    val _id: String,
+    @Json(name = "__t") val backendT: String,
+    @Json(name = "__v") val backendV: Int,
+    @Json(name = "_id") val backendID: String,
     val about: String,
     val authId: String,
     val createdAt: String,
@@ -19,5 +21,3 @@ data class PatchIndividualProfileResponse(
     val updatedAt: String,
     val urls: Urls
 )
-
-
