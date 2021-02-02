@@ -67,7 +67,6 @@ class ProfileFragment : Fragment() {
                     findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_indivProfileSettings)
                     true
                 }
-
                 else -> {
                     super.onOptionsItemSelected(it)
                 }
@@ -96,7 +95,10 @@ class ProfileFragment : Fragment() {
             }
             profile.error == null -> {
                 bindLoading(false)
-                initTextViews(profile)
+                user_full_name.text =
+                    profile.firstName?.capitalizeFirstLetter() + " " + profile.lastName?.capitalizeFirstLetter()
+                user_location.text = profile.location
+                bio.text = profile.bio
                 loadUserImage(profile, profile.imgUrl)
                 facebook.setOnClickListener { openWebView(profile.facebook) }
                 linkedin.setOnClickListener { openWebView(profile.linkedin) }
@@ -165,13 +167,6 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    @ExperimentalCoroutinesApi
-    private fun initTextViews(profile: ProfileViewModel.IndividualProfileViewState) {
-        user_full_name.text =
-            profile.firstName?.capitalizeFirstLetter() + " " + profile.lastName?.capitalizeFirstLetter()
-        user_location.text = profile.location
-        bio.text = profile.bio
-    }
     private fun openWebView(url: String?) {
         val intent = Intent(requireContext(), WebViewerActivity::class.java)
         intent.putExtra("url", url)
