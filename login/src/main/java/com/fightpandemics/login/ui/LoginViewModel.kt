@@ -6,23 +6,43 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.ActivityScope
-import com.fightpandemics.core.data.model.login.*
+import com.fightpandemics.core.data.model.login.CompleteProfileRequest
+import com.fightpandemics.core.data.model.login.CompleteProfileResponse
+import com.fightpandemics.core.data.model.login.LoginRequest
+import com.fightpandemics.core.data.model.login.LoginResponse
+import com.fightpandemics.core.data.model.login.SignUpRequest
+import com.fightpandemics.core.data.model.login.SignUpResponse
+import com.fightpandemics.core.data.model.login.User
 import com.fightpandemics.core.data.model.userlocation.LocationRequest
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.login.domain.CompleteProfileUseCase
+import com.fightpandemics.login.domain.LocationPredictionsUseCase
 import com.fightpandemics.login.domain.LoginUseCase
 import com.fightpandemics.login.domain.SignUPUseCase
 import com.fightpandemics.login.domain.UserLocationUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
+@FlowPreview
 @ExperimentalCoroutinesApi
 @ActivityScope
 class LoginViewModel @Inject constructor(
+    private val locationPredictionsUseCase: LocationPredictionsUseCase,
     private val userLocationUseCase: UserLocationUseCase,
     private val loginUseCase: LoginUseCase,
     private val signUpUseCase: SignUPUseCase,
@@ -34,6 +54,9 @@ class LoginViewModel @Inject constructor(
     val searchQuery = MutableStateFlow("")
     private val _currentLocationState = MutableStateFlow(UserLocationViewState(isLoading = true))
     val currentLocationState = _currentLocationState.asStateFlow()
+    private val _searchLocationState = MutableStateFlow(mutableListOf(""))
+    val searchLocationState = _searchLocationState.asStateFlow()
+    var locationQuery = MutableLiveData<String?>("")
 
     private val _login = MutableLiveData<LoginViewState>()
     private val _signup = MutableLiveData<SignUPViewState>()
@@ -43,7 +66,7 @@ class LoginViewModel @Inject constructor(
     val completeProfile: LiveData<CompleteProfileViewState> = _completeProfile
 
     init {
-//        searchLocation()
+        searchLocation()
     }
 
     @ExperimentalCoroutinesApi
@@ -97,7 +120,7 @@ class LoginViewModel @Inject constructor(
                         val signUpResponse = it.data as SignUpResponse
                         _signup.value = SignUPViewState(
                             false,
-                            signUpResponse.emailVerified!!,
+                            signUpResponse.emailVerified,
                             signUpResponse.token,
                             null,
                             isError = false
@@ -166,28 +189,29 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    // Search for location from API using user input
-//    fun searchLocation() {
-//        searchlocationJob?.cancel()
-//        searchlocationJob = viewModelScope.launch {
-//            searchQuery
-//                .debounce(300)
-//                .filter { return@filter !it.isEmpty() && it.length >= 3 }
-//                .distinctUntilChanged()
-//                .map { it.trim() }
-//                .flatMapLatest { locationPredictionsUseCase(it) }
-//                .conflate()
-//                .collect {
-//                    when (it) {
-//                        is Result.Success ->
-//                            _searchLocationState.value =
-//                                it.data as MutableList<String>
-//                        is Result.Error -> Timber.e(it.toString())
-//                        is Result.Loading -> Timber.e("LOADING...")
-//                    }
-//                }
-//        }
-//    }
+//     Search for location from API using user input
+    @FlowPreview
+    fun searchLocation() {
+        searchlocationJob?.cancel()
+        searchlocationJob = viewModelScope.launch {
+            searchQuery
+                .debounce(300)
+                .filter { return@filter !it.isEmpty() && it.length >= 3 }
+                .distinctUntilChanged()
+                .map { it.trim() }
+                .flatMapLatest { locationPredictionsUseCase(it) }
+                .conflate()
+                .collect {
+                    when (it) {
+                        is Result.Success ->
+                            _searchLocationState.value =
+                                it.data as MutableList<String>
+                        is Result.Error -> Timber.e(it.toString())
+                        is Result.Loading -> Timber.e("LOADING...")
+                    }
+                }
+        }
+    }
 
     private fun currentLocation(
         loading: Boolean,
@@ -200,7 +224,7 @@ class LoginViewModel @Inject constructor(
 }
 
 /**
- * UI Models for [SignInEmailFragment].
+ * UI Models for [ SignInEmailFragment ].
  */
 data class LoginViewState(
     var isLoading: Boolean,
