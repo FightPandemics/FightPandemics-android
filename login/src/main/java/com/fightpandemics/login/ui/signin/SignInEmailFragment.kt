@@ -108,7 +108,7 @@ class SignInEmailFragment : Fragment() {
                     !it.emailVerified -> {
                         displayButton(true, R.string.sign_in)
                         Timber.e("ERROR ${it.error}")
-                        Snackbar.make(sign_in_email_constraint_layout, "ERROR ${it.error}", Snackbar.LENGTH_LONG).show()
+                        //Snackbar.make(sign_in_email_constraint_layout, "ERROR ${it.error}", Snackbar.LENGTH_LONG).show()
                         // TODO 8 - The user is informed that their credentials are invalid using a Snackbar.
                     }
                 }

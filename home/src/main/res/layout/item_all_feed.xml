@@ -145,6 +145,7 @@
             android:layout_marginEnd="20dp"
             android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/post_title"
             app:layout_constraintTop_toBottomOf="@+id/post_title"
             tools:text="I have a small store and I would like to give away 100 mask but I don’t know where, please contact me if you need them. I have a small store and I would like to give away 100 mask but I don’t know where, please contact me if you need them. please co ..." />
@@ -214,6 +215,20 @@
             app:layout_constraintStart_toEndOf="@+id/comments_count"
             app:layout_constraintTop_toTopOf="@+id/comments_count"
             app:srcCompat="@drawable/ic_share" />
+
+        <TextView
+            android:id="@+id/view_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View More"
+            android:textColor="@color/colorPrimary"
+            android:background="@color/color_white"
+            app:layout_constraintBottom_toBottomOf="@+id/post_content"
+            app:layout_constraintEnd_toEndOf="@+id/post_content"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/post_content"
+            app:layout_constraintTop_toTopOf="@+id/post_content"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
