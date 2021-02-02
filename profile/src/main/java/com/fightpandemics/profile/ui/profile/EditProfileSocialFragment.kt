@@ -157,9 +157,9 @@ class EditProfileSocialFragment : BaseFragment() {
     }
 
     companion object {
-        fun newInstance() = EditProfileSocialFragment()
         private const val SEQUENCE_NUMBER = 1
         private const val MIN_LENGTH = 0
         private const val MAX_LENGTH = 5
+        fun newInstance() = EditProfileSocialFragment()
     }
 }

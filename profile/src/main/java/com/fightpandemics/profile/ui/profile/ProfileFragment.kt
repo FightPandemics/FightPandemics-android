@@ -16,9 +16,8 @@ import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
 import com.fightpandemics.profile.util.capitalizeFirstLetter
 import com.fightpandemics.profile.util.userInitials
-import com.fightpandemics.ui.MainActivity
 import com.fightpandemics.utils.webviewer.WebViewerActivity
-import com.google.android.material.button.MaterialButton
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.profile_fragment_content.*
 import kotlinx.android.synthetic.main.profile_toolbar.*
 import kotlinx.android.synthetic.main.user_posts_content.*
@@ -44,7 +43,6 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        createPost()
         return inflater.inflate(R.layout.profile_fragment, container, false)
     }
 
@@ -82,18 +80,12 @@ class ProfileFragment : Fragment() {
         profileViewModel.individualProfile.observe(viewLifecycleOwner) { profile ->
             getIndividualProfileListener(profile)
         }
-    }
-
-    private fun createPost() {
-        (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsOrg)
-            .setOnClickListener {
-                findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_createPostFragment)
-            }
-
-        (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsIndiv)
-            .setOnClickListener {
-                findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_createPostFragment)
-            }
+        fabCreateAsOrg.setOnClickListener {
+            findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_createPostFragment)
+        }
+        fabCreateAsIndiv.setOnClickListener {
+            findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_createPostFragment)
+        }
     }
 
     @ExperimentalCoroutinesApi
@@ -106,7 +98,11 @@ class ProfileFragment : Fragment() {
                 bindLoading(false)
                 initTextViews(profile)
                 loadUserImage(profile, profile.imgUrl)
-                initSocialListeners(profile)
+                facebook.setOnClickListener { openWebView(profile.facebook) }
+                linkedin.setOnClickListener { openWebView(profile.linkedin) }
+                twitter.setOnClickListener { openWebView(profile.twitter) }
+                github.setOnClickListener { openWebView(profile.github) }
+                link.setOnClickListener { openWebView(profile.website) }
                 displayUserPosts(profile.id!!)
             }
             profile.error.isNotBlank() -> {
@@ -118,20 +114,18 @@ class ProfileFragment : Fragment() {
 
     @ExperimentalCoroutinesApi
     private fun displayUserPosts(id: String) {
-
         val adapter = PostsAdapter()
-
         val rv = profile_activities_recyclerView
         rv.adapter = adapter
-
         profileViewModel.loadUserPosts(id)
-
         profileViewModel.postsState.observe(
             viewLifecycleOwner,
             {
                 // ...
                 when {
-                    it.isLoading -> bindLoadingPosts(it.isLoading)
+                    it.isLoading -> {
+                        TODO()
+                    }
                     it.posts!!.isNotEmpty() -> {
                         bindLoading(it.isLoading)
                         adapter.data = it.posts
@@ -178,16 +172,6 @@ class ProfileFragment : Fragment() {
         user_location.text = profile.location
         bio.text = profile.bio
     }
-
-    @ExperimentalCoroutinesApi
-    private fun initSocialListeners(profile: ProfileViewModel.IndividualProfileViewState) {
-        facebook.setOnClickListener { openWebView(profile.facebook) }
-        linkedin.setOnClickListener { openWebView(profile.linkedin) }
-        twitter.setOnClickListener { openWebView(profile.twitter) }
-        github.setOnClickListener { openWebView(profile.github) }
-        link.setOnClickListener { openWebView(profile.website) }
-    }
-
     private fun openWebView(url: String?) {
         val intent = Intent(requireContext(), WebViewerActivity::class.java)
         intent.putExtra("url", url)
@@ -201,16 +185,6 @@ class ProfileFragment : Fragment() {
         } else {
             content.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
-        }
-    }
-
-    private fun bindLoadingPosts(isLoading: Boolean) {
-        if (isLoading) {
-//            content.visibility = View.INVISIBLE
-//            progressBar.visibility = View.VISIBLE
-        } else {
-//            content.visibility = View.VISIBLE
-//            progressBar.visibility = View.GONE
         }
     }
 
