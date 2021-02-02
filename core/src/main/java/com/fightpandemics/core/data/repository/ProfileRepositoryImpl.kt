@@ -42,7 +42,7 @@ class ProfileRepositoryImpl @Inject constructor(
                     val profileResponse = response.body()
                     channel.offer(Result.Success(profileResponse))
                 }
-                response.code() == 400 -> {
+                response.code() == HttpURLConnection.HTTP_BAD_REQUEST -> {
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }

@@ -23,10 +23,6 @@ class IndivProfileSettings : Fragment() {
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
 
-    companion object {
-        fun newInstance() = IndivProfileSettings()
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -51,7 +47,8 @@ class IndivProfileSettings : Fragment() {
 //            when (it.itemId) {
 //                R.id.settings -> {
 //                    Timber.d("bindListeners: Settings")
-//                    findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_indivProfileSettings)
+//                    findNavController()
+//                    .navigate(R.id.action_profileFragment_to_indivProfileSettings)
 //                    true
 //                }
 //
@@ -75,5 +72,9 @@ class IndivProfileSettings : Fragment() {
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    companion object {
+        fun newInstance() = IndivProfileSettings()
     }
 }

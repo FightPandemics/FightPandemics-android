@@ -37,10 +37,6 @@ class EditProfileNameFragment : BaseFragment() {
     @NotEmpty(messageResId = R.string.error_empty_last_name)
     lateinit var tvLastName: TextInputEditText
 
-    companion object {
-        fun newInstance() = EditProfileNameFragment()
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -113,5 +109,9 @@ class EditProfileNameFragment : BaseFragment() {
         name_save_button.setOnClickListener {
             validator.validate()
         }
+    }
+
+    companion object {
+        fun newInstance() = EditProfileNameFragment()
     }
 }

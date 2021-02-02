@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.profile_toolbar.toolbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
-private val SEQUENCE_NUMBER = 1
+private const val sequenceNumber = 1
 
 class EditProfileSocialFragment : BaseFragment() {
 
@@ -127,11 +127,13 @@ class EditProfileSocialFragment : BaseFragment() {
     }
 
     class FacebookRule // Override this constructor ONLY if you want sequencing.
-        : QuickRule<EditText>(SEQUENCE_NUMBER) {
+        : QuickRule<EditText>(sequenceNumber) {
         override fun isValid(editText: EditText): Boolean {
+            val minLength = 0
+            val maxLength = 5
             val text = editText.text.toString()
             val length = text.length
-            return length == 0 || length >= 5
+            return length == minLength || length >= maxLength
         }
 
         override fun getMessage(context: Context): String {
@@ -140,7 +142,7 @@ class EditProfileSocialFragment : BaseFragment() {
     }
 
     class UrlRule // Override this constructor ONLY if you want sequencing.
-        : QuickRule<EditText>(SEQUENCE_NUMBER) {
+        : QuickRule<EditText>(sequenceNumber) {
         val regex =
             (
                 "^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)" +

@@ -78,7 +78,8 @@ class PostViewHolder(private var itemBinding: ItemUserPostsBinding) : RecyclerVi
 //                itemBinding.postOption.isVisible = true
 //                itemBinding.postOption.setOnClickListener {
 //                    val view: View = View.inflate(context, com.fightpandemics.home.R.layout.edit_delete, null)
-//                    val mBottomSheetDialog = BottomSheetDialog(context, com.fightpandemics.home.R.style.BottomSheetDialogTheme)
+//                    val mBottomSheetDialog = 
+//                    BottomSheetDialog(context, R.style.BottomSheetDialogTheme)
 //                    mBottomSheetDialog.setContentView(view)
 //                    mBottomSheetDialog.show()
 //                }

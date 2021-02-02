@@ -32,10 +32,6 @@ class EditProfileFragment : Fragment() {
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
 
-    companion object {
-        fun newInstance() = EditProfileFragment()
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -116,4 +112,9 @@ class EditProfileFragment : Fragment() {
             edit_profile_progressBar.visibility = View.GONE
         }
     }
+
+    companion object {
+        fun newInstance() = EditProfileFragment()
+    }
+
 }

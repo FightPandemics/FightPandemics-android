@@ -32,10 +32,6 @@ class EditProfileAboutFragment : BaseFragment() {
     @ExperimentalCoroutinesApi
     private val profileViewModel: ProfileViewModel by activityViewModels { viewModelFactory }
 
-    companion object {
-        fun newInstance() = EditProfileAboutFragment()
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
@@ -100,5 +96,9 @@ class EditProfileAboutFragment : BaseFragment() {
         aboutSaveButton.setOnClickListener {
             validator.validate()
         }
+    }
+
+    companion object {
+        fun newInstance() = EditProfileAboutFragment()
     }
 }
