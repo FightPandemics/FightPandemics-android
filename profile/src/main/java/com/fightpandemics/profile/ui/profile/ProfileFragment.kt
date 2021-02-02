@@ -16,8 +16,9 @@ import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
 import com.fightpandemics.profile.util.capitalizeFirstLetter
 import com.fightpandemics.profile.util.userInitials
+import com.fightpandemics.ui.MainActivity
 import com.fightpandemics.utils.webviewer.WebViewerActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.profile_fragment_content.*
 import kotlinx.android.synthetic.main.profile_toolbar.*
 import kotlinx.android.synthetic.main.user_posts_content.*
@@ -73,17 +74,21 @@ class ProfileFragment : Fragment() {
             }
         }
 
+        (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsOrg)
+            .setOnClickListener {
+                findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_createPostFragment)
+            }
+
+        (activity as MainActivity).findViewById<MaterialButton>(com.fightpandemics.R.id.fabCreateAsIndiv)
+            .setOnClickListener {
+                findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_createPostFragment)
+            }
+
         button3?.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_editProfileFragment)
         }
         profileViewModel.individualProfile.observe(viewLifecycleOwner) { profile ->
             getIndividualProfileListener(profile)
-        }
-        fabCreateAsOrg.setOnClickListener {
-            findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_createPostFragment)
-        }
-        fabCreateAsIndiv.setOnClickListener {
-            findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_createPostFragment)
         }
     }
 
@@ -125,9 +130,6 @@ class ProfileFragment : Fragment() {
             {
                 // ...
                 when {
-                    it.isLoading -> {
-                        TODO()
-                    }
                     it.posts!!.isNotEmpty() -> {
                         bindLoading(it.isLoading)
                         adapter.data = it.posts

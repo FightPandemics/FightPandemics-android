@@ -117,7 +117,7 @@ interface FightPandemicsAPI {
 
     companion object {
         // Staging API for Development
-        const val API_ENDPOINT = "https://staging.fightpandemics.work/"
+        const val API_ENDPOINT = "https://fightpandemics.com/"
 
         // TODO - use the production url for release builds
         const val RELEASE_API_ENDPOINT = "https://fightpandemics.com/"
