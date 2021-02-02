@@ -1,9 +1,8 @@
 package com.fightpandemics.home.ui.tabs
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.view.LayoutInflater
-import androidx.annotation.RequiresApi
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
@@ -48,6 +47,8 @@ class PostsViewHolder(
                 )
             }
 
+
+
             //
             itemBinding.objective.text = post.objective?.capitalize(Locale.ROOT)
             itemBinding.userFullName.text = post.author?.name
@@ -55,7 +56,15 @@ class PostsViewHolder(
             itemBinding.userLocation.text =
                 post.author?.location?.city.plus(", ").plus(post.author?.location?.country)
 
+            itemBinding.viewMore.visibility = View.INVISIBLE
+
+            val count: Int =
+                (post.content!!.replace("\n", " ").split(" ")).size
+
             itemBinding.postContent.text = post.content
+            if(count > 25){
+                itemBinding.viewMore.visibility = View.VISIBLE
+            }
 
             itemBinding.like.apply {
                 isChecked = post.liked!!
