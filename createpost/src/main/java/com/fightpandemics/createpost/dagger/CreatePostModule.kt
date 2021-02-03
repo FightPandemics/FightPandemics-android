@@ -1,7 +1,9 @@
 package com.fightpandemics.createpost.dagger
 
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
+import com.fightpandemics.core.domain.repository.ProfileRepository
 import com.fightpandemics.createpost.domain.CreatePostsUseCase
+import com.fightpandemics.createpost.domain.LoadCurrentUserUseCase
 import com.fightpandemics.createpost.domain.repository.CreatePostRepository
 import dagger.Module
 import dagger.Provides
@@ -19,4 +21,11 @@ class CreatePostModule {
     fun provideCreatePostUseCase(createPostRepository: CreatePostRepository, dispatcherProvider: CoroutinesDispatcherProvider): CreatePostsUseCase {
         return CreatePostsUseCase(createPostRepository, dispatcherProvider)
     }
+
+    @ExperimentalCoroutinesApi
+    @Provides
+    fun provideLoadCurrentUserUseCase(
+        profileRepository: ProfileRepository,
+        dispatcherProvider: CoroutinesDispatcherProvider,
+    ): LoadCurrentUserUseCase = LoadCurrentUserUseCase(profileRepository, dispatcherProvider)
 }

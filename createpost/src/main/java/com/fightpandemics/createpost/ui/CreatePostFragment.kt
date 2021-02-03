@@ -4,7 +4,8 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.text.*
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +16,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import com.fightpandemics.core.utils.GlideApp
 import com.fightpandemics.core.utils.ViewModelFactory
+import com.fightpandemics.core.utils.capitalizeFirstLetter
+import com.fightpandemics.core.utils.userInitials
 import com.fightpandemics.createpost.R
 import com.fightpandemics.createpost.dagger.inject
 import com.fightpandemics.createpost.data.model.CreatePostRequest
@@ -51,7 +56,8 @@ class CreatePostFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentCreatePostBinding
@@ -64,7 +70,6 @@ class CreatePostFragment : Fragment() {
     @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupToolBar()
         setTextWatchers()
         setupViews()
@@ -74,6 +79,30 @@ class CreatePostFragment : Fragment() {
         displayChosenTags()
         observeFields()
         observeNetworkResponse()
+        createPostViewModel.getIndividualProfile()
+        createPostViewModel.individualProfile.observe(viewLifecycleOwner) { profile ->
+            getIndividualProfileListener(profile)
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    private fun getIndividualProfileListener(profile: CreatePostViewModel.IndividualProfileViewState) {
+        when (profile.error) {
+            null -> {
+                name.text = profile.firstName?.capitalizeFirstLetter() + " " + profile.lastName?.capitalizeFirstLetter()
+
+                if (profile.imgUrl == null || profile.imgUrl.toString().isBlank()) {
+                    user_avatar.setInitials(userInitials(profile.firstName, profile.lastName))
+                    user_avatar.invalidate()
+                } else {
+                    GlideApp
+                        .with(requireContext())
+                        .load(profile.imgUrl)
+                        .centerCrop()
+                        .into(user_avatar)
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -113,7 +142,7 @@ class CreatePostFragment : Fragment() {
     }
 
     private fun setTextWatchers() {
-        titleTextWatcher = object: TextWatcher {
+        titleTextWatcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -131,7 +160,7 @@ class CreatePostFragment : Fragment() {
                 }
             }
         }
-        descriptionTextWatcher = object: TextWatcher {
+        descriptionTextWatcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -166,11 +195,13 @@ class CreatePostFragment : Fragment() {
             }
         }
         navBackStackEntry.lifecycle.addObserver(observer)
-        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_PAUSE) {
-                navBackStackEntry.lifecycle.removeObserver(observer)
+        viewLifecycleOwner.lifecycle.addObserver(
+            LifecycleEventObserver { _, event ->
+                if (event == Lifecycle.Event.ON_PAUSE) {
+                    navBackStackEntry.lifecycle.removeObserver(observer)
+                }
             }
-        })
+        )
     }
 
     private fun observeVisibilityBottomDialog() {
@@ -194,11 +225,13 @@ class CreatePostFragment : Fragment() {
             }
         }
         navBackStackEntry.lifecycle.addObserver(observer)
-        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_PAUSE) {
-                navBackStackEntry.lifecycle.removeObserver(observer)
+        viewLifecycleOwner.lifecycle.addObserver(
+            LifecycleEventObserver { _, event ->
+                if (event == Lifecycle.Event.ON_PAUSE) {
+                    navBackStackEntry.lifecycle.removeObserver(observer)
+                }
             }
-        })
+        )
     }
 
     private fun observeTagBottomDialog() {
@@ -214,11 +247,13 @@ class CreatePostFragment : Fragment() {
             createPostViewModel.setDataFilled()
         }
         navBackStackEntry.lifecycle.addObserver(observer)
-        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_PAUSE) {
-                navBackStackEntry.lifecycle.removeObserver(observer)
+        viewLifecycleOwner.lifecycle.addObserver(
+            LifecycleEventObserver { _, event ->
+                if (event == Lifecycle.Event.ON_PAUSE) {
+                    navBackStackEntry.lifecycle.removeObserver(observer)
+                }
             }
-        })
+        )
     }
 
     @SuppressLint("InflateParams")
@@ -236,19 +271,22 @@ class CreatePostFragment : Fragment() {
     }
 
     private fun observeFields() {
-        createPostViewModel.allDataFilled.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                fragmentCreatePostBinding!!.post.apply {
-                    isEnabled = true
-                    setBackgroundColor(resources.getColor(R.color.colorPrimary))
-                }
-            } else {
-                fragmentCreatePostBinding!!.post.apply {
-                    isEnabled = false
-                    setBackgroundColor(resources.getColor(R.color.fightPandemicsPerano))
+        createPostViewModel.allDataFilled.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (it) {
+                    fragmentCreatePostBinding!!.post.apply {
+                        isEnabled = true
+                        setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                    }
+                } else {
+                    fragmentCreatePostBinding!!.post.apply {
+                        isEnabled = false
+                        setBackgroundColor(resources.getColor(R.color.fightPandemicsPerano))
+                    }
                 }
             }
-        })
+        )
     }
 
     @ExperimentalCoroutinesApi
@@ -256,14 +294,14 @@ class CreatePostFragment : Fragment() {
     private fun postContent() {
         val visibility =
             if (fragmentCreatePostBinding!!.people.text.toString().toLowerCase(Locale.ROOT)
-                    .contains("people in my ")
+                .contains("people in my ")
             )
                 fragmentCreatePostBinding!!.people.text.toString().toLowerCase(Locale.ROOT)
                     .replace("people in my ", "")
             else fragmentCreatePostBinding!!.people.text.toString().toLowerCase(Locale.ROOT)
         val expireAt =
             if (fragmentCreatePostBinding!!.month.text.toString().toLowerCase(Locale.ROOT)
-                    .contains("for 1 ")
+                .contains("for 1 ")
             )
                 fragmentCreatePostBinding!!.month.text.toString().toLowerCase(Locale.ROOT)
                     .replace("for 1 ", "") else
@@ -284,18 +322,21 @@ class CreatePostFragment : Fragment() {
     }
 
     private fun observeNetworkResponse() {
-        createPostViewModel.networkResponse.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is CreatePostResponse -> {
-                    Timber.tag("CREATE_POST_NETWRK_RESP").e(Gson().toJson(it))
-                    showDialog()
-                }
-                is Exception -> {
-                    Timber.tag("CREATE_POST_ERROR_RESP").e(Gson().toJson(it))
-                    Snackbar.make(fragmentCreatePostBinding!!.root, it.message!!, Snackbar.LENGTH_LONG).setBackgroundTint(resources.getColor(R.color.colorPrimary)).show()
+        createPostViewModel.networkResponse.observe(
+            viewLifecycleOwner,
+            Observer {
+                when (it) {
+                    is CreatePostResponse -> {
+                        Timber.tag("CREATE_POST_NETWRK_RESP").e(Gson().toJson(it))
+                        showDialog()
+                    }
+                    is Exception -> {
+                        Timber.tag("CREATE_POST_ERROR_RESP").e(Gson().toJson(it))
+                        Snackbar.make(fragmentCreatePostBinding!!.root, it.message!!, Snackbar.LENGTH_LONG).setBackgroundTint(resources.getColor(R.color.colorPrimary)).show()
+                    }
                 }
             }
-        })
+        )
     }
 
     @SuppressLint("InflateParams")
