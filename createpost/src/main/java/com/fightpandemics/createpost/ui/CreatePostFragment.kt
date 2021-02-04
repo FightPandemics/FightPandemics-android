@@ -24,8 +24,8 @@ import com.fightpandemics.core.utils.capitalizeFirstLetter
 import com.fightpandemics.core.utils.userInitials
 import com.fightpandemics.createpost.R
 import com.fightpandemics.createpost.dagger.inject
-import com.fightpandemics.createpost.data.model.CreatePostRequest
-import com.fightpandemics.createpost.data.model.CreatePostResponse
+import com.fightpandemics.core.data.model.post.CreatePostRequest
+import com.fightpandemics.core.data.model.post.CreatePostResponse
 import com.fightpandemics.createpost.databinding.FragmentCreatePostBinding
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar

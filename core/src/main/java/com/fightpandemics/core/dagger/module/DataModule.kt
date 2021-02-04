@@ -36,10 +36,11 @@ class DataModule {
     @Singleton
     @Provides
     fun providePostsRepository(
+        moshi: Moshi,
         preferenceStorage: PreferenceStorage,
         postsRemoteDataSource: PostsRemoteDataSource
     ): PostsRepository =
-        PostsRepositoryImpl(preferenceStorage, postsRemoteDataSource)
+        PostsRepositoryImpl(moshi, preferenceStorage, postsRemoteDataSource)
 
     @Singleton
     @Provides

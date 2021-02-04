@@ -1,6 +1,7 @@
 package com.fightpandemics.core.data.remote.posts
 
 import com.fightpandemics.core.data.api.FightPandemicsAPI
+import com.fightpandemics.core.data.model.post.CreatePostRequest
 import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
@@ -37,6 +38,10 @@ class PostsRemoteDataSourceImpl @Inject constructor(
             like -> fightPandemicsAPI.likePost(postId, userId)
             else -> fightPandemicsAPI.unlikePost(postId, userId)
         }
+    }
+
+    override suspend fun createPost(createPostRequest: CreatePostRequest): Response<*> {
+        return fightPandemicsAPI.createPost(createPostRequest)
     }
 
     companion object {

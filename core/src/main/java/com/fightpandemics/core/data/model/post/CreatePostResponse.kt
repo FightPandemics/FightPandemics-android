@@ -1,4 +1,4 @@
-package com.fightpandemics.createpost.data.model
+package com.fightpandemics.core.data.model.post
 
 import com.fightpandemics.core.data.model.posts.Author
 

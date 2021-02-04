@@ -8,8 +8,8 @@ import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.core.utils.capitalizeFirstLetter
-import com.fightpandemics.createpost.data.model.CreatePostRequest
-import com.fightpandemics.createpost.data.model.CreatePostResponse
+import com.fightpandemics.core.data.model.post.CreatePostRequest
+import com.fightpandemics.core.data.model.post.CreatePostResponse
 import com.fightpandemics.createpost.domain.CreatePostsUseCase
 import com.fightpandemics.createpost.domain.LoadCurrentUserUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi

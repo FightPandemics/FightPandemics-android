@@ -1,23 +1,32 @@
 package com.fightpandemics.core.data.api
 
 import com.fightpandemics.core.data.model.login.ChangePasswordResponse
+import com.fightpandemics.core.data.model.login.CompleteProfileRequest
+import com.fightpandemics.core.data.model.login.CompleteProfileResponse
 import com.fightpandemics.core.data.model.login.LoginRequest
 import com.fightpandemics.core.data.model.login.SignUpRequest
-import com.fightpandemics.core.data.model.login.CompleteProfileResponse
-import com.fightpandemics.core.data.model.login.CompleteProfileRequest
 import com.fightpandemics.core.data.model.login.SignUpResponse
+import com.fightpandemics.core.data.model.post.CreatePostRequest
 import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
-import com.fightpandemics.core.data.model.userlocation.LocationResponse
-import com.fightpandemics.core.data.model.userlocationdetails.LocationDetails
-import com.fightpandemics.core.data.model.userlocationpredictions.LocationPrediction
 import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
 import com.fightpandemics.core.data.model.profile.PatchIndividualAccountRequest
 import com.fightpandemics.core.data.model.profile.PatchIndividualProfileRequest
 import com.fightpandemics.core.data.model.profile.PatchIndividualProfileResponse
+import com.fightpandemics.core.data.model.userlocation.LocationResponse
+import com.fightpandemics.core.data.model.userlocationdetails.LocationDetails
+import com.fightpandemics.core.data.model.userlocationpredictions.LocationPrediction
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface FightPandemicsAPI {
 
@@ -114,6 +123,9 @@ interface FightPandemicsAPI {
         @Query("skip") skip: Int,
         @Query("authorId") authorId: String,
     ): List<Post>
+
+    @POST("api/posts")
+    suspend fun createPost(@Body createPostRequest: CreatePostRequest): Response<*>
 
     companion object {
         // Staging API for Development

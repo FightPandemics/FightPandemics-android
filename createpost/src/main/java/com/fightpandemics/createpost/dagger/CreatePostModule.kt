@@ -1,10 +1,10 @@
 package com.fightpandemics.createpost.dagger
 
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
+import com.fightpandemics.core.domain.repository.PostsRepository
 import com.fightpandemics.core.domain.repository.ProfileRepository
 import com.fightpandemics.createpost.domain.CreatePostsUseCase
 import com.fightpandemics.createpost.domain.LoadCurrentUserUseCase
-import com.fightpandemics.createpost.domain.repository.CreatePostRepository
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,8 +18,8 @@ class CreatePostModule {
 
     @ExperimentalCoroutinesApi
     @Provides
-    fun provideCreatePostUseCase(createPostRepository: CreatePostRepository, dispatcherProvider: CoroutinesDispatcherProvider): CreatePostsUseCase {
-        return CreatePostsUseCase(createPostRepository, dispatcherProvider)
+    fun provideCreatePostUseCase(postRepository: PostsRepository, dispatcherProvider: CoroutinesDispatcherProvider): CreatePostsUseCase {
+        return CreatePostsUseCase(postRepository, dispatcherProvider)
     }
 
     @ExperimentalCoroutinesApi

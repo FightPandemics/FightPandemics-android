@@ -1,4 +1,4 @@
-package com.fightpandemics.createpost.data.model
+package com.fightpandemics.core.data.model.post
 
 data class CreatePostRequest(
     val title: String?,

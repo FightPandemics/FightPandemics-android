@@ -1,9 +1,6 @@
 package com.fightpandemics.createpost.dagger
 
 import com.fightpandemics.core.dagger.scope.ActivityScope
-import com.fightpandemics.createpost.data.api.NetworkApi
-import com.fightpandemics.createpost.data.interceptor.CookieHeaderInterceptor
-import com.fightpandemics.createpost.domain.repository.CreatePostRepository
 import com.fightpandemics.createpost.ui.CreatePostFragment
 import dagger.Subcomponent
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -17,10 +14,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @Subcomponent(
     modules = [
         CreatePostModule::class,
-        CreatePostViewModelModule::class,
-        CreatePostNetworkModule::class,
-        CreatePostDataModule::class,
-        CreatePostRemoteModule::class
+        CreatePostViewModelModule::class
     ]
 )
 interface CreatePostComponent {
@@ -34,7 +28,4 @@ interface CreatePostComponent {
     @InternalCoroutinesApi
     fun inject(createPostFragment: CreatePostFragment)
 
-    fun provideCreatePostRepository(): CreatePostRepository
-    fun provideNetworkApi(): NetworkApi
-    fun provideCookieHeaderInterceptor(): CookieHeaderInterceptor
 }
