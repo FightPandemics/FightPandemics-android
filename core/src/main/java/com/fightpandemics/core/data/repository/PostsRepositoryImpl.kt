@@ -68,8 +68,13 @@ class PostsRepositoryImpl @Inject constructor(
         // postsRemoteDataSource.updatePost(postRequest._id, postRequest)
     }
 
-    override suspend fun deletePost(post: Post) {
-        postsRemoteDataSource.deletePost(post._id)
+    override suspend fun deletePost(post: Post): Flow<Result<*>> {
+        return flow<Result<*>> {
+            val response = postsRemoteDataSource.deletePost(post._id)
+            emit(Result.Success(response))
+        }.catch { cause ->
+            emit(Result.Error(Exception(cause)))
+        }
     }
 
     override suspend fun likePost(post: Post) {

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.utils.ViewModelFactory
@@ -21,6 +22,9 @@ class HomeOptionsBottomSheetFragment : BottomSheetDialogFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    // Obtain the ViewModel - use the ParentFragment as the Lifecycle owner
+    private val homeViewModel: HomeViewModel by activityViewModels { viewModelFactory }
     private var editDeleteBinding: EditDeleteBinding? = null
 
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
@@ -70,7 +74,7 @@ class HomeOptionsBottomSheetFragment : BottomSheetDialogFragment() {
             // Launch DialogFragment the "post"
             val bundle = Bundle()
             bundle.putParcelable("post", post)
-            DeleteDialogFragment.newInstance(bundle).show(childFragmentManager, "")
+            DeleteDialogFragment.newInstance(bundle, homeViewModel).show(parentFragmentManager, "")
             dismissAllowingStateLoss()
         }
     }

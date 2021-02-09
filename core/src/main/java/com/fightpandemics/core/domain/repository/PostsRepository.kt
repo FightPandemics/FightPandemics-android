@@ -19,7 +19,7 @@ interface PostsRepository {
 
     suspend fun editPost(postRequest: PostRequest)
 
-    suspend fun deletePost(post: Post)
+    suspend fun deletePost(post: Post): Flow<Result<*>>
 
     suspend fun likePost(post: Post)
 

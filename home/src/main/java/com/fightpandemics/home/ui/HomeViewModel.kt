@@ -9,6 +9,7 @@ import com.fightpandemics.core.data.CoroutinesDispatcherProvider
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.result.Event
 import com.fightpandemics.core.result.Result
+import com.fightpandemics.core.result.data
 import com.fightpandemics.home.domain.DeletePostUsecase
 import com.fightpandemics.home.domain.LikePostUsecase
 import com.fightpandemics.home.domain.LoadPostsUseCase
@@ -16,9 +17,8 @@ import com.fightpandemics.home.domain.ObserveUserAuthStateUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -63,6 +63,10 @@ class HomeViewModel @Inject constructor(
             }
         }
 
+        updateData()
+    }
+
+    fun updateData() {
         getPosts(null)
         getOffers("offer")
         getRequests("request")
@@ -165,11 +169,25 @@ class HomeViewModel @Inject constructor(
         // TODO("Not yet implemented")
     }
 
-    override /*suspend*/ fun onDeleteClicked(post: Post) {
-        Timber.e("${post.title} Deleted Successfully")
-        _isDeleted.value = Event("${post.title} Deleted Successfully")
+    override fun onDeleteClicked(post: Post) {
         viewModelScope.launch {
-            _isDeleted.value = Event("Post Deleted Successfully")
+
+            val ss = async {
+                deletePostUsecase.invoke(post)
+            }
+
+            ss.await().collect {
+                when (it) {
+                    is Result.Success -> {
+                        _isDeleted.value =
+                            Event("delete")
+                        updateData()
+                    }
+                    is Result.Error ->
+                        _isDeleted.value =
+                            Event("error")
+                }
+            }
         }
     }
 
