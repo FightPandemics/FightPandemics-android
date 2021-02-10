@@ -80,7 +80,6 @@ class LoginRepositoryImpl @Inject constructor(
         return channelFlow {
             val response = request.let { loginRemoteDataSource.completeProfile(it) }
             when {
-
                 response.isSuccessful && response.code() == HttpURLConnection.HTTP_OK -> {
                     val signUpResponse = response.body()
                     // authTokenLocalDataSource.setToken(signUpResponse?.token)
