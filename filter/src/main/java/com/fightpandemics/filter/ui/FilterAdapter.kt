@@ -28,7 +28,7 @@ class FilterAdapter(val onItemClickListener: OnItemClickListener) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.address.setText(placesNames[position])
+        holder.address.text = placesNames[position]
         holder.itemView.setOnClickListener {
             onItemClickListener.onAutocompleteLocationClick(placesNames[position])
         }

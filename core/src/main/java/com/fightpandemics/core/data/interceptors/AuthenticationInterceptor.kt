@@ -31,7 +31,7 @@ class AuthenticationInterceptor @Inject constructor(
         if (request.header("Login") != null) {
             val token = authTokenLocalDataSource.getToken()
             if (!token.isNullOrEmpty()) {
-                val cookie = CookieToken("-", token);
+                val cookie = CookieToken("-", token)
                 requestBuilder
                     .addHeader(cookie.getCookieName(), cookie.getCookieParameter())
                     .build()
