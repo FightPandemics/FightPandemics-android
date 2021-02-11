@@ -7,7 +7,7 @@ import com.fightpandemics.core.data.prefs.PreferenceStorage
 import com.fightpandemics.core.domain.repository.LoginRepository
 import com.fightpandemics.login.domain.CompleteProfileUseCase
 import com.fightpandemics.login.domain.LoginUseCase
-import com.fightpandemics.login.domain.SignUPUseCase
+import com.fightpandemics.login.domain.SignUpUseCase
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -30,7 +30,7 @@ class LoginModule {
     fun provideSignUpUseCase(
         loginRepository: LoginRepository,
         dispatcherProvider: CoroutinesDispatcherProvider
-    ): SignUPUseCase = SignUPUseCase(loginRepository, dispatcherProvider)
+    ): SignUpUseCase = SignUpUseCase(loginRepository, dispatcherProvider)
 
     @ExperimentalCoroutinesApi
     @Provides

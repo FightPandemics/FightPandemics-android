@@ -62,7 +62,7 @@ dependencies {
     // Dagger
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
 
-    // Loading Progree Button
+    // Loading Progress Button
     implementation 'com.github.razir.progressbutton:progressbutton:2.1.0'
 }
 repositories {

@@ -9,7 +9,6 @@ interface LoginRepository {
 
     suspend fun login(loginRequest: LoginRequest?): Flow<Result<*>>?
 
-
     suspend fun signUp(signUpRequest: SignUpRequest): Flow<Result<*>>?
 
     suspend fun changePassword(email: String): Response<ChangePasswordResponse>

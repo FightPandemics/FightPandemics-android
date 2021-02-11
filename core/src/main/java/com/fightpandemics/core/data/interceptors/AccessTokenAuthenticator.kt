@@ -5,7 +5,7 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
 
-// Authenticator is only called when there is an HTTP unauthorized error,
+// Authenticator is only called when there is a 401 HTTP unauthorized error,
 class AccessTokenAuthenticator : Authenticator {
 
     override fun authenticate(route: Route?, response: Response): Request? {

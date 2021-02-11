@@ -1,6 +1,5 @@
 package com.fightpandemics.core.data.model.login
 
-import DataClasses.User
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

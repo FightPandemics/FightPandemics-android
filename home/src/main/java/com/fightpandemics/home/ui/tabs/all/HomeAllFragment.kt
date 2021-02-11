@@ -27,8 +27,7 @@ class HomeAllFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     // Obtain the ViewModel - use the ParentFragment as the Lifecycle owner
-    private val homeViewModel: HomeViewModel
-    by viewModels({ requireParentFragment() }) { viewModelFactory }
+    private val homeViewModel: HomeViewModel by viewModels({ requireParentFragment() }) { viewModelFactory }
 
     private var homeAllFragmentBinding: HomeAllFragmentBinding? = null
     private lateinit var postsAdapter: PostsAdapter

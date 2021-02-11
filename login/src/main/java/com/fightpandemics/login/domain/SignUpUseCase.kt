@@ -2,7 +2,6 @@ package com.fightpandemics.login.domain
 
 import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
-import com.fightpandemics.core.data.model.login.LoginResponse
 import com.fightpandemics.core.data.model.login.SignUpRequest
 import com.fightpandemics.core.data.model.login.SignUpResponse
 import com.fightpandemics.core.domain.repository.LoginRepository
@@ -16,13 +15,13 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @FeatureScope
-class SignUPUseCase @Inject constructor(
+class SignUpUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
     dispatcherProvider: CoroutinesDispatcherProvider,
 ) : FlowUseCase<SignUpRequest, Any>(dispatcherProvider.io) {
-    override suspend fun execute(request: SignUpRequest?):  Flow<Result<Any>> {
+    override suspend fun execute(parameters: SignUpRequest?):  Flow<Result<Any>> {
         return channelFlow {
-            loginRepository.signUp(request!!)?.collect {
+            loginRepository.signUp(parameters!!)?.collect {
                 val result = when (it) {
                     is Result.Success -> it as Result<SignUpResponse>
                     is Result.Error -> it

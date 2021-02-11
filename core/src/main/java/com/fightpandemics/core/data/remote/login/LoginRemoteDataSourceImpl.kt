@@ -7,15 +7,13 @@ import retrofit2.Response
 import timber.log.Timber
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 class LoginRemoteDataSourceImpl @Inject constructor(
     private val fightPandemicsAPI: FightPandemicsAPI
 ) : LoginRemoteDataSource {
 
-    @ExperimentalCoroutinesApi
-    override suspend fun login(loginRequest: LoginRequest): Response<*> {
-        return fightPandemicsAPI.login(loginRequest)
-    }
-
+    override suspend fun login(loginRequest: LoginRequest): Response<*> =
+        fightPandemicsAPI.login(loginRequest)
 
     override suspend fun signUp(signUpRequest: SignUpRequest): Response<SignUpResponse> =
         fightPandemicsAPI.signUp(signUpRequest)
@@ -23,7 +21,6 @@ class LoginRemoteDataSourceImpl @Inject constructor(
     override suspend fun changePassword(email: String): Response<ChangePasswordResponse> =
         fightPandemicsAPI.changePassword(email)
 
-    override suspend fun completeProfile(request: CompleteProfileRequest): Response<CompleteProfileResponse> {
-        return fightPandemicsAPI.completeProfile(request)
-    }
+    override suspend fun completeProfile(request: CompleteProfileRequest)
+            : Response<CompleteProfileResponse> = fightPandemicsAPI.completeProfile(request)
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.annotation.WorkerThread
 import androidx.core.content.edit
+import java.util.*
 import javax.inject.Inject
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -16,8 +17,14 @@ import kotlin.reflect.KProperty
 interface PreferenceStorage {
     var onboardingCompleted: Boolean
     var token: String?
-    var userId: String?
+
     var uuid: String?
+
+    var userId: String?
+    var userFirstName: String?
+    var userLastName: String?
+    var userEmail: String?
+    var userOrganisations: List<String>?
 }
 
 // [PreferenceStorage] impl backed by [android.content.SharedPreferences].
@@ -27,10 +34,18 @@ class FightPandemicsPreferenceDataStore @Inject constructor(
 
     companion object {
         const val PREFS_NAME = "fightpandemics"
+
         const val PREF_ONBOARDING = "pref_onboarding"
+
         const val PREF_AUTH_TOKEN = "pref_auth_token"
-        const val PREF_USER_ID = "pref_user_id"
+
         const val PREF_UUID = "pref_uuid"
+
+        const val PREF_USER_ID = "pref_user_id"
+        const val PREF_USER_FIRST_NAME = "pref_user_first_name"
+        const val PREF_USER_LAST_NAME = "pref_user_last_name"
+        const val PREF_USER_EMAIL = "pref_user_email"
+        const val PREF_USER_ORGANISATION = "pref_user_organisation"
     }
 
     private val sharedPreferences: Lazy<SharedPreferences> =
@@ -50,15 +65,39 @@ class FightPandemicsPreferenceDataStore @Inject constructor(
         null
     )
 
+    override var uuid: String? by StringPreference(
+        sharedPreferences,
+        PREF_UUID,
+        null
+    )
+
     override var userId: String? by StringPreference(
         sharedPreferences,
         PREF_USER_ID,
         null
     )
 
-    override var uuid: String? by StringPreference(
+    override var userFirstName: String? by StringPreference(
         sharedPreferences,
-        PREF_UUID,
+        PREF_USER_FIRST_NAME,
+        null
+    )
+
+    override var userLastName: String? by StringPreference(
+        sharedPreferences,
+        PREF_USER_LAST_NAME,
+        null
+    )
+
+    override var userEmail: String? by StringPreference(
+        sharedPreferences,
+        PREF_USER_EMAIL,
+        null
+    )
+
+    override var userOrganisations: List<String>? by ListPreference(
+        sharedPreferences,
+        PREF_USER_ORGANISATION,
         null
     )
 }
@@ -90,5 +129,22 @@ class StringPreference(
 
     override fun setValue(thisRef: Any, property: KProperty<*>, value: String?) {
         preferences.value.edit { putString(name, value) }
+    }
+}
+
+// Convert List to HashSet
+class ListPreference(
+    private val preferences: Lazy<SharedPreferences>,
+    private val name: String,
+    private val defaultValue: HashSet<String>?
+) : ReadWriteProperty<Any, List<String>?> {
+
+    @WorkerThread
+    override fun getValue(thisRef: Any, property: KProperty<*>): List<String>? {
+        return preferences.value.getStringSet(name, defaultValue)?.toList()
+    }
+
+    override fun setValue(thisRef: Any, property: KProperty<*>, value: List<String>?) {
+        preferences.value.edit { putStringSet(name, value?.toHashSet()) }
     }
 }

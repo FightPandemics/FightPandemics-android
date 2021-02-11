@@ -1,6 +1,5 @@
 package com.fightpandemics.login.ui
 
-import DataClasses.User
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,20 +9,19 @@ import com.fightpandemics.core.data.model.login.*
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.login.domain.CompleteProfileUseCase
 import com.fightpandemics.login.domain.LoginUseCase
-import com.fightpandemics.login.domain.SignUPUseCase
+import com.fightpandemics.login.domain.SignUpUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ActivityScope
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val signUpUseCase: SignUPUseCase,
+    private val signUpUseCase: SignUpUseCase,
     private val completeProfileUseCase: CompleteProfileUseCase
 ) : ViewModel() {
     private val _login = MutableLiveData<LoginViewState>()
@@ -161,6 +159,7 @@ data class SignUPViewState(
     val error: String?,
     val isError: Boolean
 )
+
 data class CompleteProfileViewState(
     var isLoading: Boolean,
     val email: String,

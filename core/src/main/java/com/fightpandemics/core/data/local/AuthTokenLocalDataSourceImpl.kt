@@ -13,11 +13,33 @@ class AuthTokenLocalDataSourceImpl @Inject constructor(
         preferenceStorage.token = token
     }
 
-    override fun getUserId(): String? {
-        return preferenceStorage.userId
-    }
+    override fun getUserId(): String? = preferenceStorage.userId
 
     override fun setUserId(userId: String?) {
         preferenceStorage.userId = userId
+    }
+
+    override fun getUserFirstName(): String? = preferenceStorage.userFirstName
+
+    override fun setUserFirstName(userFirstName: String?) {
+        preferenceStorage.userFirstName = userFirstName
+    }
+
+    override fun getUserLastName(): String? = preferenceStorage.userLastName
+
+    override fun setUserLastName(userLastName: String?) {
+        preferenceStorage.userLastName = userLastName
+    }
+
+    override fun getUserEmail(): String? = preferenceStorage.userEmail
+
+    override fun setUserEmail(userEmail: String?) {
+        preferenceStorage.userEmail = userEmail
+    }
+
+    override fun getUserOrganisation(): List<String>? = preferenceStorage.userOrganisations
+
+    override fun setUserOrganisation(userOrganisation: List<String>?) {
+        preferenceStorage.userOrganisations = userOrganisation
     }
 }
