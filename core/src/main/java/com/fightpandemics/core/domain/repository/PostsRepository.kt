@@ -1,5 +1,6 @@
 package com.fightpandemics.core.domain.repository
 
+import com.fightpandemics.core.data.model.post.CreatePostRequest
 import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
@@ -12,9 +13,15 @@ interface PostsRepository {
 
     suspend fun getPosts(objective: String?): Flow<Result<*>>
 
+    suspend fun getPostsByAuthor(
+        authorId: String
+    ): Flow<Result<List<Post>>>
+
     suspend fun editPost(postRequest: PostRequest)
 
-    suspend fun deletePost(post: Post)
+    suspend fun deletePost(post: Post): Flow<Result<*>>
 
     suspend fun likePost(post: Post)
+
+    suspend fun createPost(createPostRequest: CreatePostRequest): Flow<Result<*>>
 }

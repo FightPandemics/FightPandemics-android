@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <ImageView
+        android:id="@+id/settingsBackArrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="54dp"
+        android:src="@drawable/ic_arrow_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        style="@style/AndroidNativeH216Px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="54dp"
+        android:text="@string/settings_action"
+        app:layout_constraintBottom_toBottomOf="@id/settingsBackArrow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="99dp"
+        android:background="@color/color_line_color_blue"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="484dp"
+        android:layout_marginTop="99dp"
+        android:background="@color/fightPandemicsGhostWhite2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/myAccountContainer"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_marginTop="132dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/worksans_regular"
+        android:lineHeight="20sp"
+        android:text="@string/my_account"
+        android:textColor="@color/fightPandemicsNeonBlue"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="@id/myAccountContainer"
+        app:layout_constraintTop_toTopOf="@id/myAccountContainer" />
+
+    <TextView
+        style="@style/AndroidNativeP212Px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="34dp"
+        android:text="@string/join_now"
+        app:layout_constraintLeft_toLeftOf="@id/myAccountContainer"
+        app:layout_constraintTop_toTopOf="@id/myAccountContainer" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:rotation="270"
+        android:src="@drawable/ic_arrow_down"
+        app:layout_constraintBottom_toBottomOf="@id/myAccountContainer"
+        app:layout_constraintRight_toRightOf="@id/myAccountContainer"
+        app:layout_constraintTop_toTopOf="@id/myAccountContainer" />
+
+    <View
+        android:id="@+id/aboutUsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_marginTop="218dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/worksans_regular"
+        android:lineHeight="18sp"
+        android:text="@string/about_us"
+        android:textColor="@color/fightPandemicsNeonBlue"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/aboutUsContainer"
+        app:layout_constraintLeft_toLeftOf="@id/aboutUsContainer"
+        app:layout_constraintTop_toTopOf="@id/aboutUsContainer" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/ic_external_link"
+        app:layout_constraintBottom_toBottomOf="@id/aboutUsContainer"
+        app:layout_constraintRight_toRightOf="@+id/aboutUsContainer"
+        app:layout_constraintTop_toTopOf="@id/aboutUsContainer" />
+
+    <View
+        android:id="@+id/privacyPolicyContainer"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/aboutUsContainer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/worksans_regular"
+        android:lineHeight="18sp"
+        android:text="@string/privacy_policy"
+        android:textColor="@color/fightPandemicsNeonBlue"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/privacyPolicyContainer"
+        app:layout_constraintLeft_toLeftOf="@id/privacyPolicyContainer"
+        app:layout_constraintTop_toTopOf="@id/privacyPolicyContainer" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/ic_external_link"
+        app:layout_constraintBottom_toBottomOf="@id/privacyPolicyContainer"
+        app:layout_constraintRight_toRightOf="@+id/privacyPolicyContainer"
+        app:layout_constraintTop_toTopOf="@id/privacyPolicyContainer" />
+
+    <View
+        android:id="@+id/supportContainer"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/privacyPolicyContainer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/worksans_regular"
+        android:lineHeight="18sp"
+        android:text="@string/support"
+        android:textColor="@color/fightPandemicsNeonBlue"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/supportContainer"
+        app:layout_constraintLeft_toLeftOf="@id/supportContainer"
+        app:layout_constraintTop_toTopOf="@id/supportContainer" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/ic_external_link"
+        app:layout_constraintBottom_toBottomOf="@id/supportContainer"
+        app:layout_constraintRight_toRightOf="@+id/supportContainer"
+        app:layout_constraintTop_toTopOf="@id/supportContainer" />
+
+    <View
+        android:id="@+id/feedbackContainer"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/supportContainer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/worksans_regular"
+        android:lineHeight="18sp"
+        android:text="@string/feedback"
+        android:textColor="@color/fightPandemicsNeonBlue"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/feedbackContainer"
+        app:layout_constraintLeft_toLeftOf="@id/feedbackContainer"
+        app:layout_constraintTop_toTopOf="@id/feedbackContainer" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:rotation="270"
+        android:src="@drawable/ic_arrow_down"
+        app:layout_constraintBottom_toBottomOf="@id/feedbackContainer"
+        app:layout_constraintRight_toRightOf="@id/feedbackContainer"
+        app:layout_constraintTop_toTopOf="@id/feedbackContainer" />
+
+    <TextView
+        style="@style/AndroidNativeP311Px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="74dp"
+        android:text="@string/fightpandemics_app_v1_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <include
+        layout="@layout/item_bottom_nav_view"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

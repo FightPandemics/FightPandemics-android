@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.core.utils.ViewModelFactory
@@ -21,8 +22,7 @@ class HomeRequestFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    // Obtain the ViewModel - use the ParentFragment as the Lifecycle owner
-    private val homeViewModel: HomeViewModel by viewModels({ requireParentFragment() }) { viewModelFactory }
+    private val homeViewModel: HomeViewModel by activityViewModels { viewModelFactory }
 
     private lateinit var progressBar: ProgressBar
     private lateinit var requestList: RecyclerView
@@ -67,51 +67,14 @@ class HomeRequestFragment : Fragment() {
                         bindLoading(it.isLoading)
                         requestList.visibility = View.VISIBLE
                         homeRequestAdapter.submitList(it.posts)
+                        homeRequestAdapter.notifyDataSetChanged()
                     }
                 }
             }
         )
-        homeRequestAdapter.notifyDataSetChanged()
+
         requestList.adapter = homeRequestAdapter
 
-//        sharedHomeViewModel.state.observe(viewLifecycleOwner, onChanged = {
-//            when {
-//                it.isLoading -> {
-//                    bindLoading(it.isLoading)
-//                }
-//                it.pokemons!!.isNotEmpty() -> {
-//                    progressBar.visibility = View.GONE
-//                    errorLoadingText.visibility = View.GONE
-//                    pokeList.visibility = View.VISIBLE
-//                    pokeAdapter = PokeAdapter(it.pokemons)
-//                    pokeList.adapter = pokeAdapter
-//
-//                    pokeAdapter.onItemClickListener = { pokemon ->
-//                        findNavController()
-//                            .navigate(PokeListFragmentDirections
-//                                .actionPokeListFragmentToPokeDetailFragment(pokemon.id))
-//                    }
-//
-//                    pokeAdapter.registerAdapterDataObserver(object :
-//                        RecyclerView.AdapterDataObserver() {
-//                        override fun onChanged() {
-//                            super.onChanged()
-//                            if (pokeAdapter.getItemCount() <= 0) {
-//                                noResult.setVisibility(View.VISIBLE)
-//                                noResult.text = getString(R.string.no_result, searchView.query)
-//                            } else noResult.setVisibility(View.GONE)
-//                        }
-//                    })
-//
-//                    sharedHomeViewModel.pokemonsCache(it.pokemons)
-//                }
-//                it.error != null -> {
-//                    progressBar.visibility = View.GONE
-//                    pokeList.visibility = View.GONE
-//                    bindError()
-//                }
-//            }
-//        })
     }
 
     private fun bindLoading(isLoading: Boolean) {

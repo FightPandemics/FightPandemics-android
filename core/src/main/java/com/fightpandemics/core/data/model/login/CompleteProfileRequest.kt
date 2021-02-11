@@ -1,7 +1,6 @@
 package com.fightpandemics.core.data.model.login
 
 data class CompleteProfileRequest(
-    //apenas nomes e endereco sao obrigatorios
     val firstName: String,
     val hide: Hide,
     val lastName: String,

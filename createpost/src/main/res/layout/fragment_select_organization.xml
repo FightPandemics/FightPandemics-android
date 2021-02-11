@@ -39,39 +39,48 @@
         app:layout_constraintTop_toBottomOf="@+id/line"
         tools:text="Posting As" />
 
-    <com.fightpandemics.createpost.custom.ProfileImageView
-        android:id="@+id/user_avatar"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        app:aiv_borderColor="?colorPrimary"
-        app:aiv_borderWidth="2dp"
-        app:aiv_initials="VM"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/active" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/user_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/active">
 
-    <TextView
-        android:id="@+id/user_full_name"
-        style="@style/AndroidNativeH314Px"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Victor Maragioglio"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/user_avatar"
-        app:layout_constraintStart_toEndOf="@+id/user_avatar"
-        app:layout_constraintTop_toTopOf="@+id/user_avatar"
-        tools:text="Victor Maragioglio" />
+            <com.fightpandemics.createpost.custom.ProfileImageView
+                android:id="@+id/user_avatar"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="8dp"
+                app:aiv_borderColor="?colorPrimary"
+                app:aiv_borderWidth="2dp"
+                app:aiv_initials="VM"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-    <RadioButton
-        android:id="@+id/select_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:buttonTint="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/user_avatar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/user_avatar" />
+            <TextView
+                android:id="@+id/user_full_name"
+                style="@style/AndroidNativeH314Px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Victor Maragioglio"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/user_avatar"
+                app:layout_constraintStart_toEndOf="@+id/user_avatar"
+                app:layout_constraintTop_toTopOf="@+id/user_avatar"
+                tools:text="Victor Maragioglio" />
+
+            <RadioButton
+                android:id="@+id/user_radio_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/user_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/user_avatar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/view2"
@@ -79,7 +88,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
         android:background="#4CD7D7D7"
-        app:layout_constraintTop_toBottomOf="@+id/user_avatar" />
+        app:layout_constraintTop_toBottomOf="@+id/user_card" />
 
         <TextView
             android:id="@+id/textView3"
@@ -88,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/my_organisation"
-            app:layout_constraintStart_toStartOf="@+id/user_avatar"
+            app:layout_constraintStart_toStartOf="@+id/user_card"
             app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -115,12 +124,13 @@
         style="@style/AndroidNativeH314Px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:textSize="14sp"
         android:gravity="center"
-        android:backgroundTint="@color/fightPandemicsGhostWhite"
+        android:backgroundTint="@color/colorWhite"
         android:drawableStart="@drawable/ic_plus_sign"
         android:text="@string/add_an_organisation_account"
         android:textAllCaps="false"

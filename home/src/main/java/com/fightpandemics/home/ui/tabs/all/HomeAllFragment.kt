@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.core.utils.ViewModelFactory
-import com.fightpandemics.filter.ui.FilterRequest
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.databinding.HomeAllFragmentBinding
 import com.fightpandemics.home.ui.HomeViewModel
@@ -27,7 +25,7 @@ class HomeAllFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     // Obtain the ViewModel - use the ParentFragment as the Lifecycle owner
-    private val homeViewModel: HomeViewModel by viewModels({ requireParentFragment() }) { viewModelFactory }
+    private val homeViewModel: HomeViewModel by activityViewModels { viewModelFactory }
 
     private var homeAllFragmentBinding: HomeAllFragmentBinding? = null
     private lateinit var postsAdapter: PostsAdapter
@@ -79,6 +77,7 @@ class HomeAllFragment : Fragment() {
                         bindLoading(it.isLoading)
                         homeAllFragmentBinding!!.postList.visibility = View.VISIBLE
                         postsAdapter.submitList(it.posts)
+                        postsAdapter.notifyDataSetChanged()
                         postsAdapter.onItemClickListener = { post ->
                             Timber.e("${post.author?.name}")
                             // findNavController().navigate(PokeListFragmentDirections.actionPokeListFragmentToPokeDetailFragment(post))
@@ -92,6 +91,8 @@ class HomeAllFragment : Fragment() {
                 }
             }
         )
+
+        homeViewModel.updateData()
         homeAllFragmentBinding!!.postList.adapter = postsAdapter
     }
 

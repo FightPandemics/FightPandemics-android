@@ -3,6 +3,7 @@ package com.fightpandemics.createpost.dagger
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.createpost.ui.CreatePostFragment
 import dagger.Subcomponent
+import kotlinx.coroutines.InternalCoroutinesApi
 
 /**
  * created by Osaigbovo Odiase
@@ -11,7 +12,10 @@ import dagger.Subcomponent
  */
 @ActivityScope
 @Subcomponent(
-    modules = [CreatePostModule::class, CreatePostViewModelModule::class]
+    modules = [
+        CreatePostModule::class,
+        CreatePostViewModelModule::class
+    ]
 )
 interface CreatePostComponent {
 
@@ -21,5 +25,7 @@ interface CreatePostComponent {
         fun create(): CreatePostComponent
     }
 
+    @InternalCoroutinesApi
     fun inject(createPostFragment: CreatePostFragment)
+
 }

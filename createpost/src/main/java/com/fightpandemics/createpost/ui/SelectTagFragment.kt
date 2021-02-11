@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.createpost.databinding.FragmentSelectTagBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -33,31 +32,36 @@ class SelectTagFragment : BottomSheetDialogFragment() {
 
     private fun setupView() {
         fragmentSelectTagBinding!!.close.setOnClickListener {
-            if (chipTexts.size == 3) {
-                findNavController().previousBackStackEntry?.savedStateHandle?.set("tag1", chipTexts[0])
-                findNavController().previousBackStackEntry?.savedStateHandle?.set("tag2", chipTexts[1])
-                findNavController().previousBackStackEntry?.savedStateHandle?.set("tag3", chipTexts[2])
-            }
+            dismiss()
         }
+
         fragmentSelectTagBinding!!.confirm.setOnClickListener {
             if (chipTexts.size == 3) {
                 findNavController().previousBackStackEntry?.savedStateHandle?.set("tag1", chipTexts[0])
                 findNavController().previousBackStackEntry?.savedStateHandle?.set("tag2", chipTexts[1])
                 findNavController().previousBackStackEntry?.savedStateHandle?.set("tag3", chipTexts[2])
             }
+            chipTexts.clear()
+            dismiss()
         }
 
         populateArray(fragmentSelectTagBinding!!.chipMedical)
-        populateArray(fragmentSelectTagBinding!!.chipUniversity)
-        populateArray(fragmentSelectTagBinding!!.chipRAndD)
+        populateArray(fragmentSelectTagBinding!!.chipGroceries)
+        populateArray(fragmentSelectTagBinding!!.chipHousing)
         populateArray(fragmentSelectTagBinding!!.chipBusiness)
+        populateArray(fragmentSelectTagBinding!!.chipChildcare)
+        populateArray(fragmentSelectTagBinding!!.chipEducation)
         populateArray(fragmentSelectTagBinding!!.chipLegal)
+        populateArray(fragmentSelectTagBinding!!.chipWellBeing)
+        populateArray(fragmentSelectTagBinding!!.chipEntertainment)
         populateArray(fragmentSelectTagBinding!!.chipInformation)
         populateArray(fragmentSelectTagBinding!!.chipFunding)
-        populateArray(fragmentSelectTagBinding!!.chipEntertainment)
-        populateArray(fragmentSelectTagBinding!!.chipGroceries)
-        populateArray(fragmentSelectTagBinding!!.chipWellBeing)
+        populateArray(fragmentSelectTagBinding!!.chipRAndD)
+        populateArray(fragmentSelectTagBinding!!.chipRemoteWork)
+        populateArray(fragmentSelectTagBinding!!.chipStaffPaid)
         populateArray(fragmentSelectTagBinding!!.chipTech)
+        populateArray(fragmentSelectTagBinding!!.chipTranslations)
+        populateArray(fragmentSelectTagBinding!!.chipVolunteer)
         populateArray(fragmentSelectTagBinding!!.chipOthers)
     }
 

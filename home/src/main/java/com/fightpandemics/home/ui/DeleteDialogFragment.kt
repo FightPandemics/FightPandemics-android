@@ -4,15 +4,13 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.activityViewModels
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.home.R
 import com.fightpandemics.home.dagger.inject
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /*
@@ -22,39 +20,34 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 class DeleteDialogFragment : DialogFragment() {
 
+    private lateinit var listener : HomeEventListener
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var homeViewModel: HomeViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         inject(this)
     }
 
-    override fun getDialog(): Dialog {
-        homeViewModel = ViewModelProvider(requireActivity(), viewModelFactory)
-            .get(HomeViewModel::class.java)
-
-        val context = requireActivity()
+    override fun getDialog(): Dialog? {
 
         return MaterialAlertDialogBuilder(requireContext(), R.style.PostMaterialDialog)
             .setTitle(R.string.delete_confirm_alert_title)
             .setMessage(R.string.delete_confirm_alert_msg)
             .setNegativeButton("Cancel", null)
             .setPositiveButton("Delete") { _, _ ->
-                context.lifecycleScope.launch {
-                    requireArguments()
-                        .getParcelable<Post>("post")?.let { homeViewModel.onDeleteClicked(it) }
-                }
+                requireArguments()
+                    .getParcelable<Post>("post")?.let { listener.onDeleteClicked(it) }
             }
             .show()
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(bundle: Bundle): DeleteDialogFragment {
+        fun newInstance(bundle: Bundle, listener : HomeEventListener): DeleteDialogFragment {
             val fragment = DeleteDialogFragment()
             fragment.arguments = bundle
+            fragment.listener = listener
             return fragment
         }
     }

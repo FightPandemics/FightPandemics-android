@@ -53,9 +53,17 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
     implementation "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
 
     // Dagger
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
+
+    // Moshi
+    implementation "com.squareup.moshi:moshi-adapters:${versions.moshi}"
+    implementation "com.squareup.moshi:moshi-kotlin:${versions.moshi}"
+    implementation "com.squareup.moshi:moshi:${versions.moshi}"
+    implementation 'com.google.code.gson:gson:2.8.6'
 
 
     testImplementation 'junit:junit:4.13.1'

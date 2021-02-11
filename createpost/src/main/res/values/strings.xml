@@ -1,16 +1,22 @@
 <resources>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="medical_supplies">Medical Supplies</string>
-    <string name="university">University</string>
-    <string name="r_amp_d"><![CDATA[R&D]]></string>
+    <string name="groceries_food">Groceries/Food</string>
+    <string name="housing">Housing</string>
     <string name="business">Business</string>
+    <string name="childcare">Childcare</string>
+    <string name="education">Education</string>
     <string name="legal">Legal</string>
+    <string name="wellbeing_mental">Wellbeing/Mental</string>
+    <string name="entertainment">Entertainment</string>
     <string name="information">Information</string>
     <string name="funding">Funding</string>
-    <string name="entertainment">Entertainment</string>
-    <string name="groceries_food">Groceries/Food</string>
-    <string name="wellbeing_mental">Wellbeing/Mental</string>
+    <string name="r_amp_d">R&amp;D</string>
+    <string name="remote_work">Remote Work</string>
+    <string name="staff_paid">Staff (paid)</string>
     <string name="tech">Tech</string>
+    <string name="translations">Translations</string>
+    <string name="volunteer">Volunteer</string>
     <string name="others">Others</string>
     <string name="close">Close</string>
     <string name="how_long_should_this_post_be_active_for">How long should this post be active for?</string>
@@ -22,10 +28,10 @@
     <string name="my_organisation">My organisation</string>
     <string name="add_an_organisation_account">Add an organisation account</string>
     <string name="who_can_see_this_post">Who can see this post?</string>
-    <string name="my_neighbourhood">My neighbourhood</string>
+    <string name="my_state">My state</string>
     <string name="my_city">My city</string>
     <string name="my_country">My country</string>
-    <string name="anyone">Anyone</string>
+    <string name="worldwide">Worldwide</string>
     <string name="create_a_post">Create a post</string>
     <string name="offer">Offer</string>
     <string name="request">Request</string>
@@ -43,5 +49,5 @@
     <string name="for_1_month">For 1 Month</string>
     <string name="people_in_my_city">People in my City</string>
     <string name="people_in_my_country">People in my Country</string>
-    <string name="people_in_my_neighbourhood">People in my Neighbourhood</string>
+    <string name="people_in_my_state">People in my State</string>
 </resources>

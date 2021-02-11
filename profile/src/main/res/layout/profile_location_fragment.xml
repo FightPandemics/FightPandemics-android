@@ -6,19 +6,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/colorWhite"
-        android:theme="@style/AppTheme.AppBarOverlay"
+        android:layout_height="wrap_content"
+        android:background="?colorSurface"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp"
+        app:layout_collapseMode="pin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/change_location_toolbar" />
-    </com.google.android.material.appbar.AppBarLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/AndroidNativeH122Px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/location"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/user_location"
@@ -38,7 +52,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBar" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:id="@+id/share_location_text"
         style="@style/AndroidNativeP114Px"
         android:layout_width="match_parent"
@@ -53,33 +67,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_location"
-        tools:text="Share my location" />
+        android:text="@string/share_my_location" />
 
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/profile_location_recyclerView"
+        android:layout_width="382dp"
+        android:layout_height="287dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/profile_location_save_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/share_location_text" />
     <Button
         android:id="@+id/profile_location_save_btn"
         style="@style/PrimaryButton"
         android:layout_width="312dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="150dp"
         android:lineSpacingExtra="5.9sp"
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/profile_location_recyclerView"
-        android:layout_width="394dp"
-        android:layout_height="388dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/profile_location_save_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_location"
-        app:layout_constraintVertical_bias="0.571" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

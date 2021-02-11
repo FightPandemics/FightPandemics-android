@@ -10,8 +10,10 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.fightpandemics.core.result.EventObserver
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.filter.ui.FilterRequest
 import com.fightpandemics.home.R
@@ -24,6 +26,8 @@ import com.fightpandemics.home.databinding.HomeFragmentBinding
 import com.fightpandemics.home.databinding.SingleChipLayoutBinding
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.ChipDrawable
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
@@ -37,7 +41,7 @@ class HomeFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }
+    private val homeViewModel: HomeViewModel by activityViewModels { viewModelFactory }
     private var homeFragmentBinding: HomeFragmentBinding? = null
 
     override fun onAttach(context: Context) {
@@ -61,20 +65,6 @@ class HomeFragment : Fragment() {
         setupUi()
         createPost()
 
-        /*val fab: FloatingActionButton = activity?.findViewById(com.fightpandemics.R.id.fab)!!
-
-        homeViewModel.isDeleted.observe(
-            requireActivity(),
-            EventObserver {
-
-                if (it.isNotBlank()) {
-                    Timber.e(it)
-
-                    Snackbar.make(fab, "Snackbar over BottomAppBar", Snackbar.LENGTH_SHORT)
-                        .apply { anchorView = fab }.show()
-                }
-            }
-        )*/
 
         return binding.root
     }
