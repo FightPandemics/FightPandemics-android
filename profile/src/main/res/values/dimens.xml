@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="feedback_between_questions_margin">24dp</dimen>
+    <dimen name="feedback_horizontal_margin">30dp</dimen>
+    <dimen name="feedback_vertical_padding">24dp</dimen>
+    <dimen name="feedback_submit_horizontal_margin">24dp</dimen>
+    <dimen name="line_divider_height">1dp</dimen>
+
+    <!-- feedback needs rating -->
+    <dimen name="ratio_group_margin">16dp</dimen>
+    <dimen name="ratio_button_width">0dp</dimen>
+
+
+    <!-- feedback question cards -->
+    <dimen name="vertical_highlight_width">3dp</dimen>
+    <dimen name="feedback_card_elevation">0dp</dimen>
+    <dimen name="feedback_card_corner_radius">0dp</dimen>
 
     <dimen name="industry_scrollView_height">650dp</dimen>
+
+    <!-- Profile Social -->
+    <dimen name="social_textbox_vertical_padding">10dp</dimen>
+    <dimen name="social_textbox_horizontal_padding">0dp</dimen>
+    <dimen name="social_vertical_margin_top">26dp</dimen>
+
 </resources>

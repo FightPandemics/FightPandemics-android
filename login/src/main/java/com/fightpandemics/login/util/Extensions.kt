@@ -80,7 +80,7 @@ fun TextView.joinNow(view: View) {
     joinString.setSpan(UnderlineSpan(), 23, 31, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
     setText(joinString, TextView.BufferType.SPANNABLE)
-    setMovementMethod(LinkMovementMethod.getInstance())
+    movementMethod = LinkMovementMethod.getInstance()
 }
 
 fun allInputFieldsHaveBeenFilled(email: String?, password: String?): Boolean {
