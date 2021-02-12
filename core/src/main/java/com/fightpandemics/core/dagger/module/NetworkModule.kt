@@ -2,12 +2,15 @@ package com.fightpandemics.core.dagger.module
 
 import com.fightpandemics.core.BuildConfig
 import com.fightpandemics.core.data.api.FightPandemicsAPI
+import com.fightpandemics.core.data.interceptors.AccessTokenAuthenticator
 import com.fightpandemics.core.data.interceptors.AuthenticationInterceptor
 import com.fightpandemics.core.data.interceptors.ErrorHandlerInterceptor
 import com.fightpandemics.core.data.interceptors.OfflineResponseCacheInterceptor
 import com.fightpandemics.core.data.interceptors.ResponseCacheInterceptor
 import com.fightpandemics.core.data.local.AuthTokenLocalDataSource
 import com.fightpandemics.core.data.remote.RetrofitService
+import com.fightpandemics.core.domain.repository.LocationRepository
+import com.fightpandemics.core.domain.repository.LoginRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Lazy
@@ -31,6 +34,7 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(
+        accessTokenAuthenticator: AccessTokenAuthenticator,
         authenticationInterceptor: AuthenticationInterceptor,
         httpLoggingInterceptor: HttpLoggingInterceptor,
         responseCacheInterceptor: ResponseCacheInterceptor,
@@ -39,10 +43,10 @@ class NetworkModule {
     ): OkHttpClient {
         val okHttpClient = OkHttpClient
             .Builder()
+            // .authenticator(accessTokenAuthenticator)
             .addInterceptor(httpLoggingInterceptor)
             .addInterceptor(authenticationInterceptor)
-        // TODO  10 - Add authenticator
-        // .authenticator(new AccessTokenAuthenticator())
+
 
         if (BuildConfig.DEBUG) {
             okHttpClient
@@ -70,6 +74,13 @@ class NetworkModule {
                 HttpLoggingInterceptor.Level.NONE
             }
         }
+
+    @Singleton
+    @Provides
+    fun provideAccessTokenAuthenticator(
+        authTokenLocalDataSource: AuthTokenLocalDataSource,
+        loginRepository: LoginRepository
+    ): AccessTokenAuthenticator = AccessTokenAuthenticator(authTokenLocalDataSource, loginRepository)
 
     @Singleton
     @Provides

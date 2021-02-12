@@ -18,23 +18,24 @@ class AuthenticationInterceptor @Inject constructor(
         val requestBuilder: Request.Builder = request
             .newBuilder()
 
-        if (request.header("No-Authentication") == null) {
-            val token = authTokenLocalDataSource.getToken()
-            if (!token.isNullOrEmpty()) {
-                val finalToken = "Bearer $token"
-                requestBuilder
-                    .addHeader("Authorization", finalToken)
-                    .build()
+        when {
+            request.header("No-Authentication") == null -> {
+                val token = authTokenLocalDataSource.getToken()
+                if (!token.isNullOrEmpty()) {
+                    val finalToken = "Bearer $token"
+                    requestBuilder
+                        .addHeader("Authorization", finalToken)
+                        .build()
+                }
             }
-        }
-
-        if (request.header("Login") != null) {
-            val token = authTokenLocalDataSource.getToken()
-            if (!token.isNullOrEmpty()) {
-                val cookie = CookieToken("-", token)
-                requestBuilder
-                    .addHeader(cookie.getCookieName(), cookie.getCookieParameter())
-                    .build()
+            request.header("Login") == null -> {
+                val token = authTokenLocalDataSource.getToken()
+                if (!token.isNullOrEmpty()) {
+                    val cookie = CookieToken("-", token)
+                    requestBuilder
+                        .addHeader(cookie.getCookieName(), cookie.getCookieParameter())
+                        .build()
+                }
             }
         }
 

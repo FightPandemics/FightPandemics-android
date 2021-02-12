@@ -14,4 +14,6 @@ interface LoginRepository {
     suspend fun changePassword(email: String): Response<ChangePasswordResponse>
 
     suspend fun completeProfile(request: CompleteProfileRequest): Flow<Result<*>>?
+
+    fun refreshToken(refreshToken: RefreshToken): RefreshTokenResponse?
 }

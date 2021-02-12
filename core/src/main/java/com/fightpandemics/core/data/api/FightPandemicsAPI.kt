@@ -4,6 +4,8 @@ import com.fightpandemics.core.data.model.login.ChangePasswordResponse
 import com.fightpandemics.core.data.model.login.CompleteProfileRequest
 import com.fightpandemics.core.data.model.login.CompleteProfileResponse
 import com.fightpandemics.core.data.model.login.LoginRequest
+import com.fightpandemics.core.data.model.login.RefreshToken
+import com.fightpandemics.core.data.model.login.RefreshTokenResponse
 import com.fightpandemics.core.data.model.login.SignUpRequest
 import com.fightpandemics.core.data.model.login.SignUpResponse
 import com.fightpandemics.core.data.model.post.CreatePostRequest
@@ -44,6 +46,9 @@ interface FightPandemicsAPI {
     @Headers("No-Authentication: true") // no need to add authentication
     @POST("api/auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<*>
+
+    @POST("api/auth/refresh-token")
+    fun refreshToken(@Body refreshToken: RefreshToken): Response<RefreshTokenResponse>
 
     @POST("api/auth/signup")
     suspend fun signUp(@Body signUpRequest: SignUpRequest): Response<SignUpResponse>

@@ -42,7 +42,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0-alpha05'
+        classpath 'com.android.tools.build:gradle:7.0.0-alpha06'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
         classpath "org.jlleitschuh.gradle:ktlint-gradle:9.3.0"

@@ -6,6 +6,8 @@ import com.fightpandemics.core.data.model.login.CompleteProfileRequest
 import com.fightpandemics.core.data.model.login.ErrorResponse
 import com.fightpandemics.core.data.model.login.LoginRequest
 import com.fightpandemics.core.data.model.login.LoginResponse
+import com.fightpandemics.core.data.model.login.RefreshToken
+import com.fightpandemics.core.data.model.login.RefreshTokenResponse
 import com.fightpandemics.core.data.model.login.SignUpRequest
 import com.fightpandemics.core.data.remote.login.LoginRemoteDataSource
 import com.fightpandemics.core.domain.repository.LoginRepository
@@ -42,9 +44,9 @@ class LoginRepositoryImpl @Inject constructor(
                         channel.offer(Result.Success(loginResponse))
                     }
                     response.code() == HttpURLConnection.HTTP_INTERNAL_ERROR ||
-                        response.code() == HttpURLConnection.HTTP_UNAUTHORIZED ||
-                        response.code() == HttpURLConnection.HTTP_BAD_REQUEST ||
-                        response.code() == HttpURLConnection.HTTP_CONFLICT -> {
+                            response.code() == HttpURLConnection.HTTP_UNAUTHORIZED ||
+                            response.code() == HttpURLConnection.HTTP_BAD_REQUEST ||
+                            response.code() == HttpURLConnection.HTTP_CONFLICT -> {
                         val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                         channel.offer(Result.Error(Exception(myError?.message)))
                     }
@@ -70,9 +72,9 @@ class LoginRepositoryImpl @Inject constructor(
                     channel.offer(Result.Success(signUpResponse))
                 }
                 response.code() == HttpURLConnection.HTTP_INTERNAL_ERROR ||
-                    response.code() == HttpURLConnection.HTTP_UNAUTHORIZED ||
-                    response.code() == HttpURLConnection.HTTP_BAD_REQUEST ||
-                    response.code() == HttpURLConnection.HTTP_CONFLICT -> {
+                        response.code() == HttpURLConnection.HTTP_UNAUTHORIZED ||
+                        response.code() == HttpURLConnection.HTTP_BAD_REQUEST ||
+                        response.code() == HttpURLConnection.HTTP_CONFLICT -> {
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
@@ -103,9 +105,9 @@ class LoginRepositoryImpl @Inject constructor(
                 }
 
                 response.code() == HttpURLConnection.HTTP_INTERNAL_ERROR ||
-                    response.code() == HttpURLConnection.HTTP_UNAUTHORIZED ||
-                    response.code() == HttpURLConnection.HTTP_BAD_REQUEST ||
-                    response.code() == HttpURLConnection.HTTP_CONFLICT -> {
+                        response.code() == HttpURLConnection.HTTP_UNAUTHORIZED ||
+                        response.code() == HttpURLConnection.HTTP_BAD_REQUEST ||
+                        response.code() == HttpURLConnection.HTTP_CONFLICT -> {
                     val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
                 }
@@ -116,5 +118,10 @@ class LoginRepositoryImpl @Inject constructor(
             }
             awaitClose { }
         }
+    }
+
+    override fun refreshToken(refreshToken: RefreshToken): RefreshTokenResponse? {
+        /* return fightPandemicsAPI.refreshToken(refreshToken).execute().body() */
+        return null
     }
 }
