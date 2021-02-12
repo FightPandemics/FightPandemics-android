@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
     android:background="@color/colorWhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:paddingStart="20dp"
+    android:paddingEnd="24dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    >
+
     <include
         android:id="@+id/create_post_toolbar"
         layout="@layout/create_post_toolbar"
+        android:paddingStart="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
@@ -33,7 +46,6 @@
         android:id="@+id/name"
         android:layout_width="185dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="120dp"
         android:backgroundTint="@color/fightPandemicsGhostWhite"
@@ -45,8 +57,9 @@
         android:textColor="@color/colorPrimary"
         android:textSize="12sp"
         android:textStyle="normal"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toEndOf="@id/user_avatar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_post_toolbar"
         tools:text="Victor Maragiaglio" />
 
@@ -54,11 +67,10 @@
         android:id="@+id/toggle_bt_group"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
         android:weightSum="2"
         app:selectionRequired="true"
         app:singleSelection="true"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/name"
         app:layout_constraintTop_toBottomOf="@+id/name">
 
         <com.google.android.material.button.MaterialButton
@@ -235,6 +247,7 @@
 
     <HorizontalScrollView
         android:layout_width="0dp"
+        android:id="@+id/svTags"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
@@ -254,7 +267,7 @@
         android:id="@+id/post"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/fightPandemicsPerano"
         app:cornerRadius="30dp"
         android:fontFamily="@font/poppins_medium"
@@ -267,6 +280,10 @@
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/svTags"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

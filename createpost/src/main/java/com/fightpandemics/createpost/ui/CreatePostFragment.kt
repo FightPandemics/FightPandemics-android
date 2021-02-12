@@ -18,14 +18,14 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import com.fightpandemics.core.data.model.post.CreatePostRequest
+import com.fightpandemics.core.data.model.post.CreatePostResponse
 import com.fightpandemics.core.utils.GlideApp
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.core.utils.capitalizeFirstLetter
 import com.fightpandemics.core.utils.userInitials
 import com.fightpandemics.createpost.R
 import com.fightpandemics.createpost.dagger.inject
-import com.fightpandemics.core.data.model.post.CreatePostRequest
-import com.fightpandemics.core.data.model.post.CreatePostResponse
 import com.fightpandemics.createpost.databinding.FragmentCreatePostBinding
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
@@ -338,6 +338,7 @@ class CreatePostFragment : Fragment() {
             }
         )
     }
+    onB
 
     @SuppressLint("InflateParams")
     private fun showDialog() {
@@ -348,9 +349,11 @@ class CreatePostFragment : Fragment() {
         val builder = alertDialog.show()
         view.findViewById<ImageView>(R.id.view_post).setOnClickListener {
             builder.dismiss()
+            findNavController().navigateUp()
         }
         view.findViewById<ImageView>(R.id.cancel).setOnClickListener {
             builder.dismiss()
+            findNavController().navigateUp()
         }
     }
 }
