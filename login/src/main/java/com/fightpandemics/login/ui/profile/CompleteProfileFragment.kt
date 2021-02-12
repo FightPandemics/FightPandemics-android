@@ -1,32 +1,24 @@
 package com.fightpandemics.login.ui.profile
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.data.model.login.CompleteProfileRequest
 import com.fightpandemics.core.data.model.login.Hide
-import com.fightpandemics.core.data.model.login.Location
 import com.fightpandemics.core.data.model.login.Needs
 import com.fightpandemics.core.data.model.login.Objectives
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.core.widgets.BaseLocationFragment
-import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
 import com.fightpandemics.login.databinding.FragmentCompleteProfileBinding
 import com.fightpandemics.login.ui.LoginViewModel
-import com.fightpandemics.login.util.snack
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.checkbox.MaterialCheckBox
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.complete_profile_location.etAddress
 import kotlinx.android.synthetic.main.complete_profile_location.view.auto_complete_locations_recycler_view
 import kotlinx.android.synthetic.main.complete_profile_location.view.etAddress
@@ -34,6 +26,11 @@ import kotlinx.android.synthetic.main.complete_profile_location.view.item_line_d
 import kotlinx.android.synthetic.main.complete_profile_location.view.progressBar
 import kotlinx.android.synthetic.main.complete_profile_location.view.share_my_location
 import kotlinx.android.synthetic.main.complete_profile_location.view.tilLocation
+import kotlinx.android.synthetic.main.donation_checkbox.view.donation_checkbox
+import kotlinx.android.synthetic.main.information_checkbox.view.information_checkbox
+import kotlinx.android.synthetic.main.medical_help_checkbox.view.hours_request_checkbox
+import kotlinx.android.synthetic.main.other_help_checkbox.view.other_help_checkbox
+import kotlinx.android.synthetic.main.volunteer_hrs_checkbox.view.hours_offer_checkbox
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collect
@@ -47,13 +44,13 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
     @Inject
     lateinit var loginViewModelFactory: ViewModelFactory
 
-    lateinit var completeProfileButton: ConstraintLayout
     @FlowPreview
     @ExperimentalCoroutinesApi
     private val loginViewModel: LoginViewModel by viewModels { loginViewModelFactory }
     private lateinit var completeProfileToolbar: MaterialToolbar
 
-    private var fragmentCompleteProfileBinding: FragmentCompleteProfileBinding? = null
+    private var _fragmentCompleteProfileBinding: FragmentCompleteProfileBinding? = null
+    private val fragmentCompleteProfileBinding get() = _fragmentCompleteProfileBinding!!
 
     companion object {
         const val USER_PROFILE = "userProfile"
@@ -72,49 +69,48 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        fragmentCompleteProfileBinding = FragmentCompleteProfileBinding.inflate(inflater)
+        _fragmentCompleteProfileBinding = FragmentCompleteProfileBinding.inflate(inflater)
 
-        val rootView = inflater.inflate(R.layout.fragment_complete_profile, container, false)
+        fragmentCompleteProfileBinding.completeProfileToolbar.root.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
-        completeProfileToolbar = rootView.findViewById(R.id.complete_profile_toolbar)
-        completeProfileToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-
-        completeProfileButton = rootView.findViewById(R.id.clBtnComplete)
-        completeProfileButton.setOnClickListener {
-
+        fragmentCompleteProfileBinding.clBtnComplete.setOnClickListener {
             val firstName: String =
-                rootView.findViewById<TextInputEditText>(R.id.etFirstName).text.toString()
+                fragmentCompleteProfileBinding.etFirstName.text.toString()
             val lastName: String =
-                rootView.findViewById<TextInputEditText>(R.id.etLastName).text.toString()
+                fragmentCompleteProfileBinding.etLastName.text.toString()
             val donation: Boolean =
-                rootView.findViewById<MaterialCheckBox>(R.id.donation_checkbox).isChecked
+                fragmentCompleteProfileBinding.root.donation_checkbox.isChecked
             val information: Boolean =
-                rootView.findViewById<MaterialCheckBox>(R.id.information_checkbox).isChecked
+                fragmentCompleteProfileBinding.root.information_checkbox.isChecked
             val volunteerHrsOffering: Boolean =
-                rootView.findViewById<MaterialCheckBox>(R.id.hours_offer_checkbox).isChecked
+                fragmentCompleteProfileBinding.root.hours_offer_checkbox.isChecked
             val volunteerHrsRequest: Boolean =
-                rootView.findViewById<MaterialCheckBox>(R.id.hours_request_checkbox).isChecked
+                fragmentCompleteProfileBinding.root.hours_request_checkbox.isChecked
             val otherHelp: Boolean =
-                rootView.findViewById<MaterialCheckBox>(R.id.other_help_checkbox).isChecked
+                fragmentCompleteProfileBinding.root.other_help_checkbox.isChecked
 
             val objectives = Objectives(donation, information, volunteerHrsOffering)
             val needs = Needs(volunteerHrsRequest, otherHelp)
             val hide = Hide(false)
             // todo this need coordinates
-            val location = Location("mock", "mock", listOf(0.0, 0.0), "mock", "mock")
+//            val location = Location("mock", "mock", listOf(0.0, 0.0), "mock", "mock")
+            val location = loginViewModel.completeProfileLocation
 
             val completeProfileRequest = CompleteProfileRequest(firstName, hide, lastName, location, needs, objectives)
+            // todo maybe add function getCoordinatesAndThenCompleteProfile
             onCompleteProfile(completeProfileRequest)
         }
 
         // set the custom adapter to the RecyclerView
-        fragmentCompleteProfileBinding!!.root.auto_complete_locations_recycler_view.adapter =
+        fragmentCompleteProfileBinding.root.auto_complete_locations_recycler_view.adapter =
             adapter
 
         searchLocation()
         shareLocation() // get user location and display it
 
-        return fragmentCompleteProfileBinding!!.root
+        return fragmentCompleteProfileBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -124,7 +120,7 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
 
     override fun onDestroyView() {
         super.onDestroyView()
-        fragmentCompleteProfileBinding = null
+        _fragmentCompleteProfileBinding = null
     }
 
     @FlowPreview
@@ -138,7 +134,7 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
     @FlowPreview
     @ExperimentalCoroutinesApi
     private fun shareLocation() {
-        fragmentCompleteProfileBinding!!.root.share_my_location.setOnClickListener {
+        fragmentCompleteProfileBinding.root.share_my_location.setOnClickListener {
             etAddress.setText("")
             getCurrentLocation()
             lifecycleScope.launchWhenStarted {
@@ -162,7 +158,7 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
     @ExperimentalCoroutinesApi
     private fun searchLocation() {
         // do not start autocomplete until 3 chars in and delete location input that is not selected
-        fragmentCompleteProfileBinding!!.root.etAddress.doAfterTextChanged { inputLocation ->
+        fragmentCompleteProfileBinding.root.etAddress.doAfterTextChanged { inputLocation ->
             lifecycleScope.launchWhenStarted {
                 // do not search autocomplete suggestions until 3 chars in
                 inputLocation?.let {
@@ -199,7 +195,8 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
                         }
                     }
                     else -> {
-                        completeProfileButton.snack("it.error", Snackbar.LENGTH_LONG)
+                        fragmentCompleteProfileBinding!!.clBtnComplete.snack("it.error", Snackbar.LENGTH_LONG)
+//                        completeProfileButton.snack("it.error", Snackbar.LENGTH_LONG)
                         Timber.e("ERROR ${it.error}")
                     }
                 }
@@ -210,31 +207,31 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
     @FlowPreview
     @ExperimentalCoroutinesApi
     private fun displayLocation(address: String) {
-        fragmentCompleteProfileBinding!!.root.etAddress.setText(address)
+        fragmentCompleteProfileBinding.root.etAddress.setText(address)
         loginViewModel.locationQuery.value = address
         //  Take away focus from edit text once an option has been selected binding.searchText.requestFocus()
-        fragmentCompleteProfileBinding!!.root.tilLocation.isEnabled = false
-        fragmentCompleteProfileBinding!!.root.tilLocation.isEnabled = true
+        fragmentCompleteProfileBinding.root.tilLocation.isEnabled = false
+        fragmentCompleteProfileBinding.root.tilLocation.isEnabled = true
         // hide recycler view autocomplete location suggestions
-        fragmentCompleteProfileBinding!!.root.auto_complete_locations_recycler_view.visibility =
+        fragmentCompleteProfileBinding.root.auto_complete_locations_recycler_view.visibility =
             View.GONE
-        fragmentCompleteProfileBinding!!.root.item_line_divider1.visibility = View.GONE
+        fragmentCompleteProfileBinding.root.item_line_divider1.visibility = View.GONE
     }
 
     private fun handleAutocompleteVisibility(locationQuery: String) {
         if (locationQuery.isBlank() || locationQuery.length < LENGTH_TO_SHOW_SUGGESTIONS) {
-            fragmentCompleteProfileBinding!!.root.auto_complete_locations_recycler_view.visibility =
+            fragmentCompleteProfileBinding.root.auto_complete_locations_recycler_view.visibility =
                 View.GONE
-            fragmentCompleteProfileBinding!!.root.item_line_divider1.visibility = View.GONE
+            fragmentCompleteProfileBinding.root.item_line_divider1.visibility = View.GONE
         } else {
-            fragmentCompleteProfileBinding!!.root.auto_complete_locations_recycler_view.visibility =
+            fragmentCompleteProfileBinding.root.auto_complete_locations_recycler_view.visibility =
                 View.VISIBLE
-            fragmentCompleteProfileBinding!!.root.item_line_divider1.visibility = View.VISIBLE
+            fragmentCompleteProfileBinding.root.item_line_divider1.visibility = View.VISIBLE
         }
     }
 
     private fun bindLoading(isLoading: Boolean) {
-        fragmentCompleteProfileBinding!!.root.progressBar.visibility =
+        fragmentCompleteProfileBinding.root.progressBar.visibility =
             if (isLoading) View.VISIBLE else View.GONE
     }
 

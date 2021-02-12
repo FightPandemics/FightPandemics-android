@@ -19,6 +19,10 @@ class LocationAdapter(val onItemClickListener: OnItemClickListener) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var address: TextView = itemView.findViewById((R.id.location_item_text))
+        fun bind(location: String, clickListener: OnItemClickListener) {
+            address.text = location
+            clickListener.onAutocompleteLocationClick(location)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,10 +32,8 @@ class LocationAdapter(val onItemClickListener: OnItemClickListener) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.address.setText(placesNames[position])
-        holder.itemView.setOnClickListener {
-            onItemClickListener.onAutocompleteLocationClick(placesNames[position])
-        }
+        val item = placesNames[position]
+        holder.bind(item, onItemClickListener)
     }
 
     override fun getItemCount(): Int {

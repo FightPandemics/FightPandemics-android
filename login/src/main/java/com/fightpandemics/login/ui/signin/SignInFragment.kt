@@ -11,9 +11,9 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
 import com.fightpandemics.login.databinding.FragmentSignInBinding
+import com.fightpandemics.login.ui.Auth0BaseFragment
 import com.fightpandemics.login.ui.LoginConnection
 import com.fightpandemics.login.ui.LoginViewModel
-import com.fightpandemics.login.ui.Auth0BaseFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -25,7 +25,6 @@ class SignInFragment : Auth0BaseFragment() {
     private val loginViewModel: LoginViewModel by viewModels { loginViewModelFactory }
 
     private var fragmentSignInBinding: FragmentSignInBinding? = null
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -68,5 +67,4 @@ class SignInFragment : Auth0BaseFragment() {
         fragmentSignInBinding = null
         super.onDestroyView()
     }
-
 }

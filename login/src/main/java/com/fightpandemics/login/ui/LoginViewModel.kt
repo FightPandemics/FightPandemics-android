@@ -16,6 +16,7 @@ import com.fightpandemics.core.data.model.login.User
 import com.fightpandemics.core.data.model.userlocation.LocationRequest
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.login.domain.CompleteProfileUseCase
+import com.fightpandemics.login.domain.LocationDetailsUseCase
 import com.fightpandemics.login.domain.LocationPredictionsUseCase
 import com.fightpandemics.login.domain.LoginUseCase
 import com.fightpandemics.login.domain.SignUPUseCase
@@ -42,6 +43,7 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @ActivityScope
 class LoginViewModel @Inject constructor(
+    private val locationDetailsUseCase: LocationDetailsUseCase,
     private val locationPredictionsUseCase: LocationPredictionsUseCase,
     private val userLocationUseCase: UserLocationUseCase,
     private val loginUseCase: LoginUseCase,
@@ -52,6 +54,12 @@ class LoginViewModel @Inject constructor(
     private var sharelocationJob: Job? = null
     private var searchlocationJob: Job? = null
     val searchQuery = MutableStateFlow("")
+
+    private val _locationLatLng = MutableStateFlow(listOf<Double?>())
+    val locationLatLng = _locationLatLng.asStateFlow()
+
+    lateinit var completeProfileLocation: com.fightpandemics.core.data.model.login.Location
+
     private val _currentLocationState = MutableStateFlow(UserLocationViewState(isLoading = true))
     val currentLocationState = _currentLocationState.asStateFlow()
     private val _searchLocationState = MutableStateFlow(mutableListOf(""))
@@ -69,7 +77,6 @@ class LoginViewModel @Inject constructor(
         searchLocation()
     }
 
-    @ExperimentalCoroutinesApi
     fun doLogin(email: String, password: String) {
         _login.value?.isLoading = true
         viewModelScope.launch {
@@ -105,7 +112,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    @ExperimentalCoroutinesApi
     fun doSignUP(email: String, password: String, confirmPassword: String) {
         signup.value?.isLoading = true
 
@@ -140,7 +146,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    @ExperimentalCoroutinesApi
     fun doCompleteProfile(request: CompleteProfileRequest) {
         completeProfile.value?.isLoading = true
 
@@ -218,6 +223,18 @@ class LoginViewModel @Inject constructor(
         error: Result.Error?,
         currentLocation: com.fightpandemics.core.data.model.userlocation.Location?
     ) {
+
+        if (currentLocation != null) {
+            _locationLatLng.value = currentLocation.coordinates!!
+            // todo what should we do if we get an empty field in Location
+            completeProfileLocation = com.fightpandemics.core.data.model.login.Location(
+                currentLocation.address!!,
+                currentLocation.city!!,
+                listOf(currentLocation.coordinates!![0]!!, currentLocation.coordinates!![1]!!),
+                currentLocation.country!!,
+                currentLocation.state!!
+            )
+        }
         _currentLocationState.value =
             UserLocationViewState(loading, error, "${currentLocation?.address}")
     }

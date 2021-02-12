@@ -152,32 +152,43 @@
                 android:layout_marginBottom="49dp"
                 />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/clBtnComplete"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:layout_marginStart="7dp"
-                android:layout_marginEnd="7dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/btn_sign_email_background"
-                android:backgroundTint="@color/fightPandemicsNeonBlue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/PrimaryButton"
+                android:text="@string/complete_profile"
                 app:layout_constraintBottom_toTopOf="@id/tv_sigin_instead"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:lineSpacingExtra="5.9sp"
-                    android:text="@string/complete_profile"
-                    android:textColor="@color/color_white"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
 
-                    />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/clBtnComplete"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="54dp"-->
+<!--                android:layout_marginStart="7dp"-->
+<!--                android:layout_marginEnd="7dp"-->
+<!--                android:layout_marginBottom="16dp"-->
+<!--                android:background="@drawable/btn_sign_email_background"-->
+<!--                android:backgroundTint="@color/fightPandemicsNeonBlue"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/tv_sigin_instead"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:lineSpacingExtra="5.9sp"-->
+<!--                    android:text="@string/complete_profile"-->
+<!--                    android:textColor="@color/color_white"-->
+<!--                    android:textSize="18sp"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+
+<!--                    />-->
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
             <TextView
