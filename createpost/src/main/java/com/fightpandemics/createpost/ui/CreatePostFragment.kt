@@ -338,7 +338,6 @@ class CreatePostFragment : Fragment() {
             }
         )
     }
-    onB
 
     @SuppressLint("InflateParams")
     private fun showDialog() {
