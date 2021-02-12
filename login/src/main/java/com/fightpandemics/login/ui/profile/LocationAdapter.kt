@@ -21,7 +21,9 @@ class LocationAdapter(val onItemClickListener: OnItemClickListener) :
         var address: TextView = itemView.findViewById((R.id.location_item_text))
         fun bind(location: String, clickListener: OnItemClickListener) {
             address.text = location
-            clickListener.onAutocompleteLocationClick(location)
+            itemView.setOnClickListener {
+                clickListener.onAutocompleteLocationClick(location)
+            }
         }
     }
 
