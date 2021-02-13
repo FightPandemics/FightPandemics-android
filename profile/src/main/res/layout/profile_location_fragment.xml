@@ -91,7 +91,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/share_location_text"
-        android:background="@color/colorGreen"/>
+        app:layoutManager="LinearLayoutManager"/>
     <Button
         android:id="@+id/profile_location_save_btn"
         style="@style/PrimaryButton"

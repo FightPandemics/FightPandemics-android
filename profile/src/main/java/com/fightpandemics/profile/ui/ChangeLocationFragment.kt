@@ -66,7 +66,7 @@ class ChangeLocationFragment : BaseLocationFragment(), LocationAdapter.OnItemCli
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        profileLocationFragmentBinding!!.root.profile_location_recyclerView.adapter = adapter
+        profileLocationFragmentBinding!!.profileLocationRecyclerView.adapter = adapter
         adapter.placesNames = mutableListOf("sfncdf", "sdfef")
         searchLocation()
         shareLocation() // get user location and display it

@@ -18,8 +18,10 @@ class LocationAdapter(val onItemClickListener: OnItemClickListener) :
         }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var address: TextView = itemView.findViewById((R.id.location_item_text))
-
+        var address: TextView
+        init {
+            address = itemView.findViewById((R.id.location_item_text))
+        }
         fun bind(location: String, clickListener: OnItemClickListener) {
             address.setText(location)
             address.setOnClickListener {
@@ -28,7 +30,7 @@ class LocationAdapter(val onItemClickListener: OnItemClickListener) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.profile_location_item, parent, false)
 
