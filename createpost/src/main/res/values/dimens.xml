@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Post Creation Finished -->
+    <dimen name="dialogue_width_312dp">312dp</dimen>
+    <dimen name="dialogue_height_330dp">330dp</dimen>
+    <dimen name="text_width_236dp">236dp</dimen>
+    
+</resources>

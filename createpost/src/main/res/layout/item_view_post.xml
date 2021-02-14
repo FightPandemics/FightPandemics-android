@@ -1,28 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="@dimen/dialogue_width_312dp"
+    android:layout_height="@dimen/dialogue_height_330dp"
+    android:background="@color/color_white">
 
     <ImageView
-        android:id="@+id/view_post"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/close_msg"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/close_button"
+        android:focusable="true"
+        android:src="@drawable/ic_cancel_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/iv_post_finished"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_post_finished"
+        android:layout_width="232dp"
+        android:layout_height="119dp"
+        android:layout_marginTop="26dp"
+        android:contentDescription="@string/all_finished_image"
+        android:src="@drawable/ic_post_finished"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="centerCrop"
-        android:paddingBottom="20dp"
-        android:src="@drawable/all_done"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/cancel"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/all_finished"
+        style="@style/AndroidNativeH216Px"
+        android:layout_width="@dimen/text_width_236dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="@id/view_post"
-        app:layout_constraintTop_toTopOf="@id/view_post"
-        android:src="@drawable/ic_cancel_2" />
+        android:gravity="center"
+        android:lineSpacingExtra="0dp"
+        android:text="@string/all_finished"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_post_finished" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/delete_msg_content"
+        style="@style/AndroidNativeH412Px"
+        android:layout_width="@dimen/text_width_236dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="27dp"
+        android:gravity="center"
+        android:text="@string/finished_msg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/all_finished" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_view_post"
+        style="@style/PrimaryButton"
+        android:layout_width="155dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_confirm_blue_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/poppins_medium"
+        android:padding="0dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="14dp"
+        android:text="@string/view_post"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_msg_content" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
