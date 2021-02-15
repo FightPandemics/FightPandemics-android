@@ -116,7 +116,7 @@
         android:name="com.fightpandemics.profile.ui.profile.IndivProfileSettings"
         app:moduleName="Fight_Pandemics.profile"
         android:label="Profile"
-        tools:layout="@layout/activity_logged_in"
+        tools:layout="@layout/settings_signed_out"
         >
         <action
             android:id="@+id/action_indivProfileSettings_to_editAccountFragment"

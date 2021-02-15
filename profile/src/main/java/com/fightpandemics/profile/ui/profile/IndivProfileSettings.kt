@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
-import kotlinx.android.synthetic.main.activity_logged_in.*
-import kotlinx.android.synthetic.main.profile_toolbar.toolbar
+import kotlinx.android.synthetic.main.settings_signed_in.*
+
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -31,7 +31,6 @@ class IndivProfileSettings : Fragment() {
     override fun onStart() {
         super.onStart()
         bindListeners()
-//        profileViewModel.getIndividualProfile()
     }
 
     override fun onCreateView(
@@ -39,7 +38,7 @@ class IndivProfileSettings : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.activity_logged_in, container, false)
+        return inflater.inflate(R.layout.settings_signed_in, container, false)
     }
 
     private fun bindListeners() {
@@ -66,12 +65,12 @@ class IndivProfileSettings : Fragment() {
 //            getIndividualProfileListener(profile)
 //        }
 
-        updateAccountInfoContainer.setOnClickListener {
-            findNavController().navigate(com.fightpandemics.R.id.action_indivProfileSettings_to_editAccountFragment)
-        }
-        toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
+//        updateAccountInfoContainer.setOnClickListener {
+//            findNavController().navigate(com.fightpandemics.R.id.action_indivProfileSettings_to_editAccountFragment)
+//        }
+//        toolbar.setNavigationOnClickListener {
+//            findNavController().navigateUp()
+//        }
     }
 
     companion object {
