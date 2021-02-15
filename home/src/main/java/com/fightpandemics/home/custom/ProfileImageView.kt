@@ -1,7 +1,14 @@
 package com.fightpandemics.home.custom
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapShader
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
+import android.graphics.RectF
+import android.graphics.Shader
 import android.graphics.drawable.Drawable
 import android.os.Parcel
 import android.os.Parcelable
@@ -25,16 +32,6 @@ class ProfileImageView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : AppCompatImageView(context, attrs, defStyleAttr) {
-    companion object {
-        private const val DEFAULT_BORDER_WIDHT = 2
-        private const val DEFAULT_BORDER_COLOR = Color.WHITE
-        private const val DEFAULT_SIZE = 40
-
-        // Not basically using an array of background colors in this project
-        val bgColors = arrayOf(
-            Color.parseColor("#FFFFFF")
-        )
-    }
 
     @Px
     private var borderWidth = context.dpToPx(DEFAULT_BORDER_WIDHT)
@@ -101,7 +98,7 @@ class ProfileImageView @JvmOverloads constructor(
         canvas.drawOval(borderRect.toRectF(), borderPaint)
     }
 
-    override fun onSaveInstanceState(): Parcelable? {
+    override fun onSaveInstanceState(): Parcelable {
         val savedState = SavedState(super.onSaveInstanceState())
         savedState.isAvatarMode = isAvatarMode
         savedState.borderWidth = borderWidth
@@ -261,5 +258,16 @@ class ProfileImageView @JvmOverloads constructor(
 
             override fun newArray(size: Int): Array<SavedState?> = arrayOfNulls(size)
         }
+    }
+
+    companion object {
+        private const val DEFAULT_BORDER_WIDHT = 2
+        private const val DEFAULT_BORDER_COLOR = Color.WHITE
+        private const val DEFAULT_SIZE = 40
+
+        // Not basically using an array of background colors in this project
+        val bgColors = arrayOf(
+            Color.parseColor("#FFFFFF")
+        )
     }
 }

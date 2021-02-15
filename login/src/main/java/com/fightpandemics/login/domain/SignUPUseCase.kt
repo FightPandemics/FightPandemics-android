@@ -2,7 +2,6 @@ package com.fightpandemics.login.domain
 
 import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
-import com.fightpandemics.core.data.model.login.LoginResponse
 import com.fightpandemics.core.data.model.login.SignUpRequest
 import com.fightpandemics.core.data.model.login.SignUpResponse
 import com.fightpandemics.core.domain.repository.LoginRepository

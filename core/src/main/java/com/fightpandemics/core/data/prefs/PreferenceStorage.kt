@@ -25,14 +25,6 @@ class FightPandemicsPreferenceDataStore @Inject constructor(
     private val context: Context
 ) : PreferenceStorage {
 
-    companion object {
-        const val PREFS_NAME = "fightpandemics"
-        const val PREF_ONBOARDING = "pref_onboarding"
-        const val PREF_AUTH_TOKEN = "pref_auth_token"
-        const val PREF_USER_ID = "pref_user_id"
-        const val PREF_UUID = "pref_uuid"
-    }
-
     private val sharedPreferences: Lazy<SharedPreferences> =
         lazy { // Lazy to prevent IO access to main thread.
             context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -61,6 +53,14 @@ class FightPandemicsPreferenceDataStore @Inject constructor(
         PREF_UUID,
         null
     )
+
+    companion object {
+        const val PREFS_NAME = "fightpandemics"
+        const val PREF_ONBOARDING = "pref_onboarding"
+        const val PREF_AUTH_TOKEN = "pref_auth_token"
+        const val PREF_USER_ID = "pref_user_id"
+        const val PREF_UUID = "pref_uuid"
+    }
 }
 
 // Property Delegate

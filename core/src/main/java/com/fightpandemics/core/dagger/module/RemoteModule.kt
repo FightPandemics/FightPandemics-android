@@ -7,6 +7,8 @@ import com.fightpandemics.core.data.remote.login.LoginRemoteDataSource
 import com.fightpandemics.core.data.remote.login.LoginRemoteDataSourceImpl
 import com.fightpandemics.core.data.remote.posts.PostsRemoteDataSource
 import com.fightpandemics.core.data.remote.posts.PostsRemoteDataSourceImpl
+import com.fightpandemics.core.data.remote.profile.ProfileRemoteDataSource
+import com.fightpandemics.core.data.remote.profile.ProfileRemoteDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -32,4 +34,9 @@ class RemoteModule {
     fun provideLocationRemoteDataSource(
         fightPandemicsAPI: FightPandemicsAPI
     ): LocationRemoteDataSource = LocationRemoteDataSourceImpl(fightPandemicsAPI)
+
+    @Singleton
+    @Provides
+    fun provideProfileRemoteDataSource(fightPandemicsAPI: FightPandemicsAPI): ProfileRemoteDataSource =
+        ProfileRemoteDataSourceImpl(fightPandemicsAPI)
 }
