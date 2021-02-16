@@ -37,17 +37,17 @@
         android:id="@+id/updatePublicProfileContainer"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="32dp"
         android:background="@color/colorWhite"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:fontFamily="@font/worksans_regular"
-        android:lineHeight="20sp"
+        android:lineHeight="18sp"
         android:text="@string/update_public_profile"
         android:textColor="@color/fightPandemicsNeonBlue"
         android:textSize="16sp"
@@ -97,13 +97,44 @@
         app:layout_constraintTop_toTopOf="@id/updateAccountInfoContainer" />
 
     <View
+        android:id="@+id/setupNotificationSettingsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/updateAccountInfoContainer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/worksans_regular"
+        android:lineHeight="20sp"
+        android:text="@string/setup_notification_settings"
+        android:textColor="@color/fightPandemicsNeonBlue"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/setupNotificationSettingsContainer"
+        app:layout_constraintLeft_toLeftOf="@id/setupNotificationSettingsContainer"
+        app:layout_constraintTop_toTopOf="@id/setupNotificationSettingsContainer" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:rotation="270"
+        android:src="@drawable/ic_arrow_down"
+        app:layout_constraintBottom_toBottomOf="@id/setupNotificationSettingsContainer"
+        app:layout_constraintRight_toRightOf="@id/setupNotificationSettingsContainer"
+        app:layout_constraintTop_toTopOf="@id/setupNotificationSettingsContainer" />
+
+    <View
         android:id="@+id/aboutUsContainer"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_marginTop="279dp"
+        android:layout_marginTop="24dp"
         android:background="@color/colorWhite"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/setupNotificationSettingsContainer" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -219,11 +250,43 @@
         app:layout_constraintRight_toRightOf="@id/feedbackContainer"
         app:layout_constraintTop_toTopOf="@id/feedbackContainer" />
 
+    <View
+        android:id="@+id/signoutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/feedbackContainer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/worksans_regular"
+        android:lineHeight="18sp"
+        android:text="@string/signout"
+        android:textColor="@color/fightPandemicsNeonBlue"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/signoutContainer"
+        app:layout_constraintLeft_toLeftOf="@id/signoutContainer"
+        app:layout_constraintTop_toTopOf="@id/signoutContainer" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:rotation="270"
+        android:src="@drawable/ic_arrow_down"
+        app:layout_constraintBottom_toBottomOf="@id/signoutContainer"
+        app:layout_constraintRight_toRightOf="@id/signoutContainer"
+        app:layout_constraintTop_toTopOf="@id/signoutContainer" />
+
     <TextView
         style="@style/AndroidNativeP311Px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="74dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/fightpandemics_app_v1_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
