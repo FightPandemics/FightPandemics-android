@@ -13,11 +13,10 @@ import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
 import com.fightpandemics.profile.dagger.inject
 import com.fightpandemics.utils.webviewer.WebViewerActivity
-import kotlinx.android.synthetic.main.settings_signed_in.*
 import kotlinx.android.synthetic.main.settings_signed_in.aboutUsContainer as signInAboutUsContainer
 import kotlinx.android.synthetic.main.settings_signed_in.privacyPolicyContainer as signInPrivacyPolicyContainer
 import kotlinx.android.synthetic.main.settings_signed_in.supportContainer as signInSupportContainer
-import kotlinx.android.synthetic.main.settings_signed_out.*
+import kotlinx.android.synthetic.main.settings_signed_out.myAccountContainer
 import kotlinx.android.synthetic.main.settings_signed_out.aboutUsContainer as signOutAboutUsContainer
 import kotlinx.android.synthetic.main.settings_signed_out.privacyPolicyContainer as signOutPrivacyPolicyContainer
 import kotlinx.android.synthetic.main.settings_signed_out.supportContainer as signOutSupportContainer
@@ -57,9 +56,9 @@ class IndivProfileSettings : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return if (isUserLoggedIn()) {
-            inflater.inflate(R.layout.settings_signed_out, container, false)
-        } else {
             inflater.inflate(R.layout.settings_signed_in, container, false)
+        } else {
+            inflater.inflate(R.layout.settings_signed_out, container, false)
         }
     }
 
@@ -69,9 +68,9 @@ class IndivProfileSettings : Fragment() {
     }
 
     private fun bindListeners() {
-//        myAccountContainer.setOnClickListener {
-//            findNavController().navigate(com.fightpandemics.R.id.action_indivProfileSettings_to_signup)
-//        }
+        myAccountContainer.setOnClickListener {
+            findNavController().navigate(com.fightpandemics.R.id.action_indivProfileSettings_to_nav_splash_onboard)
+        }
 
         signInAboutUsContainer.setOnClickListener { openWebView(URLs.ABOUT_US)}
         signOutAboutUsContainer.setOnClickListener { openWebView(URLs.ABOUT_US)}

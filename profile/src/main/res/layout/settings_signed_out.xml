@@ -57,7 +57,6 @@
         app:layout_constraintTop_toTopOf="@id/myAccountContainer" />
 
     <TextView
-        android:id="@+id/joinNowText"
         style="@style/AndroidNativeP311Px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
