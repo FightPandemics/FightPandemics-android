@@ -124,6 +124,9 @@
         <action
             android:id="@+id/action_indivProfileSettings_to_nav_splash_onboard"
             app:destination="@id/nav_splash_onboard" />
+        <action
+            android:id="@+id/action_indivProfileSettings_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
 
     <fragment
