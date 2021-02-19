@@ -245,4 +245,9 @@ class ProfileViewModel @Inject constructor(
         val error: Result.Error? = null,
         val userLocation: String? = null
     )
+
+    @ExperimentalCoroutinesApi
+    fun isUserSignedIn(): Boolean {
+        return individualProfile.value?.id != null
+    }
 }
