@@ -50,4 +50,9 @@
     <string name="people_in_my_city">People in my City</string>
     <string name="people_in_my_country">People in my Country</string>
     <string name="people_in_my_state">People in my State</string>
+    <string name="all_finished">All Finished!</string>
+    <string name="finished_msg">Keep an eye on your post for comments or direct messages from people!</string>
+    <string name="view_post">View Post</string>
+    <string name="all_finished_image">All finished image</string>
+    <string name="close_button">close_button</string>
 </resources>

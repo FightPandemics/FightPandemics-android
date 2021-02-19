@@ -72,4 +72,6 @@
     <color name="info_event_card_logo_background">@color/android_blue_light</color>-->
 
     <color name="transparent">#00000000</color>
+
+    <color name="dialogue_background_transparent">#6b000000</color>
 </resources>
