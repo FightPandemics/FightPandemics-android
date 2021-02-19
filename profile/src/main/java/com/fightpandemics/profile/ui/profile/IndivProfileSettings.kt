@@ -77,11 +77,10 @@ class IndivProfileSettings : Fragment() {
         var views: Array<View> = arrayOf(
             updatePublicProfileContainer,
             updateAccountInfoContainer,
+            setupNotificationSettingsContainer,
             signoutContainer,
         )
         setViewsVisibility(views, View.GONE)
-        // Only set this one to INVISIBLE so that it takes up space and next view is placed properly
-        setupNotificationSettingsContainer.visibility = View.INVISIBLE
     }
 
     private fun hideSignedOutViews() {
