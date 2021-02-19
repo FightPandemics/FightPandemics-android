@@ -106,10 +106,6 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
             onCompleteProfile(completeProfileRequest)
         }
 
-        // set the custom adapter to the RecyclerView
-        fragmentCompleteProfileBinding.root.auto_complete_locations_recycler_view.adapter =
-            adapter
-
         setupLocationAutocomplete()
         setupShareLocation() // get user location and display it
 
@@ -180,6 +176,10 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
     }
 
     private fun setupLocationAutocomplete() {
+        // set the custom adapter to the RecyclerView
+        fragmentCompleteProfileBinding.root.auto_complete_locations_recycler_view.adapter =
+            adapter
+
         // when focus is gone, handle visibility logic
         fragmentCompleteProfileBinding.root.etAddress.setOnFocusChangeListener { _, hasFocus ->
             handleAutocompleteVisibility(fragmentCompleteProfileBinding.root.etAddress.text.toString(), hasFocus)
