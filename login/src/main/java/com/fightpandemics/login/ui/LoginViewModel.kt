@@ -14,10 +14,11 @@ import com.fightpandemics.core.data.model.login.SignUpRequest
 import com.fightpandemics.core.data.model.login.SignUpResponse
 import com.fightpandemics.core.data.model.login.User
 import com.fightpandemics.core.data.model.userlocation.LocationRequest
+import com.fightpandemics.core.data.model.userlocationpredictions.Prediction
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.login.domain.CompleteProfileUseCase
 import com.fightpandemics.login.domain.LocationDetailsUseCase
-import com.fightpandemics.login.domain.LocationPredictionsUseCase
+import com.fightpandemics.login.domain.LocationPredictionsNameAndIdUseCase
 import com.fightpandemics.login.domain.LoginUseCase
 import com.fightpandemics.login.domain.SignUPUseCase
 import com.fightpandemics.login.domain.UserLocationUseCase
@@ -44,7 +45,7 @@ import javax.inject.Inject
 @ActivityScope
 class LoginViewModel @Inject constructor(
     private val locationDetailsUseCase: LocationDetailsUseCase,
-    private val locationPredictionsUseCase: LocationPredictionsUseCase,
+    private val locationPredictionsNameAndIdUseCase: LocationPredictionsNameAndIdUseCase,
     private val userLocationUseCase: UserLocationUseCase,
     private val loginUseCase: LoginUseCase,
     private val signUpUseCase: SignUPUseCase,
@@ -55,16 +56,14 @@ class LoginViewModel @Inject constructor(
     private var searchlocationJob: Job? = null
     val searchQuery = MutableStateFlow("")
 
-    private val _locationLatLng = MutableStateFlow(listOf<Double?>())
-    val locationLatLng = _locationLatLng.asStateFlow()
-
-    lateinit var completeProfileLocation: com.fightpandemics.core.data.model.login.Location
+    // todo: this could change to late init if we have a validation to make sure user cant proceed wihout first searching for a location
+//    lateinit var completeProfileLocation: com.fightpandemics.core.data.model.login.Location
+    var completeProfileLocation = com.fightpandemics.core.data.model.login.Location("mock", "mock", listOf(0.0, 0.0), "mock", "mock")
 
     private val _currentLocationState = MutableStateFlow(UserLocationViewState(isLoading = true))
     val currentLocationState = _currentLocationState.asStateFlow()
-    private val _searchLocationState = MutableStateFlow(mutableListOf(""))
+    private val _searchLocationState = MutableStateFlow(mutableListOf<Prediction>())
     val searchLocationState = _searchLocationState.asStateFlow()
-    var locationQuery = MutableLiveData<String?>("")
 
     private val _login = MutableLiveData<LoginViewState>()
     private val _signup = MutableLiveData<SignUPViewState>()
@@ -204,13 +203,14 @@ class LoginViewModel @Inject constructor(
                 .filter { return@filter !it.isEmpty() && it.length >= 3 }
                 .distinctUntilChanged()
                 .map { it.trim() }
-                .flatMapLatest { locationPredictionsUseCase(it) }
+                .flatMapLatest { locationPredictionsNameAndIdUseCase(it) }
                 .conflate()
                 .collect {
                     when (it) {
-                        is Result.Success ->
+                        is Result.Success -> {
                             _searchLocationState.value =
-                                it.data as MutableList<String>
+                                it.data as MutableList<Prediction>
+                        }
                         is Result.Error -> Timber.e(it.toString())
                         is Result.Loading -> Timber.e("LOADING...")
                     }
@@ -225,7 +225,6 @@ class LoginViewModel @Inject constructor(
     ) {
 
         if (currentLocation != null) {
-            _locationLatLng.value = currentLocation.coordinates!!
             // todo what should we do if we get an empty field in Location
             completeProfileLocation = com.fightpandemics.core.data.model.login.Location(
                 currentLocation.address!!,
@@ -237,6 +236,31 @@ class LoginViewModel @Inject constructor(
         }
         _currentLocationState.value =
             UserLocationViewState(loading, error, "${currentLocation?.address}")
+    }
+
+    fun getDetails(placeId: String?) {
+        Timber.i("Debug: my placeId is $placeId")
+        viewModelScope.launch {
+            locationDetailsUseCase.invoke(placeId).collect {
+                when (it) {
+                    is Result.Success -> {
+                        val locationDetails = it.data as com.fightpandemics.core.data.model.userlocationdetails.Location
+                        Timber.i("Debug: my location prediction details $locationDetails")
+                        // todo check should i do something else when the location doesnt have details?
+                        completeProfileLocation =
+                            com.fightpandemics.core.data.model.login.Location(
+                                locationDetails.address ?: "",
+                                locationDetails.city ?: "",
+                                locationDetails.coordinates ?: listOf(),
+                                locationDetails.country ?: "",
+                                locationDetails.state ?: ""
+                            )
+                    }
+                    is Result.Loading -> Timber.i("Debug: getDetails is loading}")
+                    is Result.Error -> Timber.i("Debug: there was an error with getDetails, ${it.exception.message}")
+                }
+            }
+        }
     }
 }
 

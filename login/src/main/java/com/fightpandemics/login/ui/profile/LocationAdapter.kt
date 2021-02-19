@@ -5,13 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.fightpandemics.core.data.model.userlocationpredictions.Prediction
 import com.fightpandemics.login.R
 
 class LocationAdapter(val onItemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<LocationAdapter.ViewHolder>() {
     val MAX_RECYCLER_VIEW_SIZE = 5
 
-    var placesNames = listOf<String>()
+    var placesNames = listOf<Prediction>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -19,8 +20,8 @@ class LocationAdapter(val onItemClickListener: OnItemClickListener) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var address: TextView = itemView.findViewById((R.id.location_item_text))
-        fun bind(location: String, clickListener: OnItemClickListener) {
-            address.text = location
+        fun bind(location: Prediction, clickListener: OnItemClickListener) {
+            address.text = location.description
             itemView.setOnClickListener {
                 clickListener.onAutocompleteLocationClick(location)
             }
@@ -46,6 +47,6 @@ class LocationAdapter(val onItemClickListener: OnItemClickListener) :
     }
 
     interface OnItemClickListener {
-        fun onAutocompleteLocationClick(locationSelected: String)
+        fun onAutocompleteLocationClick(locationSelected: Prediction)
     }
 }

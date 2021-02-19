@@ -2,6 +2,7 @@ package com.fightpandemics.core.data.repository
 
 import com.fightpandemics.core.data.model.login.ErrorResponse
 import com.fightpandemics.core.data.model.userlocation.Location
+import com.fightpandemics.core.data.model.userlocationpredictions.Prediction
 import com.fightpandemics.core.data.prefs.PreferenceStorage
 import com.fightpandemics.core.data.remote.location.LocationRemoteDataSource
 import com.fightpandemics.core.domain.repository.LocationRepository
@@ -12,7 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
-import java.util.*
+import java.util.UUID
 import javax.inject.Inject
 
 /*
@@ -46,7 +47,7 @@ class LocationRepositoryImpl @Inject constructor(
 
     override suspend fun getLocationPredictions(
         input: String
-    ): Flow<Result<*>> {
+    ): Flow<Result<List<Prediction>>> {
         val sessiontoken = getUUID()
         return channelFlow {
             channel.offer(Result.Loading)
@@ -58,7 +59,6 @@ class LocationRepositoryImpl @Inject constructor(
                         userLocationPredictions
                             .body()!!
                             .predictions
-                            .map { it -> it.description }
                     channel.offer(Result.Success(locationPrediction))
                 }
                 userLocationPredictions.code() == 401 -> {
@@ -73,7 +73,7 @@ class LocationRepositoryImpl @Inject constructor(
 
     override suspend fun getLocationDetails(
         placeId: String
-    ): Flow<Result<*>>? {
+    ): Flow<Result<*>> {
         val sessiontoken = getUUID()
         return channelFlow {
             val userLocationDetails =

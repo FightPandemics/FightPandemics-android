@@ -1,6 +1,7 @@
 package com.fightpandemics.login.ui.profile
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +14,15 @@ import com.fightpandemics.core.data.model.login.CompleteProfileRequest
 import com.fightpandemics.core.data.model.login.Hide
 import com.fightpandemics.core.data.model.login.Needs
 import com.fightpandemics.core.data.model.login.Objectives
+import com.fightpandemics.core.data.model.userlocationpredictions.Prediction
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.core.widgets.BaseLocationFragment
 import com.fightpandemics.login.dagger.inject
 import com.fightpandemics.login.databinding.FragmentCompleteProfileBinding
 import com.fightpandemics.login.ui.LoginViewModel
+import com.fightpandemics.login.util.snack
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.complete_profile_location.etAddress
 import kotlinx.android.synthetic.main.complete_profile_location.view.auto_complete_locations_recycler_view
 import kotlinx.android.synthetic.main.complete_profile_location.view.etAddress
@@ -37,6 +41,8 @@ import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
+@FlowPreview
 class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemClickListener {
     private val LENGTH_TO_SHOW_SUGGESTIONS = 3
     private val adapter = LocationAdapter(this)
@@ -44,8 +50,6 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
     @Inject
     lateinit var loginViewModelFactory: ViewModelFactory
 
-    @FlowPreview
-    @ExperimentalCoroutinesApi
     private val loginViewModel: LoginViewModel by viewModels { loginViewModelFactory }
     private lateinit var completeProfileToolbar: MaterialToolbar
 
@@ -61,8 +65,6 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         inject(this)
     }
 
-    @FlowPreview
-    @ExperimentalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -99,6 +101,7 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
             val location = loginViewModel.completeProfileLocation
 
             val completeProfileRequest = CompleteProfileRequest(firstName, hide, lastName, location, needs, objectives)
+            Timber.i("my complete profile request is $completeProfileRequest")
             // todo maybe add function getCoordinatesAndThenCompleteProfile
             onCompleteProfile(completeProfileRequest)
         }
@@ -107,8 +110,8 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         fragmentCompleteProfileBinding.root.auto_complete_locations_recycler_view.adapter =
             adapter
 
-        searchLocation()
-        shareLocation() // get user location and display it
+        setupLocationAutocomplete()
+        setupShareLocation() // get user location and display it
 
         return fragmentCompleteProfileBinding.root
     }
@@ -123,17 +126,39 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         _fragmentCompleteProfileBinding = null
     }
 
-    @FlowPreview
-    @ExperimentalCoroutinesApi
+    private fun onCompleteProfile(request: CompleteProfileRequest) {
+        loginViewModel.doCompleteProfile(request)
+        loginViewModel.completeProfile.observe(
+            viewLifecycleOwner,
+            {
+                when (it.error) {
+                    null -> {
+                        Timber.e("LOGGED IN ${it.email}")
+                        if (it.token == null) {
+                            val packageName = "com.fightpandemics"
+                            val intent = Intent().setClassName(
+                                packageName,
+                                "$packageName.ui.MainActivity"
+                            )
+                            startActivity(intent).apply { requireActivity().finish() }
+                        }
+                    }
+                    else -> {
+                        fragmentCompleteProfileBinding.clBtnComplete.snack("Error: ${it.error}", Snackbar.LENGTH_LONG)
+                        Timber.e("ERROR ${it.error}")
+                    }
+                }
+            }
+        )
+    }
+
     override fun updateLocation(location: android.location.Location) {
         Timber.i("My filters from filter $location")
         // filterViewModel.updateCurrentLocation(location)
         loginViewModel.updateCurrentLocation(location)
     }
 
-    @FlowPreview
-    @ExperimentalCoroutinesApi
-    private fun shareLocation() {
+    private fun setupShareLocation() {
         fragmentCompleteProfileBinding.root.share_my_location.setOnClickListener {
             etAddress.setText("")
             getCurrentLocation()
@@ -154,72 +179,40 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         }
     }
 
-    @FlowPreview
-    @ExperimentalCoroutinesApi
-    private fun searchLocation() {
-        // do not start autocomplete until 3 chars in and delete location input that is not selected
-        fragmentCompleteProfileBinding.root.etAddress.doAfterTextChanged { inputLocation ->
-            lifecycleScope.launchWhenStarted {
-                // do not search autocomplete suggestions until 3 chars in
-                inputLocation?.let {
-                    handleAutocompleteVisibility(it.toString())
-                    Timber.e(it.toString())
-                    loginViewModel.searchQuery.value = it.toString()
-                    loginViewModel.searchLocationState.collect {
-                        adapter.placesNames = it
-                    }
-                }
+    private fun setupLocationAutocomplete() {
+        // when focus is gone, handle visibility logic
+        fragmentCompleteProfileBinding.root.etAddress.setOnFocusChangeListener { _, hasFocus ->
+            handleAutocompleteVisibility(fragmentCompleteProfileBinding.root.etAddress.text.toString(), hasFocus)
+        }
+
+        // when user starts typing, handle visibility and search for location predictions
+        fragmentCompleteProfileBinding.root.etAddress.doAfterTextChanged {
+            it.toString().also { inputLocation ->
+                handleAutocompleteVisibility(inputLocation)
+                searchLocationPredictions(inputLocation)
             }
-            // if location in the editText is edited, delete location, lat, lgn live data
-            loginViewModel.locationQuery.value = ""
         }
     }
 
-    @FlowPreview
-    @ExperimentalCoroutinesApi
-    private fun onCompleteProfile(request: CompleteProfileRequest) {
-        loginViewModel.doCompleteProfile(request)
-        loginViewModel.completeProfile.observe(
-            viewLifecycleOwner,
-            {
-                when (it.error) {
-                    null -> {
-                        Timber.e("LOGGED IN ${it.email}")
-                        if (it.token == null) {
-                            val packageName = "com.fightpandemics"
-                            val intent = Intent().setClassName(
-                                packageName,
-                                "$packageName.ui.MainActivity"
-                            )
-                            startActivity(intent).apply { requireActivity().finish() }
-                        }
-                    }
-                    else -> {
-                        fragmentCompleteProfileBinding!!.clBtnComplete.snack("it.error", Snackbar.LENGTH_LONG)
-//                        completeProfileButton.snack("it.error", Snackbar.LENGTH_LONG)
-                        Timber.e("ERROR ${it.error}")
-                    }
-                }
+    private fun searchLocationPredictions(inputLocation: String) {
+        lifecycleScope.launchWhenStarted {
+            loginViewModel.searchQuery.value = inputLocation
+            loginViewModel.searchLocationState.collect {
+                adapter.placesNames = it
             }
-        )
+        }
     }
 
-    @FlowPreview
-    @ExperimentalCoroutinesApi
-    private fun displayLocation(address: String) {
-        fragmentCompleteProfileBinding.root.etAddress.setText(address)
-        loginViewModel.locationQuery.value = address
-        //  Take away focus from edit text once an option has been selected binding.searchText.requestFocus()
+    private fun displayLocation(selected_location: String) {
+        // set the selected location string in the textview
+        fragmentCompleteProfileBinding.root.etAddress.setText(selected_location)
+        //  Take away focus from edit text once an option has been selected 
         fragmentCompleteProfileBinding.root.tilLocation.isEnabled = false
         fragmentCompleteProfileBinding.root.tilLocation.isEnabled = true
-        // hide recycler view autocomplete location suggestions
-        fragmentCompleteProfileBinding.root.auto_complete_locations_recycler_view.visibility =
-            View.GONE
-        fragmentCompleteProfileBinding.root.item_line_divider1.visibility = View.GONE
     }
 
-    private fun handleAutocompleteVisibility(locationQuery: String) {
-        if (locationQuery.isBlank() || locationQuery.length < LENGTH_TO_SHOW_SUGGESTIONS) {
+    private fun handleAutocompleteVisibility(locationQuery: String, hasFocus: Boolean = true) {
+        if (locationQuery.isBlank() || locationQuery.length < LENGTH_TO_SHOW_SUGGESTIONS || !hasFocus) {
             fragmentCompleteProfileBinding.root.auto_complete_locations_recycler_view.visibility =
                 View.GONE
             fragmentCompleteProfileBinding.root.item_line_divider1.visibility = View.GONE
@@ -235,9 +228,8 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
             if (isLoading) View.VISIBLE else View.GONE
     }
 
-    @ExperimentalCoroutinesApi
-    @FlowPreview
-    override fun onAutocompleteLocationClick(locationSelected: String) {
-        displayLocation(locationSelected)
+    override fun onAutocompleteLocationClick(locationSelected: Prediction) {
+        displayLocation(locationSelected.description)
+        loginViewModel.getDetails(locationSelected.place_id)
     }
 }
