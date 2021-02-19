@@ -74,23 +74,18 @@ class IndivProfileSettings : Fragment() {
     }
 
     private fun hideSignedInViews() {
-        var views: Array<View> = arrayOf(
+        arrayOf(
             updatePublicProfileContainer,
             updateAccountInfoContainer,
             setupNotificationSettingsContainer,
             signoutContainer,
-        )
-        setViewsVisibility(views, View.GONE)
+        ).forEach {
+            it.visibility = View.GONE
+        }
     }
 
     private fun hideSignedOutViews() {
         myAccountContainer.visibility = View.GONE
-    }
-
-    private fun setViewsVisibility(views: Array<View>, value: Int) {
-        views.forEach {
-            it.visibility = value
-        }
     }
 
     private fun openWebView(url: String?) {
