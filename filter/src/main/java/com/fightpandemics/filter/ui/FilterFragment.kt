@@ -304,9 +304,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         filterStartFragmentBinding!!.locationOptions
             .locationSearch
             .setText(address)
-
         filterViewModel.locationQuery.value = address
-        // todo maybe find a better way of doing this -
         //  Take away focus from edit text once an option has been selected binding.searchText.requestFocus()
         filterStartFragmentBinding!!.locationOptions.locationSearch.isEnabled = false
         filterStartFragmentBinding!!.locationOptions.locationSearch.isEnabled = true

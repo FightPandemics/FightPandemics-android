@@ -96,11 +96,16 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
             val objectives = Objectives(donation, information, volunteerHrsOffering)
             val needs = Needs(volunteerHrsRequest, otherHelp)
             val hide = Hide(false)
-            val location = loginViewModel.completeProfileLocation
-
-            val completeProfileRequest = CompleteProfileRequest(firstName, hide, lastName, location, needs, objectives)
-            Timber.i("my complete profile request is $completeProfileRequest")
-            onCompleteProfile(completeProfileRequest)
+            // todo add proper validation to the fields
+            if (loginViewModel.locationSelected.value.isNullOrBlank()) {
+                // show location not selected error
+                fragmentCompleteProfileBinding.root.etAddress.error = "Please select a location"
+            } else {
+                val location = loginViewModel.completeProfileLocation
+                val completeProfileRequest = CompleteProfileRequest(firstName, hide, lastName, location, needs, objectives)
+                Timber.i("my complete profile request is $completeProfileRequest")
+                onCompleteProfile(completeProfileRequest)
+            }
         }
 
         setupLocationAutocomplete()
