@@ -96,13 +96,10 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
             val objectives = Objectives(donation, information, volunteerHrsOffering)
             val needs = Needs(volunteerHrsRequest, otherHelp)
             val hide = Hide(false)
-            // todo this need coordinates
-//            val location = Location("mock", "mock", listOf(0.0, 0.0), "mock", "mock")
             val location = loginViewModel.completeProfileLocation
 
             val completeProfileRequest = CompleteProfileRequest(firstName, hide, lastName, location, needs, objectives)
             Timber.i("my complete profile request is $completeProfileRequest")
-            // todo maybe add function getCoordinatesAndThenCompleteProfile
             onCompleteProfile(completeProfileRequest)
         }
 
@@ -164,7 +161,7 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
                         it.isLoading -> bindLoading(it.isLoading)
                         it.userLocation!!.isNotEmpty() -> {
                             bindLoading(it.isLoading)
-                            displayLocation(it.userLocation)
+                            onSelectedLocation(it.userLocation)
                         }
                         it.error != null -> {
                             bindLoading(it.isLoading)
@@ -206,14 +203,12 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         }
     }
 
-    private fun displayLocation(selected_location: String) {
-        // set the selected location string in the textview
+    private fun onSelectedLocation(selected_location: String) {
+        // display selected location in editText
         fragmentCompleteProfileBinding.root.etAddress.setText(selected_location)
-        // save location selected in livedata view model to prevent not-selected input from being accepted
+        // save location selected in liveData view model to prevent not-selected input from being accepted
         loginViewModel.locationSelected.value = selected_location
-        //  Take away focus from edit text once an option has been selected
-        fragmentCompleteProfileBinding.root.tilLocation.isEnabled = false
-        fragmentCompleteProfileBinding.root.tilLocation.isEnabled = true
+        removeFocusFromLocationEditText()
     }
 
     private fun handleAutocompleteVisibility(locationQuery: String, hasFocus: Boolean = true) {
@@ -234,13 +229,19 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         }
     }
 
+    // This removes focus and hides keyboard
+    private fun removeFocusFromLocationEditText() {
+        fragmentCompleteProfileBinding.root.tilLocation.isEnabled = false
+        fragmentCompleteProfileBinding.root.tilLocation.isEnabled = true
+    }
+
     private fun bindLoading(isLoading: Boolean) {
         fragmentCompleteProfileBinding.root.progressBar.visibility =
             if (isLoading) View.VISIBLE else View.GONE
     }
 
     override fun onAutocompleteLocationClick(locationSelected: Prediction) {
-        displayLocation(locationSelected.description)
+        onSelectedLocation(locationSelected.description)
         loginViewModel.getDetails(locationSelected.place_id)
     }
 }
