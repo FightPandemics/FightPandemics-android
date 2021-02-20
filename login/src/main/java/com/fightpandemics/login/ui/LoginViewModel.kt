@@ -64,6 +64,9 @@ class LoginViewModel @Inject constructor(
     val currentLocationState = _currentLocationState.asStateFlow()
     private val _searchLocationState = MutableStateFlow(mutableListOf<Prediction>())
     val searchLocationState = _searchLocationState.asStateFlow()
+    // variable to keep track of selected location, also allows us to delete not-selected input from user
+    private val _locationSelected = MutableLiveData("")
+    val locationSelected = _locationSelected
 
     private val _login = MutableLiveData<LoginViewState>()
     private val _signup = MutableLiveData<SignUPViewState>()
@@ -261,6 +264,11 @@ class LoginViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun resetLocation() {
+        _locationSelected.value = ""
+        completeProfileLocation = com.fightpandemics.core.data.model.login.Location("mock", "mock", listOf(0.0, 0.0), "mock", "mock")
     }
 }
 

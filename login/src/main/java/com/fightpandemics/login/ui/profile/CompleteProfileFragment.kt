@@ -180,17 +180,20 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         fragmentCompleteProfileBinding.root.auto_complete_locations_recycler_view.adapter =
             adapter
 
-        // when focus is gone, handle visibility logic
+        // when focus is gone, handle suggestions visibility logic and textview deletion
         fragmentCompleteProfileBinding.root.etAddress.setOnFocusChangeListener { _, hasFocus ->
             handleAutocompleteVisibility(fragmentCompleteProfileBinding.root.etAddress.text.toString(), hasFocus)
+            handleLocationSelectedText(hasFocus)
         }
 
-        // when user starts typing, handle visibility and search for location predictions
+        // when user starts typing, handle visibility, search for location predictions, and reset selected location
         fragmentCompleteProfileBinding.root.etAddress.doAfterTextChanged {
             it.toString().also { inputLocation ->
                 handleAutocompleteVisibility(inputLocation)
                 searchLocationPredictions(inputLocation)
             }
+            // reset location selected since we are searching for a new location
+            loginViewModel.resetLocation()
         }
     }
 
@@ -206,7 +209,9 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
     private fun displayLocation(selected_location: String) {
         // set the selected location string in the textview
         fragmentCompleteProfileBinding.root.etAddress.setText(selected_location)
-        //  Take away focus from edit text once an option has been selected 
+        // save location selected in livedata view model to prevent not-selected input from being accepted
+        loginViewModel.locationSelected.value = selected_location
+        //  Take away focus from edit text once an option has been selected
         fragmentCompleteProfileBinding.root.tilLocation.isEnabled = false
         fragmentCompleteProfileBinding.root.tilLocation.isEnabled = true
     }
@@ -220,6 +225,12 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
             fragmentCompleteProfileBinding.root.auto_complete_locations_recycler_view.visibility =
                 View.VISIBLE
             fragmentCompleteProfileBinding.root.item_line_divider1.visibility = View.VISIBLE
+        }
+    }
+
+    private fun handleLocationSelectedText(hasFocus: Boolean) {
+        if (!hasFocus && loginViewModel.locationSelected.value.isNullOrBlank()) {
+            fragmentCompleteProfileBinding.root.etAddress.text?.clear()
         }
     }
 
