@@ -44,7 +44,6 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @FlowPreview
 class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemClickListener {
-    private val LENGTH_TO_SHOW_SUGGESTIONS = 3
     private val adapter = LocationAdapter(this)
 
     @Inject
@@ -55,10 +54,6 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
 
     private var _fragmentCompleteProfileBinding: FragmentCompleteProfileBinding? = null
     private val fragmentCompleteProfileBinding get() = _fragmentCompleteProfileBinding!!
-
-    companion object {
-        const val USER_PROFILE = "userProfile"
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -109,7 +104,7 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         }
 
         setupLocationAutocomplete()
-        setupShareLocation() // get user location and display it
+        setupShareLocation()
 
         return fragmentCompleteProfileBinding.root
     }
@@ -248,5 +243,10 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
     override fun onAutocompleteLocationClick(locationSelected: Prediction) {
         onSelectedLocation(locationSelected.description)
         loginViewModel.getDetails(locationSelected.place_id)
+    }
+
+    companion object {
+        const val USER_PROFILE = "userProfile"
+        const val LENGTH_TO_SHOW_SUGGESTIONS = 3
     }
 }

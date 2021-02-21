@@ -7,5 +7,4 @@ import dagger.Module
  * Dagger module providing stuff for [:createpost] module.
  */
 @Module
-class CreatePostModule {
-}
+class CreatePostModule

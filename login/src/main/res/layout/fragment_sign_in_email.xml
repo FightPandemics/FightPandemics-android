@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/sign_in_email_constraint_layout"
     android:background="@color/signup_screen_bg"
     android:fitsSystemWindows="true"
     android:id="@+id/sign_in_email_constraint_layout"
@@ -44,6 +45,7 @@
             android:paddingStart="2dp"
             android:paddingTop="8dp"
             android:paddingEnd="2dp"
+            android:text="fpttest20@gmail.com"
             android:textAppearance="@style/SignUPText" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -78,7 +80,7 @@
             android:paddingStart="2dp"
             android:paddingTop="8dp"
             android:paddingEnd="2dp"
-            android:text=""
+            android:text="google12!"
             android:textAppearance="@style/SignUPText"
             app:endIconDrawable="@drawable/ic_eye_toogle" />
 

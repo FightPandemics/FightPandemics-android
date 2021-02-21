@@ -31,7 +31,7 @@ class DeleteDialogFragment : DialogFragment() {
         inject(this)
     }
 
-    override fun getDialog(): Dialog? {
+    override fun getDialog(): Dialog {
         homeViewModel = ViewModelProvider(requireActivity(), viewModelFactory)
             .get(HomeViewModel::class.java)
 

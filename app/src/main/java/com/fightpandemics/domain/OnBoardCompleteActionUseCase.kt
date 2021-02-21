@@ -12,7 +12,7 @@ import javax.inject.Inject
 @ActivityScope
 class OnBoardCompleteActionUseCase @Inject constructor(
     private val preferenceStorage: PreferenceStorage,
-    private val dispatcherProvider: CoroutinesDispatcherProvider
+    dispatcherProvider: CoroutinesDispatcherProvider
 ) : UseCase<Boolean, Unit>(dispatcherProvider.io) {
 
     override fun execute(completed: Boolean) {

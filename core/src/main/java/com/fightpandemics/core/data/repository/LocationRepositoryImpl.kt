@@ -48,11 +48,11 @@ class LocationRepositoryImpl @Inject constructor(
     override suspend fun getLocationPredictions(
         input: String
     ): Flow<Result<List<Prediction>>> {
-        val sessiontoken = getUUID()
+        val sessionToken = getUUID()
         return channelFlow {
             channel.offer(Result.Loading)
             val userLocationPredictions =
-                locationRemoteDataSource.getLocationPredictions(input, sessiontoken!!)
+                locationRemoteDataSource.getLocationPredictions(input, sessionToken!!)
             when {
                 userLocationPredictions.isSuccessful && userLocationPredictions.code() == 200 -> {
                     val locationPrediction =
@@ -74,10 +74,10 @@ class LocationRepositoryImpl @Inject constructor(
     override suspend fun getLocationDetails(
         placeId: String
     ): Flow<Result<*>> {
-        val sessiontoken = getUUID()
+        val sessionToken = getUUID()
         return channelFlow {
             val userLocationDetails =
-                locationRemoteDataSource.getLocationDetails(placeId, sessiontoken)
+                locationRemoteDataSource.getLocationDetails(placeId, sessionToken)
             when {
                 userLocationDetails.isSuccessful && userLocationDetails.code() == 200 -> {
                     val locationDetails =
