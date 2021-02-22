@@ -2,6 +2,7 @@ package com.fightpandemics.profile.domain
 
 import com.fightpandemics.core.dagger.scope.FeatureScope
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
+import com.fightpandemics.core.data.model.userlocationpredictions.Prediction
 import com.fightpandemics.core.domain.repository.LocationRepository
 import com.fightpandemics.core.domain.usecase.FlowUseCase
 import com.fightpandemics.core.result.Result
@@ -24,7 +25,11 @@ class LocationPredictionsUseCase @Inject constructor(
         return locationRepository.getLocationPredictions(parameters!!)!!.map {
             when (it) {
                 is Result.Loading -> it
-                is Result.Success -> it
+                is Result.Success -> {
+                    val predictions = it.data as List<Prediction>
+                    val predictionNames = predictions.map { prediction -> prediction.description }.toMutableList()
+                    Result.Success(predictionNames)
+                }
                 is Result.Error -> it
                 else -> Result.Error(IllegalStateException("Result must be Success or Error"))
             }
