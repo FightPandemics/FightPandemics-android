@@ -116,12 +116,19 @@
         android:name="com.fightpandemics.profile.ui.profile.IndivProfileSettings"
         app:moduleName="Fight_Pandemics.profile"
         android:label="Profile"
-        tools:layout="@layout/settings_signed_out"
+        tools:layout="@layout/profile_settings"
         >
         <action
             android:id="@+id/action_indivProfileSettings_to_editAccountFragment"
             app:destination="@id/editAccountFragment" />
+        <action
+            android:id="@+id/action_indivProfileSettings_to_nav_splash_onboard"
+            app:destination="@id/nav_splash_onboard" />
+        <action
+            android:id="@+id/action_indivProfileSettings_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/editAccountFragment"
         android:name="com.fightpandemics.profile.ui.profile.EditAccountFragment"
@@ -143,4 +150,5 @@
             app:destination="@id/changeLocationFragment" />
     </fragment>
 
+    <include app:graph="@navigation/nav_splash_onboard" />
 </navigation>
