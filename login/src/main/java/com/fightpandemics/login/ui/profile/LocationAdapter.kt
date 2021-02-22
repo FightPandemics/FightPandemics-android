@@ -10,7 +10,6 @@ import com.fightpandemics.login.R
 
 class LocationAdapter(val onItemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<LocationAdapter.ViewHolder>() {
-    val MAX_RECYCLER_VIEW_SIZE = 5
 
     var placesNames = listOf<Prediction>()
         set(value) {
@@ -44,6 +43,10 @@ class LocationAdapter(val onItemClickListener: OnItemClickListener) :
             return MAX_RECYCLER_VIEW_SIZE
         }
         return placesNames.size
+    }
+
+    companion object {
+        private const val MAX_RECYCLER_VIEW_SIZE = 5
     }
 
     interface OnItemClickListener {

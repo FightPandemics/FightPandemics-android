@@ -14,7 +14,7 @@
         android:hint="@string/address"
         android:textColorHint="@color/fightPandemicsNeonBlue"
         app:boxBackgroundMode="none"
-        app:errorEnabled="false"
+        app:errorEnabled="true"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
         app:hintTextAppearance="@style/SignUPTextHint"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/textview_line_bottom"
             android:inputType="text"
-            android:paddingStart="2dp"
+            android:paddingHorizontal="2dp"
             android:paddingTop="8dp"
             android:textAppearance="@style/SignUPText"
             android:drawableStart="@drawable/ic_map_pin"
@@ -38,24 +38,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </com.google.android.material.textfield.TextInputLayout>
-    <!--            app:endIconDrawable="@drawable/ic_eye_toogle"-->
-
-<!--    <com.google.android.material.textfield.TextInputEditText-->
-<!--        android:id="@+id/location_search"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="@color/fightPandemicsNeonBlue"-->
-<!--        android:clickable="true"-->
-<!--        android:drawableStart="@drawable/ic_map_pin"-->
-<!--        android:drawablePadding="@dimen/location_search_icon_padding"-->
-<!--        android:focusable="true"-->
-<!--        android:hint="@string/zip_code_neighborhood_or_city"-->
-<!--        android:textAppearance="@style/AndroidNativeP114Px"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.0" />-->
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/share_my_location"

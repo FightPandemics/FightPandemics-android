@@ -20,6 +20,7 @@ import com.fightpandemics.core.widgets.BaseLocationFragment
 import com.fightpandemics.login.dagger.inject
 import com.fightpandemics.login.databinding.FragmentCompleteProfileBinding
 import com.fightpandemics.login.ui.LoginViewModel
+import com.fightpandemics.login.util.dismissKeyboard
 import com.fightpandemics.login.util.snack
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
@@ -65,7 +66,6 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _fragmentCompleteProfileBinding = FragmentCompleteProfileBinding.inflate(inflater)
 
         fragmentCompleteProfileBinding.completeProfileToolbar.root.setOnClickListener {
@@ -73,34 +73,7 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         }
 
         fragmentCompleteProfileBinding.clBtnComplete.setOnClickListener {
-            val firstName: String =
-                fragmentCompleteProfileBinding.etFirstName.text.toString()
-            val lastName: String =
-                fragmentCompleteProfileBinding.etLastName.text.toString()
-            val donation: Boolean =
-                fragmentCompleteProfileBinding.root.donation_checkbox.isChecked
-            val information: Boolean =
-                fragmentCompleteProfileBinding.root.information_checkbox.isChecked
-            val volunteerHrsOffering: Boolean =
-                fragmentCompleteProfileBinding.root.hours_offer_checkbox.isChecked
-            val volunteerHrsRequest: Boolean =
-                fragmentCompleteProfileBinding.root.hours_request_checkbox.isChecked
-            val otherHelp: Boolean =
-                fragmentCompleteProfileBinding.root.other_help_checkbox.isChecked
-
-            val objectives = Objectives(donation, information, volunteerHrsOffering)
-            val needs = Needs(volunteerHrsRequest, otherHelp)
-            val hide = Hide(false)
-            // todo add proper validation to the fields
-            if (loginViewModel.locationSelected.value.isNullOrBlank()) {
-                // show location not selected error
-                fragmentCompleteProfileBinding.root.etAddress.error = "Please select a location"
-            } else {
-                val location = loginViewModel.completeProfileLocation
-                val completeProfileRequest = CompleteProfileRequest(firstName, hide, lastName, location, needs, objectives)
-                Timber.i("my complete profile request is $completeProfileRequest")
-                onCompleteProfile(completeProfileRequest)
-            }
+            validateAndCompleteProfile()
         }
 
         setupLocationAutocomplete()
@@ -117,6 +90,31 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
     override fun onDestroyView() {
         super.onDestroyView()
         _fragmentCompleteProfileBinding = null
+    }
+
+    private fun validateAndCompleteProfile() {
+        val firstName: String = fragmentCompleteProfileBinding.etFirstName.text.toString()
+        val lastName: String = fragmentCompleteProfileBinding.etLastName.text.toString()
+        val donation: Boolean = fragmentCompleteProfileBinding.root.donation_checkbox.isChecked
+        val information: Boolean = fragmentCompleteProfileBinding.root.information_checkbox.isChecked
+        val volunteerHrsOffering: Boolean = fragmentCompleteProfileBinding.root.hours_offer_checkbox.isChecked
+        val volunteerHrsRequest: Boolean = fragmentCompleteProfileBinding.root.hours_request_checkbox.isChecked
+        val otherHelp: Boolean = fragmentCompleteProfileBinding.root.other_help_checkbox.isChecked
+
+        val objectives = Objectives(donation, information, volunteerHrsOffering)
+        val needs = Needs(volunteerHrsRequest, otherHelp)
+        val hide = Hide(false)
+
+        // todo add proper validation to the fields
+        if (loginViewModel.locationSelected.value.isNullOrBlank()) {
+            // show location not selected error
+            fragmentCompleteProfileBinding.root.tilLocation.error = "Please select a location"
+        } else {
+            val location = loginViewModel.completeProfileLocation
+            val completeProfileRequest = CompleteProfileRequest(firstName, hide, lastName, location, needs, objectives)
+            Timber.i("my complete profile request is $completeProfileRequest")
+            onCompleteProfile(completeProfileRequest)
+        }
     }
 
     private fun onCompleteProfile(request: CompleteProfileRequest) {
@@ -231,8 +229,8 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
 
     // This removes focus and hides keyboard
     private fun removeFocusFromLocationEditText() {
-        fragmentCompleteProfileBinding.root.tilLocation.isEnabled = false
-        fragmentCompleteProfileBinding.root.tilLocation.isEnabled = true
+        fragmentCompleteProfileBinding.root.tilLocation.clearFocus()
+        dismissKeyboard(fragmentCompleteProfileBinding.root.tilLocation)
     }
 
     private fun bindLoading(isLoading: Boolean) {
