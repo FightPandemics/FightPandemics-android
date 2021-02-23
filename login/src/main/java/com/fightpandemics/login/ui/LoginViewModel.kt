@@ -249,7 +249,6 @@ class LoginViewModel @Inject constructor(
                     is Result.Success -> {
                         val locationDetails = it.data as com.fightpandemics.core.data.model.userlocationdetails.Location
                         Timber.i("Debug: my location prediction details $locationDetails")
-                        // todo check should i do something else when the location doesnt have details?
                         completeProfileLocation =
                             com.fightpandemics.core.data.model.login.Location(
                                 locationDetails.address ?: "",
