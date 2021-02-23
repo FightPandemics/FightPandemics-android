@@ -64,7 +64,7 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _fragmentCompleteProfileBinding = FragmentCompleteProfileBinding.inflate(inflater)
 
@@ -96,25 +96,66 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         val firstName: String = fragmentCompleteProfileBinding.etFirstName.text.toString()
         val lastName: String = fragmentCompleteProfileBinding.etLastName.text.toString()
         val donation: Boolean = fragmentCompleteProfileBinding.root.donation_checkbox.isChecked
-        val information: Boolean = fragmentCompleteProfileBinding.root.information_checkbox.isChecked
-        val volunteerHrsOffering: Boolean = fragmentCompleteProfileBinding.root.hours_offer_checkbox.isChecked
-        val volunteerHrsRequest: Boolean = fragmentCompleteProfileBinding.root.hours_request_checkbox.isChecked
+        val information: Boolean =
+            fragmentCompleteProfileBinding.root.information_checkbox.isChecked
+        val volunteerHrsOffering: Boolean =
+            fragmentCompleteProfileBinding.root.hours_offer_checkbox.isChecked
+        val volunteerHrsRequest: Boolean =
+            fragmentCompleteProfileBinding.root.hours_request_checkbox.isChecked
         val otherHelp: Boolean = fragmentCompleteProfileBinding.root.other_help_checkbox.isChecked
-
         val objectives = Objectives(donation, information, volunteerHrsOffering)
         val needs = Needs(volunteerHrsRequest, otherHelp)
         val hide = Hide(false)
 
-        // todo add proper validation to the fields
-        if (loginViewModel.locationSelected.value.isNullOrBlank()) {
-            // show location not selected error
-            fragmentCompleteProfileBinding.root.tilLocation.error = "Please select a location"
-        } else {
+        if (isFirstNameValid(firstName) and isLastNameValid(lastName) and isLocationValid()) {
             val location = loginViewModel.completeProfileLocation
-            val completeProfileRequest = CompleteProfileRequest(firstName, hide, lastName, location, needs, objectives)
+            val completeProfileRequest =
+                CompleteProfileRequest(firstName, hide, lastName, location, needs, objectives)
             Timber.i("my complete profile request is $completeProfileRequest")
             onCompleteProfile(completeProfileRequest)
         }
+    }
+
+    private fun isLocationValid(): Boolean {
+        val isValid = !loginViewModel.locationSelected.value.isNullOrBlank()
+        fragmentCompleteProfileBinding.root.tilLocation.isErrorEnabled = false
+        if (!isValid) {
+            fragmentCompleteProfileBinding.root.tilLocation.error = "Please select a location"
+            fragmentCompleteProfileBinding.root.tilLocation.isErrorEnabled = true
+        }
+        return isValid
+    }
+
+    private fun isFirstNameValid(firstName: String): Boolean {
+        var isValid = false
+        fragmentCompleteProfileBinding.tilFirstName.isErrorEnabled = true
+        when {
+            firstName.isBlank() ->
+                fragmentCompleteProfileBinding.tilFirstName.error = "First name is required."
+            firstName.length > 30 ->
+                fragmentCompleteProfileBinding.tilFirstName.error = "30 characters max."
+            else -> {
+                isValid = true
+                fragmentCompleteProfileBinding.tilFirstName.isErrorEnabled = false
+            }
+        }
+        return isValid
+    }
+
+    private fun isLastNameValid(lastName: String): Boolean {
+        var isValid = false
+        fragmentCompleteProfileBinding.tilLastName.isErrorEnabled = true
+        when {
+            lastName.isBlank() ->
+                fragmentCompleteProfileBinding.tilLastName.error = "Last name is required."
+            lastName.length > 30 ->
+                fragmentCompleteProfileBinding.tilLastName.error = "30 characters max."
+            else -> {
+                isValid = true
+                fragmentCompleteProfileBinding.tilLastName.isErrorEnabled = false
+            }
+        }
+        return isValid
     }
 
     private fun onCompleteProfile(request: CompleteProfileRequest) {
@@ -135,7 +176,10 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
                         }
                     }
                     else -> {
-                        fragmentCompleteProfileBinding.clBtnComplete.snack("Error: ${it.error}", Snackbar.LENGTH_LONG)
+                        fragmentCompleteProfileBinding.clBtnComplete.snack(
+                            "Error: ${it.error}",
+                            Snackbar.LENGTH_LONG
+                        )
                         Timber.e("ERROR ${it.error}")
                     }
                 }
@@ -177,7 +221,10 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
 
         // when focus is gone, handle suggestions visibility logic and textview deletion
         fragmentCompleteProfileBinding.root.etAddress.setOnFocusChangeListener { _, hasFocus ->
-            handleAutocompleteVisibility(fragmentCompleteProfileBinding.root.etAddress.text.toString(), hasFocus)
+            handleAutocompleteVisibility(
+                fragmentCompleteProfileBinding.root.etAddress.text.toString(),
+                hasFocus
+            )
             handleLocationSelectedText(hasFocus)
         }
 
