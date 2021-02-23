@@ -230,12 +230,14 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
 
         // when user starts typing, handle visibility, search for location predictions, and reset selected location
         fragmentCompleteProfileBinding.root.etAddress.doAfterTextChanged {
-            it.toString().also { inputLocation ->
-                handleAutocompleteVisibility(inputLocation)
-                searchLocationPredictions(inputLocation)
+            if (fragmentCompleteProfileBinding.root.etAddress.hasFocus()) {
+                it.toString().also { inputLocation ->
+                    handleAutocompleteVisibility(inputLocation)
+                    searchLocationPredictions(inputLocation)
+                }
+                // reset location selected since we are searching for a new location
+                loginViewModel.resetLocation()
             }
-            // reset location selected since we are searching for a new location
-            loginViewModel.resetLocation()
         }
     }
 

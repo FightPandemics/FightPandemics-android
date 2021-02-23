@@ -56,9 +56,7 @@ class LoginViewModel @Inject constructor(
     private var searchlocationJob: Job? = null
     val searchQuery = MutableStateFlow("")
 
-    // todo: this could change to late init if we have a validation to make sure user cant proceed wihout first searching for a location
-//    lateinit var completeProfileLocation: com.fightpandemics.core.data.model.login.Location
-    var completeProfileLocation = com.fightpandemics.core.data.model.login.Location("mock", "mock", listOf(0.0, 0.0), "mock", "mock")
+    lateinit var completeProfileLocation: com.fightpandemics.core.data.model.login.Location
 
     private val _currentLocationState = MutableStateFlow(UserLocationViewState(isLoading = true))
     val currentLocationState = _currentLocationState.asStateFlow()
@@ -228,13 +226,15 @@ class LoginViewModel @Inject constructor(
     ) {
 
         if (currentLocation != null) {
-            // todo what should we do if we get an empty field in Location
             completeProfileLocation = com.fightpandemics.core.data.model.login.Location(
-                currentLocation.address!!,
-                currentLocation.city!!,
-                listOf(currentLocation.coordinates!![0]!!, currentLocation.coordinates!![1]!!),
-                currentLocation.country!!,
-                currentLocation.state!!
+                currentLocation.address ?: "",
+                currentLocation.city ?: "",
+                listOf(
+                    currentLocation.coordinates?.get(0) ?: 0.0,
+                    currentLocation.coordinates?.get(1) ?: 0.0
+                ),
+                currentLocation.country ?: "",
+                currentLocation.state ?: ""
             )
         }
         _currentLocationState.value =
