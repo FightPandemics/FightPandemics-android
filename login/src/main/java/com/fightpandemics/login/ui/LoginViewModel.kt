@@ -62,6 +62,7 @@ class LoginViewModel @Inject constructor(
     val currentLocationState = _currentLocationState.asStateFlow()
     private val _searchLocationState = MutableStateFlow(mutableListOf<Prediction>())
     val searchLocationState = _searchLocationState.asStateFlow()
+
     // variable to keep track of selected location, also allows us to delete not-selected input from user
     private val _locationSelected = MutableLiveData("")
     val locationSelected = _locationSelected
@@ -187,7 +188,11 @@ class LoginViewModel @Inject constructor(
                 .collect {
                     when (it) {
                         is Result.Loading -> currentLocation(true, null, null)
-                        is Result.Success -> currentLocation(false, null, it.data as com.fightpandemics.core.data.model.userlocation.Location)
+                        is Result.Success -> currentLocation(
+                            false,
+                            null,
+                            it.data as com.fightpandemics.core.data.model.userlocation.Location
+                        )
                         is Result.Error -> currentLocation(true, it, null)
                     }
                 }
@@ -201,7 +206,7 @@ class LoginViewModel @Inject constructor(
         searchlocationJob = viewModelScope.launch {
             searchQuery
                 .debounce(300)
-                .filter { return@filter !it.isEmpty() && it.length >= 3 }
+                .filter { return@filter it.isNotEmpty() && it.length >= LEN_FOR_SUGGESTIONS }
                 .distinctUntilChanged()
                 .map { it.trim() }
                 .flatMapLatest { locationPredictionsNameAndIdUseCase(it) }
@@ -267,7 +272,18 @@ class LoginViewModel @Inject constructor(
 
     fun resetLocation() {
         _locationSelected.value = ""
-        completeProfileLocation = com.fightpandemics.core.data.model.login.Location("mock", "mock", listOf(0.0, 0.0), "mock", "mock")
+        completeProfileLocation = com.fightpandemics.core.data.model.login.Location(
+            "mock",
+            "mock",
+            listOf(0.0, 0.0),
+            "mock",
+            "mock"
+        )
+    }
+
+    companion object {
+        const val DEBOUNCE_CONST = 300
+        const val LEN_FOR_SUGGESTIONS = 3
     }
 }
 

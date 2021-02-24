@@ -132,7 +132,7 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         when {
             firstName.isBlank() ->
                 fragmentCompleteProfileBinding.tilFirstName.error = "First name is required."
-            firstName.length > 30 ->
+            firstName.length > MAX_NAME_LENGTH ->
                 fragmentCompleteProfileBinding.tilFirstName.error = "30 characters max."
             else -> {
                 isValid = true
@@ -148,7 +148,7 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         when {
             lastName.isBlank() ->
                 fragmentCompleteProfileBinding.tilLastName.error = "Last name is required."
-            lastName.length > 30 ->
+            lastName.length > MAX_NAME_LENGTH ->
                 fragmentCompleteProfileBinding.tilLastName.error = "30 characters max."
             else -> {
                 isValid = true
@@ -198,15 +198,15 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
             etAddress.setText("")
             getCurrentLocation()
             lifecycleScope.launchWhenStarted {
-                loginViewModel.currentLocationState.collect {
+                loginViewModel.currentLocationState.collect { locationState ->
                     when {
-                        it.isLoading -> bindLoading(it.isLoading)
-                        it.userLocation!!.isNotEmpty() -> {
-                            bindLoading(it.isLoading)
-                            onSelectedLocation(it.userLocation)
+                        locationState.isLoading -> bindLoading(locationState.isLoading)
+                        locationState.userLocation!!.isNotEmpty() -> {
+                            bindLoading(locationState.isLoading)
+                            onSelectedLocation(locationState.userLocation)
                         }
-                        it.error != null -> {
-                            bindLoading(it.isLoading)
+                        locationState.error != null -> {
+                            bindLoading(locationState.isLoading)
                         }
                     }
                 }
@@ -244,17 +244,17 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
     private fun searchLocationPredictions(inputLocation: String) {
         lifecycleScope.launchWhenStarted {
             loginViewModel.searchQuery.value = inputLocation
-            loginViewModel.searchLocationState.collect {
-                adapter.placesNames = it
+            loginViewModel.searchLocationState.collect { preditions ->
+                adapter.placesNames = preditions
             }
         }
     }
 
-    private fun onSelectedLocation(selected_location: String) {
+    private fun onSelectedLocation(selectedLocation: String) {
         // display selected location in editText
-        fragmentCompleteProfileBinding.root.etAddress.setText(selected_location)
+        fragmentCompleteProfileBinding.root.etAddress.setText(selectedLocation)
         // save location selected in liveData view model to prevent not-selected input from being accepted
-        loginViewModel.locationSelected.value = selected_location
+        loginViewModel.locationSelected.value = selectedLocation
         removeFocusFromLocationEditText()
     }
 
@@ -295,5 +295,6 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
     companion object {
         const val USER_PROFILE = "userProfile"
         const val LENGTH_TO_SHOW_SUGGESTIONS = 3
+        const val MAX_NAME_LENGTH = 30
     }
 }
