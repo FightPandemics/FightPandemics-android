@@ -346,11 +346,11 @@ class CreatePostFragment : Fragment() {
         alertDialog.setView(view)
         alertDialog.setCancelable(false)
         val builder = alertDialog.show()
-        view.findViewById<ImageView>(R.id.view_post).setOnClickListener {
+        view.findViewById<ImageView>(R.id.btn_view_post).setOnClickListener {
             builder.dismiss()
             findNavController().navigateUp()
         }
-        view.findViewById<ImageView>(R.id.cancel).setOnClickListener {
+        view.findViewById<ImageView>(R.id.btn_view_post).setOnClickListener {
             builder.dismiss()
             findNavController().navigateUp()
         }

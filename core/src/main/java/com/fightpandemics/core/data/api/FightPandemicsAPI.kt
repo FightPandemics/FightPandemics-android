@@ -6,6 +6,7 @@ import com.fightpandemics.core.data.model.login.SignUpRequest
 import com.fightpandemics.core.data.model.login.CompleteProfileResponse
 import com.fightpandemics.core.data.model.login.CompleteProfileRequest
 import com.fightpandemics.core.data.model.login.SignUpResponse
+import com.fightpandemics.core.data.model.post.CreatePostRequest
 import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
@@ -122,6 +123,9 @@ interface FightPandemicsAPI {
         @Query("skip") skip: Int,
         @Query("authorId") authorId: String,
     ): List<Post>
+
+    @POST("api/posts")
+    suspend fun createPost(@Body createPostRequest: CreatePostRequest): Response<*>
 
     companion object {
         // Staging API for Development
