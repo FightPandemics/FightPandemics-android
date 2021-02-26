@@ -41,7 +41,7 @@ class HomeOptionsBottomSheetFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = EditDeleteBinding.inflate(inflater, container, false)
         editDeleteBinding = binding
         return binding.root

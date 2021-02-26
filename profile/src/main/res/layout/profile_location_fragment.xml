@@ -68,19 +68,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_location"
         android:text="@string/share_my_location" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/share_location_text"
+        app:layout_constraintEnd_toEndOf="@+id/share_location_text"
+        app:layout_constraintTop_toTopOf="@+id/share_location_text" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/profile_location_recyclerView"
-        android:layout_width="382dp"
-        android:layout_height="287dp"
-        android:layout_marginStart="20dp"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="10dp"
         android:layout_marginBottom="20dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toTopOf="@+id/profile_location_save_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/share_location_text" />
+        app:layout_constraintTop_toBottomOf="@+id/share_location_text"
+        app:layoutManager="LinearLayoutManager"/>
     <Button
         android:id="@+id/profile_location_save_btn"
         style="@style/PrimaryButton"
@@ -89,7 +100,7 @@
         android:layout_marginBottom="150dp"
         android:lineSpacingExtra="5.9sp"
         android:text="@string/save"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_location_recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

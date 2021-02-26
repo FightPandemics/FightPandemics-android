@@ -44,6 +44,7 @@
             android:paddingStart="2dp"
             android:paddingTop="8dp"
             android:paddingEnd="2dp"
+            android:text="fpttest20@gmail.com"
             android:textAppearance="@style/SignUPText" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -78,7 +79,7 @@
             android:paddingStart="2dp"
             android:paddingTop="8dp"
             android:paddingEnd="2dp"
-            android:text=""
+            android:text="google12!"
             android:textAppearance="@style/SignUPText"
             app:endIconDrawable="@drawable/ic_eye_toogle" />
 

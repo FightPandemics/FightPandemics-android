@@ -11,9 +11,8 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
+import com.fightpandemics.profile.dagger.inject
 import com.fightpandemics.profile.util.capitalizeFirstLetter
-import com.fightpandemics.ui.splash.inject
-import kotlinx.android.synthetic.main.activity_logged_in.toolbar
 import kotlinx.android.synthetic.main.email_item.*
 import kotlinx.android.synthetic.main.location_item.*
 import kotlinx.android.synthetic.main.name_item.*

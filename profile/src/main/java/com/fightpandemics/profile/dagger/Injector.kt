@@ -4,6 +4,10 @@ import android.app.Activity
 import androidx.fragment.app.Fragment
 import com.fightpandemics.FightPandemicsApp
 import com.fightpandemics.core.dagger.CoreComponentProvider
+import com.fightpandemics.profile.ui.ChangeEmailFragment
+import com.fightpandemics.profile.ui.ChangeGoalFragment
+import com.fightpandemics.profile.ui.ChangeLocationFragment
+import com.fightpandemics.profile.ui.profile.*
 import com.fightpandemics.profile.ui.profile.EditProfileAboutFragment
 import com.fightpandemics.profile.ui.profile.EditProfileFragment
 import com.fightpandemics.profile.ui.profile.EditProfileNameFragment
@@ -58,7 +62,52 @@ fun inject(editProfileSocialFragment: EditProfileSocialFragment) {
         .create(appComponent, editProfileSocialFragment.coreComponent())
         .inject(editProfileSocialFragment)
 }
+fun inject(indivProfileSettings: IndivProfileSettings) {
+    val appComponent =
+        (indivProfileSettings.requireActivity().applicationContext as FightPandemicsApp).appComponent
 
+    DaggerProfileComponent
+        .factory()
+        .create(appComponent, indivProfileSettings.coreComponent())
+        .inject(indivProfileSettings)
+}
+
+fun inject(editAccountFragment: EditAccountFragment) {
+    val appComponent =
+        (editAccountFragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
+
+    DaggerProfileComponent
+        .factory()
+        .create(appComponent, editAccountFragment.coreComponent())
+        .inject(editAccountFragment)
+}
+fun inject(changeGoalFragment: ChangeGoalFragment) {
+    val appComponent =
+        (changeGoalFragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
+
+    DaggerProfileComponent
+        .factory()
+        .create(appComponent, changeGoalFragment.coreComponent())
+        .inject(changeGoalFragment)
+}
+fun inject(changeEmailFragment: ChangeEmailFragment) {
+    val appComponent =
+        (changeEmailFragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
+
+    DaggerProfileComponent
+        .factory()
+        .create(appComponent, changeEmailFragment.coreComponent())
+        .inject(changeEmailFragment)
+}
+fun inject(changeLocationFragment: ChangeLocationFragment) {
+    val appComponent =
+        (changeLocationFragment.requireActivity().applicationContext as FightPandemicsApp).appComponent
+
+    DaggerProfileComponent
+        .factory()
+        .create(appComponent, changeLocationFragment.coreComponent())
+        .inject(changeLocationFragment)
+}
 fun Fragment.coreComponent() = requireActivity().coreComponent()
 
 fun Activity.coreComponent() =

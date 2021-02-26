@@ -9,7 +9,7 @@ import javax.inject.Inject
 @FeatureScope
 class ObserveUserAuthStateUseCase @Inject constructor(
     private val preferenceStorage: PreferenceStorage,
-    private val dispatcherProvider: CoroutinesDispatcherProvider
+    dispatcherProvider: CoroutinesDispatcherProvider
 ) : UseCase<Any, UserInfo>(dispatcherProvider.default) {
 
     override fun execute(parameters: Any): UserInfo {

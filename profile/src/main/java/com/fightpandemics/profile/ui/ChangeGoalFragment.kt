@@ -14,9 +14,9 @@ import com.fightpandemics.core.data.model.profile.Objectives
 import com.fightpandemics.core.data.model.profile.PatchIndividualAccountRequest
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.profile.R
+import com.fightpandemics.profile.dagger.inject
 import com.fightpandemics.profile.ui.profile.IndivProfileSettings
 import com.fightpandemics.profile.ui.profile.ProfileViewModel
-import com.fightpandemics.ui.splash.inject
 import kotlinx.android.synthetic.main.donation_checkbox.*
 import kotlinx.android.synthetic.main.information_checkbox.*
 import kotlinx.android.synthetic.main.medical_help_checkbox.*

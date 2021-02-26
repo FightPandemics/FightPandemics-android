@@ -41,7 +41,7 @@ class HomeOfferFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val rootView = inflater.inflate(R.layout.home_offer_fragment, container, false)
         progressBar = rootView.findViewById(R.id.progressBar)
         postList = rootView.findViewById(R.id.postList)

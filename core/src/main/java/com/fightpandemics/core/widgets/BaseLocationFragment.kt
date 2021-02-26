@@ -11,7 +11,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.fightpandemics.core.R
 import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.tasks.RuntimeExecutionException
 import timber.log.Timber
 
@@ -26,7 +31,7 @@ open class BaseLocationFragment : Fragment() {
         .setFastestInterval(5 * 1000) // 5 seconds
 
     var mFusedLocationClient: FusedLocationProviderClient? = null
-    var locationCallback: LocationCallback? = null
+    private var locationCallback: LocationCallback? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,14 +53,13 @@ open class BaseLocationFragment : Fragment() {
     fun getCurrentLocation() {
         // Call findCurrentPlace and handle the response (first check that the user has granted permission).
         if (ContextCompat.checkSelfPermission(
-            requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
-        )
-            == PackageManager.PERMISSION_GRANTED
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
         ) {
-            val REQUEST_CHECK_STATE = 12300 // any suitable ID
+            val requestCheckState = anySuitableId
             val builder = LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest)
-
             val client = LocationServices.getSettingsClient(requireContext())
             client.checkLocationSettings(builder.build()).addOnCompleteListener { task ->
                 try {
@@ -63,11 +67,12 @@ open class BaseLocationFragment : Fragment() {
                     Timber.i("My filters : gps is on")
                 } catch (e: RuntimeExecutionException) {
                     Timber.i("My filters : runtime execution exception")
-                    if (e.cause is ResolvableApiException)
-                    (e.cause as ResolvableApiException).startResolutionForResult(
-                        requireActivity(),
-                        REQUEST_CHECK_STATE
-                    )
+                    if (e.cause is ResolvableApiException) {
+                        (e.cause as ResolvableApiException).startResolutionForResult(
+                            requireActivity(),
+                            requestCheckState
+                        )
+                    }
                 }
             }
 
@@ -107,19 +112,19 @@ open class BaseLocationFragment : Fragment() {
             val dialogView = layoutInflater.inflate(R.layout.location_permission_dialog, null)
             AlertDialog.Builder(requireContext())
                 .setView(dialogView)
-                .setPositiveButton("ALLOW") { dialog, which ->
+                .setPositiveButton("ALLOW") { _, _ ->
                     requestPermissions(
                         arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                        Companion.LOCATION_PERMISSION_CODE
+                        LOCATION_PERMISSION_CODE
                     )
                 }
-                .setNegativeButton("CANCEL") { dialog, id ->
+                .setNegativeButton("CANCEL") { dialog, _ ->
                     dialog.dismiss()
                 }.create().show()
         } else {
             requestPermissions(
                 arrayOf("android.permission.ACCESS_FINE_LOCATION"),
-                Companion.LOCATION_PERMISSION_CODE
+                LOCATION_PERMISSION_CODE
             )
         }
     }
@@ -130,7 +135,7 @@ open class BaseLocationFragment : Fragment() {
         grantResults: IntArray
     ) {
         when (requestCode) {
-            Companion.LOCATION_PERMISSION_CODE -> {
+            LOCATION_PERMISSION_CODE -> {
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
                 } else {
@@ -144,6 +149,7 @@ open class BaseLocationFragment : Fragment() {
 
     companion object {
         // variable for location permission
-        private val LOCATION_PERMISSION_CODE = 1
+        private const val LOCATION_PERMISSION_CODE = 1
+        private const val anySuitableId = 12300
     }
 }

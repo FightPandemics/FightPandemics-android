@@ -83,7 +83,7 @@ class LoginViewModel @Inject constructor(
                         val signUpResponse = it.data as SignUpResponse
                         _signup.value = SignUPViewState(
                             false,
-                            signUpResponse.emailVerified!!,
+                            signUpResponse.emailVerified,
                             signUpResponse.token,
                             null,
                             isError = false
