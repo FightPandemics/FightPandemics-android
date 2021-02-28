@@ -6,8 +6,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.coroutineScope
+import com.fightpandemics.core.data.model.userlocationpredictions.Prediction
 import com.fightpandemics.login.databinding.CompleteProfileLocationBinding
 import com.fightpandemics.login.ui.LoginViewModel
+import com.fightpandemics.login.util.dismissKeyboard
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collect
@@ -18,12 +20,17 @@ import kotlinx.coroutines.flow.collect
 class LocationSearchComponent(
     private val loginViewModel: LoginViewModel,
     private val locationAutocompleteBinding: CompleteProfileLocationBinding,
-    private val adapter: LocationAdapter
-) : LifecycleObserver {
+    lifecycle: Lifecycle
+) : LifecycleObserver, LocationAdapter.OnItemClickListener {
     private lateinit var scope: LifecycleCoroutineScope
+    private val adapter = LocationAdapter(this)
 
-    // todo this might need to be in constructor to make sure scope is not null
-    fun registerLifecycleOwner(lifecycle: Lifecycle) {
+    init {
+        registerLifecycleOwner(lifecycle)
+    }
+
+    private fun registerLifecycleOwner(lifecycle: Lifecycle) {
+        // todo should i need to subscribe to the observer?
         lifecycle.addObserver(this)
         scope = lifecycle.coroutineScope
     }
@@ -57,28 +64,6 @@ class LocationSearchComponent(
         }
     }
 
-//    fun setupShareLocation() {
-//        locationAutocompleteBinding.shareMyLocation.setOnClickListener {
-//            locationAutocompleteBinding.etAddress.setText("")
-//            getCurrentLocation()
-//            scope.launchWhenStarted {
-// //            lifecycleScope.launchWhenStarted {
-//                loginViewModel.currentLocationState.collect { locationState ->
-//                    when {
-//                        locationState.isLoading -> bindLoading(locationState.isLoading)
-//                        locationState.userLocation!!.isNotEmpty() -> {
-//                            bindLoading(locationState.isLoading)
-//                            onSelectedLocation(locationState.userLocation)
-//                        }
-//                        locationState.error != null -> {
-//                            bindLoading(locationState.isLoading)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-
     private fun searchLocationPredictions(inputLocation: String) {
         scope.launchWhenStarted {
             loginViewModel.searchQuery.value = inputLocation
@@ -103,6 +88,24 @@ class LocationSearchComponent(
 
     private fun shouldClearLocationText() =
         loginViewModel.locationSelected.value.isNullOrBlank()
+
+    fun onSelectedLocation(selectedLocation: String) {
+        // display selected location in editText
+        locationAutocompleteBinding.etAddress.setText(selectedLocation)
+        // save location selected in liveData view model to prevent not-selected input from being accepted
+        loginViewModel.locationSelected.value = selectedLocation
+        removeFocusAndKeyboardFromLocationEditText()
+    }
+
+    private fun removeFocusAndKeyboardFromLocationEditText() {
+        locationAutocompleteBinding.tilLocation.clearFocus()
+        dismissKeyboard(locationAutocompleteBinding.tilLocation)
+    }
+
+    override fun onAutocompleteLocationClick(locationSelected: Prediction) {
+        onSelectedLocation(locationSelected.description)
+        loginViewModel.getLocationDetails(locationSelected.place_id)
+    }
 
     companion object {
         const val LENGTH_TO_SHOW_SUGGESTIONS = 3
