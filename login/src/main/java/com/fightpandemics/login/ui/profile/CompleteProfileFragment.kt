@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -22,12 +21,9 @@ import com.fightpandemics.login.databinding.FragmentCompleteProfileBinding
 import com.fightpandemics.login.ui.LoginViewModel
 import com.fightpandemics.login.util.dismissKeyboard
 import com.fightpandemics.login.util.snack
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.complete_profile_location.etAddress
-import kotlinx.android.synthetic.main.complete_profile_location.view.auto_complete_locations_recycler_view
 import kotlinx.android.synthetic.main.complete_profile_location.view.etAddress
-import kotlinx.android.synthetic.main.complete_profile_location.view.item_line_divider1
 import kotlinx.android.synthetic.main.complete_profile_location.view.progressBar
 import kotlinx.android.synthetic.main.complete_profile_location.view.share_my_location
 import kotlinx.android.synthetic.main.complete_profile_location.view.tilLocation
@@ -47,11 +43,12 @@ import javax.inject.Inject
 class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemClickListener {
     private val adapter = LocationAdapter(this)
 
+    private var locationSearchComponent: LocationSearchComponent? = null
+
     @Inject
     lateinit var loginViewModelFactory: ViewModelFactory
 
     private val loginViewModel: LoginViewModel by viewModels { loginViewModelFactory }
-    private lateinit var completeProfileToolbar: MaterialToolbar
 
     private var _fragmentCompleteProfileBinding: FragmentCompleteProfileBinding? = null
     private val fragmentCompleteProfileBinding get() = _fragmentCompleteProfileBinding!!
@@ -76,7 +73,15 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
             validateAndCompleteProfile()
         }
 
-        setupLocationAutocomplete()
+        locationSearchComponent = LocationSearchComponent(
+            loginViewModel,
+            fragmentCompleteProfileBinding.tilAddress,
+            adapter
+        ).apply {
+            this.registerLifecycleOwner(lifecycle)
+            this.setupLocationAutocomplete()
+//            this.setupShareLocation()
+        }
         setupShareLocation()
 
         return fragmentCompleteProfileBinding.root
@@ -90,6 +95,7 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
     override fun onDestroyView() {
         super.onDestroyView()
         _fragmentCompleteProfileBinding = null
+        locationSearchComponent = null
     }
 
     private fun validateAndCompleteProfile() {
@@ -189,7 +195,6 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
 
     override fun updateLocation(location: android.location.Location) {
         Timber.i("My filters from filter $location")
-        // filterViewModel.updateCurrentLocation(location)
         loginViewModel.updateCurrentLocation(location)
     }
 
@@ -214,66 +219,12 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
         }
     }
 
-    private fun setupLocationAutocomplete() {
-        // set the custom adapter to the RecyclerView
-        fragmentCompleteProfileBinding.root.auto_complete_locations_recycler_view.adapter =
-            adapter
-
-        // when focus is gone, handle suggestions visibility logic and textview deletion
-        fragmentCompleteProfileBinding.root.etAddress.setOnFocusChangeListener { _, hasFocus ->
-            handleAutocompleteVisibility(
-                fragmentCompleteProfileBinding.root.etAddress.text.toString(),
-                hasFocus
-            )
-            handleLocationSelectedText(hasFocus)
-        }
-
-        // when user starts typing, handle visibility, search for location predictions, and reset selected location
-        fragmentCompleteProfileBinding.root.etAddress.doAfterTextChanged {
-            if (fragmentCompleteProfileBinding.root.etAddress.hasFocus()) {
-                it.toString().also { inputLocation ->
-                    handleAutocompleteVisibility(inputLocation)
-                    searchLocationPredictions(inputLocation)
-                }
-                // reset location selected since we are searching for a new location
-                loginViewModel.resetLocation()
-            }
-        }
-    }
-
-    private fun searchLocationPredictions(inputLocation: String) {
-        lifecycleScope.launchWhenStarted {
-            loginViewModel.searchQuery.value = inputLocation
-            loginViewModel.searchLocationState.collect { preditions ->
-                adapter.placesNames = preditions
-            }
-        }
-    }
-
     private fun onSelectedLocation(selectedLocation: String) {
         // display selected location in editText
         fragmentCompleteProfileBinding.root.etAddress.setText(selectedLocation)
         // save location selected in liveData view model to prevent not-selected input from being accepted
         loginViewModel.locationSelected.value = selectedLocation
         removeFocusFromLocationEditText()
-    }
-
-    private fun handleAutocompleteVisibility(locationQuery: String, hasFocus: Boolean = true) {
-        if (locationQuery.isBlank() || locationQuery.length < LENGTH_TO_SHOW_SUGGESTIONS || !hasFocus) {
-            fragmentCompleteProfileBinding.root.auto_complete_locations_recycler_view.visibility =
-                View.GONE
-            fragmentCompleteProfileBinding.root.item_line_divider1.visibility = View.GONE
-        } else {
-            fragmentCompleteProfileBinding.root.auto_complete_locations_recycler_view.visibility =
-                View.VISIBLE
-            fragmentCompleteProfileBinding.root.item_line_divider1.visibility = View.VISIBLE
-        }
-    }
-
-    private fun handleLocationSelectedText(hasFocus: Boolean) {
-        if (!hasFocus && loginViewModel.locationSelected.value.isNullOrBlank()) {
-            fragmentCompleteProfileBinding.root.etAddress.text?.clear()
-        }
     }
 
     // This removes focus and hides keyboard
@@ -289,12 +240,11 @@ class CompleteProfileFragment : BaseLocationFragment(), LocationAdapter.OnItemCl
 
     override fun onAutocompleteLocationClick(locationSelected: Prediction) {
         onSelectedLocation(locationSelected.description)
-        loginViewModel.getDetails(locationSelected.place_id)
+        loginViewModel.getLocationDetails(locationSelected.place_id)
     }
 
     companion object {
         const val USER_PROFILE = "userProfile"
-        const val LENGTH_TO_SHOW_SUGGESTIONS = 3
         const val MAX_NAME_LENGTH = 30
     }
 }

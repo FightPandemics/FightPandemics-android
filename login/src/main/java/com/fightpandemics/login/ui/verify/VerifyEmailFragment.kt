@@ -28,8 +28,8 @@ class VerifyEmailFragment : Fragment() {
 
     @FlowPreview
     private val loginViewModel: LoginViewModel by viewModels { loginViewModelFactory }
-    private lateinit var verify_email_toolbar: MaterialToolbar
-    private lateinit var btn_verify_email: MaterialButton
+    private lateinit var verifyEmailToolbar: MaterialToolbar
+    private lateinit var btnVerifyEmail: MaterialButton
 
     private var email: String? = null
     private var password: String? = null
@@ -47,14 +47,10 @@ class VerifyEmailFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_verify_email, container, false)
         val textView: TextView = rootView.findViewById(R.id.appBar_title_login)
         textView.text = getString(R.string.go_sign_in)
-        btn_verify_email = rootView.findViewById(R.id.btn_verify_email)
-        btn_verify_email.setOnClickListener {
+        btnVerifyEmail = rootView.findViewById(R.id.btn_verify_email)
+        btnVerifyEmail.setOnClickListener {
             openEmailApp()
         }
-//        tv_join_now_instead.apply {
-//            joinNow(this)
-//        }
-        // verify_email_toolbar = rootView.findViewById(R.id.verify_email_toolbar)
         return rootView
     }
 

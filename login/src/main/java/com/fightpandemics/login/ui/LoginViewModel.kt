@@ -205,7 +205,7 @@ class LoginViewModel @Inject constructor(
         searchlocationJob?.cancel()
         searchlocationJob = viewModelScope.launch {
             searchQuery
-                .debounce(300)
+                .debounce(timeoutMillis = 300)
                 .filter { return@filter it.isNotEmpty() && it.length >= LEN_FOR_SUGGESTIONS }
                 .distinctUntilChanged()
                 .map { it.trim() }
@@ -246,7 +246,7 @@ class LoginViewModel @Inject constructor(
             UserLocationViewState(loading, error, "${currentLocation?.address}")
     }
 
-    fun getDetails(placeId: String?) {
+    fun getLocationDetails(placeId: String?) {
         Timber.i("Debug: my placeId is $placeId")
         viewModelScope.launch {
             locationDetailsUseCase.invoke(placeId).collect {
@@ -270,14 +270,14 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun resetLocation() {
+    fun resetOldLocationSelected() {
         _locationSelected.value = ""
         completeProfileLocation = com.fightpandemics.core.data.model.login.Location(
-            "mock",
-            "mock",
+            "",
+            "",
             listOf(0.0, 0.0),
-            "mock",
-            "mock"
+            "",
+            ""
         )
     }
 
