@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="6dp"
+    app:cardCornerRadius="0dp"
+    app:cardForegroundColor="@android:color/transparent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/objective"
+            style="@style/AndroidNativeP311Px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="?colorPrimary"
+            app:layout_constraintStart_toStartOf="@+id/user_avatar"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/offers" />
+
+        <ImageView
+            android:id="@+id/post_option"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_post_options"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/dot"
+            android:layout_width="2dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="10dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_dot"
+            app:layout_constraintBottom_toBottomOf="@+id/objective"
+            app:layout_constraintStart_toEndOf="@+id/objective"
+            app:layout_constraintTop_toTopOf="@+id/objective"
+            app:tint="?colorPrimary" />
+
+        <TextView
+            android:id="@+id/time_posted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/objective"
+            app:layout_constraintStart_toEndOf="@+id/dot"
+            app:layout_constraintTop_toTopOf="@+id/objective"
+            tools:text="Posted 14hrs ago" />
+
+        <com.fightpandemics.core.widgets.ProfileImageView
+            android:id="@+id/user_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            app:aiv_borderColor="?colorPrimary"
+            app:aiv_borderWidth="2dp"
+            app:aiv_initials="VM"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/objective" />
+
+        <TextView
+            android:id="@+id/user_full_name"
+            style="@style/AndroidNativeH314Px"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/user_avatar"
+            app:layout_constraintTop_toTopOf="@+id/user_avatar"
+            tools:text="Victor Maragioglio" />
+
+        <ImageView
+            android:id="@+id/dot_normal"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:contentDescription="@string/dot_normal"
+            android:src="@drawable/ic_dot"
+            app:layout_constraintBottom_toBottomOf="@+id/user_location"
+            app:layout_constraintStart_toStartOf="@+id/user_full_name"
+            app:layout_constraintTop_toTopOf="@+id/user_location"
+            app:tint="?colorPrimary" />
+
+        <TextView
+            android:id="@+id/user_location"
+            style="@style/AndroidNativeP311Px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="?colorPrimary"
+            app:layout_constraintStart_toEndOf="@+id/dot_normal"
+            app:layout_constraintTop_toBottomOf="@+id/user_full_name"
+            tools:text="Berlin, Germany" />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/user_avatar"
+            app:layout_constraintTop_toBottomOf="@+id/user_location">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:singleLine="true" />
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/post_title"
+            style="@style/AndroidNativeH122Px"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/user_avatar"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollBar"
+            tools:text="I have 100 face Masks to give away." />
+
+        <TextView
+            android:id="@+id/post_content"
+            style="@style/AndroidNativeP114Px"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/post_title"
+            app:layout_constraintTop_toBottomOf="@+id/post_title"
+            tools:text="I have a small store and I would like to give away 100 mask but I don’t know where, please contact me if you need them. I have a small store and I would like to give away 100 mask but I don’t know where, please contact me if you need them. please co ..." />
+
+        <com.google.android.material.internal.CheckableImageButton
+            android:id="@+id/like"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/likes"
+            android:focusable="true"
+            android:src="@drawable/like_event"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/post_content" />
+
+        <TextView
+            android:id="@+id/likes_count"
+            style="@style/AndroidNativeP212Px"
+            android:layout_width="12dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/like"
+            app:layout_constraintStart_toEndOf="@+id/like"
+            app:layout_constraintTop_toTopOf="@+id/like"
+            tools:text="12" />
+
+        <com.google.android.material.internal.CheckableImageButton
+            android:id="@+id/comment"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/comments"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/likes_count"
+            app:layout_constraintStart_toEndOf="@+id/likes_count"
+            app:layout_constraintTop_toTopOf="@+id/likes_count"
+            app:srcCompat="@drawable/ic_comments" />
+
+        <TextView
+            android:id="@+id/comments_count"
+            style="@style/AndroidNativeP212Px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/comment"
+            app:layout_constraintStart_toEndOf="@+id/comment"
+            app:layout_constraintTop_toTopOf="@+id/comment"
+            tools:text="3" />
+
+        <com.google.android.material.internal.CheckableImageButton
+            android:id="@+id/share"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="24dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/share"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/comments_count"
+            app:layout_constraintStart_toEndOf="@+id/comments_count"
+            app:layout_constraintTop_toTopOf="@+id/comments_count"
+            app:srcCompat="@drawable/ic_share" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

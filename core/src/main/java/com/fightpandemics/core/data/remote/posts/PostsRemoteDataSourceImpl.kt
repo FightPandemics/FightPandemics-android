@@ -21,6 +21,11 @@ class PostsRemoteDataSourceImpl @Inject constructor(
     override suspend fun fetchPost(postId: String): Response<Post> =
         fightPandemicsAPI.getPost(postId = postId)
 
+    override suspend fun fetchPostsByAuthor(
+        authorId: String
+    ): List<Post> =
+        fightPandemicsAPI.getPostsByAuthor(true, limit, skip, authorId)
+
     override suspend fun updatePost(postId: String, postRequest: PostRequest) {
         val d = fightPandemicsAPI.updatePost(postId, postRequest)
         Timber.e(d.isSuccessful.toString())
@@ -28,6 +33,7 @@ class PostsRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun deletePost(postId: String) {
         val e = fightPandemicsAPI.deletePost(postId)
+        Timber.e(e.isSuccessful.toString())
     }
 
     override suspend fun likePost(postId: String, userId: String, like: Boolean) {
@@ -35,5 +41,10 @@ class PostsRemoteDataSourceImpl @Inject constructor(
             like -> fightPandemicsAPI.likePost(postId, userId)
             else -> fightPandemicsAPI.unlikePost(postId, userId)
         }
+    }
+
+    companion object {
+        private const val limit = 10
+        private const val skip = 0
     }
 }

@@ -21,6 +21,16 @@
     <string name="profile_my_organisation">My Organisation</string>
     <string name="settings_action">Settings</string>
     <string name="select_account">Select Account</string>
+    <string name="fightpandemics_app_v1_2">FightPandemics App V1.2</string>
+    <string name="join_now">Join now or sign in to get started</string>
+    <string name="about_us">About us</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="support">Support</string>
+    <string name="feedback">Feedback</string>
+    <string name="update_public_profile">Update public profile</string>
+    <string name="update_account_information">Update account information</string>
+    <string name="setup_notification_settings">Setup notification settings</string>
+    <string name="signout">Signout</string>
     <string name="i_am_here_to">I am here to ...</string>
     <string name="donations">Donations</string>
     <string name="information">Information</string>
@@ -88,6 +98,13 @@
     <string name="l">L</string>
     <string name="t">T</string>
 
+    <!--My Profile-->
+    <string name="profile_picture">Profile Picture</string>
+    <string name="add_name">Name</string>
+    <string name="toolbar_edit_name">Name</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="instagram_url">Instagram URL</string>
 
     <!--Password Recovery-->
     <string name="msg_email_not_registered">Email address isn’t registered yet</string>
@@ -99,10 +116,22 @@
     <string name="content_description_back_button">This is back button</string>
     <string name="email_sent_msg">An e-mail has been sent with further instructions. Please check your inbox.</string>
     <string name="back_to_login">Back to Login</string>
-
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="share_my_location">Share my location</string>
+    <!--PROFILE ERRORs-->
+    <string name="error_empty_first_name">First name is a required field</string>
+    <string name="error_empty_email">Email is a required field</string>
+    <string name="error_empty_last_name">Last name is a required field</string>
+    <string name="error_name_length">30 characters max</string>
+    <string name="error_size_bio">About should have 0 to 160 chars</string>
+    <string name="error_size_social">15 characters max</string>
+    <string name="error_facebook_valid_characters">Valid characters are: A-Z a-z 0-9 ..</string>
+    <string name="error_instagram_valid_characters">Valid characters are: A-Z a-z 0-9 . _ -.</string>
+    <string name="error_linkedin_valid_characters">Valid characters are: A-Z a-z 0-9 -.</string>
+    <string name="error_github_twitter_valid_characters">Valid characters are: A-Z a-z 0-9 _.</string>
+    <!--PROFILE ERRORs-->
     <!--My Profile-->
     <string name="my_profile">My Profile</string>
-    <string name="profile_picture">Profile Picture</string>
     <string name="edit_profile_picture">Edit Profile Picture</string>
     <string name="add_social_media_links">Add social media links</string>
     <string name="social_media">Facebook, LinkedIn, Twitter, Github</string>
@@ -110,11 +139,47 @@
     <string name="about_me_subtitle">Write a self-introduction</string>
     <string name="name">Name</string>
     <string name="social_media_links">Social Media Links</string>
-    <string name="facebook_url">Facebook URL</string>
     <string name="linkedIn_url">LinkedIn URL</string>
-    <string name="twitter_url">Twitter URL</string>
     <string name="github_url">Github URL</string>
     <string name="personal_website">Personal Website</string>
+
+    <!--EDIT_ORGANIZATION_PROFILE_LINKS-->
+    <string name="Social_links">Social Media Links</string>
+    <string name="linkedin_link">linkedin.com/in/</string>
+    <string name="linkedin_url">LinkedIn URL</string>
+    <string name="facebook_link">facebook.com/</string>
+    <string name="facebook_url">Facebook URL</string>
+    <string name="twitter_link">twitter.com/</string>
+    <string name="twitter_url">Twitter URL</string>
+    <!--EDIT_ORGANIZATION_PROFILE_PRODUCTLINKS-->
+    <string name="Product_links">Product Links</string>
+    <string name="Apple_link">itunes.apple.com/</string>
+    <string name="Apple_url">Link to Apple Store</string>
+    <string name="Google_link">play.google.com/</string>
+    <string name="Google_url">Link to Google Play</string>
+    <!--EDIT_ORGANIZATION_PROFILE_NAME-->
+    <string name="Name">Name</string>
+    <!--EDIT_ORGANIZATION_PROFILE_DESCRIPTION-->
+    <string name="Description">Description</string>
+    <!--EDIT_ORGANIZATION_PROFILE_LANGUAGE-->
+    <string name="Language">Language</string>
+    <!--EDIT_ORGANIZATION_WEBSITE-->
+    <string name="Website">Website</string>
+    <!--EDIT_ORGANIZATION_PROFILE_ORGANIZATIONPROFILE-->
+    <string name="Organization_Profile">Organization Profile</string>
+    <string name="Organization_Logo">Organization Logo</string>
+    <string name="Description_exp">Add an organization description</string>
+    <string name="Website_exp">Official organization website</string>
+    <string name="Language_exp">Official organization language</string>
+    <string name="Socical_media_links">Add social media links</string>
+    <string name="Social_exp">Facebook,Linkedin, Twitter</string>
+    <string name="Add_product_link">Add product links</string>
+    <string name="Product_exp">Apple Store, Google Play</string>
+    <string name="Edit_profile_pic">Edit Profile Picture</string>
+    <string name="medical_help">Medical Help</string>
+
+    <!--PROFILE ACTIVITY POSTS -->
+    <string name="dot_normal">Dot Normal</string>
 
     <!--Feedback Screens-->
     <string name="feedback_appbar">Feedback</string>
@@ -139,5 +204,4 @@
     <string name="rating5">5</string>
     <string name="poorly">Poorly</string>
     <string name="very_well">Very Well</string>
-
 </resources>

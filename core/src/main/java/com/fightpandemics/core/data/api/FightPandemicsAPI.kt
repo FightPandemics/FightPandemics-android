@@ -12,6 +12,10 @@ import com.fightpandemics.core.data.model.posts.Posts
 import com.fightpandemics.core.data.model.userlocation.LocationResponse
 import com.fightpandemics.core.data.model.userlocationdetails.LocationDetails
 import com.fightpandemics.core.data.model.userlocationpredictions.LocationPrediction
+import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
+import com.fightpandemics.core.data.model.profile.PatchIndividualAccountRequest
+import com.fightpandemics.core.data.model.profile.PatchIndividualProfileRequest
+import com.fightpandemics.core.data.model.profile.PatchIndividualProfileResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -101,9 +105,31 @@ interface FightPandemicsAPI {
         @Query("sessiontoken") sessiontoken: String?
     ): Response<LocationDetails>
 
+    // Profile API calls
+    @GET("api/users/current")
+    suspend fun getCurrentUser(): IndividualProfileResponse
+
+    @PATCH("api/users/current")
+    suspend fun updateCurrentUserProfile(
+        @Body patchIndividualProfileRequest: PatchIndividualProfileRequest
+    ): Response<PatchIndividualProfileResponse>
+
+    @PATCH("api/users/current")
+    suspend fun updateCurrentUserAccount(
+        @Body patchIndividualAccountRequest: PatchIndividualAccountRequest
+    ): Response<PatchIndividualProfileResponse>
+
+    @GET("api/posts")
+    suspend fun getPostsByAuthor(
+        @Query("ignoreUserLocation") ignoreUserLocation: Boolean,
+        @Query("limit") limit: Int,
+        @Query("skip") skip: Int,
+        @Query("authorId") authorId: String,
+    ): List<Post>
+
     companion object {
         // Staging API for Development
-        const val API_ENDPOINT = "https://staging.fightpandemics.work/"
+        const val API_ENDPOINT = "https://fightpandemics.com/"
 
         // TODO - use the production url for release builds
         const val RELEASE_API_ENDPOINT = "https://fightpandemics.com/"

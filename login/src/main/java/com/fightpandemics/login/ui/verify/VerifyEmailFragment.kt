@@ -54,7 +54,7 @@ class VerifyEmailFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_verify_email, container, false)
         val textview : TextView = rootView.findViewById(R.id.appBar_title_login)
-        textview.setText("Verify Email")
+        textview.text = "Verify Email"
 
 
 //        tv_join_now_instead.apply {

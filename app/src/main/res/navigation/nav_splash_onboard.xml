@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/onboardFragment"
         android:name="com.fightpandemics.ui.onboarding.OnBoardFragment"
-        android:label="fragment_view_pager"
+        android:label="fragment_onboard"
         tools:layout="@layout/fragment_onboard">
 
         <action

@@ -13,6 +13,8 @@ interface PostsRemoteDataSource {
 
     suspend fun fetchPost(postId: String): Response<Post>
 
+    suspend fun fetchPostsByAuthor(authorId: String): List<Post>
+
     suspend fun updatePost(postId: String, postRequest: PostRequest)
 
     suspend fun deletePost(postId: String)
