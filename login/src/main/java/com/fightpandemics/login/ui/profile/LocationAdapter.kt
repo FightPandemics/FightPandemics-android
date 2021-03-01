@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fightpandemics.core.data.model.userlocationpredictions.Prediction
 import com.fightpandemics.login.R
 
-class LocationAdapter(val onItemClickListener: OnItemClickListener) :
+class LocationAdapter(private val onItemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<LocationAdapter.ViewHolder>() {
 
     var placesNames = listOf<Prediction>()

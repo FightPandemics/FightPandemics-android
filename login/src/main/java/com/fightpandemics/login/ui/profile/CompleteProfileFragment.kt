@@ -108,7 +108,11 @@ class CompleteProfileFragment : BaseLocationFragment() {
         val needs = Needs(volunteerHrsRequest, otherHelp)
         val hide = Hide(false)
 
-        if (isFirstNameValid(firstName) and isLastNameValid(lastName) and isLocationValid()) {
+        validateFirstName(firstName)
+        validateLastName(lastName)
+        validateLocation()
+
+        if (validationIsComplete()) {
             val location = loginViewModel.completeProfileLocation
             val completeProfileRequest =
                 CompleteProfileRequest(firstName, hide, lastName, location, needs, objectives)
@@ -117,18 +121,23 @@ class CompleteProfileFragment : BaseLocationFragment() {
         }
     }
 
-    private fun isLocationValid(): Boolean {
-        val isValid = !loginViewModel.locationSelected.value.isNullOrBlank()
-        fragmentCompleteProfileBinding.root.tilLocation.isErrorEnabled = false
-        if (!isValid) {
+    private fun validationIsComplete() =
+        !(
+            fragmentCompleteProfileBinding.tilFirstName.isErrorEnabled ||
+                fragmentCompleteProfileBinding.tilLastName.isErrorEnabled ||
+                fragmentCompleteProfileBinding.tilAddress.tilLocation.isErrorEnabled
+            )
+
+    private fun validateLocation() {
+        if (loginViewModel.locationSelected.value.isNullOrBlank()) {
             fragmentCompleteProfileBinding.root.tilLocation.error = "Please select a location"
             fragmentCompleteProfileBinding.root.tilLocation.isErrorEnabled = true
+        } else {
+            fragmentCompleteProfileBinding.root.tilLocation.isErrorEnabled = false
         }
-        return isValid
     }
 
-    private fun isFirstNameValid(firstName: String): Boolean {
-        var isValid = false
+    private fun validateFirstName(firstName: String) {
         fragmentCompleteProfileBinding.tilFirstName.isErrorEnabled = true
         when {
             firstName.isBlank() ->
@@ -136,15 +145,12 @@ class CompleteProfileFragment : BaseLocationFragment() {
             firstName.length > MAX_NAME_LENGTH ->
                 fragmentCompleteProfileBinding.tilFirstName.error = "30 characters max."
             else -> {
-                isValid = true
                 fragmentCompleteProfileBinding.tilFirstName.isErrorEnabled = false
             }
         }
-        return isValid
     }
 
-    private fun isLastNameValid(lastName: String): Boolean {
-        var isValid = false
+    private fun validateLastName(lastName: String) {
         fragmentCompleteProfileBinding.tilLastName.isErrorEnabled = true
         when {
             lastName.isBlank() ->
@@ -152,11 +158,9 @@ class CompleteProfileFragment : BaseLocationFragment() {
             lastName.length > MAX_NAME_LENGTH ->
                 fragmentCompleteProfileBinding.tilLastName.error = "30 characters max."
             else -> {
-                isValid = true
                 fragmentCompleteProfileBinding.tilLastName.isErrorEnabled = false
             }
         }
-        return isValid
     }
 
     private fun onCompleteProfile(request: CompleteProfileRequest) {

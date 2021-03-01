@@ -282,7 +282,6 @@ class LoginViewModel @Inject constructor(
     }
 
     companion object {
-        const val DEBOUNCE_CONST = 300
         const val LEN_FOR_SUGGESTIONS = 3
     }
 }
