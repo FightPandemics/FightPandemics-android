@@ -1,6 +1,5 @@
 package com.fightpandemics.login.ui
 
-import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -39,6 +38,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
+import android.location.Location as AndroidLocation
+import com.fightpandemics.core.data.model.login.Location as LoginLocation
+import com.fightpandemics.core.data.model.userlocation.Location as UserLocation
+import com.fightpandemics.core.data.model.userlocationdetails.Location as UserLocationDetails
 
 @FlowPreview
 @ExperimentalCoroutinesApi
@@ -56,7 +59,7 @@ class LoginViewModel @Inject constructor(
     private var searchlocationJob: Job? = null
     val searchQuery = MutableStateFlow("")
 
-    lateinit var completeProfileLocation: com.fightpandemics.core.data.model.login.Location
+    lateinit var completeProfileLocation: LoginLocation
 
     private val _currentLocationState = MutableStateFlow(UserLocationViewState(isLoading = true))
     val currentLocationState = _currentLocationState.asStateFlow()
@@ -181,7 +184,7 @@ class LoginViewModel @Inject constructor(
     }
 
     // Get user location from API using lat & lng
-    fun updateCurrentLocation(location: Location) {
+    fun updateCurrentLocation(location: AndroidLocation) {
         sharelocationJob?.cancel()
         sharelocationJob = viewModelScope.launch {
             userLocationUseCase(LocationRequest(location.latitude, location.longitude))
@@ -191,7 +194,7 @@ class LoginViewModel @Inject constructor(
                         is Result.Success -> currentLocation(
                             false,
                             null,
-                            it.data as com.fightpandemics.core.data.model.userlocation.Location
+                            it.data as UserLocation
                         )
                         is Result.Error -> currentLocation(true, it, null)
                     }
@@ -227,11 +230,11 @@ class LoginViewModel @Inject constructor(
     private fun currentLocation(
         loading: Boolean,
         error: Result.Error?,
-        currentLocation: com.fightpandemics.core.data.model.userlocation.Location?
+        currentLocation: UserLocation?
     ) {
 
         if (currentLocation != null) {
-            completeProfileLocation = com.fightpandemics.core.data.model.login.Location(
+            completeProfileLocation = LoginLocation(
                 currentLocation.address ?: "",
                 currentLocation.city ?: "",
                 listOf(
@@ -252,10 +255,10 @@ class LoginViewModel @Inject constructor(
             locationDetailsUseCase.invoke(placeId).collect {
                 when (it) {
                     is Result.Success -> {
-                        val locationDetails = it.data as com.fightpandemics.core.data.model.userlocationdetails.Location
+                        val locationDetails = it.data as UserLocationDetails
                         Timber.i("Debug: my location prediction details $locationDetails")
                         completeProfileLocation =
-                            com.fightpandemics.core.data.model.login.Location(
+                            LoginLocation(
                                 locationDetails.address ?: "",
                                 locationDetails.city ?: "",
                                 locationDetails.coordinates ?: listOf(),
@@ -272,7 +275,7 @@ class LoginViewModel @Inject constructor(
 
     fun resetOldLocationSelected() {
         _locationSelected.value = ""
-        completeProfileLocation = com.fightpandemics.core.data.model.login.Location(
+        completeProfileLocation = LoginLocation(
             "",
             "",
             listOf(0.0, 0.0),
