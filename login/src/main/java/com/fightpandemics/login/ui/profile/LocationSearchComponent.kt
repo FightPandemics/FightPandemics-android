@@ -51,8 +51,8 @@ class LocationSearchComponent(
             }
         }
 
-        locationAutocompleteBinding.etAddress.doAfterTextChanged {
-            val inputLocation = it.toString()
+        locationAutocompleteBinding.etAddress.doAfterTextChanged { textChanged ->
+            val inputLocation = textChanged.toString()
             val hasFocus = locationAutocompleteBinding.etAddress.hasFocus()
             if (shouldHideLocationSuggestions(inputLocation, hasFocus)) {
                 hideLocationSuggestions()
@@ -104,7 +104,7 @@ class LocationSearchComponent(
 
     override fun onAutocompleteLocationClick(locationSelected: Prediction) {
         onSelectedLocation(locationSelected.description)
-        loginViewModel.getLocationDetails(locationSelected.place_id)
+        loginViewModel.getLocationDetails(locationSelected.placeId)
     }
 
     companion object {

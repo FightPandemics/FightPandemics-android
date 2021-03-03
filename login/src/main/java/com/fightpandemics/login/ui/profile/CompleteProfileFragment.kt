@@ -198,7 +198,7 @@ class CompleteProfileFragment : BaseLocationFragment() {
     }
 
     private fun setupShareLocation() {
-        fragmentCompleteProfileBinding.root.share_my_location.setOnClickListener {
+        fragmentCompleteProfileBinding.root.share_my_location.setOnClickListener { view ->
             etAddress.setText("")
             getCurrentLocation()
             lifecycleScope.launchWhenStarted {

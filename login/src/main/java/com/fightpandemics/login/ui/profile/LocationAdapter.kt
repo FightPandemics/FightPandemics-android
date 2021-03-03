@@ -18,7 +18,7 @@ class LocationAdapter(private val onItemClickListener: OnItemClickListener) :
         }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var address: TextView = itemView.findViewById((R.id.location_item_text))
+        private var address: TextView = itemView.findViewById((R.id.location_item_text))
         fun bind(location: Prediction, clickListener: OnItemClickListener) {
             address.text = location.description
             itemView.setOnClickListener {
