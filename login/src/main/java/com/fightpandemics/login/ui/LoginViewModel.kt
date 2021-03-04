@@ -59,7 +59,14 @@ class LoginViewModel @Inject constructor(
     private var searchlocationJob: Job? = null
     val searchQuery = MutableStateFlow("")
 
-    lateinit var completeProfileLocation: LoginLocation
+    var completeProfileLocation =
+        LoginLocation(
+            "",
+            "",
+            listOf(),
+            "",
+            ""
+        )
 
     private val _currentLocationState = MutableStateFlow(UserLocationViewState(isLoading = true))
     val currentLocationState = _currentLocationState.asStateFlow()
@@ -235,14 +242,14 @@ class LoginViewModel @Inject constructor(
 
         if (currentLocation != null) {
             completeProfileLocation = LoginLocation(
-                currentLocation.address ?: "",
-                currentLocation.city ?: "",
+                currentLocation.address,
+                currentLocation.city,
                 listOf(
-                    currentLocation.coordinates?.get(0) ?: 0.0,
-                    currentLocation.coordinates?.get(1) ?: 0.0
+                    currentLocation.coordinates[0],
+                    currentLocation.coordinates[1]
                 ),
-                currentLocation.country ?: "",
-                currentLocation.state ?: ""
+                currentLocation.country,
+                currentLocation.state
             )
         }
         _currentLocationState.value =
@@ -259,11 +266,11 @@ class LoginViewModel @Inject constructor(
                         Timber.i("Debug: my location prediction details $locationDetails")
                         completeProfileLocation =
                             LoginLocation(
-                                locationDetails.address ?: "",
-                                locationDetails.city ?: "",
-                                locationDetails.coordinates ?: listOf(),
-                                locationDetails.country ?: "",
-                                locationDetails.state ?: ""
+                                locationDetails.address,
+                                locationDetails.city,
+                                locationDetails.coordinates,
+                                locationDetails.country,
+                                locationDetails.state
                             )
                     }
                     is Result.Loading -> Timber.i("Debug: getDetails is loading}")
