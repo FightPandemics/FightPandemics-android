@@ -291,6 +291,10 @@ class LoginViewModel @Inject constructor(
         )
     }
 
+    fun saveLocationSelected(location: String) {
+        _locationSelected.value = location
+    }
+
     companion object {
         const val LEN_FOR_SUGGESTIONS = 3
     }

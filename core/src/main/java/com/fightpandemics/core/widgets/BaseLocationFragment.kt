@@ -1,6 +1,7 @@
 package com.fightpandemics.core.widgets
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.location.Location
@@ -52,13 +53,9 @@ abstract class BaseLocationFragment : Fragment() {
 
     abstract fun updateLocation(location: Location)
 
+    @SuppressLint("MissingPermission")
     fun getCurrentLocation() {
-        // Call findCurrentPlace and handle the response (first check that the user has granted permission).
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        if (hasLocationPermission()) {
             val requestCheckState = anySuitableId
             val builder = LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest)
@@ -103,6 +100,13 @@ abstract class BaseLocationFragment : Fragment() {
             // A local method to request required permissions;
             getLocationPermission()
         }
+    }
+
+    private fun hasLocationPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun getLocationPermission() {

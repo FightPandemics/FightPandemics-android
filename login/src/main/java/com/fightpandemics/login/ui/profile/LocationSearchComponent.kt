@@ -14,7 +14,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collect
 
-// todo should i null terminate the binding?
 @ExperimentalCoroutinesApi
 @FlowPreview
 class LocationSearchComponent(
@@ -30,7 +29,6 @@ class LocationSearchComponent(
     }
 
     private fun registerLifecycleOwner(lifecycle: Lifecycle) {
-        // todo should i need to subscribe to the observer?
         lifecycle.addObserver(this)
         scope = lifecycle.coroutineScope
     }
@@ -92,8 +90,7 @@ class LocationSearchComponent(
     fun onSelectedLocation(selectedLocation: String) {
         // display selected location in editText
         locationAutocompleteBinding.etAddress.setText(selectedLocation)
-        // save location selected in liveData view model to prevent not-selected input from being accepted
-        loginViewModel.locationSelected.value = selectedLocation
+        loginViewModel.saveLocationSelected(selectedLocation)
         removeFocusAndKeyboardFromLocationEditText()
     }
 
