@@ -15,12 +15,15 @@ import com.fightpandemics.login.R
 import com.fightpandemics.login.dagger.inject
 import com.fightpandemics.login.ui.BaseFragment
 import com.fightpandemics.login.ui.LoginViewModel
+import com.fightpandemics.login.ui.SignUPViewState
 import kotlinx.android.synthetic.main.fragment_sign_up_email.*
 import kotlinx.android.synthetic.main.sign_up_toolbar.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import timber.log.Timber
 import javax.inject.Inject
 
+@FlowPreview
 @ExperimentalCoroutinesApi
 class SignUpEmailFragment : BaseFragment() {
 
@@ -75,25 +78,10 @@ class SignUpEmailFragment : BaseFragment() {
             { signupResponse ->
                 cl_btn_join.isEnabled = true
                 when {
-                    signupResponse.isError -> {
-                        Toast.makeText(
-                            requireContext(),
-                            "Oops something wrong please try again later: " + signupResponse.error,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    signupResponse.isError -> displayErrorMessage(signupResponse)
                     else -> {
                         when {
-                            signupResponse.emailVerified -> {
-                                displayorHideView(View.VISIBLE, cl_btn_join)
-                                Timber.e("Email verification ${signupResponse.emailVerified}")
-
-                                val intent = Intent().setClassName(
-                                    packageName,
-                                    "$packageName.ui.MainActivity"
-                                )
-                                startActivity(intent).apply { requireActivity().finish() }
-                            }
+                            signupResponse.emailVerified -> navigateToMainFeed(signupResponse)
                             !signupResponse.emailVerified -> {
                                 findNavController().navigate(R.id.action_signupEmailFragment_to_verifyEmailFragment)
                             }
@@ -102,6 +90,25 @@ class SignUpEmailFragment : BaseFragment() {
                 }
             }
         )
+    }
+
+    private fun displayErrorMessage(signupResponse: SignUPViewState) {
+        Toast.makeText(
+            requireContext(),
+            "Oops something wrong please try again later: " + signupResponse.error,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun navigateToMainFeed(signupResponse: SignUPViewState) {
+        displayorHideView(View.VISIBLE, cl_btn_join)
+        Timber.e("Email verification ${signupResponse.emailVerified}")
+
+        val intent = Intent().setClassName(
+            packageName,
+            "$packageName.ui.MainActivity"
+        )
+        startActivity(intent).apply { requireActivity().finish() }
     }
 
     companion object {

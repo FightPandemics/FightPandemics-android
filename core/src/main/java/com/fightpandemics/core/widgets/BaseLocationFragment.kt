@@ -25,8 +25,6 @@ import timber.log.Timber
 * */
 abstract class BaseLocationFragment : Fragment() {
 
-    abstract fun updateLocation(location: Location)
-
     private val locationRequest = LocationRequest.create()
         .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
         .setInterval(TEN_SECONDS) // 10 seconds
@@ -51,6 +49,8 @@ abstract class BaseLocationFragment : Fragment() {
 
         super.onDestroyView()
     }
+
+    abstract fun updateLocation(location: Location)
 
     fun getCurrentLocation() {
         // Call findCurrentPlace and handle the response (first check that the user has granted permission).

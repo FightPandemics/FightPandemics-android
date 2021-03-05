@@ -75,7 +75,7 @@ class LoginViewModel @Inject constructor(
 
     // variable to keep track of selected location, also allows us to delete not-selected input from user
     private val _locationSelected = MutableLiveData("")
-    val locationSelected = _locationSelected
+    val locationSelected: LiveData<String> = _locationSelected
 
     private val _login = MutableLiveData<LoginViewState>()
     private val _signup = MutableLiveData<SignUPViewState>()
