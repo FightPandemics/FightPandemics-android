@@ -2,6 +2,7 @@ package com.fightpandemics.login.ui.profile
 
 import android.content.Context
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ import com.fightpandemics.login.databinding.FragmentCompleteProfileBinding
 import com.fightpandemics.login.ui.LoginViewModel
 import com.fightpandemics.login.util.snack
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.complete_profile_location.etAddress
 import kotlinx.android.synthetic.main.complete_profile_location.view.progressBar
 import kotlinx.android.synthetic.main.complete_profile_location.view.share_my_location
@@ -87,6 +89,10 @@ class CompleteProfileFragment : BaseLocationFragment() {
         arguments?.getString(USER_PROFILE)
     }
 
+    override fun updateLocation(location: Location) {
+        loginViewModel.updateCurrentLocation(location)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _fragmentCompleteProfileBinding = null
@@ -108,11 +114,27 @@ class CompleteProfileFragment : BaseLocationFragment() {
         val needs = Needs(volunteerHrsRequest, otherHelp)
         val hide = Hide(false)
 
-        validateFirstName(firstName)
-        validateLastName(lastName)
+        val firstNameErrorStrings = NameErrorStrings("First name is required.", "30 characters max.")
+        val lastNameErrorStrings = NameErrorStrings("Last name is required.", "30 characters max.")
+        validateName(
+            firstName,
+            fragmentCompleteProfileBinding.tilFirstName,
+            firstNameErrorStrings
+        )
+        validateName(
+            lastName,
+            fragmentCompleteProfileBinding.tilLastName,
+            lastNameErrorStrings
+        )
         validateLocation()
 
-        if (validationIsComplete()) {
+        if (
+            !(
+                fragmentCompleteProfileBinding.tilFirstName.isErrorEnabled ||
+                    fragmentCompleteProfileBinding.tilLastName.isErrorEnabled ||
+                    fragmentCompleteProfileBinding.tilAddress.tilLocation.isErrorEnabled
+                )
+        ) {
             val location = loginViewModel.completeProfileLocation
             val completeProfileRequest =
                 CompleteProfileRequest(firstName, hide, lastName, location, needs, objectives)
@@ -120,13 +142,6 @@ class CompleteProfileFragment : BaseLocationFragment() {
             onCompleteProfile(completeProfileRequest)
         }
     }
-
-    private fun validationIsComplete() =
-        !(
-            fragmentCompleteProfileBinding.tilFirstName.isErrorEnabled ||
-                fragmentCompleteProfileBinding.tilLastName.isErrorEnabled ||
-                fragmentCompleteProfileBinding.tilAddress.tilLocation.isErrorEnabled
-            )
 
     private fun validateLocation() {
         if (loginViewModel.locationSelected.value.isNullOrBlank()) {
@@ -137,28 +152,15 @@ class CompleteProfileFragment : BaseLocationFragment() {
         }
     }
 
-    private fun validateFirstName(firstName: String) {
-        fragmentCompleteProfileBinding.tilFirstName.isErrorEnabled = true
+    private fun validateName(name: String, nameTextInputLayout: TextInputLayout, errorStrings: NameErrorStrings) {
+        nameTextInputLayout.isErrorEnabled = true
         when {
-            firstName.isBlank() ->
-                fragmentCompleteProfileBinding.tilFirstName.error = "First name is required."
-            firstName.length > MAX_NAME_LENGTH ->
-                fragmentCompleteProfileBinding.tilFirstName.error = "30 characters max."
+            name.isBlank() ->
+                nameTextInputLayout.error = errorStrings.emptyError
+            name.length > MAX_NAME_LENGTH ->
+                nameTextInputLayout.error = errorStrings.lengthError
             else -> {
-                fragmentCompleteProfileBinding.tilFirstName.isErrorEnabled = false
-            }
-        }
-    }
-
-    private fun validateLastName(lastName: String) {
-        fragmentCompleteProfileBinding.tilLastName.isErrorEnabled = true
-        when {
-            lastName.isBlank() ->
-                fragmentCompleteProfileBinding.tilLastName.error = "Last name is required."
-            lastName.length > MAX_NAME_LENGTH ->
-                fragmentCompleteProfileBinding.tilLastName.error = "30 characters max."
-            else -> {
-                fragmentCompleteProfileBinding.tilLastName.isErrorEnabled = false
+                nameTextInputLayout.isErrorEnabled = false
             }
         }
     }
@@ -192,11 +194,6 @@ class CompleteProfileFragment : BaseLocationFragment() {
         )
     }
 
-    override fun updateLocation(location: android.location.Location) {
-        Timber.i("My filters from filter $location")
-        loginViewModel.updateCurrentLocation(location)
-    }
-
     private fun setupShareLocation() {
         fragmentCompleteProfileBinding.root.share_my_location.setOnClickListener { view ->
             etAddress.setText("")
@@ -228,3 +225,8 @@ class CompleteProfileFragment : BaseLocationFragment() {
         const val MAX_NAME_LENGTH = 30
     }
 }
+
+data class NameErrorStrings(
+    val emptyError: String,
+    val lengthError: String
+)

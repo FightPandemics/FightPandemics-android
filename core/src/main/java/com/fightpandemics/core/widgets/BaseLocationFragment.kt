@@ -23,12 +23,14 @@ import timber.log.Timber
 /*
 * created by Osaigbovo Odiase & Jose Li
 * */
-open class BaseLocationFragment : Fragment() {
+abstract class BaseLocationFragment : Fragment() {
+
+    abstract fun updateLocation(location: Location)
 
     private val locationRequest = LocationRequest.create()
         .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-        .setInterval(10 * 1000) // 10 seconds
-        .setFastestInterval(5 * 1000) // 5 seconds
+        .setInterval(TEN_SECONDS) // 10 seconds
+        .setFastestInterval(FIVE_SECONDS) // 5 seconds
 
     var mFusedLocationClient: FusedLocationProviderClient? = null
     private var locationCallback: LocationCallback? = null
@@ -103,10 +105,6 @@ open class BaseLocationFragment : Fragment() {
         }
     }
 
-    open fun updateLocation(location: Location) {
-        Timber.i("My filters: Updating Location from base $location")
-    }
-
     private fun getLocationPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
             val dialogView = layoutInflater.inflate(R.layout.location_permission_dialog, null)
@@ -151,5 +149,7 @@ open class BaseLocationFragment : Fragment() {
         // variable for location permission
         private const val LOCATION_PERMISSION_CODE = 1
         private const val anySuitableId = 12300
+        private const val TEN_SECONDS: Long = 1000 * 10
+        private const val FIVE_SECONDS: Long = 1000 * 10
     }
 }
