@@ -20,9 +20,7 @@ class LocationPredictionsNameAndIdUseCase @Inject constructor(
     override suspend fun execute(parameters: String?): Flow<Result<Any?>> {
         return locationRepository.getLocationPredictions(parameters!!)!!.map {
             when (it) {
-                is Result.Loading -> it
-                is Result.Success -> it
-                is Result.Error -> it
+                is Result.Loading, Result.Success, Result.Error -> it
                 else -> Result.Error(IllegalStateException("Result must be Success or Error"))
             }
         }
