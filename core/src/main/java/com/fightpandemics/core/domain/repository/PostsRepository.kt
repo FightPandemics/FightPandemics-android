@@ -1,5 +1,6 @@
 package com.fightpandemics.core.domain.repository
 
+import com.fightpandemics.core.data.model.post.PostDetailResponse
 import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
@@ -16,7 +17,7 @@ interface PostsRepository {
         authorId: String
     ): Flow<Result<List<Post>>>
 
-    suspend fun getPost(postId: String): Flow<Result<Post>>
+    suspend fun getPost(postId: String): Flow<Result<PostDetailResponse>>
 
     suspend fun editPost(postRequest: PostRequest)
 

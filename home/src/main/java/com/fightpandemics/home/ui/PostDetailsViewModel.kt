@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fightpandemics.core.dagger.scope.FeatureScope
+import com.fightpandemics.core.data.model.post.PostDetailResponse
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.result.Result
 import com.fightpandemics.home.domain.LikePostUsecase
@@ -34,7 +35,7 @@ class PostDetailsViewModel @Inject constructor(
         get() = _postDetailState
 
     init {
-        _postDetailState.value = PostDetailState(isLoading = true, post = null, errorMessage = null)
+        _postDetailState.value = PostDetailState(isLoading = true, postDetailResponse = null, errorMessage = null)
 
         viewModelScope.launch {
             when (val result = observeUserAuthStateUseCase(Any())) {
@@ -56,12 +57,12 @@ class PostDetailsViewModel @Inject constructor(
                 when (result) {
                     is Result.Success -> _postDetailState.value = _postDetailState.value?.copy(
                         isLoading = false,
-                        post = result.data
+                        postDetailResponse = result.data
                     )
                     is Result.Error -> {
                         _postDetailState.value = _postDetailState.value?.copy(
                             isLoading = false,
-                            post = null,
+                            postDetailResponse = null,
                             errorMessage = "Oops!"
                         )
                         Timber.e("Error getting post $postId ${result.exception}")
@@ -72,7 +73,6 @@ class PostDetailsViewModel @Inject constructor(
     }
 
     private fun getPostComments() {
-
     }
 
     override fun userId(): String? {
@@ -102,9 +102,8 @@ class PostDetailsViewModel @Inject constructor(
     }
 }
 
-
 data class PostDetailState(
     val isLoading: Boolean,
-    val post: Post?,
+    val postDetailResponse: PostDetailResponse?,
     val errorMessage: String?
 )

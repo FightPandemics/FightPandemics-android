@@ -1,21 +1,22 @@
 package com.fightpandemics.core.data.api
 
 import com.fightpandemics.core.data.model.login.ChangePasswordResponse
+import com.fightpandemics.core.data.model.login.CompleteProfileRequest
+import com.fightpandemics.core.data.model.login.CompleteProfileResponse
 import com.fightpandemics.core.data.model.login.LoginRequest
 import com.fightpandemics.core.data.model.login.SignUpRequest
-import com.fightpandemics.core.data.model.login.CompleteProfileResponse
-import com.fightpandemics.core.data.model.login.CompleteProfileRequest
 import com.fightpandemics.core.data.model.login.SignUpResponse
+import com.fightpandemics.core.data.model.post.PostDetailResponse
 import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
-import com.fightpandemics.core.data.model.userlocation.LocationResponse
-import com.fightpandemics.core.data.model.userlocationdetails.LocationDetails
-import com.fightpandemics.core.data.model.userlocationpredictions.LocationPrediction
 import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
 import com.fightpandemics.core.data.model.profile.PatchIndividualAccountRequest
 import com.fightpandemics.core.data.model.profile.PatchIndividualProfileRequest
 import com.fightpandemics.core.data.model.profile.PatchIndividualProfileResponse
+import com.fightpandemics.core.data.model.userlocation.LocationResponse
+import com.fightpandemics.core.data.model.userlocationdetails.LocationDetails
+import com.fightpandemics.core.data.model.userlocationpredictions.LocationPrediction
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -35,13 +36,11 @@ interface FightPandemicsAPI {
     @GET("api/posts/{postId}")
     suspend fun getPost(
         @Path("postId") postId: String
-    ): Response<Post>
+    ): Response<PostDetailResponse>
 
     // Get comments of a post
     @GET("api/posts/{postId}/comments")
-    suspend fun getPostComments(
-
-    )
+    suspend fun getPostComments()
 
     // Login
     @Headers("No-Authentication: true") // no need to add authentication

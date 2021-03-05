@@ -1,5 +1,6 @@
 package com.fightpandemics.core.data.remote.posts
 
+import com.fightpandemics.core.data.model.post.PostDetailResponse
 import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
@@ -11,7 +12,7 @@ interface PostsRemoteDataSource {
 
     suspend fun fetchPosts(objective: String?): Response<List<Post>>
 
-    suspend fun fetchPost(postId: String): Response<Post>
+    suspend fun fetchPost(postId: String): Response<PostDetailResponse>
 
     suspend fun fetchPostsByAuthor(authorId: String): List<Post>
 

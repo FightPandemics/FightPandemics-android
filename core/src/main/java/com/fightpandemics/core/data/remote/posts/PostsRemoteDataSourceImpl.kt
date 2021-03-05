@@ -1,6 +1,7 @@
 package com.fightpandemics.core.data.remote.posts
 
 import com.fightpandemics.core.data.api.FightPandemicsAPI
+import com.fightpandemics.core.data.model.post.PostDetailResponse
 import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
@@ -18,7 +19,7 @@ class PostsRemoteDataSourceImpl @Inject constructor(
     override suspend fun fetchPosts(objective: String?): Response<List<Post>> =
         fightPandemicsAPI.getPosts(objective, 20)
 
-    override suspend fun fetchPost(postId: String): Response<Post> =
+    override suspend fun fetchPost(postId: String): Response<PostDetailResponse> =
         fightPandemicsAPI.getPost(postId = postId)
 
     override suspend fun fetchPostsByAuthor(

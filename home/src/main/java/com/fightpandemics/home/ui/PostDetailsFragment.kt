@@ -9,9 +9,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.fightpandemics.core.utils.GlideApp
 import com.fightpandemics.core.utils.ViewModelFactory
 import com.fightpandemics.home.dagger.inject
 import com.fightpandemics.home.databinding.FragmentPostDetailsBinding
+import com.fightpandemics.home.utils.getPostCreated
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -64,12 +66,37 @@ class PostDetailsFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        postDetailsViewModel.postDetailState.observe(viewLifecycleOwner, { state ->
-            binding.progressBar.progressBar.isVisible = state.isLoading
-
-            state.post?.also { post ->
-                binding.postLayout.postTitle.text = post.title
+        postDetailsViewModel.postDetailState.observe(
+            viewLifecycleOwner,
+            { state ->
+                binding.progressBar.progressBar.isVisible = state.isLoading
+                state.postDetailResponse?.post?.let { post ->
+                    binding.postLayout?.let { layout ->
+                        layout.objective.text = post.objective
+                        "Posted ${getPostCreated(post.createdAt)} ago".also { layout.timePosted.text = it }
+                        layout.postTitle.text = post.title
+                        layout.postContent.text = post.content
+                        layout.likesCount.text = post.likesCount.toString()
+                        layout.commentsCount.text = post.commentsCount.toString()
+                        layout.userFullName.text = post.author.name
+                        "${post.author.location.city}, ${post.author.location.state}, ${post.author.location.country}".also { binding.postLayout.userLocation.text = it }
+                        binding.postLayout.userAvatar?.let { imageView ->
+                            post.author?.let { author ->
+                                if (author.photo.isBlank()) {
+                                    imageView.setInitials(author.name.substring(0, 1))
+                                    imageView.invalidate()
+                                } else {
+                                    GlideApp
+                                        .with(requireContext())
+                                        .load(author.photo)
+                                        .centerCrop()
+                                        .into(imageView)
+                                }
+                            }
+                        }
+                    }
+                }
             }
-        })
+        )
     }
 }

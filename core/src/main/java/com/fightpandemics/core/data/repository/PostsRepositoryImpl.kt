@@ -1,5 +1,6 @@
 package com.fightpandemics.core.data.repository
 
+import com.fightpandemics.core.data.model.post.PostDetailResponse
 import com.fightpandemics.core.data.model.post.PostRequest
 import com.fightpandemics.core.data.model.posts.Post
 import com.fightpandemics.core.data.model.posts.Posts
@@ -42,8 +43,8 @@ class PostsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getPost(postId: String): Flow<Result<Post>> {
-        return flow<Result<Post>> {
+    override suspend fun getPost(postId: String): Flow<Result<PostDetailResponse>> {
+        return flow<Result<PostDetailResponse>> {
             val post = postsRemoteDataSource.fetchPost(postId = postId).body()!!
             emit(Result.Success(post))
         }.catch {
