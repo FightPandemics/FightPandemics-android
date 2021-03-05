@@ -2,7 +2,6 @@ package com.fightpandemics.login.domain
 
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
-import com.fightpandemics.core.data.model.userlocationpredictions.Prediction
 import com.fightpandemics.core.domain.repository.LocationRepository
 import com.fightpandemics.core.domain.usecase.FlowUseCase
 import com.fightpandemics.core.result.Result
@@ -22,14 +21,10 @@ class LocationPredictionsUseCase @Inject constructor(
 ) : FlowUseCase<String?, Any?>(dispatcherProvider.default) {
 
     override suspend fun execute(parameters: String?): Flow<Result<Any?>> {
-        return locationRepository.getLocationPredictions(parameters!!)!!.map {
+        return locationRepository.getLocationNames(parameters!!)!!.map {
             when (it) {
                 is Result.Loading -> it
-                is Result.Success -> {
-                    val predictions = it.data as List<Prediction>
-                    val predictionNames = predictions.map { prediction -> prediction.description }.toMutableList()
-                    Result.Success(predictionNames)
-                }
+                is Result.Success -> it
                 is Result.Error -> it
                 else -> Result.Error(IllegalStateException("Result must be Success or Error"))
             }

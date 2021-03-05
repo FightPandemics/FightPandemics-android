@@ -71,6 +71,33 @@ class LocationRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getLocationNames(
+        input: String
+    ): Flow<Result<List<String>>> {
+        val sessionToken = getUUID()
+        return channelFlow {
+            channel.offer(Result.Loading)
+            val userLocationPredictions =
+                locationRemoteDataSource.getLocationPredictions(input, sessionToken!!)
+            when {
+                userLocationPredictions.isSuccessful && userLocationPredictions.code() == 200 -> {
+                    val locationNames =
+                        userLocationPredictions
+                            .body()!!
+                            .predictions
+                            .map { it.description }
+                    channel.offer(Result.Success(locationNames))
+                }
+                userLocationPredictions.code() == 401 -> {
+                    val myError = userLocationPredictions
+                        .parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+            }
+            awaitClose { }
+        }
+    }
+
     override suspend fun getLocationDetails(
         placeId: String
     ): Flow<Result<*>> {
