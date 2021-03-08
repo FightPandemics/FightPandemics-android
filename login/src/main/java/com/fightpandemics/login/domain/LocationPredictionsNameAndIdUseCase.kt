@@ -23,7 +23,6 @@ class LocationPredictionsNameAndIdUseCase @Inject constructor(
                 is Result.Success -> it
                 is Result.Error -> it
                 is Result.Loading -> it
-                else -> Result.Error(IllegalStateException("Result must be Success or Error"))
             }
         }
     }

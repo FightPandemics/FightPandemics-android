@@ -26,7 +26,6 @@ class LocationPredictionsUseCase @Inject constructor(
                 is Result.Loading -> it
                 is Result.Success -> it
                 is Result.Error -> it
-                else -> Result.Error(IllegalStateException("Result must be Success or Error"))
             }
         }
     }
