@@ -38,6 +38,7 @@ class PostsViewHolder(
                     .apply(RequestOptions().override(layoutParams.width, layoutParams.height))
                     .into(itemBinding.userAvatar)
             } else {
+                GlideApp.with(this).clear(itemBinding.userAvatar)
                 itemBinding.userAvatar.setInitials(userInitials(post.author?.name))
                 itemBinding.userAvatar.setBorderColor(
                     ContextCompat.getColor(
