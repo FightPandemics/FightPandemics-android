@@ -47,14 +47,11 @@ class PostsViewHolder(
                 )
             }
 
-
-
-            //
             itemBinding.objective.text = post.objective?.capitalize(Locale.ROOT)
             itemBinding.userFullName.text = post.author?.name
             itemBinding.postTitle.text = post.title
             itemBinding.userLocation.text =
-                post.author?.location?.city.plus(", ").plus(post.author?.location?.country)
+                getFormattedLocationAndHandleDotVisibility(post)
 
             itemBinding.viewMore.visibility = View.INVISIBLE
 
@@ -62,7 +59,7 @@ class PostsViewHolder(
                 (post.content!!.replace("\n", " ").split(" ")).size
 
             itemBinding.postContent.text = post.content
-            if(count > 25){
+            if (count > 25) {
                 itemBinding.viewMore.visibility = View.VISIBLE
             }
 
@@ -124,5 +121,23 @@ class PostsViewHolder(
 
             setOnClickListener { onItemClickListener?.invoke(post) }
         }
+    }
+
+    private fun getFormattedLocationAndHandleDotVisibility(post: Post): String {
+        val city = post.author?.location?.city ?: ""
+        val country = post.author?.location?.country ?: ""
+        lateinit var result: String
+
+        itemBinding.dotNormal.visibility = View.VISIBLE
+        when {
+            city.isBlank() && country.isBlank() -> {
+                result = ""
+                itemBinding.dotNormal.visibility = View.INVISIBLE
+            }
+            city.isBlank() -> result = country
+            country.isBlank() -> result = city
+            else -> result = "$city, $country"
+        }
+        return result
     }
 }
