@@ -12,7 +12,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
-import java.util.*
+import java.util.UUID
 import javax.inject.Inject
 
 /*
@@ -47,18 +47,18 @@ class LocationRepositoryImpl @Inject constructor(
     override suspend fun getLocationPredictions(
         input: String
     ): Flow<Result<*>> {
-        val sessiontoken = getUUID()
+        val sessionToken = getUUID()
         return channelFlow {
             channel.offer(Result.Loading)
             val userLocationPredictions =
-                locationRemoteDataSource.getLocationPredictions(input, sessiontoken!!)
+                locationRemoteDataSource.getLocationPredictions(input, sessionToken!!)
             when {
                 userLocationPredictions.isSuccessful && userLocationPredictions.code() == 200 -> {
                     val locationPrediction =
                         userLocationPredictions
                             .body()!!
                             .predictions
-                            .map { it -> it.description }
+                            .map { it.description }
                     channel.offer(Result.Success(locationPrediction))
                 }
                 userLocationPredictions.code() == 401 -> {
@@ -73,11 +73,11 @@ class LocationRepositoryImpl @Inject constructor(
 
     override suspend fun getLocationDetails(
         placeId: String
-    ): Flow<Result<*>>? {
-        val sessiontoken = getUUID()
+    ): Flow<Result<*>> {
+        val sessionToken = getUUID()
         return channelFlow {
             val userLocationDetails =
-                locationRemoteDataSource.getLocationDetails(placeId, sessiontoken)
+                locationRemoteDataSource.getLocationDetails(placeId, sessionToken)
             when {
                 userLocationDetails.isSuccessful && userLocationDetails.code() == 200 -> {
                     val locationDetails =

@@ -10,7 +10,7 @@ import javax.inject.Inject
  */
 class OnBoardCompletedUseCase @Inject constructor(
     private val preferenceStorage: PreferenceStorage,
-    private val dispatcherProvider: CoroutinesDispatcherProvider,
+    dispatcherProvider: CoroutinesDispatcherProvider,
 ) : UseCase<Unit, Boolean>(dispatcherProvider.io) {
 
     override fun execute(parameters: Unit): Boolean = preferenceStorage.onboardingCompleted

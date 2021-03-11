@@ -5,5 +5,4 @@ import com.fightpandemics.core.dagger.scope.ActivityScope
 import javax.inject.Inject
 
 @ActivityScope
-class CreatePostViewModel @Inject constructor() : ViewModel() {
-}
+class CreatePostViewModel @Inject constructor() : ViewModel()

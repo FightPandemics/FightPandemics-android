@@ -11,6 +11,7 @@
 
     <application
         android:name=".FightPandemicsApp"
+        android:usesCleartextTraffic="true"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
@@ -27,6 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".utils.webviewer.WebViewerActivity"
+            android:configChanges="orientation|screenSize" />
 
         <activity
             android:name=".ui.MainActivity"

@@ -9,7 +9,4 @@ open class JoinNowClickableSpan : ClickableSpan(), NoCopySpan {
     override fun onClick(widget: View) {
     }
 
-    override fun updateDrawState(ds: TextPaint) {
-        super.updateDrawState(ds)
-    }
 }

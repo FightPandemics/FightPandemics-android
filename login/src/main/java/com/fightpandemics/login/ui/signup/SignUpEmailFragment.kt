@@ -49,7 +49,7 @@ class SignUpEmailFragment : BaseFragment() {
         // setup toolbar
         val toolbar = sign_up_toolbar
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
-        toolbar.setTitle("")
+        toolbar.title = ""
         toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
         tv_sigin_instead.setOnClickListener {
