@@ -32,6 +32,9 @@
             android:id="@+id/action_profileFragment_to_settingFragment"
             app:destination="@id/settingFragment"
             app:launchSingleTop="true"/>
+        <action
+            android:id="@+id/action_profileFragment_to_profileSignedOutFragment"
+            app:destination="@id/profileSignedOutFragment" />
     </fragment>
 
     <include app:graph="@navigation/nav_create_post" />
@@ -151,4 +154,29 @@
     </fragment>
 
     <include app:graph="@navigation/nav_splash_onboard" />
+
+    <fragment
+        android:id="@+id/profileSignedOutFragment"
+        android:name="com.fightpandemics.profile.ui.profile.ProfileSignedOutFragment"
+        app:moduleName="Fight_Pandemics.profile"
+        android:label="Profile"
+        tools:layout="@layout/profile_signed_out_fragment">
+
+        <action
+            android:id="@+id/action_profileSignedOutFragment_to_signInFragment"
+            app:destination="@id/nav_sign_in"/>
+
+        <action
+            android:id="@+id/action_profileSignedOutFragment_to_signUpFragment"
+            app:destination="@id/nav_sign_up"/>
+
+        <action
+            android:id="@+id/action_profileSignedOutFragment_to_indivProfileSettings"
+            app:destination="@id/indivProfileSettings" />
+
+    </fragment>
+
+    <include app:graph="@navigation/nav_sign_in" />
+
+    <include app:graph="@navigation/nav_sign_up" />
 </navigation>

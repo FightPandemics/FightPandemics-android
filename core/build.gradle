@@ -64,6 +64,9 @@ dependencies {
     // Location
     implementation 'com.google.android.gms:play-services-location:17.1.0'
 
+    // Shared Preference
+    implementation 'androidx.preference:preference:1.1.1'
+
 }
 repositories {
     mavenCentral()
