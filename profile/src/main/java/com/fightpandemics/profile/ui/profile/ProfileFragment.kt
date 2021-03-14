@@ -57,6 +57,10 @@ class ProfileFragment : Fragment() {
         super.onStart()
         bindListeners()
         profileViewModel.getIndividualProfile()
+        if (!profileViewModel.isUserSignedIn()) {
+            findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_profileSignedOutFragment)
+            return
+        }
     }
 
     @ExperimentalCoroutinesApi

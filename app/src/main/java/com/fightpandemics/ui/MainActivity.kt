@@ -19,6 +19,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.fightpandemics.R
+import com.fightpandemics.core.utils.getBooleanPreference
+import com.fightpandemics.core.utils.removePreference
 import com.fightpandemics.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
@@ -53,6 +55,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             setupBottomNavigationBar()
         } // Else, need to wait for onRestoreInstanceState
         setUpBottomNavigationAndFab()
+        checkThatUserSignedInFromProfile()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -100,14 +103,19 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         arguments: Bundle?,
     ) {
         when (destination.id) {
-            R.id.homeFragment, R.id.searchFragment,
-            R.id.inboxFragment, R.id.profileFragment,
+            R.id.homeFragment
             -> {
                 showBottomBar(destination)
                 dot.visibility = View.VISIBLE
                 fab.show()
             }
-            R.id.filterFragment, R.id.createPostFragment, R.id.settingFragment -> hideBottomBar()
+            R.id.searchFragment, R.id.inboxFragment, R.id.profileFragment, R.id.indivProfileSettings, R.id.profileSignedOutFragment
+            -> {
+                showBottomBar(destination)
+                dot.visibility = View.VISIBLE
+                fab.hide()
+            }
+            R.id.filterFragment, R.id.createPostFragment, R.id.settingFragment, R.id.onboardFragment -> hideBottomBar()
         }
     }
 
@@ -247,5 +255,19 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             }
         }
         dot.layoutParams = layoutParams
+    }
+
+    private fun checkThatUserSignedInFromProfile() {
+        val isUserSignedInFromProfile = getBooleanPreference(applicationContext, "isUserSignedInFromProfile", false)
+        val isUserSignedUpFromProfile = getBooleanPreference(applicationContext, "isUserSignedUpFromProfile", false)
+        if (isUserSignedInFromProfile || isUserSignedUpFromProfile) {
+            bottomNavigationView.selectedItemId = R.id.nav_profile
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        removePreference(applicationContext, "isUserSignedInFromProfile")
+        removePreference(applicationContext, "isUserSignedUpFromProfile")
     }
 }

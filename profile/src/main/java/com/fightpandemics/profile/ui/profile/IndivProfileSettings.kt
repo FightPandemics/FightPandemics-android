@@ -1,5 +1,6 @@
 package com.fightpandemics.profile.ui.profile
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -53,8 +54,10 @@ class IndivProfileSettings : Fragment() {
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.profile_settings, container, false)
 
+    @SuppressLint("SetTextI18n")
     @ExperimentalCoroutinesApi
     private fun bindListeners() {
+        appVersion.text = getString(R.string.fightpandemics_app_v) + com.fightpandemics.BuildConfig.VERSION_NAME
         toolbar.setOnClickListener { activity?.onBackPressed() }
         updatePublicProfileContainer.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_indivProfileSettings_to_editProfileFragment)
@@ -62,15 +65,19 @@ class IndivProfileSettings : Fragment() {
         updateAccountInfoContainer.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_indivProfileSettings_to_editAccountFragment)
         }
-        setupNotificationSettingsContainer.setOnClickListener { TODO() }
+        setupNotificationSettingsContainer.setOnClickListener { } // TO DO
         myAccountContainer.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_indivProfileSettings_to_nav_splash_onboard)
         }
         aboutUsContainer.setOnClickListener { openWebView(URLs.ABOUT_US) }
         privacyPolicyContainer.setOnClickListener { openWebView(URLs.PRIVACY_POLICY) }
         supportContainer.setOnClickListener { openWebView(URLs.SUPPORT) }
-        feedbackContainer.setOnClickListener { TODO() }
-        signoutContainer.setOnClickListener { TODO() }
+        feedbackContainer.setOnClickListener { } // TO DO
+        signoutContainer.setOnClickListener {
+            hideSignedInViews()
+            myAccountContainer.visibility = View.VISIBLE
+            profileViewModel.individualProfile.value = null
+        }
     }
 
     private fun hideSignedInViews() {
