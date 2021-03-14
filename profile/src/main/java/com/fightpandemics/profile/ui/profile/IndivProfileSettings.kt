@@ -65,14 +65,14 @@ class IndivProfileSettings : Fragment() {
         updateAccountInfoContainer.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_indivProfileSettings_to_editAccountFragment)
         }
-        setupNotificationSettingsContainer.setOnClickListener { } //TO DO
+        setupNotificationSettingsContainer.setOnClickListener { } // TO DO
         myAccountContainer.setOnClickListener {
             findNavController().navigate(com.fightpandemics.R.id.action_indivProfileSettings_to_nav_splash_onboard)
         }
         aboutUsContainer.setOnClickListener { openWebView(URLs.ABOUT_US) }
         privacyPolicyContainer.setOnClickListener { openWebView(URLs.PRIVACY_POLICY) }
         supportContainer.setOnClickListener { openWebView(URLs.SUPPORT) }
-        feedbackContainer.setOnClickListener { } //TO DO
+        feedbackContainer.setOnClickListener { } // TO DO
         signoutContainer.setOnClickListener {
             hideSignedInViews()
             myAccountContainer.visibility = View.VISIBLE
