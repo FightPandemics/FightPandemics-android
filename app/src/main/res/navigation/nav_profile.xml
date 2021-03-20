@@ -34,6 +34,8 @@
             app:launchSingleTop="true"/>
         <action
             android:id="@+id/action_profileFragment_to_profileSignedOutFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="false"
             app:destination="@id/profileSignedOutFragment" />
     </fragment>
 

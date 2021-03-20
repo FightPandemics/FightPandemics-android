@@ -14,9 +14,9 @@ import javax.inject.Inject
 class LoadCurrentUserUseCase @Inject constructor(
     private val profileRepository: ProfileRepository,
     dispatcherProvider: CoroutinesDispatcherProvider,
-) : FlowUseCase<String, IndividualProfileResponse>(dispatcherProvider.default) {
+) : FlowUseCase<String, Any?>(dispatcherProvider.default) {
 
-    override suspend fun execute(parameters: String?): Flow<Result<IndividualProfileResponse>> {
+    override suspend fun execute(parameters: String?): Flow<Result<Any?>> {
         return profileRepository.getIndividualUser().map { results ->
             when (results) {
                 is Result.Success -> results

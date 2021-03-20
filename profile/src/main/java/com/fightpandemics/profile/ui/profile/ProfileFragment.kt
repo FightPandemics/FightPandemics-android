@@ -57,10 +57,6 @@ class ProfileFragment : Fragment() {
         super.onStart()
         bindListeners()
         profileViewModel.getIndividualProfile()
-        if (!profileViewModel.isUserSignedIn()) {
-            findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_profileSignedOutFragment)
-            return
-        }
     }
 
     @ExperimentalCoroutinesApi
@@ -98,27 +94,31 @@ class ProfileFragment : Fragment() {
 
     @ExperimentalCoroutinesApi
     private fun getIndividualProfileListener(profile: ProfileViewModel.IndividualProfileViewState) {
-        when {
-            profile.isLoading -> {
-                bindLoading(true)
-            }
-            profile.error == null -> {
-                bindLoading(false)
-                user_full_name.text =
-                    profile.firstName?.capitalizeFirstLetter() + " " + profile.lastName?.capitalizeFirstLetter()
-                user_location.text = profile.location
-                bio.text = profile.bio
-                loadUserImage(profile, profile.imgUrl)
-                facebook.setOnClickListener { openWebView(profile.facebook) }
-                linkedin.setOnClickListener { openWebView(profile.linkedin) }
-                twitter.setOnClickListener { openWebView(profile.twitter) }
-                github.setOnClickListener { openWebView(profile.github) }
-                link.setOnClickListener { openWebView(profile.website) }
-                displayUserPosts(profile.id!!)
-            }
-            profile.error.isNotBlank() -> {
-                bindLoading(false)
-                // TODO add error treatment on get current profile
+        if (!profileViewModel.isUserSignedIn()) {
+            findNavController().navigate(com.fightpandemics.R.id.action_profileFragment_to_profileSignedOutFragment)
+        } else {
+            when {
+                profile.isLoading -> {
+                    bindLoading(true)
+                }
+                profile.error == null -> {
+                    bindLoading(false)
+                    user_full_name.text =
+                        profile.firstName?.capitalizeFirstLetter() + " " + profile.lastName?.capitalizeFirstLetter()
+                    user_location.text = profile.location
+                    bio.text = profile.bio
+                    loadUserImage(profile, profile.imgUrl)
+                    facebook.setOnClickListener { openWebView(profile.facebook) }
+                    linkedin.setOnClickListener { openWebView(profile.linkedin) }
+                    twitter.setOnClickListener { openWebView(profile.twitter) }
+                    github.setOnClickListener { openWebView(profile.github) }
+                    link.setOnClickListener { openWebView(profile.website) }
+                    displayUserPosts(profile.id!!)
+                }
+                profile.error.isNotBlank() -> {
+                    bindLoading(false)
+                    // TODO add error treatment on get current profile
+                }
             }
         }
     }

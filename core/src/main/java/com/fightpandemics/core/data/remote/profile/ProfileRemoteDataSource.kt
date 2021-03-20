@@ -8,7 +8,7 @@ import retrofit2.Response
 
 interface ProfileRemoteDataSource {
 
-    suspend fun fetchCurrentUser(): IndividualProfileResponse
+    suspend fun fetchCurrentUser(): Response<IndividualProfileResponse>
 
     suspend fun updateCurrentUser(patchIndividualProfileRequest: PatchIndividualProfileRequest):
         Response<PatchIndividualProfileResponse>

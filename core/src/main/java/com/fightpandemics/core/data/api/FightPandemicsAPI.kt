@@ -95,7 +95,7 @@ interface FightPandemicsAPI {
 
     // Profile API calls
     @GET("api/users/current")
-    suspend fun getCurrentUser(): IndividualProfileResponse
+    suspend fun getCurrentUser(): Response<IndividualProfileResponse>
 
     @PATCH("api/users/current")
     suspend fun updateCurrentUserProfile(

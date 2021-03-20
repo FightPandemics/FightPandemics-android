@@ -1,7 +1,6 @@
 package com.fightpandemics.core.data.repository
 
 import com.fightpandemics.core.data.model.login.ErrorResponse
-import com.fightpandemics.core.data.model.profile.IndividualProfileResponse
 import com.fightpandemics.core.data.model.profile.PatchIndividualAccountRequest
 import com.fightpandemics.core.data.model.profile.PatchIndividualProfileRequest
 import com.fightpandemics.core.data.prefs.PreferenceStorage
@@ -15,7 +14,6 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
-import kotlinx.coroutines.flow.flow
 import java.net.HttpURLConnection
 import javax.inject.Inject
 
@@ -27,10 +25,24 @@ class ProfileRepositoryImpl @Inject constructor(
     private val profileRemoteDataSource: ProfileRemoteDataSource,
 ) : ProfileRepository {
 
-    override fun getIndividualUser(): Flow<Result<IndividualProfileResponse>> {
-        return flow {
-            val individualUser = profileRemoteDataSource.fetchCurrentUser()
-            emit(Result.Success(individualUser))
+    override fun getIndividualUser(): Flow<Result<*>> {
+        return channelFlow {
+            val response = profileRemoteDataSource.fetchCurrentUser()
+            when {
+                response.isSuccessful && response.code() == HttpURLConnection.HTTP_OK -> {
+                    val profileResponse = response.body()
+                    channel.offer(Result.Success(profileResponse))
+                }
+                response.code() == HttpURLConnection.HTTP_BAD_REQUEST -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+                else -> {
+                    val myError = response.parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+            }
+            awaitClose { }
         }
     }
 

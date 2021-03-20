@@ -88,27 +88,29 @@ class ProfileViewModel @Inject constructor(
                 when (it) {
                     is Result.Success -> {
                         Timber.i("Debug: Result was a success, ${it.data}")
-                        currentProfile = it.data
+                        val data = it.data as IndividualProfileResponse
+                        currentProfile = data
+                        individualProfile.value?.isLoading = false
                         individualProfile.value = IndividualProfileViewState(
                             isLoading = false,
-                            email = it.data.email,
-                            id = it.data.id,
-                            firstName = it.data.firstName.capitalizeFirstLetter(),
-                            lastName = it.data.lastName.capitalizeFirstLetter(),
-                            imgUrl = it.data.photo,
-                            location = it.data.location.city.capitalizeFirstLetter() + " , " +
-                                it.data.location.state.capitalizeFirstLetter() + " , " +
-                                it.data.location.country.capitalizeFirstLetter(),
-                            bio = it.data.about,
-                            facebook = it.data.urls.facebook,
-                            instagram = it.data.urls.instagram,
-                            linkedin = it.data.urls.linkedin,
-                            twitter = it.data.urls.twitter,
-                            github = it.data.urls.github,
-                            website = it.data.urls.website,
+                            email = data.email,
+                            id = data.id,
+                            firstName = data.firstName.capitalizeFirstLetter(),
+                            lastName = data.lastName.capitalizeFirstLetter(),
+                            imgUrl = data.photo,
+                            location = data.location.city.capitalizeFirstLetter() + " , " +
+                                data.location.state.capitalizeFirstLetter() + " , " +
+                                data.location.country.capitalizeFirstLetter(),
+                            bio = data.about,
+                            facebook = data.urls.facebook,
+                            instagram = data.urls.instagram,
+                            linkedin = data.urls.linkedin,
+                            twitter = data.urls.twitter,
+                            github = data.urls.github,
+                            website = data.urls.website,
                             error = null,
-                            objectives = it.data.objectives,
-                            needs = it.data.needs
+                            objectives = data.objectives,
+                            needs = data.needs
                         )
                     }
                     is Result.Error -> {

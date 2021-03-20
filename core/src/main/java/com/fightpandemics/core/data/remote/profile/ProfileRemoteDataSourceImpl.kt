@@ -12,9 +12,8 @@ class ProfileRemoteDataSourceImpl @Inject constructor(
     private val fightPandemicsAPI: FightPandemicsAPI,
 ) : ProfileRemoteDataSource {
 
-    override suspend fun fetchCurrentUser(): IndividualProfileResponse {
-        return fightPandemicsAPI.getCurrentUser()
-    }
+    override suspend fun fetchCurrentUser(): Response<IndividualProfileResponse> =
+        fightPandemicsAPI.getCurrentUser()
 
     override suspend fun updateCurrentUser(patchIndividualProfileRequest: PatchIndividualProfileRequest):
         Response<PatchIndividualProfileResponse> =
