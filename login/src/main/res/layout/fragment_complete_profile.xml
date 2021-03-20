@@ -50,7 +50,6 @@
                 android:hint="@string/first_name"
                 android:textColorHint="@color/fightPandemicsNeonBlue"
                 app:boxBackgroundMode="none"
-                android:layout_marginStart="-12dp"
                 app:errorEnabled="false"
                 app:hintEnabled="true"
                 app:hintTextAppearance="@style/SignUPTextHint"
@@ -65,6 +64,7 @@
                     android:background="@drawable/textview_line_bottom"
                     android:inputType="text"
                     android:paddingTop="8dp"
+                    android:paddingStart="2dp"
                     android:textAppearance="@style/SignUPText"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -81,7 +81,6 @@
                 app:errorEnabled="false"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"
-                android:layout_marginStart="-12dp"
                 app:hintTextAppearance="@style/SignUPTextHint"
                 app:layout_constraintStart_toStartOf="@id/content_complete_profile"
                 app:layout_constraintTop_toBottomOf="@id/tilFirstName">
@@ -100,36 +99,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <include
                 android:id="@+id/tilAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:hint="@string/address"
-                android:textColorHint="@color/fightPandemicsNeonBlue"
-                app:boxBackgroundMode="none"
-                app:errorEnabled="false"
-                android:layout_marginStart="-12dp"
-                app:hintAnimationEnabled="true"
-                app:hintEnabled="true"
-                app:hintTextAppearance="@style/SignUPTextHint"
+                layout="@layout/complete_profile_location"
                 app:layout_constraintStart_toStartOf="@id/content_complete_profile"
-                app:layout_constraintTop_toBottomOf="@id/tilLastName">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/textview_line_bottom"
-                    android:inputType="text"
-                    android:paddingStart="2dp"
-                    android:paddingTop="8dp"
-                    android:textAppearance="@style/SignUPText"
-                    app:endIconDrawable="@drawable/ic_eye_toogle"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </com.google.android.material.textfield.TextInputLayout>
-
+                app:layout_constraintTop_toBottomOf="@id/tilLastName"
+                />
 
             <include
                 android:id="@+id/offerRequestLayout"

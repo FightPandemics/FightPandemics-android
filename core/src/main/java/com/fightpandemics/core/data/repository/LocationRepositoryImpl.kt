@@ -2,6 +2,7 @@ package com.fightpandemics.core.data.repository
 
 import com.fightpandemics.core.data.model.login.ErrorResponse
 import com.fightpandemics.core.data.model.userlocation.Location
+import com.fightpandemics.core.data.model.userlocationpredictions.Prediction
 import com.fightpandemics.core.data.prefs.PreferenceStorage
 import com.fightpandemics.core.data.remote.location.LocationRemoteDataSource
 import com.fightpandemics.core.domain.repository.LocationRepository
@@ -12,6 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
+import java.net.HttpURLConnection
 import java.util.UUID
 import javax.inject.Inject
 
@@ -30,11 +32,11 @@ class LocationRepositoryImpl @Inject constructor(
             channel.offer(Result.Loading)
             val userLocationResponse = locationRemoteDataSource.getUserLocation(lat, lng)
             when {
-                userLocationResponse.isSuccessful && userLocationResponse.code() == 200 -> {
+                userLocationResponse.isSuccessful && userLocationResponse.code() == HttpURLConnection.HTTP_OK -> {
                     val userCurrentLocation: Location = userLocationResponse.body()!!.location
                     channel.offer(Result.Success(userCurrentLocation))
                 }
-                userLocationResponse.code() == 401 -> {
+                userLocationResponse.code() == HttpURLConnection.HTTP_UNAUTHORIZED -> {
                     val myError = userLocationResponse
                         .parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
@@ -46,22 +48,48 @@ class LocationRepositoryImpl @Inject constructor(
 
     override suspend fun getLocationPredictions(
         input: String
-    ): Flow<Result<*>> {
+    ): Flow<Result<List<Prediction>>> {
         val sessionToken = getUUID()
         return channelFlow {
             channel.offer(Result.Loading)
             val userLocationPredictions =
                 locationRemoteDataSource.getLocationPredictions(input, sessionToken!!)
             when {
-                userLocationPredictions.isSuccessful && userLocationPredictions.code() == 200 -> {
+                userLocationPredictions.isSuccessful && userLocationPredictions.code() == HttpURLConnection.HTTP_OK -> {
                     val locationPrediction =
                         userLocationPredictions
                             .body()!!
                             .predictions
-                            .map { it.description }
                     channel.offer(Result.Success(locationPrediction))
                 }
-                userLocationPredictions.code() == 401 -> {
+                userLocationPredictions.code() == HttpURLConnection.HTTP_UNAUTHORIZED -> {
+                    val myError = userLocationPredictions
+                        .parseErrorJsonResponse<ErrorResponse>(moshi)
+                    channel.offer(Result.Error(Exception(myError?.message)))
+                }
+            }
+            awaitClose { }
+        }
+    }
+
+    override suspend fun getLocationNames(
+        input: String
+    ): Flow<Result<List<String>>> {
+        val sessionToken = getUUID()
+        return channelFlow {
+            channel.offer(Result.Loading)
+            val userLocationPredictions =
+                locationRemoteDataSource.getLocationPredictions(input, sessionToken!!)
+            when {
+                userLocationPredictions.isSuccessful && userLocationPredictions.code() == HttpURLConnection.HTTP_OK -> {
+                    val locationNames =
+                        userLocationPredictions
+                            .body()!!
+                            .predictions
+                            .map { it.description }
+                    channel.offer(Result.Success(locationNames))
+                }
+                userLocationPredictions.code() == HttpURLConnection.HTTP_UNAUTHORIZED -> {
                     val myError = userLocationPredictions
                         .parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))
@@ -79,7 +107,7 @@ class LocationRepositoryImpl @Inject constructor(
             val userLocationDetails =
                 locationRemoteDataSource.getLocationDetails(placeId, sessionToken)
             when {
-                userLocationDetails.isSuccessful && userLocationDetails.code() == 200 -> {
+                userLocationDetails.isSuccessful && userLocationDetails.code() == HttpURLConnection.HTTP_OK -> {
                     val locationDetails =
                         userLocationDetails
                             .body()!!
@@ -87,7 +115,7 @@ class LocationRepositoryImpl @Inject constructor(
 
                     channel.offer(Result.Success(locationDetails))
                 }
-                userLocationDetails.code() == 401 -> {
+                userLocationDetails.code() == HttpURLConnection.HTTP_UNAUTHORIZED -> {
                     val myError = userLocationDetails
                         .parseErrorJsonResponse<ErrorResponse>(moshi)
                     channel.offer(Result.Error(Exception(myError?.message)))

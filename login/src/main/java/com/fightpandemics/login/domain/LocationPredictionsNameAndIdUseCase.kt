@@ -1,4 +1,4 @@
-package com.fightpandemics.filter.domain
+package com.fightpandemics.login.domain
 
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
@@ -10,23 +10,19 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-/*
-* created by Osaigbovo Odiase
-* */
 @ExperimentalCoroutinesApi
 @ActivityScope
-class LocationPredictionsUseCase @Inject constructor(
+class LocationPredictionsNameAndIdUseCase @Inject constructor(
     private val locationRepository: LocationRepository,
     dispatcherProvider: CoroutinesDispatcherProvider,
 ) : FlowUseCase<String?, Any?>(dispatcherProvider.default) {
 
     override suspend fun execute(parameters: String?): Flow<Result<Any?>> {
-        return locationRepository.getLocationNames(parameters!!)!!.map {
+        return locationRepository.getLocationPredictions(parameters!!)!!.map {
             when (it) {
-                is Result.Loading -> it
                 is Result.Success -> it
                 is Result.Error -> it
-                else -> Result.Error(IllegalStateException("Result must be Success or Error"))
+                is Result.Loading -> it
             }
         }
     }

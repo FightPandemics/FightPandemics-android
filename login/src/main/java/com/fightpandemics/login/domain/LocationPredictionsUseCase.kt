@@ -1,4 +1,4 @@
-package com.fightpandemics.filter.domain
+package com.fightpandemics.login.domain
 
 import com.fightpandemics.core.dagger.scope.ActivityScope
 import com.fightpandemics.core.data.CoroutinesDispatcherProvider
@@ -26,7 +26,6 @@ class LocationPredictionsUseCase @Inject constructor(
                 is Result.Loading -> it
                 is Result.Success -> it
                 is Result.Error -> it
-                else -> Result.Error(IllegalStateException("Result must be Success or Error"))
             }
         }
     }

@@ -30,8 +30,14 @@
     <string name="com_auth0_client_id">J2pJ9iZ0cJzI0lqJ2h3tdLlqVPO2sGMM</string>
     <string name="com_auth0_domain">fightpandemics.eu.auth0.com</string>
     <string name="continue_with_google">Continue with Google</string>
-    <string name="please_check_your_email">We just emailed a link to %s. Click the link to confirm your account and complete your profile.\n\nIf you don\'t see a message within a few minutes please check spam, promotions or other incoming mail folders.</string>
+    <string name="please_check_your_email">We have just sent you email, please click the link to confirm your account and complete your profile.\n\nIf you don\'t see a message within a few minutes please check spam, promotions or other incoming mail folders.</string>
     <string name="if_you_dont_see_email">If you don\'t see a message within a few minutes please check spam, promotions or other incoming mail folders.</string>
     <string name="check_your_inbox">Check your inbox</string>
     <string name="unexpected_error_login">Unexpected error, try again later</string>
+    <string name="verify_email">Verify Email</string>
+    <string name="go_sign_in">Go to Sign in</string>
+
+    <!-- complete profile location -->
+    <string name="zip_code_neighborhood_or_city">Zip code, neighborhood or city</string>
+    <string name="share_my_location">Share my location</string>
 </resources>

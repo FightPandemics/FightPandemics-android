@@ -21,7 +21,7 @@ class LocationPredictionsUseCase @Inject constructor(
 ) : FlowUseCase<String?, Any?>(dispatcherProvider.default) {
 
     override suspend fun execute(parameters: String?): Flow<Result<Any?>> {
-        return locationRepository.getLocationPredictions(parameters!!)!!.map {
+        return locationRepository.getLocationNames(parameters!!)!!.map {
             when (it) {
                 is Result.Loading -> it
                 is Result.Success -> it

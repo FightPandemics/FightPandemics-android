@@ -1,7 +1,5 @@
 package com.fightpandemics.filter.ui
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.animation.LayoutTransition
 import android.content.Context
 import android.location.Location
@@ -306,9 +304,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         filterStartFragmentBinding!!.locationOptions
             .locationSearch
             .setText(address)
-
         filterViewModel.locationQuery.value = address
-        // todo maybe find a better way of doing this -
         //  Take away focus from edit text once an option has been selected binding.searchText.requestFocus()
         filterStartFragmentBinding!!.locationOptions.locationSearch.isEnabled = false
         filterStartFragmentBinding!!.locationOptions.locationSearch.isEnabled = true
@@ -355,7 +351,7 @@ class FilterFragment : BaseLocationFragment(), FilterAdapter.OnItemClickListener
         // if there are any chips selected in fromWhom or type
         filterStartFragmentBinding!!.applyFiltersButton.isEnabled =
             filterViewModel.locationQuery.value!!.isNotBlank() ||
-                    filterViewModel.fromWhomCount.value!! + filterViewModel.typeCount.value!! > 0
+            filterViewModel.fromWhomCount.value!! + filterViewModel.typeCount.value!! > 0
     }
 
     private fun handleAutocompleteVisibility(locationQuery: String) {

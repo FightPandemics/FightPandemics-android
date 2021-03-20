@@ -1,6 +1,7 @@
 package com.fightpandemics.core.widgets
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.location.Location
@@ -23,12 +24,12 @@ import timber.log.Timber
 /*
 * created by Osaigbovo Odiase & Jose Li
 * */
-open class BaseLocationFragment : Fragment() {
+abstract class BaseLocationFragment : Fragment() {
 
     private val locationRequest = LocationRequest.create()
         .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-        .setInterval(10 * 1000) // 10 seconds
-        .setFastestInterval(5 * 1000) // 5 seconds
+        .setInterval(TEN_SECONDS) // 10 seconds
+        .setFastestInterval(FIVE_SECONDS) // 5 seconds
 
     var mFusedLocationClient: FusedLocationProviderClient? = null
     private var locationCallback: LocationCallback? = null
@@ -50,16 +51,15 @@ open class BaseLocationFragment : Fragment() {
         super.onDestroyView()
     }
 
+    abstract fun updateLocation(location: Location)
+
+    @SuppressLint("MissingPermission")
     fun getCurrentLocation() {
-        // Call findCurrentPlace and handle the response (first check that the user has granted permission).
-        if (ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        if (hasLocationPermission()) {
             val requestCheckState = anySuitableId
             val builder = LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest)
+
             val client = LocationServices.getSettingsClient(requireContext())
             client.checkLocationSettings(builder.build()).addOnCompleteListener { task ->
                 try {
@@ -67,12 +67,11 @@ open class BaseLocationFragment : Fragment() {
                     Timber.i("My filters : gps is on")
                 } catch (e: RuntimeExecutionException) {
                     Timber.i("My filters : runtime execution exception")
-                    if (e.cause is ResolvableApiException) {
+                    if (e.cause is ResolvableApiException)
                         (e.cause as ResolvableApiException).startResolutionForResult(
                             requireActivity(),
                             requestCheckState
                         )
-                    }
                 }
             }
 
@@ -103,8 +102,11 @@ open class BaseLocationFragment : Fragment() {
         }
     }
 
-    open fun updateLocation(location: Location) {
-        Timber.i("My filters: Updating Location from base $location")
+    private fun hasLocationPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun getLocationPermission() {
@@ -151,5 +153,7 @@ open class BaseLocationFragment : Fragment() {
         // variable for location permission
         private const val LOCATION_PERMISSION_CODE = 1
         private const val anySuitableId = 12300
+        private const val TEN_SECONDS: Long = 1000 * 10
+        private const val FIVE_SECONDS: Long = 1000 * 10
     }
 }

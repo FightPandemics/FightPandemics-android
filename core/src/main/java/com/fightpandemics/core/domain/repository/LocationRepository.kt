@@ -17,6 +17,10 @@ interface LocationRepository {
         input: String
     ): Flow<Result<*>>?
 
+    suspend fun getLocationNames(
+        input: String
+    ): Flow<Result<*>>?
+
     suspend fun getLocationDetails(
         placeId: String
     ): Flow<Result<*>>?
